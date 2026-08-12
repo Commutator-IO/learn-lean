@@ -22,17 +22,17 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 | Un entier est pair ou impair, jamais les deux | 6e | ☑ |
 | Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair | 6e | ☑ |
 | Notion de multiple et de diviseur ; un diviseur de `n` est inférieur ou égal à `n` | 6e | ☑ |
-| Critère de divisibilité par 2, par 5, par 10 (chiffre des unités) | 6e | ☐ |
-| Critère de divisibilité par 3 et par 9 (somme des chiffres) | 6e | ☐ |
-| Critère de divisibilité par 4 (deux derniers chiffres) | 5e | ☐ |
-| Si `a ∣ b` et `a ∣ c` alors `a ∣ (b + c)` et `a ∣ (b − c)` | 5e | ☐ |
-| Division euclidienne : existence et unicité de `(q, r)` avec `a = bq + r`, `0 ≤ r < b` | 6e | ☐ |
-| Nombre premier ; tout entier > 1 admet un diviseur premier | 3e | ☐ |
-| Crible d'Ératosthène : lister les nombres premiers inférieurs à 100 | 3e | ☐ |
-| Décomposition en produit de facteurs premiers | 3e | ☐ |
-| PGCD, algorithme d'Euclide : `pgcd(a, b) = pgcd(b, a mod b)` | 3e | ☐ |
-| Nombres premiers entre eux ⟺ `pgcd = 1` | 3e | ☐ |
-| Toute fraction admet une écriture irréductible | 3e | ☐ |
+| Critère de divisibilité par 2, par 5, par 10 (chiffre des unités) | 6e | ☑ |
+| Critère de divisibilité par 3 et par 9 (somme des chiffres) | 6e | ☑ |
+| Critère de divisibilité par 4 (deux derniers chiffres) | 5e | ☑ |
+| Si `a ∣ b` et `a ∣ c` alors `a ∣ (b + c)` et `a ∣ (b − c)` | 5e | ☑ |
+| Division euclidienne : existence et unicité de `(q, r)` avec `a = bq + r`, `0 ≤ r < b` | 6e | ☑ |
+| Nombre premier ; tout entier > 1 admet un diviseur premier | 3e | ☑ |
+| Crible d'Ératosthène : lister les nombres premiers inférieurs à 100 | 3e | ☑ |
+| Décomposition en produit de facteurs premiers | 3e | ◐ |
+| PGCD, algorithme d'Euclide : `pgcd(a, b) = pgcd(b, a mod b)` | 3e | ☑ |
+| Nombres premiers entre eux ⟺ `pgcd = 1` | 3e | ☑ |
+| Toute fraction admet une écriture irréductible | 3e | ☑ |
 
 ### Écritures des nombres
 

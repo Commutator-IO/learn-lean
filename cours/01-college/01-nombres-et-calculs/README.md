@@ -16,17 +16,17 @@ Fichier : `EntiersDivisibilite.lean`
 | Un entier est pair ou impair, jamais les deux | 6e | `un_entier_est_pair_ou_impair_jamais_les_deux` | ☑ |
 | Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair | 6e | `somme_de_deux_pairs_est_paire` + 2 | ☑ |
 | Notion de multiple et de diviseur ; un diviseur de `n` est inférieur ou égal à `n` | 6e | `multiple_ssi_divise`, `diviseur_le_de_pos` | ☑ |
-| Critère de divisibilité par 2, par 5, par 10 (chiffre des unités) | 6e | `critere_de_divisibilite_par_2_par_5_par` | ☐ |
-| Critère de divisibilité par 3 et par 9 (somme des chiffres) | 6e | `critere_de_divisibilite_par_3_et_par_9` | ☐ |
-| Critère de divisibilité par 4 (deux derniers chiffres) | 5e | `critere_de_divisibilite_par_4_deux_derniers_chiffres` | ☐ |
-| Si `a ∣ b` et `a ∣ c` alors `a ∣ (b + c)` et `a ∣ (b − c)` | 5e | `si_et_alors_et` | ☐ |
-| Division euclidienne : existence et unicité de `(q, r)` avec `a = bq + r`, `0 ≤ r < b` | 6e | `division_euclidienne_existence_et_unicite_de_avec` | ☐ |
-| Nombre premier ; tout entier > 1 admet un diviseur premier | 3e | `nombre_premier_tout_entier_1_admet_un_diviseur` | ☐ |
-| Crible d'Ératosthène : lister les nombres premiers inférieurs à 100 | 3e | `crible_d_eratosthene_lister_les_nombres_premiers_inferieurs` | ☐ |
-| Décomposition en produit de facteurs premiers | 3e | `decomposition_en_produit_de_facteurs_premiers` | ☐ |
-| PGCD, algorithme d'Euclide : `pgcd(a, b) = pgcd(b, a mod b)` | 3e | `pgcd_algorithme_d_euclide` | ☐ |
-| Nombres premiers entre eux ⟺ `pgcd = 1` | 3e | `nombres_premiers_entre_eux` | ☐ |
-| Toute fraction admet une écriture irréductible | 3e | `toute_fraction_admet_une_ecriture_irreductible` | ☐ |
+| Critère de divisibilité par 2, par 5, par 10 (chiffre des unités) | 6e | `critere_divisibilite_par_2` + 3 | ☑ |
+| Critère de divisibilité par 3 et par 9 (somme des chiffres) | 6e | `critere_divisibilite_par_3`, `_par_9` | ☑ |
+| Critère de divisibilité par 4 (deux derniers chiffres) | 5e | `critere_divisibilite_par_4` | ☑ |
+| Si `a ∣ b` et `a ∣ c` alors `a ∣ (b + c)` et `a ∣ (b − c)` | 5e | `divise_somme`, `divise_difference` | ☑ |
+| Division euclidienne : existence et unicité de `(q, r)` avec `a = bq + r`, `0 ≤ r < b` | 6e | `division_euclidienne_existence`, `_unicite` | ☑ |
+| Nombre premier ; tout entier > 1 admet un diviseur premier | 3e | `Premier`, `existe_diviseur_premier` | ☑ |
+| Crible d'Ératosthène : lister les nombres premiers inférieurs à 100 | 3e | `estPremier_iff`, `crible_eratosthene` | ☑ |
+| Décomposition en produit de facteurs premiers | 3e | `decomposition_en_facteurs_premiers`, `lemme_d_euclide` | ◐ |
+| PGCD, algorithme d'Euclide : `pgcd(a, b) = pgcd(b, a mod b)` | 3e | `pgcd_euclide`, `pgcd_divise` + 1 | ☑ |
+| Nombres premiers entre eux ⟺ `pgcd = 1` | 3e | `premiers_entre_eux_ssi_pgcd_un` + 1 | ☑ |
+| Toute fraction admet une écriture irréductible | 3e | `fraction_irreductible` | ☑ |
 
 ## Écritures des nombres
 
