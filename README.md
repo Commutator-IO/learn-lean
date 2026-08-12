@@ -56,13 +56,14 @@ attendu est donné par l'index (`Triangles.lean`, `Integration.lean`) :
 ```lean
 -- cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean
 
-/-- If `a` divides both `b` and `c`, it divides their sum. Collège, 5e. -/
+/-- Si `a` divise `b` et `c`, il divise leur somme. Collège, 5e. -/
 theorem divisibilite_somme {a b c : Nat} (hb : a ∣ b) (hc : a ∣ c) : a ∣ (b + c) :=
   Nat.dvd_add hb hc
 ```
 
-Langue : les commentaires des fichiers `.lean` et les messages de commit s'écrivent **en
-anglais** ; la documentation du dépôt (listes, index, scripts) reste en français.
+Langue : tout le dépôt est rédigé **en français**, y compris les commentaires des
+fichiers `.lean` et les noms de théorèmes. Seuls les messages de commit et les workflows
+GitHub Actions sont en anglais.
 
 Après chaque ajout ou suppression de fichier `.lean` :
 

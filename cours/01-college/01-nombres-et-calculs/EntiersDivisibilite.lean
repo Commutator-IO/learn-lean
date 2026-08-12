@@ -1,56 +1,55 @@
 /-
-Collège, 6e — parity and divisibility on natural numbers.
+Collège, 6e — parité et divisibilité dans les entiers naturels.
 
-Theorem names follow the chapter index and stay in French; comments are in English.
-Only Lean core is used here: no Mathlib import, so `Pair` and `Impair` are defined
-from scratch rather than reusing `Even` / `Odd`.
+Lean core seulement : pas d'import de Mathlib, donc `Pair` et `Impair` sont définis
+ici plutôt que repris de `Even` / `Odd`.
 -/
 
 namespace College.NombresEtCalculs
 
-/-- `n` is even: it is twice some natural number. -/
+/-- `n` est pair : il vaut deux fois un entier naturel. -/
 def Pair (n : Nat) : Prop := ∃ k, n = 2 * k
 
-/-- `n` is odd: it is twice some natural number, plus one. -/
+/-- `n` est impair : il vaut deux fois un entier naturel, plus un. -/
 def Impair (n : Nat) : Prop := ∃ k, n = 2 * k + 1
 
 /-! ## Un entier est pair ou impair, jamais les deux -/
 
-/-- Every natural number is even or odd. The witness is `n / 2` in both cases;
-which one applies is decided by `n % 2`, which core arithmetic pins to `0` or `1`. -/
+/-- Tout entier naturel est pair ou impair. Le témoin est `n / 2` dans les deux cas ;
+c'est `n % 2`, qui ne peut valoir que `0` ou `1`, qui décide lequel s'applique. -/
 theorem pair_ou_impair (n : Nat) : Pair n ∨ Impair n := by
   cases Nat.mod_two_eq_zero_or_one n with
   | inl h => exact Or.inl ⟨n / 2, by omega⟩
   | inr h => exact Or.inr ⟨n / 2, by omega⟩
 
-/-- No natural number is both even and odd: `2 * k = 2 * l + 1` is impossible. -/
+/-- Aucun entier n'est à la fois pair et impair : `2 * k = 2 * l + 1` est impossible. -/
 theorem pas_pair_et_impair (n : Nat) : ¬(Pair n ∧ Impair n) := by
   intro ⟨⟨k, hk⟩, ⟨l, hl⟩⟩
   omega
 
-/-- The two statements together: exactly one of the two holds. -/
+/-- Les deux énoncés réunis : l'un des deux cas se produit, et un seul. -/
 theorem un_entier_est_pair_ou_impair_jamais_les_deux (n : Nat) :
     (Pair n ∨ Impair n) ∧ ¬(Pair n ∧ Impair n) :=
   ⟨pair_ou_impair n, pas_pair_et_impair n⟩
 
 /-! ## Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair -/
 
-/-- even + even = even. -/
+/-- pair + pair = pair. -/
 theorem somme_de_deux_pairs_est_paire {m n : Nat} (hm : Pair m) (hn : Pair n) :
     Pair (m + n) := by
   obtain ⟨k, hk⟩ := hm
   obtain ⟨l, hl⟩ := hn
   exact ⟨k + l, by omega⟩
 
-/-- even + odd = odd. -/
+/-- pair + impair = impair. -/
 theorem somme_pair_impair_est_impaire {m n : Nat} (hm : Pair m) (hn : Impair n) :
     Impair (m + n) := by
   obtain ⟨k, hk⟩ := hm
   obtain ⟨l, hl⟩ := hn
   exact ⟨k + l, by omega⟩
 
-/-- odd + odd = even. This is the case pupils find surprising, and the one where the
-carried `+ 1`s combine into the factor `2`. -/
+/-- impair + impair = pair. C'est le cas qui surprend les élèves, et celui où les deux
+`+ 1` se recombinent en un facteur `2`. -/
 theorem somme_de_deux_impairs_est_paire {m n : Nat} (hm : Impair m) (hn : Impair n) :
     Pair (m + n) := by
   obtain ⟨k, hk⟩ := hm
@@ -59,18 +58,18 @@ theorem somme_de_deux_impairs_est_paire {m n : Nat} (hm : Impair m) (hn : Impair
 
 /-! ## Notion de multiple et de diviseur ; un diviseur de `n` est inférieur ou égal à `n` -/
 
-/-- "`n` is a multiple of `a`" and "`a` divides `n`" are the same statement:
-`Dvd` on `Nat` unfolds to exactly this existential. -/
+/-- « `n` est un multiple de `a` » et « `a` divise `n` » sont le même énoncé : sur `Nat`,
+`Dvd` se déplie exactement en cette existentielle. -/
 theorem multiple_ssi_divise {a n : Nat} : (∃ k, n = a * k) ↔ a ∣ n := Iff.rfl
 
-/-- A divisor of a nonzero `n` is at most `n`. The school statement leaves the
-hypothesis implicit, because `0` is not considered there. -/
+/-- Un diviseur d'un entier `n` non nul est inférieur ou égal à `n`. L'énoncé scolaire
+laisse l'hypothèse implicite, parce que le cas `n = 0` n'y est pas envisagé. -/
 theorem diviseur_le_de_pos {a n : Nat} (hn : 0 < n) (h : a ∣ n) : a ≤ n :=
   Nat.le_of_dvd hn h
 
-/-- The hypothesis `0 < n` cannot be dropped: `0` is a multiple of every number, so its
-divisors are unbounded. This is the gap between the classroom statement and the formal
-one — at school, `n` is always a "real" number of objects to share. -/
+/-- L'hypothèse `0 < n` ne peut pas être retirée : `0` est multiple de tout entier, donc
+ses diviseurs ne sont pas bornés. C'est tout l'écart entre l'énoncé de la classe et
+l'énoncé formel — au collège, `n` est toujours un nombre d'objets à partager. -/
 theorem diviseur_de_zero_non_borne (a : Nat) : a ∣ 0 :=
   ⟨0, by omega⟩
 
