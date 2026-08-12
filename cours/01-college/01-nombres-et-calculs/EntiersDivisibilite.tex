@@ -41,19 +41,20 @@ Lean core seulement : pas d'import de Mathlib. \texttt{Pair}, \texttt{Impair}, \
 des chiffres sont donc définis ici plutôt que repris d'une bibliothèque.
 
 \begin{definition}
-\texttt{n} est pair.
+\texttt{n} est \emph{pair} s'il existe un entier naturel $k$ tel que $n = 2k$.
 \end{definition}
 
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L9}{EntiersDivisibilite.lean\#L9}
 
 \begin{definition}
-\texttt{n} est impair.
+\texttt{n} est \emph{impair} s'il existe un entier naturel $k$ tel que $n = 2k + 1$.
 \end{definition}
 
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L12}{EntiersDivisibilite.lean\#L12}
 
 \begin{definition}
-\texttt{p} est premier.
+\texttt{p} est \emph{premier} si $2 \le p$ et si tout diviseur $d$ de $p$ vérifie $d = 1$
+ou $d = p$.
 \end{definition}
 
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L15}{EntiersDivisibilite.lean\#L15}
@@ -172,7 +173,7 @@ collège $n$ compte toujours des objets à partager.
 \section{Critère de divisibilité par 2, par 5, par 10 (chiffre des unités)}
 
 \begin{definition}
-Chiffre des unités.
+Le \emph{chiffre des unités} de $n$ est $n \bmod 10$.
 \end{definition}
 
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L74}{EntiersDivisibilite.lean\#L74}
@@ -225,7 +226,9 @@ nul exactement quand $10$ divise $n$.
 \section{Critère de divisibilité par 3 et par 9 (somme des chiffres)}
 
 \begin{definition}
-Somme des chiffres.
+La \emph{somme des chiffres} $S(n)$ est définie par récursion : $S(0) = 0$ et, pour
+$n \ne 0$, $S(n) = (n \bmod 10) + S(\lfloor n/10 \rfloor)$. La récursion termine car
+$\lfloor n/10 \rfloor < n$ dès que $n \ne 0$.
 \end{definition}
 
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L102}{EntiersDivisibilite.lean\#L102}
@@ -283,7 +286,7 @@ Identique avec le lemme modulo $9$.
 \section{Critère de divisibilité par 4 (deux derniers chiffres)}
 
 \begin{definition}
-Nombre formé par les deux derniers chiffres.
+Le nombre formé par les \emph{deux derniers chiffres} de $n$ est $n \bmod 100$.
 \end{definition}
 
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L144}{EntiersDivisibilite.lean\#L144}
@@ -385,7 +388,9 @@ $d$, et $p \mid n$ par transitivité.
 \section{Crible d'Ératosthène : lister les nombres premiers inférieurs à 100}
 
 \begin{definition}
-Crible d'Ératosthène, écrit comme un test.
+Test calculable de primalité : $\textsf{estPremier}(n)$ vaut vrai lorsque $2 \le n$ et
+que, pour tout $d < n$, on a $d < 2$ ou $n \bmod d \ne 0$. C'est le crible, écrit comme un
+test.
 \end{definition}
 
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L211}{EntiersDivisibilite.lean\#L211}
@@ -424,7 +429,8 @@ primalité.
 \section{Décomposition en produit de facteurs premiers}
 
 \begin{definition}
-Produit des éléments d'une liste.
+Le \emph{produit} d'une liste vaut $1$ pour la liste vide, et $p \cdot \Pi(l)$ pour la
+liste $p :: l$.
 \end{definition}
 
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L256}{EntiersDivisibilite.lean\#L256}

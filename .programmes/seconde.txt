@@ -1,0 +1,918 @@
+Programme de mathématiques de la classe de seconde générale et
+technologique
+Sommaire
+Préambule
+   Intentions majeures
+      Compétences mathématiques
+      Diversité de l’activité de l’élève
+      Utilisation de logiciels
+      Évaluation des élèves
+      Place de l’oral
+      Trace écrite
+      Travail personnel des élèves
+   Quelques lignes directrices pour l’enseignement
+   Organisation du programme
+Programme
+   Vocabulaire ensembliste et logique
+   Algorithmique et programmation
+     Variables et instructions élémentaires
+     Notion de fonction
+   Automatismes
+   Nombres et calculs, algèbre
+     Arithmétique
+     Nombres réels
+     Algèbre
+   Géométrie
+     Vecteurs et problèmes de géométrie
+     Droites du plan
+   Fonctions
+     Représentation algébrique et graphique des fonctions
+     Variations et extrémums d’une fonction
+   Statistiques et probabilités
+     Information chiffrée et statistique descriptive
+     Croisement de deux variables qualitatives
+     Probabilités
+
+
+Préambule
+Intentions majeures
+La classe de seconde est conçue pour permettre aux élèves de consolider leur maitrise du socle commun de connaissances, de
+compétences et de culture afin de réussir la transition du collège au lycée. Elle les prépare à déterminer leur choix d’un
+parcours au sein du cycle terminal jusqu’au baccalauréat général ou technologique dans l’objectif d’une poursuite d’études
+supérieures réussie et, au-delà, de leur insertion professionnelle.
+
+L’enseignement des mathématiques de la classe de seconde est conçu à partir des intentions suivantes :
+  − permettre à chaque élève, quel que soit son sexe, son origine sociale, de consolider les acquis du collège et une culture
+    mathématique de base, de développer son gout des mathématiques, d’en apprécier les démarches et les objets afin qu’il
+    puisse faire l’expérience personnelle de l’efficacité des concepts mathématiques ainsi que de la simplification et de la
+    généralisation que permet la maitrise de l’abstraction ;
+  − préparer au choix de l’orientation : choix de la spécialité mathématiques dans la voie générale, choix de la série dans la
+    voie technologique ;
+  − assurer les bases mathématiques nécessaires à toutes les poursuites d’études.
+
+Le programme de mathématiques définit un ensemble de connaissances et de compétences qui s’appuie sur le programme de
+collège, en réactivant les notions déjà étudiées et en y ajoutant un nombre raisonnable de nouvelles notions, à étudier de
+manière suffisamment approfondie.
+
+Compétences mathématiques
+Dans le prolongement des cycles précédents, six grandes compétences sont travaillées :
+ − chercher, expérimenter – en particulier à l’aide d’outils logiciels ;
+ − modéliser, faire une simulation, valider ou invalider un modèle ;
+ − représenter, choisir un cadre (numérique, algébrique, géométrique, etc.), changer de registre ;
+ − raisonner, démontrer, trouver des résultats partiels et les mettre en perspective ;
+ − calculer, appliquer des techniques et mettre en œuvre des algorithmes ;
+ − communiquer un résultat par oral ou par écrit, expliquer une démarche.
+
+La résolution de problèmes est un cadre privilégié pour développer, mobiliser et combiner plusieurs de ces compétences. Elle
+contribue à donner du sens aux notions étudiées. Elle doit faire l'objet d'un entrainement suffisamment régulier pour
+permettre aux élèves d'y accéder plus facilement en prenant conscience de certaines similitudes entre des situations
+différentes relevant d'une même démarche mathématique. Progressivement, l'élève procède par analogie en rattachant une
+situation particulière à une classe plus générale de problèmes ou en adaptant une méthode connue à la situation étudiée.
+Cependant, pour prendre des initiatives, imaginer des pistes de solution et s’y engager sans s’égarer, l’élève doit disposer
+d’automatismes. Ceux-ci facilitent en effet le travail intellectuel en libérant l’esprit des soucis de mise en œuvre technique et
+élargissent le champ des démarches susceptibles d’être engagées. Le développement de ces automatismes ne se limite pas à
+un simple entrainement mécanique : il s’inscrit dans une progression pensée par l’enseignant, qui veille à donner du sens aux
+procédures, à identifier les invariants et à proposer des situations de réinvestissement régulier. Ces automatismes s’ancrent
+dans tous les domaines du programme. L’installation de ces réflexes est favorisée par la mise en place d’activités rituelles,
+notamment de calcul (mental ou réfléchi, numérique ou littéral). Elle est menée conjointement avec la résolution de problèmes
+motivants et substantiels, afin de stabiliser connaissances, méthodes et stratégies, et de trouver du plaisir à chercher.
+
+Diversité de l’activité de l’élève
+La mise en œuvre du programme doit permettre aux élèves d’acquérir des connaissances, des méthodes et des démarches
+spécifiques et d’en percevoir la construction mathématique.
+
+La diversité des activités concerne aussi bien les contextes (internes aux mathématiques ou liés à des situations issues de la vie
+quotidienne ou d’autres disciplines) que les types de tâches proposées : exercices d’application et d’entrainement pour
+stabiliser et consolider les connaissances, exercices et problèmes favorisant les prises d’initiatives, mises au point collectives
+d’une solution, productions d’écrits individuels ou collectifs, « questions flash » pour favoriser l’acquisition d’automatismes, etc.
+
+Il importe donc que cette diversité se retrouve dans les travaux proposés à la classe. Parmi ceux-ci, les travaux écrits faits hors
+du temps scolaire permettent, à travers l’autonomie laissée à chacun, le développement des qualités de prise d’initiative ou de
+communication ainsi que la stabilisation des connaissances et des méthodes étudiées. Ils doivent être conçus de façon à
+prendre en compte la diversité des élèves.
+
+Utilisation de logiciels
+L’utilisation de logiciels (calculatrice ou ordinateur), d’outils de visualisation et de représentation, de calcul (numérique ou
+formel), de simulation, de programmation développe la possibilité d’expérimenter, ouvre largement le dialogue entre
+l’observation et la démonstration et change profondément la nature de l’enseignement.
+
+L’utilisation régulière de ces outils peut intervenir selon trois modalités :
+  − par les professeurs, en classe, avec un dispositif de visualisation collective adapté ;
+  − par les élèves, en classe, à l'occasion de la résolution d'exercices ou de problèmes ;
+  − dans le cadre du travail personnel des élèves hors du temps de classe (par exemple au CDI ou à un autre point d’accès au
+     réseau local).
+
+Évaluation des élèves
+L’évaluation joue un rôle clé dans la régulation des apprentissages, tant pour l’enseignant que pour l’élève, pour lequel elle
+participe pleinement au développement de son autonomie et à son engagement dans les apprentissages. Elle revêt différentes
+modalités mais conserve toujours une visée formative ; pour cela, les élèves sont informés en amont des éléments évalués.
+
+L’évaluation doit permettre de repérer les acquis des élèves en lien avec les six compétences mathématiques : chercher,
+modéliser, représenter, raisonner, calculer, communiquer.
+
+L’évaluation doit faire prendre conscience des réussites et des progrès. Le retour sur l’évaluation est un moment clé du
+processus d’apprentissage. Il ne se limite pas à une correction collective, mais vise à valoriser les démarches pertinentes, même
+si elles ne mènent pas immédiatement à la bonne réponse, mettre en lumière les erreurs fréquentes, pour aider les élèves à les
+comprendre et à y remédier, proposer des pistes de progrès aux élèves. Ce retour permet aussi à l’enseignant de réguler sa
+progression, de revoir certains points du programme ou de proposer d’autres approches pédagogiques.
+
+Place de l’oral
+Les étapes de verbalisation et de reformulation jouent un rôle majeur dans l’appropriation des notions mathématiques et la
+résolution des problèmes. Comme toutes les disciplines, les mathématiques contribuent au développement des compétences
+orales, notamment à travers la pratique de l’argumentation. Celle-ci conduit à préciser sa pensée et à expliciter son
+raisonnement de manière à convaincre. Elle permet à chacun de faire évoluer sa pensée, jusqu’à la remettre en cause si
+nécessaire, pour accéder progressivement à la vérité par la preuve. Des situations variées se prêtent à la pratique de l’oral en
+mathématiques : la reformulation par l’élève d’un énoncé ou d’une démarche, les échanges interactifs lors de la construction
+du cours, les mises en commun après un temps de recherche, les corrections d’exercices, les travaux de groupe, les exposés
+individuels ou à plusieurs... L’oral mathématique mobilise à la fois le langage naturel et le langage symbolique dans ses
+différents registres (graphiques, formules, calcul).
+Trace écrite
+Disposer d’une trace de cours claire, explicite et structurée est une aide essentielle à l’apprentissage des mathématiques.
+Faisant suite aux étapes importantes de recherche, d’appropriation individuelle ou collective, la trace écrite récapitule de
+façon organisée les connaissances, les méthodes et les stratégies étudiées en classe. Explicitant les liens entre les différentes
+notions ainsi que leurs objectifs, éventuellement enrichie par des exemples ou des schémas, elle constitue pour l’élève une
+véritable référence vers laquelle il peut se tourner autant que de besoin. Sa consultation régulière (notamment au moment de
+la recherche d’exercices et de problèmes, sous la conduite des professeurs ou en autonomie) favorise à la fois la mémorisation
+et le développement de compétences. Les professeurs doivent avoir le souci de la bonne qualité (mathématique et
+rédactionnelle) des traces écrites figurant au tableau et dans les cahiers d’élèves. En particulier, il est essentiel de bien
+distinguer le statut des énoncés (conjecture, définition, propriété - admise ou démontrée -, démonstration, théorème).
+
+Travail personnel des élèves
+Si la classe est le lieu privilégié pour la mise en activité mathématique des élèves, les travaux hors du temps scolaire sont
+indispensables pour consolider les apprentissages. Fréquents, de longueur raisonnable et de nature variée, ces travaux sont
+essentiels à la formation des élèves. Individuels ou en groupe, évalués à l’écrit ou à l’oral, ces travaux sont conçus de façon à
+prendre en compte la diversité des élèves et permettent le développement des qualités d’initiatives, tout en assurant la
+stabilisation des connaissances et des compétences. Ils peuvent être proposés pour approfondir, réviser ou remédier. Ces
+travaux doivent avoir des objectifs explicites, être adaptés au niveau des élèves, et prendre en compte la diversité de leurs
+besoins. Ils doivent faire l’objet d’un retour individualisé par les professeurs.
+
+Les professeurs précisent le cadre et les modalités d’usage des outils d’intelligence artificielle dans le travail personnel des
+élèves.
+
+Quelques lignes directrices pour l’enseignement
+Les professeurs veillent à créer, dans la classe de mathématiques, une atmosphère de travail favorable aux apprentissages,
+combinant bienveillance et exigence. Il est important de développer chez chaque élève des attitudes positives à l’égard des
+mathématiques et sa capacité à résoudre des problèmes stimulants.
+
+Il est important d’encourager chaque élève, fille ou garçon, à s’engager dans une recherche mathématique, individuellement
+ou en équipe, développant ainsi confiance en soi et sentiment d’efficacité personnelle. L’élève cherche, essaie des pistes,
+prend le risque de se tromper, sans craindre l’erreur, mais en en tirant profit grâce aux professeurs, qui l’aident à l’identifier, à
+l’analyser et la comprendre. Ce travail sur l’erreur participe à la construction de ses apprentissages.
+
+Les problèmes proposés aux élèves contribuent à donner du sens aux notions étudiées. Ils peuvent être internes aux
+mathématiques, provenir de l’histoire des mathématiques, être issus des autres disciplines ou du monde réel, en prenant garde
+que la simple inclusion de références au monde réel ne suffit pas toujours à transformer un exercice de routine en un bon
+problème. Dans tous les cas, ils doivent être bien conçus et motivants, afin de développer les connaissances et compétences
+mathématiques du programme et susciter des vocations scientifiques.
+
+Les professeurs veillent à établir un équilibre entre divers temps de l’apprentissage :
+ − les temps de recherche, d’activité, de manipulation ;
+ − les temps de dialogue et d’échange, de verbalisation ;
+ − les temps de cours, où les professeurs exposent avec précision, présentent certaines démonstrations et permettent aux
+    élèves d’accéder à l’abstraction ;
+ − les temps où sont présentés et discutés des exemples, pour vérifier la bonne compréhension de tous les élèves ;
+ − les exercices et problèmes, allant progressivement de l’application la plus directe au thème d’étude ;
+ − les rituels, afin de consolider les connaissances et les méthodes.
+
+Organisation du programme
+Le programme s’organise en quatre parties thématiques : « Nombres et calculs, algèbre », « Géométrie », « Fonctions »,
+« Statistiques et probabilités », et trois parties transversales : « Vocabulaire ensembliste et logique », « Algorithmique et
+programmation » et « Automatismes ».
+
+Cette organisation n’est cependant pas un plan de cours : il est essentiel d’exploiter les interactions entre les différentes
+parties, qu’elles soient thématiques ou transversales, en adoptant un enseignement en spirale.
+
+Les parties transversales recensent les connaissances et capacités attendues qui doivent être travaillées tout au long de
+l’année. Elles ne donnent pas lieu à des séquences de cours spécifiques mais font cependant l’objet d’un enseignement
+explicite.
+
+Les connaissances du collège sont systématiquement réactivées à travers des problèmes. Elles n’ont pas vocation à faire l’objet
+de chapitres de révisions. Le travail sur les automatismes favorise leur réactivation.
+
+Démontrer est une composante fondamentale de l’activité mathématique. Le programme identifie quelques démonstrations
+exemplaires, mettant en œuvre des types de raisonnement divers, que les élèves découvrent selon des modalités variées :
+présentation par les professeurs, élaboration par les élèves sous la direction du professeur, devoirs à la maison, etc.
+Le programme propose un certain nombre d’approfondissements possibles, mais en aucun cas obligatoires. Ils peuvent
+permettre une différenciation pédagogique.
+
+Il peut être judicieux d’éclairer le cours par des éléments de contextualisation d’ordre historique, épistémologique ou culturel.
+L’histoire peut aussi être envisagée comme une source féconde de problèmes clarifiant le sens de certaines notions. Les items
+« Histoire des mathématiques » identifient quelques possibilités en ce sens. Pour les étayer, les professeurs peuvent s’appuyer
+sur l’étude de documents historiques.
+
+
+Programme
+Vocabulaire ensembliste et logique
+L'apprentissage des notations mathématiques et de la logique est transversal à tous les chapitres du programme. Aussi, il
+importe d'y travailler d’abord dans des contextes où ils se présentent naturellement, puis de prévoir des temps où les concepts
+et types de raisonnement sont étudiés, après avoir été́ rencontrés plusieurs fois en situation.
+
+Les élèves doivent connaitre les notions d’élément d’un ensemble, de sous-ensemble, d’ensemble vide, d’appartenance et
+d’inclusion, de réunion, d’intersection et de complémentaire et savoir utiliser les symboles de base correspondants : Ø, ∈, ⊂, ∩,
+∪, {…}, ainsi que la notation des ensembles de nombres et des intervalles. Ils rencontrent également la notion de couple et celle
+de produit cartésien de deux ensembles.
+
+Pour le complémentaire d’un sous-ensemble A de E, on utilise la notation ̅
+                                                                         A des probabilités, ou la notation E \ A. On utilise la
+notation Card(A) pour le cardinal (nombre d’éléments) d’un ensemble fini A.
+
+Les élèves apprennent en situation à :
+ − reconnaitre ce qu'est une proposition mathématique, à utiliser des variables pour écrire des propositions mathématiques ;
+ − lire et écrire des propositions contenant les connecteurs « et », « ou » ;
+ − formuler la négation de propositions simples (sans implication ni quantificateurs) ;
+ − mobiliser un contre-exemple pour montrer qu'une proposition est fausse ;
+ − formuler une implication, une équivalence logique, et à les mobiliser dans un raisonnement simple ;
+ − formuler la réciproque d’une implication, la contraposée ;
+ − lire et écrire des propositions contenant une quantification universelle ou existentielle (les symboles ∀ et ∃ sont hors
+    programme).
+
+Par ailleurs, les élèves produisent des raisonnements par disjonction des cas et par l'absurde.
+
+Algorithmique et programmation
+La démarche algorithmique est, depuis les origines, une composante essentielle de l’activité mathématique. Au cycle 4, en
+mathématiques et en technologie, les élèves ont appris à écrire, mettre au point et exécuter un programme simple. Une
+consolidation des acquis du cycle 4 est proposée autour de deux idées essentielles :
+ − la notion de fonction ;
+ − la programmation comme production d’un texte dans un langage informatique.
+
+Dans le cadre de cette activité, les élèves s’exercent à :
+ − décrire des algorithmes en langage naturel ou dans un langage de programmation ;
+ − en réaliser quelques-uns à l’aide d’un programme simple écrit dans un langage de programmation textuel ;
+ − interpréter, compléter ou modifier des algorithmes plus complexes.
+
+Un langage de programmation simple d’usage est nécessaire pour l’écriture des programmes informatiques. Le langage choisi
+est Python, langage interprété, concis, largement répandu et pouvant fonctionner dans une diversité d’environnements. Les
+élèves sont entrainés à passer du langage naturel à Python et inversement.
+
+L’algorithmique a une place naturelle dans tous les champs des mathématiques et les problèmes ainsi traités doivent être en
+relation avec les autres parties du programme (fonctions, géométrie, statistiques et probabilité, logique) mais aussi avec les
+autres disciplines ou la vie courante.
+
+À l’occasion de l’écriture d’algorithmes et de petits programmes, il convient de transmettre aux élèves l’exigence d’exactitude
+et de rigueur, et de les entrainer aux pratiques systématiques de vérification et de contrôle. En programmant, les élèves
+revisitent les notions de variables et de fonctions sous une forme différente.
+
+Histoire des mathématiques
+
+Les textes évoqués dans la thématique « Nombres et calculs » indiquent une préoccupation algorithmique tout au long de
+l’Histoire. Lorsqu’un texte historique a une visée algorithmique, transformer les méthodes qu’il présente en un algorithme,
+voire en un programme, ou inversement, est l’occasion de travailler des changements de registre qui donnent du sens au
+formalisme mathématique.
+
+Variables et instructions élémentaires
+Contenus
+
+ − Variables informatiques de type entier, booléen, flottant, chaine de caractères.
+ −   Affectation (notée ← en langage naturel).
+ −   Séquence d’instructions.
+ −   Instruction conditionnelle.
+ −   Boucle bornée (for), boucle non bornée (while).
+
+Capacités attendues
+
+ −   Choisir ou déterminer le type d’une variable (entier, flottant ou chaine de caractères).
+ −   Concevoir et écrire une instruction d’affectation, une séquence d’instructions, une instruction conditionnelle.
+ −   Écrire une formule permettant un calcul combinant des variables.
+ −   Programmer, dans des cas simples, une boucle bornée, une boucle non bornée.
+ −   Dans des cas plus complexes : lire, comprendre, modifier ou compléter un algorithme ou un programme.
+
+Notion de fonction
+Contenus
+
+ − Fonctions à un ou plusieurs arguments.
+ − Fonction renvoyant un nombre aléatoire. Série statistique obtenue par la répétition de l’appel d’une telle fonction.
+
+Capacités attendues
+
+ − Écrire des fonctions simples ; lire, comprendre, modifier, compléter des fonctions plus complexes. Appeler une fonction.
+ − Lire et comprendre une fonction renvoyant une moyenne, un écart type. Aucune connaissance sur les listes n’est exigée.
+ − Écrire des fonctions renvoyant le résultat numérique d’une expérience aléatoire, d’une répétition d’expériences aléatoires
+   indépendantes.
+
+Automatismes
+Cette partie du programme vise à construire et à entretenir des habiletés dans les domaines du calcul, de l’information chiffrée
+et des représentations graphiques. Il s’agit d'automatiser le recours à des connaissances, des procédures, des méthodes et des
+stratégies. Leur acquisition permet aux élèves une meilleure réussite dans l’apprentissage des mathématiques, participe du
+développement de leur esprit critique par une meilleure maitrise des nombres et du calcul et leur permet une meilleure lecture
+et compréhension des représentations de données dont les graphiques.
+
+Les capacités attendues énoncées ci-dessous n’ont pas vocation à faire l’objet d’un chapitre d’enseignement spécifique car les
+notions qui les sous-tendent ont été travaillées dans les classes antérieures et doivent être entretenues et consolidées au cours
+de l’année. Cependant les nouvelles notions du programme peuvent donner lieu également à un travail d’automatisation tout
+le long de l’année. Elles relèvent d’un entrainement régulier privilégiant l'activité mentale. Les différents thèmes proposés
+doivent être travaillés tout au long de l’année et la présentation par blocs thématiques ne signifie pas, bien au contraire, qu’il
+faille les aborder les uns après les autres. Les modalités de mise en œuvre peuvent être variées et prendre appui sur différents
+supports : à l’oral, à l’écrit, individuellement ou en groupe, utilisant éventuellement des outils numériques de vidéo-projection,
+de recensement instantané des réponses, etc.
+
+Calcul numérique et algébrique
+
+ − Comparer deux nombres directement ou par calcul :
+   • de leur différence ;
+   • s’ils sont strictement positifs, de leur quotient.
+
+ −   Effectuer des opérations et des comparaisons entre des fractions simples.
+ −   Effectuer des opérations sur les puissances.
+ −   Passer d’une écriture d’un nombre à une autre (décimale, fractionnaire, pourcentage).
+ −   Estimer un ordre de grandeur.
+ −   S’assurer de la vraisemblance, de la cohérence d’un résultat.
+ −   Effectuer des conversions d’unités : longueurs, aires, volumes, contenances, durées, vitesses, masses.
+ −   Effectuer un calcul littéral élémentaire :
+     • expressions additives : – (a + b) = –a – b, – (a – b) = b – a ;
+                                                    𝑥             a
+     • expressions multiplicatives : 𝑥 = 1 × 𝑥, 𝑥 = , (–1) × a = = –a ;
+                                                                                      1   –1
+                   0           𝑥       1       ab            b       a
+       0 = 0𝑥,         = 0,        = 𝑥,                =a×       = ×b;
+                   a           a       a       c             c       c
+                           a
+       1       1       b           a       c       a    c    a       d       ad
+       1   = a, a = ,      b
+                           c   =       ∶       =       ÷ =       ×       =        .
+                       a           b       d       b    d    b       c       bc
+       a       b           d
+
+
+ − Développer, factoriser, réduire une expression algébrique simple :
+   • identités (factorisation et développement) : (a + b)², (a – b)², (a + b)(a – b) ;
+   • factorisation de a𝑥 ² + b𝑥, a𝑥 + b𝑥.
+                                                                                               a
+ − Résoudre une équation du type : 𝑥² = a, a𝑥 + b = c𝑥 + d ou                                      = b ou une inéquation du premier degré.
+                                                                                               𝑥
+ − Isoler une variable dans une égalité qui en comporte plusieurs, sur des exemples internes aux mathématiques ou issus des
+   autres disciplines.
+ − Effectuer une application numérique d’une formule (notamment pour les formules utilisées dans les autres disciplines).
+Proportions et pourcentages
+
+ − Calculer, appliquer, exprimer une proportion sous différentes formes (décimale, fractionnaire, pourcentage).
+ − Utiliser une proportion pour calculer une partie connaissant le tout, ou le tout connaissant une partie.
+
+Évolutions et variations
+
+ − Passer d’une formulation additive (« augmenter de 5 % », respectivement « diminuer de 5 % ») à une formulation
+   multiplicative (« multiplier par 1,05 », respectivement « multiplier par 0,95 »).
+
+Fonctions et représentations
+
+ − Déterminer graphiquement des images et des antécédents.
+ − Exploiter une équation de courbe (appartenance d’un point, calcul de coordonnées).
+ − Reconnaitre l’expression d’une fonction linéaire, d’une fonction affine, savoir que leur représentation graphique est une
+   droite.
+
+Géométrie
+
+ − Sur une droite graduée, repérer ou placer un point dont l’abscisse est un nombre relatif.
+ − Dans le plan muni d’un repère orthogonal, lire les coordonnées d’un point donné, placer un point de coordonnées
+   données.
+ − Calculer des périmètres (polygone et cercle), aires (rectangle, triangle et disque) et des volumes (pavé droit, prisme,
+   cylindre, pyramide, cône et boule).
+ − Application simple du théorème de Pythagore, du théorème de Thalès
+ − Connaitre et utiliser les lignes trigonométriques dans le triangle rectangle : cosinus, sinus, tangente.
+
+Statistiques
+
+Les contextes sont issus des mathématiques, des autres disciplines ou de la vie réelle.
+
+ − Lire et commenter des graphiques usuels :
+   • diagramme en barres ;
+   • diagramme circulaire, semi-circulaire ;
+   • courbe, nuage de points (diagramme cartésien).
+
+ − Calculer et interpréter des indicateurs statistiques (moyenne, médiane, quartiles) pour une série statistique (selon la façon
+   dont elle est présentée : données brutes, données regroupées par classes, représentations graphiques).
+ − Comparer des distributions à l’aide de boites à moustaches.
+
+Probabilités
+
+ − Savoir qu’une probabilité est un nombre entre 0 et 1.
+ − Savoir calculer la probabilité de l’évènement contraire.
+ − Calculer la probabilité d’un évènement comme somme des probabilités des issues qui le composent.
+                                 Card(A)
+ − Utiliser la relation P(A) =             dans le cas de l’équiprobabilité.
+                                 Card(Ω)
+
+
+Nombres et calculs, algèbre
+Objectifs
+
+Cette partie prolonge le thème « Nombres et calculs » du cycle 4. Elle a pour objectifs :
+ − d’approfondir la connaissance des divers types et ensembles de nombres ;
+ − de développer la pratique du calcul numérique ou algébrique ;
+ − de travailler sur les inégalités ;
+ − de résoudre des problèmes modélisés par des équations ou inéquations se ramenant au premier degré.
+
+Les élèves rencontrent les nombres réels comme abscisses des points d’une droite graduée, et plus largement comme nombres
+permettant de mesurer des grandeurs. Ils les comparent, ils apprennent qu’il existe des nombres irrationnels, les encadrent par
+des nombres décimaux ou rationnels. Ils comprennent que calculatrices et logiciels font des calculs approchés. En liaison avec
+un approfondissement de l’étude des multiples et diviseurs, ils consolident la pratique du calcul sur les fractions.
+
+La mise en évidence de la puissance du calcul littéral comme outil de résolution de problème, déjà rencontrée au collège, reste
+un objectif important. L’élève doit être confronté à des situations, internes ou externes aux mathématiques, dans lesquelles
+une modélisation est nécessaire, faisant intervenir variables, expressions algébriques, équations ou inéquations. Les situations
+internes sont l’occasion de réactiver les connaissances du collège, notamment en géométrie (longueurs, aires, volumes, angles,
+vitesses).
+
+Il convient d’équilibrer la formation, d’une part en proposant des applications variées et significatives des notions et
+techniques étudiées, d’autre part, en veillant à l’acquisition des automatismes, par la pratique fréquente de calculs routiniers.
+
+Histoire des mathématiques
+
+La notion apparemment familière de nombre ne va pas de soi. Deux exemples : la crise provoquée par la découverte des
+irrationnels chez les mathématiciens grecs, la différence entre « nombres réels » et « nombres de la calculatrice ». Il s’agit
+également de souligner le gain en efficacité et en généralité qu’apporte le calcul littéral, en expliquant qu’une grande partie
+des mathématiques n’a pu se développer qu’au fur et à mesure de l’élaboration, au cours des siècles, de symbolismes efficaces.
+Il est possible d’étudier des textes anciens d’auteurs tels que Diophante, Euclide, Al-Khwarizmi, Fibonacci, Viète, Fermat,
+Descartes et mettre en évidence leurs aspects algorithmiques.
+
+Arithmétique
+Contenus
+
+ − Notations ℕ et ℤ.
+ − Définition des notions de multiple, de diviseur, de nombre pair, de nombre impair : a est multiple de b s’il existe un entier k
+   tel que a = kb.
+
+Capacités attendues
+
+ − Modéliser et résoudre des problèmes mobilisant les notions de multiple, de diviseur, de nombre pair, de nombre impair.
+ − Présenter les fractions sous forme irréductible.
+
+Démonstrations
+
+ − Pour une valeur numérique de a, la somme de deux multiples de a est multiple de a.
+ − Le carré d’un nombre impair est impair.
+
+Exemples d’algorithme
+
+ − Déterminer si un entier naturel a est multiple d’un entier naturel b.
+ − Pour des entiers a et b donnés, déterminer le plus grand multiple de a inférieur ou égal à b.
+
+Nombres réels
+Au cycle 4, les élèves ont étudié les inégalités pour comparer des valeurs numériques. Ils ont résolu des équations et des
+inéquations du premier degré. La notion d’intervalle, présentée comme ensemble de nombres vérifiant des inégalités, est
+nouvelle. Elle prolonge le travail mené au cycle 4 sur les inéquations.
+
+La notation de la valeur absolue est introduite pour exprimer la distance entre deux nombres réels et caractériser les intervalles
+de centre donné. Toute autre utilisation est hors programme.
+
+Contenus
+
+ −   Ensemble ℝ des nombres réels, droite numérique.
+ −   Intervalles de ℝ. Représentation graphique, notations du type [a, +∞[, ] –∞, a], [a, b], etc.
+ −   Notation en valeur absolue |a| pour la distance de a à 0. Distance entre deux nombres réels.
+ −   Inéquation du type |𝑥 – a| ⩽ r. Représentation graphique des solutions, intervalle [a – r, a + r].
+ −   Ensemble 𝔻 des nombres décimaux. Encadrement décimal d’un nombre réel à 10–𝑛 près.
+ −   Ensemble ℚ des nombres rationnels. Nombres irrationnels ; exemples fournis par la géométrie, par exemple √2 et π.
+
+Capacités attendues
+
+ −   Lire l’abscisse d’un nombre réel sur une droite graduée et placer un nombre réel d’abscisse donnée.
+ −   Représenter un intervalle de la droite numérique. Déterminer si un nombre réel appartient à un intervalle donné.
+ −   Donner un encadrement, d’amplitude donnée, d’un nombre réel par des décimaux.
+ −   Dans le cadre de la résolution de problèmes, arrondir en donnant le nombre de chiffres significatifs adapté à la situation
+     étudiée.
+
+Démonstrations
+                          1
+ − Le nombre rationnel n’est pas décimal.
+                          3
+ − Le nombre réel √2 est irrationnel.
+
+Exemple d’algorithme
+
+ − Déterminer par balayage un encadrement de √2 d’amplitude inférieure ou égale à 10 – n.
+
+Approfondissements possibles
+
+ − Développement décimal illimité d’un nombre réel.
+ − Observation, sur des exemples, de la périodicité du développement décimal de nombres rationnels.
+
+Algèbre
+Contenus
+
+ − Règles de calcul sur les puissances entières relatives, sur les racines carrées. Relation √a2 = |a|.
+ − Exemples simples de calcul sur des expressions algébriques, en particulier sur des expressions fractionnaires.
+ − Somme d’inégalités. Produit d’une inégalité par un réel positif, négatif, en liaison avec le sens de variation d’une fonction
+   affine.
+ − Comparaison additive (par différence), comparaison multiplicative (par rapport, pour deux nombres strictement positifs).
+ − Ensemble des solutions des équations du type a𝑥 + b = 0, et des inéquations de la forme a𝑥 + b > 0.
+ − Équation de la forme A(𝑥)B(𝑥) = 0 (équation produit nul).
+                                                                                                       A(𝑥)
+ − En liaison avec la section « Fonctions », étude du signe des expressions de la forme A(𝑥)B(𝑥) et           .
+                                                                                                       B(𝑥)
+              A(𝑥)
+ − Équation          = k (équation quotient) en lien avec l’ensemble de définition d’une expression.
+              B(𝑥)
+
+Capacités attendues
+
+ − Effectuer des calculs numériques ou littéraux mettant en jeu des puissances, des racines carrées, des écritures
+   fractionnaires.
+ − Sur des cas simples de relations entre variables (par exemple U = RI, d =vt, S = πr², V = abc, V = πr²h, exprimer une variable
+   en fonction des autres. Cas d’une relation du premier degré a𝑥 + b𝑦 = c.
+ − Choisir la forme la plus adaptée (factorisée, développée réduite) d’une expression en vue de la résolution d’un problème.
+ − Comparer deux quantités en utilisant leur différence, ou leur rapport (ratio) dans le cas de quantités positives. Interpréter,
+   selon le contexte, cette comparaison en termes de variation additive ou multiplicative.
+ − Modéliser un problème par une inéquation.
+ − Donner l’ensemble des solutions d’une équation du premier degré du type a𝑥 = b, a + 𝑥 = b, a𝑥 + b = c𝑥 + d, d’une
+   inéquation du premier degré du type a ⩾ b, a + 𝑥 ⩾ b, a𝑥 + b ⩾ c𝑥 + d, d’une équation du type 𝑥² = a.
+
+Démonstrations
+
+ − Quels que soient les réels positifs a et b, on a √ab = √a √b.
+
+Exemple d’algorithme
+
+ − Déterminer la première puissance d’un nombre positif donné supérieure ou inférieure à une valeur donnée.
+
+Approfondissements possibles
+
+ − Développement de (a + b + c)².
+ − Développement de (a + b)³.
+ − Inégalité entre moyennes géométrique et arithmétique de deux réels strictement positifs.
+
+Géométrie
+Objectifs
+
+Les objectifs de cette partie sont les suivants :
+ − consolider les notions sur les configurations géométriques abordées au collège et prolonger leur étude ;
+ − poursuivre le travail mené sur les vecteurs du plan comme outil permettant d’étudier des problèmes issus des
+    mathématiques et des autres disciplines, en particulier de la physique ;
+ − poursuivre l’étude de la géométrie repérée, qui relie nombres, calculs algébriques, fonctions et géométrie et constitue un
+    outil utile à d’autres disciplines. En particulier, introduire la notion d’ensemble de points du plan décrit par une équation,
+    en explicitant le cas des équations de droites.
+
+Les élèves ont découvert les vecteurs au cycle 4, ce qui leur permet de les mobiliser dès la classe de seconde comme un outil
+efficace pour démontrer en géométrie et modéliser en physique. Ils les manipulent dans le plan muni d’un repère orthogonal.
+Ils approfondissent leurs connaissances sur les configurations du plan, disposent de nouveaux outils pour analyser des figures
+géométriques, résoudre des problèmes. Ils étudient les équations de droite, font le lien entre représentations géométrique,
+algébrique, et fonctionnelle.
+
+La géométrie développe des capacités de représentation. Il importe de s’appuyer sur des figures, selon des modalités diverses
+(tracé à main levée, schéma, figure soignée, utilisation de logiciels). Dans le cadre de la résolution de problèmes, l’utilisation
+d’un logiciel de géométrie dynamique par les élèves leur donne une plus grande autonomie et encourage leur prise d’initiative.
+
+Le programme se place dans le cadre de la géométrie plane. Cependant, les professeurs peuvent proposer des activités
+mobilisant les notions de géométrie dans l’espace vues au collège (sections, aires, volumes) enrichies de celles étudiées en
+seconde (vecteurs).
+
+Il convient de mettre en valeur l’intervention de la géométrie dans les autres parties du programme, notamment « Nombres et
+calculs » et « Fonctions ».
+
+Histoire des mathématiques
+
+Les progrès apportés par la « méthode des coordonnées » de Descartes, puis par la notion de vecteur, permettent de relier
+efficacement géométrie, physique et calcul.
+
+On pourra évoquer les mathématiques grecques, en mettant en évidence le rôle central de la géométrie dans la naissance de
+l’idée de démonstration ainsi que le faible développement de l’algèbre sous l’Antiquité, en partie dû à l’appui systématique sur
+la géométrie.
+Vecteurs et problèmes de géométrie
+Au cycle 4, les notions de vecteur et de translation font l’objet d’une première approche. La somme de vecteurs est vue en lien
+avec l’enchainement de deux translations et la relation de Chasles est ainsi abordée en classe de troisième.
+
+Les professeurs peuvent définir les opérations vectorielles à partir des coordonnées, ou bien commencer par leur construction
+géométrique. Dans tous les cas, la relation ⃗𝑢 = 𝑥𝑖 + 𝑦𝑗 est mise en évidence.
+
+La caractérisation vectorielle du milieu d’un segment donne l’occasion de travailler le calcul vectoriel ; elle prolonge et
+entretien les connaissances du cycle 4.
+
+Les problèmes de géométrie sont l’occasion de mettre en avant l’efficacité de l’outil vectoriel.
+
+En liaison avec les autres disciplines, on signale que le vecteur ⃗⃗⃗⃗⃗
+                                                                  AB peut être appelé vecteur déplacement de A à B que, si O est
+choisie comme origine du plan, le vecteur ⃗⃗⃗⃗⃗⃗⃗
+                                              OM peut être appelé vecteur position de M (relativement à O).
+
+Contenus
+
+ − Égalité de deux vecteurs. Notation ⃗𝑢. Vecteur nul.
+ − Représentants d’un vecteur.
+ − Produit d’un vecteur par un nombre réel. Colinéarité de deux vecteurs.
+ − Représentation d’un vecteur comme combinaison de deux vecteurs non colinéaires.
+ − Base orthonormée. Coordonnées d’un vecteur. Expression de la norme d’un vecteur.
+ − Expression des coordonnées de ⃗⃗⃗⃗⃗
+                                   AB en fonction de celles de A et de B.
+ − Déterminant de deux vecteurs dans une base orthonormée, critère de colinéarité. Application à l’alignement, au
+   parallélisme.
+ − Caractérisation vectorielle du milieu d’un segment
+
+Capacités attendues
+
+ −   Représenter la somme de deux vecteurs à partir de représentants de même origine.
+ −   Représenter un vecteur dont on connait les coordonnées. Lire les coordonnées d’un vecteur.
+ −   Calculer les coordonnées d’une somme de vecteurs, d’un produit d’un vecteur par un nombre réel.
+ −   Calculer la distance entre deux points. Calculer les coordonnées du milieu d’un segment.
+ −   Caractériser alignement et parallélisme par la colinéarité de vecteurs.
+ −   Résoudre des problèmes en utilisant la représentation la plus adaptée des vecteurs.
+ −   Résoudre des problèmes avec des méthodes diverses (méthodes vectorielles, repérées ou non, méthodes géométriques).
+
+Démonstration
+
+ − Caractérisations de la colinéarité de deux vecteurs non nuls : nullité du déterminant ; proportionnalité des coordonnées.
+
+Approfondissements possibles
+
+ −   Barycentre de deux ou trois points.
+ −   Formule permettant le calcul des coordonnées du milieu d’un segment.
+ −   Démontrer que les hauteurs d’un triangle sont concourantes.
+                                         1
+ −   Expression de l’aire d’un triangle : ab sin C.
+                                       2
+ − Démontrer que l’isobarycentre de trois points non alignés est l’intersection des médianes.
+ − Démontrer que le point de concours des médiatrices est le centre du cercle circonscrit.
+
+Droites du plan
+Au cycle 4, les élèves ont rencontré les droites au travers des représentations graphiques des fonctions affines. En seconde, ils
+étudient les équations de droite.
+
+Contenus
+
+ − Vecteur directeur d’une droite.
+ − Équation de droite : équation cartésienne, équation réduite.
+ − Pente (ou coefficient directeur) d’une droite non parallèle à l’axe des ordonnées.
+
+Capacités attendues
+
+ −   Déterminer une équation de droite à partir de deux points, un point et un vecteur directeur ou un point et la pente.
+ −   Déterminer la pente ou un vecteur directeur d’une droite donnée par une équation ou une représentation graphique.
+ −   Tracer une droite connaissant son équation cartésienne ou réduite.
+ −   Établir que trois points sont alignés ou non.
+ −   Déterminer si deux droites sont parallèles ou sécantes.
+ −   Déterminer le point d’intersection de deux droites sécantes données par leur équation réduite.
+
+Démonstration
+
+ − En utilisant le déterminant, établir la forme générale d’une équation de droite.
+Exemples d’algorithme
+
+ − Étudier l’alignement de trois points dans le plan.
+ − Déterminer une équation de droite passant par deux points donnés.
+
+Approfondissements possibles
+
+ − Ensemble des points équidistants d’un point et de l’axe des abscisses.
+ − Représentation, sur des exemples, de parties du plan décrites par des inégalités sur les coordonnées.
+
+Fonctions
+Objectifs
+
+Au cycle 4, les élèves ont découvert progressivement la notion de fonction, manipulé différents modes de représentation :
+expression algébrique, tableau de valeurs, représentation graphique, programmes de calcul. Ils connaissent le vocabulaire de
+base : variable, fonction, antécédent, image et la notation ƒ (𝑥). Selon le mode de représentation choisi, ils déterminent une
+image ou des antécédents d’un nombre par une fonction. Ils ont étudié les fonctions linéaires, les fonctions affines et leur
+représentation graphique.
+
+En seconde, les objectifs sont les suivants :
+ − consolider la notion de fonction, comme exprimant la dépendance d’une variable par rapport à une autre ;
+ − exploiter divers registres, notamment le registre algébrique et le registre graphique ;
+ − étendre la panoplie des fonctions de référence ;
+ − étudier les notions de variations et d’extrémums des fonctions.
+
+Les fonctions définies sur un intervalle de ℝ permettent de modéliser des phénomènes continus. On peut confronter les élèves
+à des exemples de fonctions définies sur ℕ pour modéliser des phénomènes discrets. La notation 𝑢(𝑛) est alors utilisée.
+
+La modélisation d’une dépendance par une fonction apparait dans des domaines très variés : géométrie dans le plan, biologie,
+économie, physique, sciences sociales. La modélisation de phénomènes dépendant du temps, la variable étant alors notée 𝑡
+est mise en évidence : chute libre d’un corps, loi de l’offre et de la demande, respiration des cellules, fermentation,
+photosynthèse en SVT.
+
+Les outils numériques sont mis à profit :
+ − un logiciel de géométrie dynamique, pour la représentation graphique et l’utilisation de curseurs ;
+ − Python, le tableur ou la calculatrice, pour mettre en évidence l’aspect de programme de calcul.
+
+Les élèves doivent se constituer un répertoire d’images mentales des courbes représentatives des fonctions de référence, sur
+lesquelles s’appuyer lors de l’étude des propriétés des fonctions.
+
+L’étude de chaque fonction de référence intervient au moment le plus opportun en fonction de la progression choisie par
+l’enseignant et de l’articulation avec les autres notions enseignées dans le programme.
+
+Histoire des mathématiques
+
+On peut évoquer la très lente élaboration de la notion de fonction, depuis l’Antiquité jusqu’à la codification actuelle par
+Dirichlet, en mettant en évidence quelques étapes importantes : Newton, Leibniz, Euler. On souligne alors l’importance de la
+notation algébrique.
+
+Représentation algébrique et graphique des fonctions
+Dans cette section, les fonctions peuvent être données par leur représentation graphique, par des expressions algébriques ou
+des programmes de calcul, par des tableaux de valeurs.
+
+Contenus
+
+ − Fonction à valeurs réelles définie sur un intervalle ou une réunion finie d’intervalles de ℝ.
+ − Recherche de domaine d’étude (ensemble de définition).
+ − Courbe représentative : la courbe d’équation 𝑦 = ƒ (𝑥) est l’ensemble des points du plan dont les coordonnées (𝑥, 𝑦)
+   vérifient 𝑦 = ƒ (𝑥).
+ − Signe d’une fonction affine et des fonctions de référence.
+ − Tableau de signes pour une fonction produit ou quotient.
+
+Capacités attendues
+
+ − Exploiter l’équation 𝑦 = ƒ (𝑥) d’une courbe : appartenance, calcul de coordonnées.
+ − Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines ou de la vie courante ou
+   citoyenne.
+ − Fonctions valeur absolue, carré, inverse : définitions et courbes représentatives.
+ − Résoudre une équation ou une inéquation du type ƒ (𝑥) = k, ƒ (𝑥) < k, en choisissant une méthode adaptée : graphique,
+   algébrique, logicielle.
+ − Résoudre une équation ou une inéquation de la forme ƒ (𝑥) = 0, ƒ (𝑥) > 0 à l’aide d’un tableau de signes, lorsque ƒ est un
+   produit ou un quotient.
+ − Résoudre, graphiquement ou à l’aide d’un outil numérique, une équation ou inéquation du type ƒ (𝑥) = g (𝑥), ƒ (𝑥) < g (𝑥).
+ − Pour les fonctions affines, valeur absolue, carré, inverse, racine carrée et cube, résoudre graphiquement ou algébriquement
+   une équation ou une inéquation du type ƒ (𝑥) = k, ƒ (𝑥) < k.
+
+Variations et extrémums d’une fonction
+Contenus
+
+ − Croissance, décroissance, monotonie d’une fonction définie sur un intervalle. Tableau de variations.
+ − Maximum, minimum d’une fonction sur un intervalle.
+ − Pour une fonction affine donnée par ƒ (𝑥) = m𝑥 + p, interprétation de m comme taux d’accroissement et de p comme
+   ordonnée à l’origine.
+ − Variations d’une fonction affine selon le signe du coefficient directeur.
+
+Capacités attendues
+
+ − Relier représentation graphique et tableau de variations.
+ − Déterminer graphiquement les extrémums d’une fonction sur un intervalle.
+ − Exploiter un logiciel de géométrie dynamique ou de calcul formel, la calculatrice ou Python pour décrire les variations
+   d’une fonction donnée par une formule.
+ − Pour une fonction affine, relier sens de variation, signe de la fonction et droite représentative.
+ − Traiter de problèmes d’optimisation.
+ − Fonctions valeur absolue, carré : signe et variations.
+ − Pour deux nombres a et b donnés et une fonction de référence ƒ, comparer ƒ (a) et ƒ (b) numériquement ou graphiquement.
+
+Démonstrations
+
+ − Variations des fonctions affines.
+ − Position relative des courbes d’équation 𝑦 = 𝑥, 𝑦 = 𝑥², pour 𝑥 ⩾ 0.
+ − Variations des fonctions carré, inverse.
+
+Exemples d’algorithme
+
+ − Pour une fonction dont le tableau de variations est donné, algorithmes d’approximation numérique d’un extrémum
+   (balayage, dichotomie).
+ − Algorithme de calcul approché de longueur d’une portion de courbe représentative de fonction.
+
+Approfondissement possible
+
+ − Relier les courbes représentatives de la fonction racine carrée et de la fonction carré sur ℝ+.
+
+Statistiques et probabilités
+Objectifs
+
+L’enseignement des statistiques et des probabilités en classe de seconde a pour objectifs :
+  − de consolider et d’approfondir les acquis de cycle 4 sur l’information chiffrée et la statistique descriptive : proportions,
+    évolution, statistiques à une variable ;
+  − d’étudier le croisement de variables qualitatives (catégorielles), notamment la notion de fréquence conditionnelle, ce qui
+    permet une initiation à l’analyse de base de données réelles ;
+  − de prolonger l’étude du modèle probabiliste faite en classe de troisième en introduisant la notion de probabilité
+    conditionnelle et les arbres de probabilité ;
+  − d’introduire la fluctuation d’échantillonnage, en liaison avec la partie « Algorithmique et programmation ».
+
+Information chiffrée et statistique descriptive
+En matière d’information chiffrée, les élèves ont travaillé au cycle 4 effectifs, fréquences, proportions, pourcentages,
+coefficient de proportionnalité, taux d’évolution, coefficient multiplicateur. L’objectif est de consolider et de prolonger ce
+travail par l’étude de situations multiplicatives : proportion de proportion, évolutions successives ou réciproques. Les élèves
+doivent distinguer si un pourcentage exprime une proportion ou une évolution.
+
+En statistique descriptive, les élèves ont étudié moyenne, médiane, quartiles, et étendue ainsi que les représentations
+graphiques usuelles : diagramme en barres, diagrammes circulaires, boites à moustaches.
+
+On consolide le travail sur les proportions et l’évolution, et sur l’étude des statistiques à une variable en s’appuyant sur
+l’interprétation des indicateurs et en introduisant l’écart type.
+
+Contenus
+
+Proportions
+ − Ensembles de référence inclus les uns dans les autres : pourcentage de pourcentage.
+Évolution
+                                                                                                                    V2
+ − Évolution : variation absolue (variation additive) V2 – V1, coefficient multiplicateur (variation multiplicative) , variation
+                                                                                                                      V1
+                V2 – V1
+     relative             (taux d’évolution).
+                  V1
+ − Évolutions successives, évolution réciproque : relation sur les coefficients multiplicateurs (produit, inverse).
+
+Statistiques à une variable
+ − Linéarité de la moyenne.
+ − Indicateurs de dispersion : écart type.
+ − Influence sur la moyenne, la médiane de l’ajout ou de la suppression d’une valeur dans la série.
+
+Regroupement par classes de même amplitude d’une série statistique continue
+ − Représentation graphique : histogramme, polygone des fréquences cumulées.
+ − Calcul de la moyenne à partir de la moyenne et des effectifs de chaque classe (moyenne pondérée) ; cas particulier où la
+    répartition est uniforme dans chaque classe (donc égale au centre de la classe).
+ − Détermination de la classe médiane à partir des effectifs des classes ; estimation de la médiane dans le cas de répartition
+    uniforme dans la classe médiane.
+
+Capacités attendues
+
+ −   Exploiter la relation entre effectifs, proportions et pourcentages.
+ −   Traiter des situations simples mettant en jeu des pourcentages de pourcentages.
+ −   Exploiter la relation entre deux valeurs successives et leur taux d’évolution.
+ −   Calculer le taux d’évolution global à partir des taux d’évolution successifs. Calculer un taux d’évolution réciproque.
+ −   Pour une série statistique regroupée en classes :
+     • calculer la moyenne à partir de la moyenne et des effectifs de chaque classe (moyenne pondérée) ; cas particulier où la
+       répartition est uniforme dans chaque classe (donc égale au centre de la classe) ;
+     • déterminer la classe médiane à partir des effectifs des classes ; estimation de la médiane dans le cas de répartition
+       uniforme dans la classe médiane.
+
+ − Décrire les différences entre deux séries statistiques, en s’appuyant sur des indicateurs ou couples d’indicateurs (moyenne-
+   écart type/ médiane-écart interquartile), sur des représentations graphiques données.
+
+Croisement de deux variables qualitatives
+Cette section s’intéresse aux couples de variables qualitatives. L’internet fournit en effet de nombreux fichiers qui traitent des
+données liées aux individus et proposent des unités statistiques (pays, plantes, animaux, villes, etc.) organisées selon différentes
+caractéristiques (sexe, espèce, catégorie socioprofessionnelle, tranche de revenus, etc.) qu’il est intéressant de croiser. Premier
+contact avec les bases de données, le traitement statistique de fichiers est une activité riche et formatrice qui pourra être
+réinvestie par les élèves dans des projets en lien avec les enseignements de spécialité en vue de l’épreuve orale terminale.
+
+L’étude des fréquences conditionnelles permet un travail sur la langue française en considérant les formulations usuellement
+utilisées dans les médias.
+
+Des variables qualitatives de natures diverses sont étudiées : nominale (profession, espèce, département de résidence, etc.) ou
+ordinale (niveau d’étude, degré de satisfaction de la clientèle, etc.). Les élèves travaillent avec des données réelles dans des
+domaines variés (sécurité routière, démographie, économie, agronomie, etc.).
+
+Contenus
+
+ − Tableau croisé d’effectifs.
+ − Fréquence conditionnelle, fréquence marginale.
+
+Capacités attendues
+
+ − Calculer des fréquences conditionnelles et des fréquences marginales.
+ − Compléter un tableau croisé par des raisonnements sur les effectifs ou en utilisant des fréquences conditionnelles.
+
+Exemples d’algorithme
+
+ − À partir de deux listes représentant deux caractères d'individus, déterminer un sous-ensemble d'individus répondant à un
+   critère (filtre, utilisation de ET, OU, NON).
+ − Dresser le tableau croisé de deux variables qualitatives à partir du fichier des individus et calculer des fréquences
+   conditionnelles ou marginales.
+
+Probabilités
+Au cycle 4, les élèves ont travaillé sur les notions élémentaires de probabilité : expérience aléatoire, issue, évènement,
+probabilité. Ils ont construit leur intuition sur des situations concrètes fondées sur l’équiprobabilité, complétées par des
+répétitions d’épreuves identiques et indépendantes, permettant d’observer la stabilisation des fréquences. Ils ont été amenés
+à calculer des probabilités dans des contextes simples (une ou deux épreuves). Ils ont formalisé la notion de loi (ou distribution)
+de probabilité dans le cas fini en s’appuyant sur le langage des ensembles et ont précisé les premiers éléments de calcul des
+probabilités.
+En classe de seconde on insiste sur le fait qu’une loi de probabilité (par exemple une équiprobabilité) est une hypothèse du
+modèle choisi et ne se démontre pas. Le choix du modèle peut résulter d’hypothèses implicites d’équiprobabilité (par
+exemple, lancers de pièces ou dés équilibrés, tirage au hasard dans une population) qu’il est recommandable d’expliciter ; il
+peut aussi résulter d’une application d’une version vulgarisée de la loi des grands nombres, où un modèle est construit à partir
+de fréquences observées pour un phénomène réel (par exemple : lancer de punaise, sexe d’un enfant à la naissance). Dans tous
+les cas, on distingue nettement le modèle probabiliste abstrait et la situation réelle.
+
+L’enseignement en classe de seconde s’organise autour des objectifs suivants :
+  − introduire la notion de probabilité conditionnelle, sous-jacente dans toute modélisation probabiliste, et mettre en
+    évidence la problématique de l’inversion des conditionnements ;
+  − calculer des probabilités à l’aide de probabilités conditionnelles et d’arbres de probabilité.
+
+Les notions de statistique descriptive sont articulées avec le cours de probabilités. Une population statistique peut être
+étudiée d’un point de vue probabiliste en considérant l’expérience aléatoire de tirage au sort avec équiprobabilité dans la
+population. Un lien est ainsi fait entre des notions statistiques (sous-population, proportion, fréquence conditionnelle) et les
+notions probabilistes analogues (évènement, probabilité, probabilité conditionnelle) ; dans ce contexte, on met en évidence
+                       Card(A)                Card( A∩B )
+les relations P(A) =             et PB(A) =
+                       Card(Ω)                 Card(B )
+
+Des situations issues de différents domaines (économique, industriel, médical, etc.) sont proposées. Ce travail permet
+notamment de donner du sens au vocabulaire des tests diagnostiques : faux positifs, faux négatifs, spécificité et sensibilité d’un
+test.
+
+Histoire des mathématiques
+
+L’histoire des probabilités fournit un cadre pour dégager les éléments de la mathématisation du hasard. Un exemple est le
+problème des partis, dit aussi du chevalier de Méré, l’échange de lettres entre Pascal et Fermat sur ce point puis les travaux de
+Pascal, Fermat et Huygens qui en découlent. Le problème du duc de Toscane ou les travaux de Leibniz sur le jeu de dés
+peuvent aussi être évoqués.
+
+Les probabilités conditionnelles peuvent être l’objet d’un travail historique en anglais ; elles apparaissent en effet dans des
+travaux de Bayes et de Moivre, écrits en anglais au XVIIIe siècle, même si c’est Laplace qui en a élaboré la notion. Les questions
+traitées par ces auteurs peuvent parfois surprendre ; néanmoins, les probabilités conditionnelles sont omniprésentes dans la
+vie courante et leur utilisation inappropriée mène facilement à de fausses affirmations.
+
+Contenus
+
+ − Version vulgarisée de la loi des grands nombres : « Lorsque n est grand, sauf exception, la fréquence observée est proche
+   de la probabilité. »
+ − Probabilité conditionnelle d’un évènement B sachant un évènement A de probabilité non nulle. Notation PA(B).
+ − Arbres de probabilité, application au calcul de probabilités.
+
+Capacités attendues
+
+ − Observer la loi des grands nombres à l’aide d’une simulation sur Python ou tableur.
+ − Construire un arbre pondéré ou un tableau en lien avec une situation donnée. Passer du registre de la langue naturelle au
+   registre symbolique et inversement.
+ − Calculer des probabilités conditionnelles lorsque les évènements sont présentés sous forme de tableau croisé d’effectifs
+   (tirage au sort avec équiprobabilité d’un individu dans une population) ou d’un arbre de probabilité.
+ − Interpréter les pondérations de chaque branche d’un arbre en termes de probabilités, et notamment de probabilités
+   conditionnelles.
+ − Faire le lien entre la définition des probabilités conditionnelles et la multiplication des probabilités des branches du
+   chemin correspondant.
+ − Distinguer en situation PA(B) et PB(A), par exemple dans des situations de type « faux positifs.
+
+Le calcul de la probabilité́ d’un évènement connaissant ses probabilités conditionnelles relatives à une partition de l’univers
+n’est pas un attendu du programme.
+
