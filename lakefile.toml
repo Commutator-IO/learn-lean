@@ -27,7 +27,7 @@ globs = []
 [[lean_lib]]
 name = "CollegeNombresEtCalculs"
 srcDir = "cours/01-college/05-nombres-et-calculs"
-globs = ["EntiersDivisibilite"]
+globs = []
 
 [[lean_lib]]
 name = "CollegeProportionnaliteFonctions"
@@ -37,7 +37,7 @@ globs = []
 [[lean_lib]]
 name = "CollegeEnoncesConserves"
 srcDir = "cours/01-college/07-enonces-conserves"
-globs = []
+globs = ["EntiersDivisibilite"]
 
 [[lean_lib]]
 name = "LyceeSecondeGeneraleEtTechnologique"

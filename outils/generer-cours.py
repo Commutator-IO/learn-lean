@@ -37,6 +37,57 @@ def short_slug(s, words=6):
 def camel(s):
     return "".join(w.capitalize() for w in slug(s).split("-"))
 
+# Un chapitre de cours ne retient que ce qui s'énonce et se démontre : définitions,
+# propriétés, théorèmes. Les objectifs d'apprentissage qui décrivent un geste ou une
+# compétence sont écartés, et ceux qui enrobent une proposition sont dépouillés de leur
+# verbe d'apprentissage.
+VERBES = (r"connaitre et savoir démontrer", r"connaitre et utiliser", r"connaitre",
+          r"connaître", r"savoir que", r"savoir", r"comprendre et connaitre",
+          r"comprendre", r"démontrer que", r"démontrer", r"définir et tracer",
+          r"définir", r"caractériser", r"établir", r"admettre", r"découvrir",
+          r"appréhender", r"faire le lien entre", r"étudier", r"aborder", r"mobiliser")
+QUEUES = (r"et savoir l[ae] démontrer", r"et savoir le démontrer", r"et sa démonstration",
+          r"et savoir les démontrer")
+INDICES = ("théorème", "propriété", "démontr", "égalité", "somme", "produit", "quotient",
+           "= ", "⟺", "⟹", "∣", "si ", "alors", "divis", "réciproque", "formule",
+           "définition", "caractéris", "inégalité", "limite", "dérivée", "converge",
+           "est ", "sont ", "vaut", "n’est pas", "irrationnel", "premier")
+
+GESTES = ("mettre", "utiliser", "construire", "tracer", "placer", "calculer", "résoudre",
+          "effectuer", "représenter", "convertir", "reconnaitre", "reconnaître", "lire",
+          "comparer", "produire", "exploiter", "traiter", "organiser", "estimer",
+          "déterminer", "appliquer", "vérifier", "simplifier", "passer", "modéliser")
+
+def enonce_utile(texte, statut):
+    """Renvoie l'énoncé nettoyé, ou None si l'item ne se démontre pas.
+
+    On ne garde que ce qui s'énonce : une définition, une propriété, un théorème. Un
+    objectif d'apprentissage n'est retenu que si le retrait du verbe d'apprentissage
+    laisse une proposition — pas un geste, pas un fragment de phrase."""
+    if statut.strip() == "—":
+        return None
+    net = re.sub(r"\s*\*\(hors programme 2026\)\*\s*$", "", texte.strip())
+    for queue in QUEUES:
+        net = re.sub(queue + r"\s*$", "", net, flags=re.I).strip(" ,;")
+    for verbe in VERBES:
+        m = re.match(verbe + r"\s+(.*)", net, flags=re.I)
+        if m:
+            net = m.group(1).strip()
+            break
+    else:
+        if not any(i in net.lower() for i in INDICES):
+            return None
+    net = re.sub(r"^(la|le|les|l’|l\')\s*définitions? (de|du|des|d’|d\')\s*", "Définition de ",
+                 net, flags=re.I)
+    net = re.sub(r"^Définition de (un|une)\b", r"Définition d’\1", net)
+    if net.lower().startswith(("et ", "ou ", "puis ")):
+        return None
+    if net.split()[0].lower().strip("’'") in GESTES:
+        return None
+    if len(net) < 8:
+        return None
+    return net[0].upper() + net[1:]
+
 def theoreme(enonce):
     return "-".join(slug(enonce).split("-")[:8]).replace("-", "_")
 
@@ -58,7 +109,9 @@ def lire(chemin):
             cells = [c.strip() for c in re.split(r"(?<!\\)\|", line)[1:-1]]
             if len(cells) == colonnes and colonnes in (3, 4):
                 admis = cells[2] if colonnes == 4 else ""
-                courant[2].append((sous, cells[0], cells[1], admis))
+                utile = enonce_utile(cells[0], cells[-1])
+                if utile:
+                    courant[2].append((sous, utile, cells[1], cells[-1].strip()))
     return [c for c in chapitres if c[2]]
 
 cree = []
@@ -98,12 +151,12 @@ for source, dossier, intitule in SOURCES:
         os.makedirs(f"{base}/{sous_dossier}", exist_ok=True)
 
         groupes, ordre = {}, []
-        for sous, enonce, niveau, admis in items:
+        for sous, enonce, niveau, statut in items:
             key = sous or titre
             if key not in groupes:
                 groupes[key] = []
                 ordre.append(key)
-            groupes[key].append((enonce, niveau, admis))
+            groupes[key].append((enonce, niveau, statut))
 
         chap = [f"# {titre}", "",
                 f"*{intitule}* — énoncés tirés de [{source}](../../../{source}) · "
@@ -119,19 +172,10 @@ for source, dossier, intitule in SOURCES:
         for key in ordre:
             fichier = f"{camel(key)}.lean"
             chap += [f"## {key}", "", f"Fichier : `{fichier}`", ""]
-            admis_col = any(a.strip().lower().startswith("oui") for _, _, a in groupes[key])
-            entete = "| Énoncé | Niveau | Théorème | Statut |"
-            sep = "|---|---|---|---|"
-            if admis_col:
-                entete = "| Énoncé | Niveau | Admis | Théorème | Statut |"
-                sep = "|---|---|---|---|---|"
-            chap += [entete, sep]
-            for enonce, niveau, admis in groupes[key]:
-                cols = [enonce, niveau]
-                if admis_col:
-                    cols.append("oui" if admis.strip().lower().startswith("oui") else "")
-                cols += [f"`{theoreme(enonce)}`", "☐"]
-                chap.append("| " + " | ".join(cols) + " |")
+            chap += ["| Énoncé | Niveau | Théorème | Statut |", "|---|---|---|---|"]
+            for enonce, niveau, statut in groupes[key]:
+                chap.append("| " + " | ".join(
+                    [enonce, niveau, f"`{theoreme(enonce)}`", statut or "☐"]) + " |")
             chap.append("")
 
         ecrire(f"{base}/{sous_dossier}/README.md", chap)

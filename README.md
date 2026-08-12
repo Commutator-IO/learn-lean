@@ -49,7 +49,9 @@ honnêtement demande un appareillage sans rapport avec le niveau de l'énoncé.
 ```
 college.md      liste du programme du collège, un tableau par thème
 lycee.md        idem pour le lycée, filière S
-cours/          un dossier par chapitre, avec l'index de ses énoncés (README.md)
+cours/          un dossier par chapitre : uniquement les définitions, propriétés et
+                théorèmes des listes — les objectifs qui décrivent un geste ou une
+                compétence n'y entrent pas, il n'y a rien à y démontrer
   01-college/     7 chapitres
   02-lycee/      10 chapitres
                 les fichiers .lean s'y ajoutent au fur et à mesure
