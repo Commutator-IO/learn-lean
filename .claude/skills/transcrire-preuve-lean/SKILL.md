@@ -95,6 +95,26 @@ dépôt cherche à mesurer.
 Ne jamais simplifier au point de fausser : mieux vaut un mot hors niveau, signalé comme
 tel, qu'une phrase fausse mais accessible.
 
+## Garder les calculs
+
+Quand la preuve Lean calcule — un `calc`, un `ring`, un `field_simp`, une suite de
+réécritures — **le calcul figure dans la transcription**, posé en formule, et non résumé
+par une phrase. « On réduit au même dénominateur puis on identifie les numérateurs » ne
+remplace pas :
+
+    \[
+    \frac{a}{b} + \frac{c}{d} = \frac{ad}{bd} + \frac{cb}{bd} = \frac{ad + cb}{bd} .
+    \]
+
+Une phrase peut précéder le calcul pour dire ce qu'on fait, ou le suivre pour dire ce
+qu'on en tire ; elle ne s'y substitue pas. Un lecteur doit pouvoir refaire le calcul sans
+ouvrir le fichier Lean.
+
+Deux exceptions : les vérifications purement numériques qu'un élève ferait de tête
+(« $2^2 - 5 \times 2 + 6 = 0$ » se donne tel quel, sans détail), et les calculs qu'une
+tactique produit sans qu'on puisse les lire (`decide`, `norm_num` sur de grosses
+expressions) — là, dire ce qui est vérifié et par quel moyen.
+
 ## Conventions du document
 
 - Tout en français : énoncés, démonstrations, titres. Seuls les identifiants Lean restent

@@ -114,8 +114,10 @@ Somme de deux fractions.
 \end{theoreme}
 
 \begin{proof}
-On réduit au même dénominateur $bd$, non nul puisque $b$ et $d$ le sont, puis on
-identifie les numérateurs : $a/b = ad/(bd)$ et $c/d = cb/(bd)$.
+On réduit au même dénominateur $bd$, non nul puisque $b$ et $d$ le sont :
+\[
+\frac{a}{b} + \frac{c}{d} = \frac{ad}{bd} + \frac{cb}{bd} = \frac{ad + cb}{bd} .
+\]
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L39}{CalculsEtCalculLitteral.lean\#L39}
 
@@ -124,8 +126,13 @@ Produit de deux fractions.
 \end{theoreme}
 
 \begin{proof}
-Le produit de deux quotients est le quotient des produits, numérateurs entre eux et
-dénominateurs entre eux.
+Les quotients se multiplient numérateurs entre eux et dénominateurs entre eux :
+\[
+\frac{a}{b} \times \frac{c}{d}
+  = a \times \frac1b \times c \times \frac1d
+  = (ac) \times \frac{1}{bd}
+  = \frac{ac}{bd} .
+\]
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L44}{CalculsEtCalculLitteral.lean\#L44}
 
@@ -135,7 +142,11 @@ Diviser par une fraction, c'est multiplier par son inverse.
 
 \begin{proof}
 On écrit les deux divisions comme des produits par l'inverse, puis on réordonne les
-facteurs : $(a/b) / (c/d) = (a/b) \times (d/c)$.
+facteurs :
+\[
+\frac{a/b}{c/d} = \frac{a}{b} \times \frac{1}{c/d}
+                = \frac{a}{b} \times \frac{d}{c} .
+\]
 
 L'énoncé mathématique suppose $c \ne 0$ et $d \ne 0$ : sans cela, aucun des deux membres
 n'a de sens, la division par zéro n'étant pas définie.
@@ -166,8 +177,10 @@ Développement d'un produit de deux sommes.
 \end{theoreme}
 
 \begin{proof}
-On développe deux fois : $(a+b)(c+d) = a(c+d) + b(c+d) = ac + ad + bc + bd$. Le
-calcul est purement algébrique.
+On développe deux fois :
+\[
+(a+b)(c+d) = a(c+d) + b(c+d) = ac + ad + bc + bd .
+\]
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L60}{CalculsEtCalculLitteral.lean\#L60}
 
@@ -203,8 +216,14 @@ Produit de deux puissances d'un même nombre.
 \end{theoreme}
 
 \begin{proof}
-En comptant les facteurs : $a^m$ en compte $m$, $a^n$ en compte $n$, leur produit
-en compte $m+n$.
+En comptant les facteurs :
+\[
+a^m \times a^n
+  = \underbrace{a \times \cdots \times a}_{m}
+    \times \underbrace{a \times \cdots \times a}_{n}
+  = \underbrace{a \times \cdots \times a}_{m+n}
+  = a^{m+n} .
+\]
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L78}{CalculsEtCalculLitteral.lean\#L78}
 
@@ -213,9 +232,11 @@ Quotient de deux puissances d'un même nombre non nul.
 \end{theoreme}
 
 \begin{proof}
-Même décompte, cette fois avec des exposants entiers relatifs : la division retranche
-les exposants. L'hypothèse $a \ne 0$ est indispensable pour donner un sens aux exposants
-négatifs.
+Même décompte, avec des exposants entiers relatifs :
+\[
+\frac{a^m}{a^n} = a^m \times a^{-n} = a^{m-n} .
+\]
+L'hypothèse $a \ne 0$ est indispensable pour donner un sens aux exposants négatifs.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L82}{CalculsEtCalculLitteral.lean\#L82}
 
@@ -224,8 +245,11 @@ Puissance d'une puissance.
 \end{theoreme}
 
 \begin{proof}
-$(a^m)^n$ est le produit de $n$ facteurs valant chacun $a^m$, soit $mn$ facteurs
-$a$.
+$(a^m)^n$ est le produit de $n$ facteurs valant chacun $a^m$ :
+\[
+(a^m)^n = \underbrace{a^m \times \cdots \times a^m}_{n}
+        = a^{\,\underbrace{\scriptstyle m + \cdots + m}_{n}} = a^{mn} .
+\]
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L86}{CalculsEtCalculLitteral.lean\#L86}
 
@@ -234,8 +258,14 @@ Puissance d'un produit.
 \end{theoreme}
 
 \begin{proof}
-Dans $(ab)^n$, on regroupe les $n$ facteurs $a$ d'un côté et les $n$ facteurs $b$ de
-l'autre, ce que permet la commutativité.
+On regroupe, ce que permet la commutativité, les $n$ facteurs $a$ d'un côté et les $n$
+facteurs $b$ de l'autre :
+\[
+(ab)^n = \underbrace{(ab) \times \cdots \times (ab)}_{n}
+       = \underbrace{a \times \cdots \times a}_{n} \times
+         \underbrace{b \times \cdots \times b}_{n}
+       = a^n b^n .
+\]
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L90}{CalculsEtCalculLitteral.lean\#L90}
 
@@ -275,8 +305,10 @@ Ajouter un même nombre aux deux membres conserve l'inégalité.
 \end{theoreme}
 
 \begin{proof}
-Ajouter $c$ aux deux membres ne change pas leur différence : $b + c - (a + c) = b - a$,
-qui est positif.
+Ajouter $c$ aux deux membres ne change pas leur différence :
+\[
+(b + c) - (a + c) = b - a \ge 0 .
+\]
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L108}{CalculsEtCalculLitteral.lean\#L108}
 
@@ -285,8 +317,10 @@ Multiplier par un nombre strictement positif conserve l'inégalité.
 \end{theoreme}
 
 \begin{proof}
-Multiplier les deux membres par $c > 0$ multiplie leur différence par $c$, qui reste
-positive.
+Multiplier par $c$ multiplie la différence par $c$ :
+\[
+bc - ac = (b - a)c \ge 0 \quad\text{car } b - a \ge 0 \text{ et } c > 0 .
+\]
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L112}{CalculsEtCalculLitteral.lean\#L112}
 
@@ -295,8 +329,11 @@ Multiplier par un nombre strictement négatif renverse l'inégalité.
 \end{theoreme}
 
 \begin{proof}
-Multiplier par $c < 0$ multiplie la différence par un nombre négatif : elle change de
-signe, donc l'inégalité se renverse.
+Le même produit change de signe :
+\[
+ac - bc = (b - a)(-c) \ge 0 \quad\text{car } b - a \ge 0 \text{ et } -c > 0 ,
+\]
+d'où $bc \le ac$ : l'inégalité se renverse.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L116}{CalculsEtCalculLitteral.lean\#L116}
 
