@@ -10,5 +10,6 @@ Index dérivé de [college.md](../../college.md) · retour à l'[index du cours]
 | 4. Organisation et gestion de données et probabilités | [`04-organisation-et-gestion-de-donnees-et/`](04-organisation-et-gestion-de-donnees-et/README.md) | 47 |
 | 5. Nombres et calculs | [`05-nombres-et-calculs/`](05-nombres-et-calculs/README.md) | 98 |
 | 6. Proportionnalité, fonctions | [`06-proportionnalite-fonctions/`](06-proportionnalite-fonctions/README.md) | 44 |
+| 7. Énoncés conservés | [`07-enonces-conserves/`](07-enonces-conserves/README.md) | 133 |
 
-**368 énoncés** au total.
+**501 énoncés** au total.

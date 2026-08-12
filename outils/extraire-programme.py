@@ -206,6 +206,18 @@ def statut(enonce):
 def echapper(texte):
     return texte.replace("|", "\\|")
 
+def conserves(quoi):
+    """Chapitre des énoncés rédigés à la main, conservés à la suite du programme."""
+    chemin = os.path.join(ROOT, "outils", f"enonces-conserves-{quoi}.md")
+    if not os.path.exists(chemin):
+        return []
+    lignes = open(chemin, encoding="utf-8").read().split("\n")
+    numero = 0
+    for l in lignes:
+        if l.startswith("## "):
+            numero += 1
+    return lignes
+
 def ecrire_college():
     plan = college()
     ordre = []
@@ -248,6 +260,7 @@ def ecrire_college():
             out.append("")
         out.append("---")
         out.append("")
+    out += conserves("college")
     open(os.path.join(ROOT, "college.md"), "w", encoding="utf-8").write("\n".join(out))
     return sum(len(o) for _, _, _, o in plan)
 
@@ -291,6 +304,7 @@ def ecrire_lycee():
                 total += 1
             out.append("")
         out += ["---", ""]
+    out += conserves("lycee")
     open(os.path.join(ROOT, "lycee.md"), "w", encoding="utf-8").write("\n".join(out))
     return total
 

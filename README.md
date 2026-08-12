@@ -13,8 +13,8 @@ ce dépôt cherche à mesurer, autant que les preuves elles-mêmes.
 
 | Fichier | Contenu | Items |
 |---|---|---|
-| [college.md](college.md) | Objectifs d'apprentissage, 6e (cycle 3) et 5e-3e (cycle 4) | 309 |
-| [lycee.md](lycee.md) | Contenus, seconde et spécialité de première et terminale | 204 |
+| [college.md](college.md) | Objectifs d'apprentissage, 6e (cycle 3) et 5e-3e (cycle 4), puis 133 énoncés conservés | 442 |
+| [lycee.md](lycee.md) | Contenus, seconde et spécialité de première et terminale, puis 137 énoncés conservés | 341 |
 
 Les deux listes sont **extraites des programmes officiels**, dans leur formulation
 d'origine, par `python3 outils/extraire-programme.py` : cycle 3 au BO du 17 avril 2025,
@@ -23,6 +23,12 @@ application par paliers — 5e en 2026, 4e en 2027, 3e en 2028, terminale en 202
 
 Au lycée, 31 items portent la mention **démonstration exigible** : le programme demande
 explicitement qu'ils soient démontrés. Ce sont les premiers à formaliser.
+
+Chaque liste se termine par un chapitre **Énoncés conservés** : les propositions rédigées
+avant la reprise des programmes, gardées parce qu'un objectif officiel n'est pas toujours
+une proposition démontrable. Celles qu'aucun item de 2026 ne reprend portent la mention
+*hors programme 2026* — 92 sur 133 au collège, 89 sur 137 au lycée. Ce sont ces énoncés
+que porte le travail Lean déjà fait.
 
 ## Statuts
 

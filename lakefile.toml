@@ -2,7 +2,7 @@
 # ajouté un fichier .lean dans cours/. Les blocs [[require]] sont conservés.
 
 name = "learn-lean"
-defaultTargets = ["CollegeNombresCalculEtResolutionDeProblemes", "CollegeGrandeursEtMesures", "CollegeEspaceEtGeometrie", "CollegeOrganisationEtGestionDeDonneesEt", "CollegeNombresEtCalculs", "CollegeProportionnaliteFonctions", "LyceeSecondeGeneraleEtTechnologique", "LyceePremiereEnseignementDeSpecialite", "LyceeTerminaleEnseignementDeSpecialite"]
+defaultTargets = ["CollegeNombresCalculEtResolutionDeProblemes", "CollegeGrandeursEtMesures", "CollegeEspaceEtGeometrie", "CollegeOrganisationEtGestionDeDonneesEt", "CollegeNombresEtCalculs", "CollegeProportionnaliteFonctions", "CollegeEnoncesConserves", "LyceeSecondeGeneraleEtTechnologique", "LyceePremiereEnseignementDeSpecialite", "LyceeTerminaleEnseignementDeSpecialite", "LyceeEnoncesConserves"]
 
 [[lean_lib]]
 name = "CollegeNombresCalculEtResolutionDeProblemes"
@@ -35,6 +35,11 @@ srcDir = "cours/01-college/06-proportionnalite-fonctions"
 globs = []
 
 [[lean_lib]]
+name = "CollegeEnoncesConserves"
+srcDir = "cours/01-college/07-enonces-conserves"
+globs = []
+
+[[lean_lib]]
 name = "LyceeSecondeGeneraleEtTechnologique"
 srcDir = "cours/02-lycee/01-seconde-generale-et-technologique"
 globs = []
@@ -47,4 +52,9 @@ globs = []
 [[lean_lib]]
 name = "LyceeTerminaleEnseignementDeSpecialite"
 srcDir = "cours/02-lycee/03-terminale-enseignement-de-specialite"
+globs = []
+
+[[lean_lib]]
+name = "LyceeEnoncesConserves"
+srcDir = "cours/02-lycee/04-enonces-conserves"
 globs = []
