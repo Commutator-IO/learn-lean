@@ -137,8 +137,14 @@ Diviser par une fraction, c'est multiplier par son inverse.
 On écrit les deux divisions comme des produits par l'inverse, puis on réordonne les
 facteurs : $(a/b) / (c/d) = (a/b) \times (d/c)$.
 
-Sur $\mathbb{Q}$, la division par zéro vaut zéro par convention, et l'égalité reste vraie
-dans ce cas ; l'énoncé du collège suppose implicitement $c \ne 0$ et $d \ne 0$.
+L'énoncé mathématique suppose $c \ne 0$ et $d \ne 0$ : sans cela, aucun des deux membres
+n'a de sens, la division par zéro n'étant pas définie.
+
+Le théorème Lean, lui, est énoncé sans ces hypothèses, et c'est un artefact de la
+formalisation : Lean exige que toute fonction soit totale, et Mathlib pose donc
+$x/0 = 0$ pour compléter la division. Les deux membres valent alors zéro, et l'égalité
+est vraie pour de mauvaises raisons. Cette valeur de remplissage ne dit rien des
+mathématiques : elle rend seulement la fonction définie partout.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L48}{CalculsEtCalculLitteral.lean\#L48}
 
@@ -891,9 +897,13 @@ Si \texttt{a \(\mid\) b} et \texttt{a \(\mid\) c} alors \texttt{a \(\mid\) (b �
 \end{theoreme}
 
 \begin{proof}
-la stabilité par différence. Sur $\mathbb{N}$, la soustraction est tronquée : si $b < c$, la
-différence vaut $0$, que tout entier divise, et l'énoncé reste vrai. L'énoncé scolaire,
-lui, suppose implicitement $c \le b$, sans quoi la différence n'aurait pas de sens.
+Si $b = ak$ et $c = al$, alors $b - c = a(k - l)$ : un diviseur commun divise la
+différence.
+
+L'énoncé mathématique suppose $c \le b$, faute de quoi $b - c$ n'est pas un entier naturel.
+Le théorème Lean s'en passe, mais par convention : sur $\mathbb{N}$ la soustraction est
+tronquée, donc $b - c$ vaut $0$ dès que $b < c$, et tout entier divise $0$. L'égalité est
+alors vraie sans rien dire du cas visé par l'énoncé.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L174}{EntiersDivisibilite.lean\#L174}
 

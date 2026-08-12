@@ -107,6 +107,22 @@ tel, qu'une phrase fausse mais accessible.
   engendrés par le script : ne pas les recopier dans la démonstration.
 - Guillemets français `\og{}` `\fg{}`, tiret cadratin `\textemdash{}`.
 
+## Les conventions de Lean ne sont pas des mathématiques
+
+Lean exige que toute fonction soit totale, alors Mathlib complète celles qui ne le sont
+pas : `x / 0 = 0`, `a - b = 0` quand `b > a` sur ℕ, `Real.sqrt` d'un négatif vaut `0`.
+Ces valeurs de remplissage rendent des théorèmes vrais dans des cas où l'énoncé
+mathématique n'a aucun sens.
+
+**Ne jamais les présenter comme une vérité mathématique.** « Sur ℚ, la division par zéro
+vaut zéro » est faux : la division par zéro n'est pas définie. Ce qui est vrai, c'est que
+*Lean* la définit ainsi pour rendre la fonction totale.
+
+La transcription doit donc, chaque fois qu'une valeur de remplissage intervient : énoncer
+les hypothèses que réclame l'énoncé mathématique (`c ≠ 0`, `b ≤ a`, `0 ≤ a`), puis dire
+que le théorème formel s'en passe grâce à une convention de la bibliothèque, et que
+l'égalité y est alors vraie pour de mauvaises raisons.
+
 ## Ce qui n'est pas démontré
 
 Quand le fichier Lean laisse un énoncé de côté — `sorry`, unicité admise, hypothèse
