@@ -168,10 +168,8 @@ ENTETE = r"""%% Fichier engendré par outils/generer-tex.py à partir de %(sourc
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
-%% Nom Lean de l'énoncé et lien vers sa déclaration dans le dépôt, sous l'énoncé :
-%% les identifiants sont trop longs pour tenir sur la ligne de titre d'un théorème.
-\newcommand{\nom}[3]{\par\smallskip{\footnotesize\raggedright
-  Lean~: \texttt{#1} \textemdash{} \href{#2}{#3}\par}}
+%% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
 \title{%(titre)s}
 \date{}
@@ -211,16 +209,18 @@ def convertir(chemin_lean):
         else:
             mot, nom, doc, debut, fin = contenu
             env = environnement(mot, nom)
-            lignes = f"L{debut}" + (f"-L{fin}" if fin > debut else "")
+            lignes = f"L{debut}"
             # « # » est le caractère de paramètre de TeX : il doit être échappé
             # jusque dans une URL passée à \href.
             lien = f"{base}/{relatif}#{lignes}".replace("#", r"\#") if base else ""
-            reperage = code_latex(f"{source}, ligne {debut}")
+            reperage = code_latex(f"{source}#{lignes}")
             out += [r"\begin{" + env + "}",
                     prose_latex(doc),
-                    r"\nom{" + code_latex(nom) + "}{" + lien + "}{" + reperage + "}",
-                    r"\end{" + env + "}",
-                    ""]
+                    r"\end{" + env + "}"]
+            if env != "definition":
+                # la démonstration transcrite vient s'insérer ici, avant le renvoi
+                out.append(r"% démonstration à transcrire (skill transcrire-preuve-lean)")
+            out += [r"\source{" + lien + "}{" + reperage + "}", ""]
 
     out += [r"\end{document}", ""]
     chemin_tex = os.path.splitext(chemin_lean)[0] + ".tex"

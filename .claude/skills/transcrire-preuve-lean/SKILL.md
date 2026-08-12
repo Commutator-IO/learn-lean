@@ -43,7 +43,7 @@ texte français : nommer ce qu'elle fait.
 | `omega` | « relève de l'arithmétique linéaire » — préciser l'égalité ou l'inégalité en jeu |
 | `decide` | « vérifié par calcul », en disant ce qui est évalué |
 | `simp`, `rfl`, `Iff.rfl` | « par définition », « les deux membres sont le même énoncé » |
-| `exact ⟨w, _⟩` | « le témoin est `w` » |
+| `exact ⟨w, _⟩` | « il suffit de prendre `w` », « on prend `w` », « avec `w` » |
 | `obtain ⟨k, hk⟩ := h` | « on écrit `h` sous la forme … » |
 | `cases`, `rcases`, `by_cases` | « distinguons deux cas », « selon que … » |
 | `induction … using Nat.strongRecOn` | « par récurrence forte sur `n` » |
@@ -51,6 +51,11 @@ texte français : nommer ce qu'elle fait.
 | `calc` | une chaîne d'égalités affichée, avec la justification de chaque pas |
 | `rw [h]`, `▸` | « en remplaçant … par … », le plus souvent silencieux |
 | un lemme de la bibliothèque | l'énoncer en français, et donner son nom entre parenthèses |
+
+Exhiber un objet ne se dit pas « le témoin est `w` », calque de la logique formelle : en
+français on écrit « il suffit de prendre `w` », « on prend `w` », « `w` convient ». Même
+principe pour le reste du vocabulaire : préférer la tournure qu'emploierait un manuel à
+celle qu'emploierait un assistant de preuve.
 
 Une tactique d'automatisation ne dispense pas d'expliquer : `omega` qui clôt
 `n = 2 * (n / 2)` sous l'hypothèse `n % 2 = 0` se transcrit par la raison mathématique,
