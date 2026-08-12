@@ -1,0 +1,304 @@
+% Fichier engendré par outils/generer-tex.py à partir de 01-nombres-calcul-algebrique.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Nombres, calcul algébrique}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{NombresCalculAlgebrique}
+
+\noindent
+Lycée \textemdash{} section \og{} Nombres, calcul algébrique \fg{}.
+Énoncés et démonstrations en français : voir NombresCalculAlgebrique.tex.
+
+\subsection{Inclusions des ensembles de nombres}
+
+\begin{theoreme}
+Les entiers naturels sont des entiers relatifs, et l'inclusion est stricte : $-1$ n'est
+pas un entier naturel.
+\end{theoreme}
+
+\begin{proof}
+Tout entier naturel se lit comme entier relatif. Réciproquement, $-1$ n'est l'image
+d'aucun entier naturel, les entiers naturels étant positifs.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L15}{NombresCalculAlgebrique.lean\#L15}
+
+\begin{theoreme}
+Les rationnels ne sont pas tous décimaux : $1/3$ n'a pas d'écriture décimale finie.
+\end{theoreme}
+
+\begin{proof}
+Si $1/3 = a/10^n$, alors $10^n = 3a$, donc $3$ divise $10^n$. Or $3$ est premier et ne
+divise pas $10$ : c'est impossible.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L21}{NombresCalculAlgebrique.lean\#L21}
+
+\begin{theoreme}
+Les réels ne sont pas tous rationnels.
+\end{theoreme}
+
+\begin{proof}
+$\sqrt2$ en est un exemple, comme l'établit l'énoncé suivant.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L31}{NombresCalculAlgebrique.lean\#L31}
+
+\subsection{\texttt{\(\sqrt{}\)2} est irrationnel}
+
+\begin{theoreme}
+$\sqrt2$ n'est pas rationnel : aucune fraction d'entiers n'a $2$ pour carré.
+\end{theoreme}
+
+\begin{proof}
+Le résultat est classique : si $\sqrt2 = p/q$ avec la fraction irréductible, alors
+$p^2 = 2q^2$, donc $p$ est pair, donc $q$ l'est aussi — contredisant l'irréductibilité.
+C'est la démonstration que la bibliothèque formalise.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L36}{NombresCalculAlgebrique.lean\#L36}
+
+\subsection{Valeur absolue et inégalité triangulaire}
+
+\begin{theoreme}
+La valeur absolue mesure une distance :
+\[ |x - a| \le r \iff a - r \le x \le a + r . \]
+\end{theoreme}
+
+\begin{proof}
+L'inégalité $|y| \le r$ équivaut à l'encadrement $-r \le y \le r$ ; en l'appliquant à
+$y = x - a$ et en ajoutant $a$ aux trois membres, on obtient l'encadrement annoncé.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L42}{NombresCalculAlgebrique.lean\#L42}
+
+\begin{theoreme}
+Inégalité triangulaire : $|x + y| \le |x| + |y|$.
+\end{theoreme}
+
+\begin{proof}
+Chacun des deux nombres est majoré par sa valeur absolue, et l'inégalité vaut aussi
+pour les opposés ; en combinant les deux, la somme est encadrée par
+$\pm(|x| + |y|)$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L47}{NombresCalculAlgebrique.lean\#L47}
+
+\subsection{Identités remarquables}
+
+\begin{theoreme}
+Identités remarquables :
+\[ (a+b)^2 = a^2 + 2ab + b^2, \quad (a-b)^2 = a^2 - 2ab + b^2, \quad
+   (a+b)(a-b) = a^2 - b^2 . \]
+\end{theoreme}
+
+\begin{proof}
+Les trois se développent directement :
+\[ (a+b)(a+b) = a^2 + ab + ba + b^2 = a^2 + 2ab + b^2 , \]
+et de même pour les deux autres, les termes croisés s'annulant dans la troisième.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L52}{NombresCalculAlgebrique.lean\#L52}
+
+\subsection{Produit nul et règle des signes}
+
+\begin{theoreme}
+Un produit est nul si et seulement si l'un des facteurs est nul.
+\end{theoreme}
+
+\begin{proof}
+Si l'un des facteurs est nul, le produit l'est. Réciproquement, si $a \ne 0$, diviser
+$ab = 0$ par $a$ donne $b = 0$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L61}{NombresCalculAlgebrique.lean\#L61}
+
+\begin{theoreme}
+Un quotient de dénominateur positif est positif si et seulement si son numérateur
+l'est.
+\end{theoreme}
+
+\begin{proof}
+Multiplier par le dénominateur, strictement positif, conserve le sens de
+l'inégalité.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L64}{NombresCalculAlgebrique.lean\#L64}
+
+\subsection{Signe de \texttt{ax + b}}
+
+\begin{theoreme}
+Signe d'une expression du premier degré : pour $a > 0$,
+\[ ax + b > 0 \iff x > -\frac{b}{a}, \qquad ax + b < 0 \iff x < -\frac{b}{a} . \]
+\end{theoreme}
+
+\begin{proof}
+On isole $x$ en divisant par $a$, strictement positif, ce qui ne change pas le sens des
+inégalités. La racine $-b/a$ sépare donc la droite en deux demi-droites de signes
+contraires.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L70}{NombresCalculAlgebrique.lean\#L70}
+
+\subsection{Puissances et racines}
+
+\begin{theoreme}
+La racine d'un produit de nombres positifs est le produit des racines :
+$\sqrt{ab} = \sqrt a \sqrt b$.
+\end{theoreme}
+
+\begin{proof}
+Les deux membres sont positifs et ont le même carré, à savoir $ab$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L81}{NombresCalculAlgebrique.lean\#L81}
+
+\begin{theoreme}
+Puissance d'une puissance : $(a^n)^m = a^{nm}$.
+\end{theoreme}
+
+\begin{proof}
+$(a^n)^m$ est le produit de $m$ facteurs valant chacun $a^n$, soit $nm$ facteurs
+$a$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L85}{NombresCalculAlgebrique.lean\#L85}
+
+\subsection{Comparaison de \texttt{x}, \texttt{x²} et \texttt{\(\sqrt{}\)x}}
+
+\begin{theoreme}
+Sur $[0 ; 1]$, élever au carré diminue et prendre la racine augmente :
+$x^2 \le x \le \sqrt x$.
+\end{theoreme}
+
+\begin{proof}
+Pour la première inégalité, $x^2 \le x$ s'écrit $x(x - 1) \le 0$, vrai car $x \ge 0$ et
+$x \le 1$.
+
+Pour la seconde, posons $s = \sqrt x$, de sorte que $x = s^2$ et $0 \le s \le 1$. Alors
+$x = s^2 \le s = \sqrt x$, par la première inégalité appliquée à $s$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L91}{NombresCalculAlgebrique.lean\#L91}
+
+\begin{theoreme}
+Au-delà de $1$, c'est l'inverse : $\sqrt x \le x \le x^2$.
+\end{theoreme}
+
+\begin{proof}
+Même argument avec les inégalités renversées : $x(x-1) \ge 0$ donne $x \le x^2$, et
+$s = \sqrt x \ge 1$ donne $s \le s^2 = x$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L103}{NombresCalculAlgebrique.lean\#L103}
+
+\subsection{Sommes}
+
+\begin{theoreme}
+Somme des $n$ premiers entiers :
+\[ 2\,(0 + 1 + \cdots + n) = n(n+1) . \]
+\end{theoreme}
+
+\begin{proof}
+C'est le calcul de Gauss : on écrit la somme deux fois, une fois à l'endroit et une fois
+à l'envers, et on ajoute terme à terme. Chacune des $n+1$ colonnes vaut $n$, d'où le
+double de la somme.
+
+L'énoncé est écrit sans division pour rester dans les entiers : $n(n+1)$ est toujours
+pair, mais l'écriture $n(n+1)/2$ obligerait à parler de division euclidienne.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L116}{NombresCalculAlgebrique.lean\#L116}
+
+\begin{theoreme}
+Somme géométrique : pour $q \ne 1$,
+\[ 1 + q + \cdots + q^n = \frac{1 - q^{n+1}}{1 - q} . \]
+\end{theoreme}
+
+\begin{proof}
+En multipliant la somme $S$ par $1 - q$, tous les termes se télescopent sauf le premier
+et le dernier :
+\[ (1-q)S = (1 + q + \cdots + q^n) - (q + \cdots + q^{n+1}) = 1 - q^{n+1} , \]
+puis on divise par $1 - q$, non nul puisque $q \ne 1$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L122}{NombresCalculAlgebrique.lean\#L122}
+
+\subsection{Coefficients binomiaux et binôme de Newton}
+
+\begin{theoreme}
+Relation de Pascal : $\binom{n}{k} + \binom{n}{k+1} = \binom{n+1}{k+1}$.
+\end{theoreme}
+
+\begin{proof}
+C'est la règle de construction du triangle de Pascal : pour choisir $k+1$ éléments parmi
+$n+1$, ou bien on prend le dernier — restent $k$ éléments à choisir parmi $n$ — ou bien on
+ne le prend pas, et il faut en choisir $k+1$ parmi $n$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L132}{NombresCalculAlgebrique.lean\#L132}
+
+\begin{theoreme}
+Formule du binôme de Newton :
+\[ (a+b)^n = \sum_{k=0}^{n} \binom{n}{k} a^k b^{n-k} . \]
+\end{theoreme}
+
+\begin{proof}
+En développant le produit des $n$ facteurs $(a+b)$, chaque terme est obtenu en
+choisissant $a$ dans $k$ facteurs et $b$ dans les $n-k$ autres ; il y a $\binom{n}{k}$
+façons de faire ce choix.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L137}{NombresCalculAlgebrique.lean\#L137}
+
+\subsection{Raisonnement par récurrence}
+
+\begin{theoreme}
+Principe de récurrence : une propriété vraie au rang zéro et héréditaire est vraie à
+tout rang.
+\end{theoreme}
+
+\begin{proof}
+C'est le principe même de construction des entiers naturels : tout entier s'obtient à
+partir de zéro par des passages au successeur, et l'hypothèse d'hérédité permet de suivre
+cette construction. En Lean, la démonstration est le récurseur des entiers, c'est-à-dire
+la définition du type.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L146}{NombresCalculAlgebrique.lean\#L146}
+
+\subsection{Inégalité de Bernoulli}
+
+\begin{theoreme}
+Inégalité de Bernoulli : $(1 + a)^n \ge 1 + na$ pour $a \ge -1$.
+\end{theoreme}
+
+\begin{proof}
+Par récurrence sur $n$. Au rang $0$, les deux membres valent $1$.
+
+Si l'inégalité vaut au rang $n$, on multiplie par $1 + a \ge 0$ :
+\[ (1+a)^{n+1} \ge (1 + na)(1 + a) = 1 + (n+1)a + na^2 \ge 1 + (n+1)a , \]
+le terme $na^2$ étant positif. C'est l'exemple canonique de démonstration par récurrence
+du programme, et il sert à établir que $q^n$ tend vers l'infini pour $q > 1$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L153}{NombresCalculAlgebrique.lean\#L153}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

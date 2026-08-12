@@ -47,7 +47,7 @@ globs = ["AlgorithmiqueEtProgrammation"]
 [[lean_lib]]
 name = "LyceeNombresCalculAlgebrique"
 srcDir = "cours/02-lycee/01-nombres-calcul-algebrique"
-globs = []
+globs = ["NombresCalculAlgebrique"]
 
 [[lean_lib]]
 name = "LyceeFonctionsSecondDegre"

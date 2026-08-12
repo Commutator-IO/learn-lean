@@ -32,22 +32,22 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Inclusions `ℕ ⊂ ℤ ⊂ 𝔻 ⊂ ℚ ⊂ ℝ`, strictes | 2de | | ☐ |
-| `√2` est irrationnel | 2de | | ☐ |
+| Inclusions `ℕ ⊂ ℤ ⊂ 𝔻 ⊂ ℚ ⊂ ℝ`, strictes | 2de | | ☑ |
+| `√2` est irrationnel | 2de | | ☑ |
 | Un rationnel a un développement décimal périodique, et réciproquement | 2de | oui | ☐ |
-| Valeur absolue : `\|x − a\| ≤ r ⟺ x ∈ [a − r, a + r]` | 2de | | ☐ |
-| Inégalité triangulaire : `\|x + y\| ≤ \|x\| + \|y\|` | 2de | | ☐ |
-| Identités remarquables `(a ± b)²`, `a² − b²` | 2de | | ☐ |
-| Un produit est nul ⟺ l'un des facteurs est nul ; règle des signes d'un quotient | 2de | | ☐ |
-| Signe de `ax + b` selon le signe de `a` | 2de | | ☐ |
-| Puissances et racines : `√(ab) = √a √b`, `(aⁿ)ᵐ = aⁿᵐ` | 2de | | ☐ |
-| Comparaison de `x`, `x²`, `√x` selon que `x ∈ [0,1]` ou `x ≥ 1` | 2de | | ☐ |
-| Somme des termes d'une suite arithmétique : `1 + 2 + ⋯ + n = n(n+1)/2` | 1S | | ☐ |
-| Somme géométrique : `1 + q + ⋯ + qⁿ = (1 − qⁿ⁺¹)/(1 − q)` pour `q ≠ 1` | 1S | | ☐ |
-| Coefficients binomiaux ; relation de Pascal `C(n,k) + C(n,k+1) = C(n+1,k+1)` | 1S | | ☐ |
-| Formule du binôme de Newton | 1S / TS | | ☐ |
-| Raisonnement par récurrence : principe et mise en œuvre | TS | | ☐ |
-| Inégalité de Bernoulli : `(1 + a)ⁿ ≥ 1 + na` pour `a ≥ −1` | TS | | ☐ |
+| Valeur absolue : `\|x − a\| ≤ r ⟺ x ∈ [a − r, a + r]` | 2de | | ☑ |
+| Inégalité triangulaire : `\|x + y\| ≤ \|x\| + \|y\|` | 2de | | ☑ |
+| Identités remarquables `(a ± b)²`, `a² − b²` | 2de | | ☑ |
+| Un produit est nul ⟺ l'un des facteurs est nul ; règle des signes d'un quotient | 2de | | ☑ |
+| Signe de `ax + b` selon le signe de `a` | 2de | | ☑ |
+| Puissances et racines : `√(ab) = √a √b`, `(aⁿ)ᵐ = aⁿᵐ` | 2de | | ☑ |
+| Comparaison de `x`, `x²`, `√x` selon que `x ∈ [0,1]` ou `x ≥ 1` | 2de | | ☑ |
+| Somme des termes d'une suite arithmétique : `1 + 2 + ⋯ + n = n(n+1)/2` | 1S | | ☑ |
+| Somme géométrique : `1 + q + ⋯ + qⁿ = (1 − qⁿ⁺¹)/(1 − q)` pour `q ≠ 1` | 1S | | ☑ |
+| Coefficients binomiaux ; relation de Pascal `C(n,k) + C(n,k+1) = C(n+1,k+1)` | 1S | | ☑ |
+| Formule du binôme de Newton | 1S / TS | | ☑ |
+| Raisonnement par récurrence : principe et mise en œuvre | TS | | ☑ |
+| Inégalité de Bernoulli : `(1 + a)ⁿ ≥ 1 + na` pour `a ≥ −1` | TS | | ☑ |
 
 ---
 
