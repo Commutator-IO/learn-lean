@@ -72,6 +72,16 @@ Après chaque ajout ou suppression de fichier `.lean` :
 python3 outils/generer-lakefile.py && lake build
 ```
 
+Pour ne reconstruire qu'un chapitre, ce qui évite de parcourir tout le graphe de
+dépendances, lui passer le nom de sa bibliothèque — celui qu'affiche
+`generer-lakefile.py`, par exemple `CollegeGrandeursEtMesures` :
+
+```bash
+lake build --wfail CollegeGrandeursEtMesures
+```
+
+Le `--wfail` est celui de la CI : un avertissement y fait échouer la construction.
+
 ## Lire les preuves hors de Lean
 
 Chaque chapitre a un document `.tex` unique, engendré à partir de ses fichiers Lean :

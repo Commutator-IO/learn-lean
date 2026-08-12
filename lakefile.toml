@@ -27,12 +27,12 @@ globs = ["TransformationsDuPlan"]
 [[lean_lib]]
 name = "CollegeGrandeursEtMesures"
 srcDir = "cours/01-college/04-grandeurs-et-mesures"
-globs = []
+globs = ["GrandeursEtMesures"]
 
 [[lean_lib]]
 name = "CollegeProportionnaliteEtFonctions"
 srcDir = "cours/01-college/05-proportionnalite-et-fonctions"
-globs = []
+globs = ["ProportionnaliteEtFonctions"]
 
 [[lean_lib]]
 name = "CollegeStatistiquesEtProbabilites"

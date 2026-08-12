@@ -1,0 +1,285 @@
+% Fichier engendré par outils/generer-tex.py à partir de 04-grandeurs-et-mesures.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Grandeurs et mesures}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{GrandeursEtMesures}
+
+\noindent
+Collège \textemdash{} section \og{} Grandeurs et mesures \fg{}.
+Les formules d'aire et de volume sont ici des définitions, comme au collège où elles sont
+données : les démontrer demanderait une théorie de la mesure. Ce qui se démontre, ce sont
+les relations entre elles, et leur comportement par agrandissement.
+Énoncés et démonstrations en français : voir GrandeursEtMesures.tex.
+
+\subsection{Définitions}
+
+\noindent
+Toutes les définitions du fichier sont posées ici, avant les démonstrations.
+
+\begin{theoreme}
+Le \emph{périmètre du cercle} de rayon $r$ vaut $\mathcal{P}(r) = 2\pi r$.
+\end{theoreme}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L20}{GrandeursEtMesures.lean\#L20}
+
+\begin{theoreme}
+L'\emph{aire du disque} de rayon $r$ vaut $\mathcal{A}(r) = \pi r^2$.
+\end{theoreme}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L23}{GrandeursEtMesures.lean\#L23}
+
+\begin{definition}
+L'\emph{aire d'un rectangle} de côtés $L$ et $\ell$ vaut $L\ell$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L26}{GrandeursEtMesures.lean\#L26}
+
+\begin{definition}
+Le \emph{périmètre d'un rectangle} de côtés $L$ et $\ell$ vaut $2(L + \ell)$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L29}{GrandeursEtMesures.lean\#L29}
+
+\begin{theoreme}
+L'\emph{aire d'un triangle} de base $b$ et de hauteur $h$ vaut $\dfrac{bh}{2}$.
+\end{theoreme}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L32}{GrandeursEtMesures.lean\#L32}
+
+\begin{definition}
+L'\emph{aire d'un parallélogramme} de base $b$ et de hauteur $h$ vaut $bh$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L35}{GrandeursEtMesures.lean\#L35}
+
+\begin{theoreme}
+L'\emph{aire d'un trapèze} de bases $B$ et $b$ et de hauteur $h$ vaut
+$\dfrac{(B + b)h}{2}$.
+\end{theoreme}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L38}{GrandeursEtMesures.lean\#L38}
+
+\begin{definition}
+Le \emph{volume d'un pavé droit} de dimensions $L$, $\ell$, $H$ vaut $L\ell H$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L41}{GrandeursEtMesures.lean\#L41}
+
+\begin{definition}
+Le \emph{volume d'un prisme} ou d'un cylindre est le produit de l'aire de sa base
+par sa hauteur.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L44}{GrandeursEtMesures.lean\#L44}
+
+\begin{theoreme}
+Le \emph{volume d'une pyramide} ou d'un cône est le tiers de celui du prisme de
+mêmes base et hauteur.
+\end{theoreme}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L47}{GrandeursEtMesures.lean\#L47}
+
+\begin{theoreme}
+Le \emph{volume de la boule} de rayon $r$ vaut $\dfrac{4}{3}\pi r^3$.
+\end{theoreme}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L50}{GrandeursEtMesures.lean\#L50}
+
+\subsection{Périmètre du cercle et aire du disque}
+
+\begin{theoreme}
+Le périmètre du cercle est proportionnel au rayon, de coefficient $2\pi$ :
+$\mathcal{P}(r) = 2\pi r$.
+\end{theoreme}
+
+\begin{proof}
+C'est la définition même du périmètre, écrite comme une proportionnalité : le rapport
+$\mathcal{P}(r)/r$ vaut $2\pi$ quel que soit $r$ non nul.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L55}{GrandeursEtMesures.lean\#L55}
+
+\begin{theoreme}
+L'aire du disque n'est pas proportionnelle au rayon mais à son carré : doubler le
+rayon quadruple l'aire,
+\[ \mathcal{A}(2r) = 4\,\mathcal{A}(r) . \]
+\end{theoreme}
+
+\begin{proof}
+On remplace $r$ par $2r$ dans la formule :
+\[ \mathcal{A}(2r) = \pi (2r)^2 = 4\pi r^2 = 4\,\mathcal{A}(r) . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L59}{GrandeursEtMesures.lean\#L59}
+
+\subsection{Aires du rectangle, du triangle, du parallélogramme et du trapèze}
+
+\begin{theoreme}
+Le triangle a pour aire la moitié de celle du parallélogramme de mêmes base et
+hauteur : $\dfrac{bh}{2} = \dfrac{1}{2}\,(bh)$.
+\end{theoreme}
+
+\begin{proof}
+Les deux formules coïncident après division par deux ; géométriquement, deux copies du
+triangle assemblées forment le parallélogramme.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L67}{GrandeursEtMesures.lean\#L67}
+
+\begin{theoreme}
+Un parallélogramme et un rectangle de mêmes base et hauteur ont la même aire, $bh$.
+\end{theoreme}
+
+\begin{proof}
+Les deux formules sont la même. C'est le découpage-recollement classique : on détache le
+triangle qui dépasse d'un côté pour le rapporter de l'autre.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L72}{GrandeursEtMesures.lean\#L72}
+
+\begin{theoreme}
+Un trapèze dont les deux bases sont égales est un parallélogramme :
+$\dfrac{(b + b)h}{2} = bh$.
+\end{theoreme}
+
+\begin{proof}
+On calcule :
+\[ \frac{(b+b)h}{2} = \frac{2bh}{2} = bh . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L77}{GrandeursEtMesures.lean\#L77}
+
+\begin{theoreme}
+Le trapèze a l'aire du rectangle construit sur la moyenne de ses bases :
+\[ \frac{(B + b)h}{2} = \frac{B + b}{2} \times h . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux écritures ne diffèrent que par le placement de la division par deux.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L82}{GrandeursEtMesures.lean\#L82}
+
+\subsection{Deux figures de même aire peuvent avoir des périmètres différents}
+
+\begin{theoreme}
+Deux rectangles de même aire peuvent avoir des périmètres différents : $1 \times 12$
+et $3 \times 4$ ont pour aire $12$, et pour périmètres $26$ et $14$.
+\end{theoreme}
+
+\begin{proof}
+On calcule les quatre nombres : $1 \times 12 = 3 \times 4 = 12$, tandis que
+$2(1 + 12) = 26$ et $2(3 + 4) = 14$. L'aire ne détermine donc pas le périmètre.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L90}{GrandeursEtMesures.lean\#L90}
+
+\begin{theoreme}
+Réciproquement, deux rectangles de même périmètre peuvent avoir des aires
+différentes : $1 \times 5$ et $3 \times 3$ ont pour périmètre $12$, et pour aires $5$ et $9$.
+\end{theoreme}
+
+\begin{proof}
+Mêmes calculs : $2(1+5) = 2(3+3) = 12$, alors que $1 \times 5 = 5$ et
+$3 \times 3 = 9$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L97}{GrandeursEtMesures.lean\#L97}
+
+\subsection{Volumes}
+
+\begin{theoreme}
+La pyramide a pour volume le tiers de celui du prisme de mêmes base et hauteur.
+\end{theoreme}
+
+\begin{proof}
+Les deux formules ne diffèrent que par le facteur $\tfrac13$, qui est celui de la
+définition. Le collège l'admet ; le démontrer demande un calcul intégral.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L105}{GrandeursEtMesures.lean\#L105}
+
+\begin{theoreme}
+Le pavé droit est le prisme de base rectangulaire : $L\ell H$ est bien l'aire de
+base $L\ell$ multipliée par la hauteur $H$.
+\end{theoreme}
+
+\begin{proof}
+Les deux expressions sont identiques après regroupement des facteurs.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L110}{GrandeursEtMesures.lean\#L110}
+
+\subsection{Agrandissement-réduction de rapport \texttt{k} : longueurs \texttt{\(\times\) k}, aires \texttt{\(\times\) k²}, volumes \texttt{\(\times\) k³}}
+
+\begin{theoreme}
+Un agrandissement de rapport $k$ multiplie les longueurs par $k$ :
+\[ \mathcal{P}(kL, k\ell) = k\,\mathcal{P}(L, \ell) . \]
+\end{theoreme}
+
+\begin{proof}
+On factorise :
+\[ 2(kL + k\ell) = k \times 2(L + \ell) . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L116}{GrandeursEtMesures.lean\#L116}
+
+\begin{theoreme}
+Il multiplie les aires par $k^2$ :
+\[ \mathcal{A}(kL, k\ell) = k^2\,\mathcal{A}(L, \ell) . \]
+\end{theoreme}
+
+\begin{proof}
+Chacune des deux dimensions est multipliée par $k$ :
+\[ (kL)(k\ell) = k^2 L\ell . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L122}{GrandeursEtMesures.lean\#L122}
+
+\begin{theoreme}
+Même chose pour le disque, où le rapport porte sur le rayon :
+$\mathcal{A}(kr) = k^2 \mathcal{A}(r)$.
+\end{theoreme}
+
+\begin{proof}
+$\pi (kr)^2 = k^2 \pi r^2$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L128}{GrandeursEtMesures.lean\#L128}
+
+\begin{theoreme}
+Il multiplie les volumes par $k^3$ :
+\[ \mathcal{V}(kL, k\ell, kH) = k^3\,\mathcal{V}(L, \ell, H) . \]
+\end{theoreme}
+
+\begin{proof}
+Les trois dimensions sont multipliées par $k$ :
+\[ (kL)(k\ell)(kH) = k^3 L\ell H . \]
+C'est la raison pour laquelle un modèle réduit au dixième pèse mille fois moins.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L133}{GrandeursEtMesures.lean\#L133}
+
+\begin{theoreme}
+Même chose pour la boule : $\mathcal{V}(kr) = k^3 \mathcal{V}(r)$.
+\end{theoreme}
+
+\begin{proof}
+$\tfrac43 \pi (kr)^3 = k^3 \times \tfrac43 \pi r^3$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L139}{GrandeursEtMesures.lean\#L139}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

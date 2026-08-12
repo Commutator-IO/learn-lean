@@ -132,11 +132,11 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Périmètre du cercle `2πr` ; aire du disque `πr²` | 6e | ☐ |
-| Aires : rectangle, triangle (`base × hauteur / 2`), parallélogramme, trapèze | 6e / 5e | ☐ |
-| Deux figures de même aire peuvent avoir des périmètres différents, et réciproquement | 6e | ☐ |
-| Volumes : pavé, prisme, cylindre (`aire de base × hauteur`), pyramide et cône (`× 1/3`), boule (`4/3 πr³`) | 5e → 3e | ☐ |
-| Agrandissement-réduction de rapport `k` : longueurs `× k`, aires `× k²`, volumes `× k³` | 3e | ☐ |
+| Périmètre du cercle `2πr` ; aire du disque `πr²` | 6e | ◐ |
+| Aires : rectangle, triangle (`base × hauteur / 2`), parallélogramme, trapèze | 6e / 5e | ◐ |
+| Deux figures de même aire peuvent avoir des périmètres différents, et réciproquement | 6e | ☑ |
+| Volumes : pavé, prisme, cylindre (`aire de base × hauteur`), pyramide et cône (`× 1/3`), boule (`4/3 πr³`) | 5e → 3e | ◐ |
+| Agrandissement-réduction de rapport `k` : longueurs `× k`, aires `× k²`, volumes `× k³` | 3e | ☑ |
 
 ---
 
@@ -144,15 +144,15 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Un tableau est proportionnel ⟺ les produits en croix sont égaux | 6e / 4e | ☐ |
-| Égalité des produits en croix : `a/b = c/d ⟺ ad = bc` (`b, d ≠ 0`) | 4e | ☐ |
-| Composition de deux évolutions : appliquer `p` puis `q` revient à multiplier par `(1+p)(1+q)` | 4e | ☐ |
-| Une évolution de `+p` puis `−p` ne ramène pas à la valeur initiale | 4e | ☐ |
-| Une image est unique, un antécédent ne l'est pas nécessairement | 3e | ☐ |
-| Fonction linéaire `x ↦ ax` : traduit exactement la proportionnalité ; graphe = droite par l'origine | 3e | ☐ |
-| Fonction affine `x ↦ ax + b` : graphe = droite ; `a` coefficient directeur, `b` ordonnée à l'origine | 3e | ☐ |
-| `a = (f(x₂) − f(x₁)) / (x₂ − x₁)` pour une fonction affine | 3e | ☐ |
-| Sens de variation d'une fonction affine selon le signe de `a` | 3e | ☐ |
+| Un tableau est proportionnel ⟺ les produits en croix sont égaux | 6e / 4e | ☑ |
+| Égalité des produits en croix : `a/b = c/d ⟺ ad = bc` (`b, d ≠ 0`) | 4e | ☑ |
+| Composition de deux évolutions : appliquer `p` puis `q` revient à multiplier par `(1+p)(1+q)` | 4e | ☑ |
+| Une évolution de `+p` puis `−p` ne ramène pas à la valeur initiale | 4e | ☑ |
+| Une image est unique, un antécédent ne l'est pas nécessairement | 3e | ☑ |
+| Fonction linéaire `x ↦ ax` : traduit exactement la proportionnalité ; graphe = droite par l'origine | 3e | ☑ |
+| Fonction affine `x ↦ ax + b` : graphe = droite ; `a` coefficient directeur, `b` ordonnée à l'origine | 3e | ☑ |
+| `a = (f(x₂) − f(x₁)) / (x₂ − x₁)` pour une fonction affine | 3e | ☑ |
+| Sens de variation d'une fonction affine selon le signe de `a` | 3e | ☑ |
 
 ---
 

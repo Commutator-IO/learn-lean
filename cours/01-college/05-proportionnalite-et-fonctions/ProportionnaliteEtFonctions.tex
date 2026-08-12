@@ -1,0 +1,266 @@
+% Fichier engendré par outils/generer-tex.py à partir de 05-proportionnalite-et-fonctions.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Proportionnalité et fonctions}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{ProportionnaliteEtFonctions}
+
+\noindent
+Collège \textemdash{} section \og{} Proportionnalité et fonctions \fg{}.
+Énoncés et démonstrations en français : voir ProportionnaliteEtFonctions.tex.
+
+\subsection{Définitions}
+
+\noindent
+Toutes les définitions du fichier sont posées ici, avant les démonstrations.
+
+\begin{definition}
+La \emph{fonction linéaire} de coefficient $a$ est $x \mapsto ax$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L15}{ProportionnaliteEtFonctions.lean\#L15}
+
+\begin{definition}
+La \emph{fonction affine} de coefficient directeur $a$ et d'ordonnée à l'origine $b$
+est $x \mapsto ax + b$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L18}{ProportionnaliteEtFonctions.lean\#L18}
+
+\begin{definition}
+Deux grandeurs sont \emph{proportionnelles} lorsqu'un même coefficient fait passer de
+l'une à l'autre : $f$ est proportionnelle s'il existe $a$ tel que $f(x) = ax$ pour tout
+$x$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L22}{ProportionnaliteEtFonctions.lean\#L22}
+
+\begin{definition}
+Appliquer une \emph{évolution} de taux $p$, c'est multiplier par $1 + p$ :
+$e_p(x) = x(1 + p)$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L25}{ProportionnaliteEtFonctions.lean\#L25}
+
+\subsection{Un tableau est proportionnel \(\iff\) les produits en croix sont égaux}
+
+\begin{theoreme}
+Égalité des produits en croix : pour $b \ne 0$ et $d \ne 0$,
+\[ \frac{a}{b} = \frac{c}{d} \iff ad = cb . \]
+\end{theoreme}
+
+\begin{proof}
+Multiplier les deux membres par $bd$, non nul, transforme la première égalité en la
+seconde ; diviser par $bd$ fait le chemin inverse. C'est ce qui justifie la règle du
+tableau de proportionnalité.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L31}{ProportionnaliteEtFonctions.lean\#L31}
+
+\begin{theoreme}
+Une fonction proportionnelle conserve les rapports :
+\[ f(x) \times y = f(y) \times x . \]
+\end{theoreme}
+
+\begin{proof}
+En écrivant $f(x) = ax$ et $f(y) = ay$ :
+\[ f(x) \times y = axy = f(y) \times x . \]
+C'est la lecture « en ligne » du tableau.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L36}{ProportionnaliteEtFonctions.lean\#L36}
+
+\subsection{Composition de deux évolutions}
+
+\begin{theoreme}
+Composer deux évolutions de taux $p$ puis $q$ revient à multiplier par $(1+p)(1+q)$ :
+\[ e_q\bigl(e_p(x)\bigr) = x\,(1+p)(1+q) . \]
+\end{theoreme}
+
+\begin{proof}
+On applique les deux définitions l'une après l'autre :
+\[ e_q\bigl(e_p(x)\bigr) = \bigl(x(1+p)\bigr)(1+q) = x\,(1+p)(1+q) . \]
+Les taux ne s'ajoutent donc pas : ils se composent multiplicativement.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L46}{ProportionnaliteEtFonctions.lean\#L46}
+
+\begin{theoreme}
+Une hausse puis une baisse du même taux ne ramènent pas à la valeur initiale :
+\[ e_{-p}\bigl(e_p(x)\bigr) = x - xp^2 . \]
+\end{theoreme}
+
+\begin{proof}
+On développe :
+\[ x(1+p)(1-p) = x(1 - p^2) = x - xp^2 . \]
+Il manque toujours $xp^2$, quel que soit le taux $p$ non nul.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L53}{ProportionnaliteEtFonctions.lean\#L53}
+
+\begin{theoreme}
+Sur un exemple : $+20\,\%$ puis $-20\,\%$ appliqués à $100$ laissent $96$.
+\end{theoreme}
+
+\begin{proof}
+$100 \times 1{,}2 = 120$, puis $120 \times 0{,}8 = 96$. On a bien perdu
+$100 \times 0{,}2^2 = 4$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L60}{ProportionnaliteEtFonctions.lean\#L60}
+
+\subsection{Une image est unique, un antécédent ne l'est pas nécessairement}
+
+\begin{theoreme}
+Une fonction associe à chaque nombre une seule image : si $f(x) = y_1$ et $f(x) = y_2$,
+alors $y_1 = y_2$.
+\end{theoreme}
+
+\begin{proof}
+Les deux égalités portent sur le même objet $f(x)$ : elles donnent $y_1 = f(x) = y_2$.
+C'est la définition d'une fonction, non un théorème sur elle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L69}{ProportionnaliteEtFonctions.lean\#L69}
+
+\begin{theoreme}
+Un nombre peut en revanche avoir plusieurs antécédents : par la fonction carré, $4$ a
+pour antécédents $2$ et $-2$.
+\end{theoreme}
+
+\begin{proof}
+$2^2 = 4$ et $(-2)^2 = 4$, et $2 \ne -2$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L74}{ProportionnaliteEtFonctions.lean\#L74}
+
+\subsection{Fonction linéaire : traduit exactement la proportionnalité}
+
+\begin{theoreme}
+Les fonctions linéaires sont exactement celles qui traduisent une situation de
+proportionnalité : $f$ est proportionnelle si et seulement si $f = (x \mapsto ax)$ pour un
+certain $a$.
+\end{theoreme}
+
+\begin{proof}
+Les deux énoncés disent la même chose, l'un quantifiant sur les valeurs, l'autre sur la
+fonction : « $f(x) = ax$ pour tout $x$ » et « $f$ est la fonction $x \mapsto ax$ » se
+déduisent l'un de l'autre.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L82}{ProportionnaliteEtFonctions.lean\#L82}
+
+\begin{theoreme}
+Le graphe d'une fonction linéaire passe par l'origine : $a \times 0 = 0$.
+\end{theoreme}
+
+\begin{proof}
+Multiplier zéro par le coefficient donne zéro.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L91}{ProportionnaliteEtFonctions.lean\#L91}
+
+\begin{theoreme}
+Une fonction affine passe par l'origine si et seulement si elle est linéaire :
+$a \times 0 + b = 0 \iff b = 0$.
+\end{theoreme}
+
+\begin{proof}
+L'image de zéro vaut $b$ : elle est nulle exactement quand $b$ l'est.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L95}{ProportionnaliteEtFonctions.lean\#L95}
+
+\subsection{Fonction affine : coefficient directeur et ordonnée à l'origine}
+
+\begin{theoreme}
+L'ordonnée à l'origine d'une fonction affine est son image de zéro : $f(0) = b$.
+\end{theoreme}
+
+\begin{proof}
+$a \times 0 + b = b$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L101}{ProportionnaliteEtFonctions.lean\#L101}
+
+\begin{theoreme}
+Le coefficient directeur se lit sur deux points quelconques du graphe : pour
+$x_1 \ne x_2$,
+\[ \frac{f(x_2) - f(x_1)}{x_2 - x_1} = a . \]
+\end{theoreme}
+
+\begin{proof}
+On calcule le numérateur :
+\[ (ax_2 + b) - (ax_1 + b) = a(x_2 - x_1) , \]
+puis on divise par $x_2 - x_1$, non nul puisque les deux abscisses diffèrent.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L105}{ProportionnaliteEtFonctions.lean\#L105}
+
+\begin{theoreme}
+Deux points d'abscisses distinctes déterminent une fonction affine et une seule : il
+existe un unique couple $(a, b)$ tel que $f(x_1) = y_1$ et $f(x_2) = y_2$.
+\end{theoreme}
+
+\begin{proof}
+\emph{Existence.} On prend $a = \dfrac{y_2 - y_1}{x_2 - x_1}$, licite car
+$x_1 \ne x_2$, et $b = y_1 - a x_1$ : la fonction obtenue passe par les deux points.
+
+\emph{Unicité.} Si $(a, b)$ convient, la différence des deux conditions donne
+$a(x_2 - x_1) = y_2 - y_1$, d'où la valeur de $a$ ; la première donne alors celle de
+$b$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L113}{ProportionnaliteEtFonctions.lean\#L113}
+
+\subsection{Sens de variation d'une fonction affine selon le signe de \texttt{a}}
+
+\begin{theoreme}
+Une fonction affine de coefficient directeur $a > 0$ est strictement croissante.
+\end{theoreme}
+
+\begin{proof}
+Si $x < y$, alors $ax < ay$ puisque $a > 0$, donc $ax + b < ay + b$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L132}{ProportionnaliteEtFonctions.lean\#L132}
+
+\begin{theoreme}
+De coefficient directeur $a < 0$, elle est strictement décroissante.
+\end{theoreme}
+
+\begin{proof}
+Si $x < y$, alors $ax > ay$ puisque $a < 0$, donc $ax + b > ay + b$ : l'ordre est
+renversé.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L138}{ProportionnaliteEtFonctions.lean\#L138}
+
+\begin{theoreme}
+De coefficient directeur nul, elle est constante, égale à $b$.
+\end{theoreme}
+
+\begin{proof}
+$0 \times x + b = b$, quelle que soit la valeur de $x$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L144}{ProportionnaliteEtFonctions.lean\#L144}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}
