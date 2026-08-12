@@ -81,6 +81,11 @@ le même vecteur : $b - a = c - d$.
 \end{definition}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L37}{GeometriePlane.lean\#L37}
 
+\begin{definition}
+Le \emph{centre de gravité} du triangle $abc$ est $\dfrac{a + b + c}{3}$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L40}{GeometriePlane.lean\#L40}
+
 \subsection{Par deux points distincts passe une droite et une seule}
 
 \begin{theoreme}
@@ -90,7 +95,7 @@ Les deux points appartiennent à la droite qu'ils définissent.
 \begin{proof}
 Le paramètre $t = 0$ donne $a$, le paramètre $t = 1$ donne $a + (b - a) = b$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L42}{GeometriePlane.lean\#L42}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L45}{GeometriePlane.lean\#L45}
 
 \begin{theoreme}
 Et c'est la seule : toute droite contenant $a$ et $b$ distincts contient la droite
@@ -103,7 +108,7 @@ s'écrit
 \[ c + su + r\bigl((c + tu) - (c + su)\bigr) = c + \bigl(s + r(t - s)\bigr)u , \]
 qui est bien un point de la droite $\mathcal{D}(c, u)$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L46}{GeometriePlane.lean\#L46}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L49}{GeometriePlane.lean\#L49}
 
 \subsection{Perpendicularité et parallélisme}
 
@@ -116,7 +121,7 @@ l'autre.
 Si $v = ku$ et $\langle w, u\rangle = 0$, alors
 $\langle w, v\rangle = k\,\langle w, u\rangle = 0$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L59}{GeometriePlane.lean\#L59}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L62}{GeometriePlane.lean\#L62}
 
 \begin{theoreme}
 Deux droites parallèles à une même droite sont parallèles entre elles.
@@ -126,7 +131,7 @@ Deux droites parallèles à une même droite sont parallèles entre elles.
 Si $v = ku$ et $w = \ell v$, alors $w = (\ell k)u$ : la colinéarité se transmet, les
 coefficients se multipliant.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L66}{GeometriePlane.lean\#L66}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L69}{GeometriePlane.lean\#L69}
 
 \begin{theoreme}
 Dans le plan, deux droites perpendiculaires à une même droite sont parallèles entre
@@ -146,7 +151,32 @@ La dimension est essentielle : dans l'espace, deux perpendiculaires à une même
 sont pas parallèles en général. C'est pourquoi cet énoncé, seul du fichier, est posé dans
 le plan de coordonnées et non dans un espace euclidien quelconque.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L75}{GeometriePlane.lean\#L75}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L78}{GeometriePlane.lean\#L78}
+
+\begin{theoreme}
+Dans le plan, un déterminant nul signifie que les deux vecteurs sont colinéaires : si
+$u \ne 0$ et $u_0 v_1 - u_1 v_0 = 0$, alors $v = ku$ pour un réel $k$.
+\end{theoreme}
+
+\begin{proof}
+L'une des coordonnées de $u$ est non nulle ; supposons $u_0 \ne 0$ et posons
+$k = v_0/u_0$. La première coordonnée de $ku$ vaut alors $v_0$ par construction, et la
+seconde
+\[ \frac{v_0 u_1}{u_0} = \frac{u_0 v_1}{u_0} = v_1 \]
+grâce à la nullité du déterminant. Le cas $u_1 \ne 0$ est symétrique.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L105}{GeometriePlane.lean\#L105}
+
+\begin{theoreme}
+Sous la forme du cours : deux droites perpendiculaires à une même droite sont
+parallèles entre elles.
+\end{theoreme}
+
+\begin{proof}
+Leurs directions ont un déterminant nul d'après l'énoncé précédent : elles sont donc
+colinéaires, et les droites parallèles.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L123}{GeometriePlane.lean\#L123}
 
 \subsection{Le plus court chemin d'un point à une droite est le segment perpendiculaire}
 
@@ -163,7 +193,7 @@ On développe le carré de la distance à un point courant de la droite :
 Le terme du milieu est nul par hypothèse, et le dernier est positif : la distance est
 minimale pour $t = 0$, c'est-à-dire au pied de la perpendiculaire.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L105}{GeometriePlane.lean\#L105}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L132}{GeometriePlane.lean\#L132}
 
 \subsection{Angles opposés par le sommet, adjacents, supplémentaires}
 
@@ -175,7 +205,7 @@ Deux angles opposés par le sommet sont égaux.
 Les deux couples de vecteurs sont opposés, et l'angle de deux vecteurs ne change pas
 quand on les remplace tous deux par leurs opposés.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L118}{GeometriePlane.lean\#L118}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L145}{GeometriePlane.lean\#L145}
 
 \begin{theoreme}
 Deux angles adjacents portés par des demi-droites opposées sont supplémentaires :
@@ -186,7 +216,7 @@ Deux angles adjacents portés par des demi-droites opposées sont supplémentair
 Remplacer un vecteur par son opposé remplace l'angle par son supplémentaire :
 $\widehat{(u, -v)} = \pi - \widehat{(u, v)}$. La somme vaut donc $\pi$, l'angle plat.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L124}{GeometriePlane.lean\#L124}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L151}{GeometriePlane.lean\#L151}
 
 \subsection{Caractérisation de la médiatrice}
 
@@ -199,7 +229,7 @@ seulement s'il appartient à la médiatrice de $[ab]$.
 C'est la définition de la médiatrice dans la bibliothèque, à l'ordre des arguments de
 la distance près.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L133}{GeometriePlane.lean\#L133}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L160}{GeometriePlane.lean\#L160}
 
 \subsection{Somme des angles d'un triangle}
 
@@ -213,7 +243,7 @@ C'est le théorème de la bibliothèque, valable dès que deux des sommets sont 
 Sa démonstration passe par la trigonométrie du produit scalaire, là où le collège trace
 une parallèle et utilise les angles alternes-internes.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L141}{GeometriePlane.lean\#L141}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L168}{GeometriePlane.lean\#L168}
 
 \subsection{Triangle isocèle : angles à la base}
 
@@ -226,7 +256,29 @@ $\mathrm{dist}(a,b) = \mathrm{dist}(a,c) \Rightarrow \widehat{abc} = \widehat{ac
 Deux côtés égaux rendent la figure symétrique par rapport à la médiatrice du troisième,
 qui échange les deux angles à la base.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L148}{GeometriePlane.lean\#L148}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L175}{GeometriePlane.lean\#L175}
+
+\begin{theoreme}
+Réciproque : si les angles à la base sont égaux, le triangle est isocèle.
+\end{theoreme}
+
+\begin{proof}
+C'est le résultat réciproque de la bibliothèque, valable dès que le triangle n'est pas
+aplati — d'où l'hypothèse que l'angle au sommet n'est pas l'angle plat.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L179}{GeometriePlane.lean\#L179}
+
+\begin{theoreme}
+Dans un triangle équilatéral, les trois angles valent $60$ degrés, soit $\pi/3$.
+\end{theoreme}
+
+\begin{proof}
+Les deux égalités de côtés donnent, par le théorème de l'isocèle appliqué deux fois,
+\[ \widehat{abc} = \widehat{acb}, \qquad \widehat{bac} = \widehat{bca} . \]
+Un angle ne changeant pas quand on échange ses deux extrémités, les trois angles du
+triangle sont donc égaux ; leur somme valant $\pi$, chacun vaut $\pi/3$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L184}{GeometriePlane.lean\#L184}
 
 \subsection{Inégalité triangulaire}
 
@@ -237,7 +289,7 @@ Inégalité triangulaire : $\mathrm{dist}(a,c) \le \mathrm{dist}(a,b) + \mathrm{
 \begin{proof}
 C'est l'inégalité triangulaire de la distance : le chemin direct est le plus court.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L155}{GeometriePlane.lean\#L155}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L199}{GeometriePlane.lean\#L199}
 
 \begin{theoreme}
 Le cas d'égalité caractérise l'alignement :
@@ -250,7 +302,7 @@ L'égalité n'a lieu que si le détour par $b$ ne coûte rien, c'est-à-dire si 
 $a$ et $c$. Le résultat vaut dans un espace strictement convexe, ce qu'est tout espace
 euclidien.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L159}{GeometriePlane.lean\#L159}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L203}{GeometriePlane.lean\#L203}
 
 \subsection{Théorème de Pythagore, sa réciproque et sa contraposée}
 
@@ -267,7 +319,7 @@ et le double produit est nul exactement quand les deux côtés sont perpendicula
 c'est-à-dire quand l'angle en $b$ est droit. L'équivalence donne d'un coup le théorème et
 sa réciproque.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L166}{GeometriePlane.lean\#L166}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L210}{GeometriePlane.lean\#L210}
 
 \begin{theoreme}
 Contraposée : si l'égalité des carrés est en défaut, le triangle n'est pas rectangle.
@@ -278,7 +330,7 @@ C'est la contraposée de la réciproque : si l'angle était droit, l'égalité a
 Cette forme est celle qu'on utilise en classe pour montrer qu'un triangle \emph{n'est
 pas} rectangle.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L171}{GeometriePlane.lean\#L171}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L215}{GeometriePlane.lean\#L215}
 
 \subsection{Théorème des milieux et sa réciproque}
 
@@ -292,7 +344,7 @@ On calcule directement :
 \[ \frac{a+c}{2} - \frac{a+b}{2} = \frac{c - b}{2} . \]
 Le vecteur obtenu est colinéaire à $c - b$ : les deux droites sont parallèles.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L178}{GeometriePlane.lean\#L178}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L222}{GeometriePlane.lean\#L222}
 
 \begin{theoreme}
 Conséquence sur les longueurs : le segment des milieux mesure la moitié du troisième
@@ -303,7 +355,7 @@ côté.
 La norme du vecteur précédent vaut $\tfrac12\|b - c\|$, le facteur $\tfrac12$ sortant de
 la norme en valeur absolue.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L185}{GeometriePlane.lean\#L185}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L229}{GeometriePlane.lean\#L229}
 
 \begin{theoreme}
 Réciproque : le point du côté $[ac]$ dont l'écart au milieu de $[ab]$ vaut
@@ -315,7 +367,7 @@ En reportant l'écart depuis le milieu de $[ab]$ :
 \[ \frac{a+b}{2} + \frac{c-b}{2} = \frac{a+c}{2} , \]
 qui est le milieu de $[ac]$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L197}{GeometriePlane.lean\#L197}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L241}{GeometriePlane.lean\#L241}
 
 \subsection{Théorème de Thalès et sa réciproque}
 
@@ -330,7 +382,7 @@ Le calcul est immédiat : les deux $a$ se simplifient et le facteur $t$ se met e
 facteur. Le vecteur $mn$ est donc colinéaire à $bc$ — les droites sont parallèles — et le
 coefficient est le rapport commun.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L208}{GeometriePlane.lean\#L208}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L252}{GeometriePlane.lean\#L252}
 
 \begin{theoreme}
 Conséquence sur les longueurs : les trois rapports sont égaux,
@@ -340,7 +392,7 @@ Conséquence sur les longueurs : les trois rapports sont égaux,
 \begin{proof}
 On prend la norme de l'égalité précédente, le facteur $t \ge 0$ sortant tel quel.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L213}{GeometriePlane.lean\#L213}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L257}{GeometriePlane.lean\#L257}
 
 \begin{theoreme}
 Réciproque de Thalès : si $mn$ est parallèle à $bc$ avec le rapport $t$, alors $n$
@@ -352,7 +404,7 @@ En reportant l'écart depuis $m = a + t(b-a)$ :
 \[ n = a + t(b-a) + t(c-b) = a + t(c-a) . \]
 Le point $n$ divise donc $[ac]$ dans le rapport $t$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L219}{GeometriePlane.lean\#L219}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L263}{GeometriePlane.lean\#L263}
 
 \subsection{Relations trigonométriques}
 
@@ -364,7 +416,7 @@ Relation fondamentale de la trigonométrie : $\cos^2 x + \sin^2 x = 1$.
 C'est l'identité de Pythagore sur le cercle trigonométrique : le point de coordonnées
 $(\cos x, \sin x)$ est à distance $1$ de l'origine.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L229}{GeometriePlane.lean\#L229}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L273}{GeometriePlane.lean\#L273}
 
 \begin{theoreme}
 La tangente est le quotient du sinus par le cosinus : $\tan x = \dfrac{\sin x}{\cos x}$.
@@ -373,7 +425,7 @@ La tangente est le quotient du sinus par le cosinus : $\tan x = \dfrac{\sin x}{\
 \begin{proof}
 C'est la définition de la tangente.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L233}{GeometriePlane.lean\#L233}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L277}{GeometriePlane.lean\#L277}
 
 \subsection{Cercle circonscrit}
 
@@ -388,7 +440,7 @@ l'existence dès que les trois points ne sont pas alignés. Il est à égale dis
 sommets — cette distance étant le rayon —, donc situé sur chacune des trois médiatrices,
 qui sont ainsi concourantes.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L239}{GeometriePlane.lean\#L239}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L283}{GeometriePlane.lean\#L283}
 
 \subsection{Triangle inscrit dans un demi-cercle}
 
@@ -403,7 +455,18 @@ C'est le théorème de Thalès sur le cercle, tel que la bibliothèque l'établi
 donne les deux sens à la fois : le triangle inscrit dans un demi-cercle est rectangle, et
 l'hypoténuse d'un triangle rectangle est un diamètre de son cercle circonscrit.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L252}{GeometriePlane.lean\#L252}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L296}{GeometriePlane.lean\#L296}
+
+\begin{theoreme}
+Réciproque : l'hypoténuse d'un triangle rectangle est un diamètre du cercle qui passe
+par les trois sommets.
+\end{theoreme}
+
+\begin{proof}
+C'est l'autre sens de l'équivalence de Thalès sur le cercle : l'angle en $b$ étant
+droit, $b$ appartient au cercle de diamètre $[ac]$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L302}{GeometriePlane.lean\#L302}
 
 \begin{theoreme}
 Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de
@@ -420,7 +483,7 @@ d'autre part, en écrivant $a - c = (b-c) - (b-a)$,
 \[ \|a-c\|^2 = \|b-a\|^2 + \|b-c\|^2 . \]
 Les deux normes sont donc égales, et la médiane vaut la moitié de $\|a - c\|$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L258}{GeometriePlane.lean\#L258}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L308}{GeometriePlane.lean\#L308}
 
 \subsection{Tangente à un cercle}
 
@@ -435,7 +498,7 @@ Si $p + tu$ est à la même distance du centre que $p$, alors
 le double produit étant nul par perpendicularité. Il reste $t^2\|u\|^2 = 0$, et comme
 $u \ne 0$, on obtient $t = 0$ : le seul point commun est $p$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L286}{GeometriePlane.lean\#L286}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L336}{GeometriePlane.lean\#L336}
 
 \subsection{Parallélogramme}
 
@@ -448,7 +511,7 @@ leur milieu : $b - a = c - d \iff \text{milieu}(a,c) = \text{milieu}(b,d)$.
 Les deux conditions sont deux écritures de la même égalité $a + c = b + d$ : la
 première la donne en retranchant, la seconde en divisant par deux.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L309}{GeometriePlane.lean\#L309}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L359}{GeometriePlane.lean\#L359}
 
 \begin{theoreme}
 Dans un parallélogramme, les côtés opposés ont la même longueur.
@@ -458,7 +521,7 @@ Dans un parallélogramme, les côtés opposés ont la même longueur.
 De $b - a = c - d$ on tire $a - b = d - c$ : les deux côtés portent des vecteurs opposés,
 donc de même norme.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L321}{GeometriePlane.lean\#L321}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L371}{GeometriePlane.lean\#L371}
 
 \begin{theoreme}
 Dans un parallélogramme, les angles opposés sont égaux.
@@ -470,7 +533,40 @@ L'égalité $b - a = c - d$ équivaut à $b + d = c + a$, d'où
 Les deux couples de vecteurs portant les angles en $a$ et en $c$ sont donc opposés, et
 l'angle est inchangé quand on remplace les deux vecteurs par leurs opposés.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L331}{GeometriePlane.lean\#L331}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L381}{GeometriePlane.lean\#L381}
+
+\subsection{Concours des médianes}
+
+\begin{theoreme}
+Le centre de gravité est sur la médiane issue de $a$.
+\end{theoreme}
+
+\begin{proof}
+La médiane issue de $a$ joint $a$ au milieu de $[bc]$. Le paramètre $t = \tfrac23$ y
+donne
+\[ a + \frac{2}{3}\left(\frac{b+c}{2} - a\right) = \frac{a+b+c}{3} , \]
+qui est le centre de gravité : c'est la propriété du tiers, le centre de gravité étant aux
+deux tiers de la médiane en partant du sommet.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L397}{GeometriePlane.lean\#L397}
+
+\begin{theoreme}
+Sur celle issue de $b$.
+\end{theoreme}
+
+\begin{proof}
+Même calcul, l'expression du centre de gravité étant symétrique en les trois sommets.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L402}{GeometriePlane.lean\#L402}
+
+\begin{theoreme}
+Et sur celle issue de $c$ : les trois médianes sont donc concourantes en ce point.
+\end{theoreme}
+
+\begin{proof}
+Même calcul une troisième fois : les trois médianes passent par le centre de gravité.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L407}{GeometriePlane.lean\#L407}
 
 \subsection{Repérage : milieu et distance}
 
@@ -482,7 +578,7 @@ $\text{milieu}(a,b)_i = \dfrac{a_i + b_i}{2}$.
 \begin{proof}
 La définition du milieu s'applique coordonnée par coordonnée.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L347}{GeometriePlane.lean\#L347}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L414}{GeometriePlane.lean\#L414}
 
 \begin{theoreme}
 La distance entre deux points repérés se calcule par le théorème de Pythagore :
@@ -494,7 +590,7 @@ C'est la définition de la distance euclidienne en coordonnées, qui n'est autre
 théorème de Pythagore appliqué au triangle rectangle dont les côtés sont les écarts en
 abscisse et en ordonnée.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L354}{GeometriePlane.lean\#L354}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L421}{GeometriePlane.lean\#L421}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

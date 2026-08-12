@@ -14,7 +14,7 @@ Fichier : `DroitesAnglesParalleles.lean`
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
 | Par deux points distincts passe une droite et une seule | 6e | `par_deux_points_distincts_passe_une_droite_et` | ☑ |
-| Deux droites perpendiculaires à une même droite sont parallèles entre elles | 6e | `deux_droites_perpendiculaires_a_une_meme_droite_sont` | ☐ |
+| Deux droites perpendiculaires à une même droite sont parallèles entre elles | 6e | `deux_droites_perpendiculaires_a_une_meme_droite_sont` | ☑ |
 | Si deux droites sont parallèles, toute perpendiculaire à l'une est perpendiculaire à l'autre | 6e | `si_deux_droites_sont_paralleles_toute_perpendiculaire_a` | ☑ |
 | Deux droites parallèles à une même droite sont parallèles entre elles | 6e | `deux_droites_paralleles_a_une_meme_droite_sont` | ☑ |
 | Le plus court chemin d'un point à une droite est le segment perpendiculaire | 6e | `le_plus_court_chemin_d_un_point_a` | ☑ |
@@ -32,7 +32,7 @@ Fichier : `Triangles.lean`
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
 | Somme des angles d'un triangle = 180° | 5e | `somme_des_angles_d_un_triangle_180` | ☑ |
-| Angles d'un triangle équilatéral = 60° ; angles à la base d'un isocèle égaux, et réciproque | 5e | `angles_d_un_triangle_equilateral_60_angles_a` | ☐ |
+| Angles d'un triangle équilatéral = 60° ; angles à la base d'un isocèle égaux, et réciproque | 5e | `angles_d_un_triangle_equilateral_60_angles_a` | ☑ |
 | Inégalité triangulaire : `AC ≤ AB + BC`, égalité ⟺ `B ∈ [AC]` | 5e | `inegalite_triangulaire_egalite` | ☑ |
 | Théorème de Pythagore : rectangle en `A` ⟹ `BC² = AB² + AC²` | 4e | `theoreme_de_pythagore_rectangle_en` | ☑ |
 | Réciproque de Pythagore : `BC² = AB² + AC²` ⟹ rectangle en `A` | 4e | `reciproque_de_pythagore_rectangle_en` | ☑ |
@@ -43,7 +43,7 @@ Fichier : `Triangles.lean`
 | Réciproque de Thalès : égalité des rapports et bon ordre des points ⟹ parallélisme | 3e | `reciproque_de_thales_egalite_des_rapports_et_bon` | ☑ |
 | `cos²x + sin²x = 1` et `tan x = sin x / cos x` | 3e | `et` | ☑ |
 | Concours des médiatrices ⟹ cercle circonscrit | 5e | `concours_des_mediatrices_cercle_circonscrit` | ☑ |
-| Concours des médianes (centre de gravité), des hauteurs (orthocentre), des bissectrices (cercle inscrit) | 5e / 4e | `concours_des_medianes_centre_de_gravite_des_hauteurs` | ☐ |
+| Concours des médianes (centre de gravité), des hauteurs (orthocentre), des bissectrices (cercle inscrit) | 5e / 4e | `concours_des_medianes_centre_de_gravite_des_hauteurs` | ☑ |
 
 ## Cercle et quadrilatères
 
@@ -52,7 +52,7 @@ Fichier : `CercleEtQuadrilateres.lean`
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
 | Un triangle inscrit dans un cercle dont un côté est un diamètre est rectangle | 4e | `un_triangle_inscrit_dans_un_cercle_dont_un` | ☑ |
-| Réciproque : l'hypoténuse est un diamètre du cercle circonscrit | 4e | `reciproque_l_hypotenuse_est_un_diametre_du_cercle` | ☐ |
+| Réciproque : l'hypoténuse est un diamètre du cercle circonscrit | 4e | `reciproque_l_hypotenuse_est_un_diametre_du_cercle` | ☑ |
 | Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de l'hypoténuse | 4e | `dans_un_triangle_rectangle_la_mediane_issue_de` | ☑ |
 | La tangente à un cercle est perpendiculaire au rayon au point de contact | 3e | `la_tangente_a_un_cercle_est_perpendiculaire_au` | ☑ |
 | Parallélogramme ⟺ diagonales se coupant en leur milieu ⟺ côtés opposés parallèles ⟺ côtés opposés de même longueur | 5e | `parallelogramme_diagonales_se_coupant_en_leur_milieu_cotes` | ☐ |

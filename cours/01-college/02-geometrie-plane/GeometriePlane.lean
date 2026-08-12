@@ -36,6 +36,9 @@ noncomputable def milieu (a b : V) : V := (1 / 2 : ℝ) • (a + b)
 opposés sont égaux. -/
 def Parallelogramme (a b c d : V) : Prop := b - a = c - d
 
+/-- Le centre de gravité d'un triangle. -/
+noncomputable def centreDeGravite (a b c : V) : V := (1 / 3 : ℝ) • (a + b + c)
+
 /-! ## Par deux points distincts passe une droite et une seule -/
 
 /-- Les deux points appartiennent à la droite qu'ils définissent. -/
@@ -98,6 +101,30 @@ theorem perpendiculaires_a_une_meme_droite {u v w : EuclideanSpace ℝ (Fin 2)}
     have e2 : v 1 = -(w 0 * v 0) / w 1 := by field_simp at hv' ⊢; linarith [hv']
     rw [e1, e2]; field_simp; ring
 
+/-- Dans le plan, un déterminant nul signifie que les deux vecteurs sont colinéaires. -/
+theorem determinant_nul_colineaires {u v : EuclideanSpace ℝ (Fin 2)} (hu : u ≠ 0)
+    (hdet : u 0 * v 1 - u 1 * v 0 = 0) : Paralleles u v := by
+  have hne : u 0 ≠ 0 ∨ u 1 ≠ 0 := by
+    by_contra hc
+    simp only [not_or, ne_eq, not_not] at hc
+    exact hu (by ext i; fin_cases i <;> simp [hc.1, hc.2])
+  rcases hne with h | h
+  · refine ⟨v 0 / u 0, PiLp.ext fun i => ?_⟩
+    fin_cases i
+    · simp; field_simp
+    · simp; field_simp; linarith [hdet]
+  · refine ⟨v 1 / u 1, PiLp.ext fun i => ?_⟩
+    fin_cases i
+    · simp; field_simp; linarith [hdet]
+    · simp; field_simp
+
+/-- Conclusion sous la forme du cours : deux droites perpendiculaires à une même droite
+sont parallèles entre elles. -/
+theorem perpendiculaires_a_une_meme_droite_paralleles {u v w : EuclideanSpace ℝ (Fin 2)}
+    (hw : w ≠ 0) (hu : u ≠ 0) (hpu : Perpendiculaires w u) (hpv : Perpendiculaires w v) :
+    Paralleles u v :=
+  determinant_nul_colineaires hu (perpendiculaires_a_une_meme_droite hw hpu hpv)
+
 /-! ## Le plus court chemin d'un point à une droite est le segment perpendiculaire -/
 
 /-- Si le vecteur joignant `p` à `h` est perpendiculaire à la direction de la droite,
@@ -147,6 +174,23 @@ theorem somme_des_angles {a b c : V} (h : b ≠ a) :
 /-- Dans un triangle isocèle, les angles à la base sont égaux. -/
 theorem angles_a_la_base {a b c : V} (h : dist a b = dist a c) : ∠ a b c = ∠ a c b :=
   EuclideanGeometry.angle_eq_angle_of_dist_eq h
+
+/-- Réciproque : si les angles à la base sont égaux, le triangle est isocèle. -/
+theorem isocele_reciproque {a b c : V} (h : ∠ a b c = ∠ a c b) (hpi : ∠ b a c ≠ π) :
+    dist a b = dist a c :=
+  EuclideanGeometry.dist_eq_of_angle_eq_angle_of_angle_ne_pi h hpi
+
+/-- Dans un triangle équilatéral, les trois angles valent 60 degrés, soit `π/3`. -/
+theorem angles_du_triangle_equilateral {a b c : V} (h1 : dist a b = dist a c)
+    (h2 : dist b a = dist b c) (hba : b ≠ a) : ∠ a b c = π / 3 := by
+  have e1 : ∠ a b c = ∠ a c b := angles_a_la_base h1
+  have e2 : ∠ b a c = ∠ b c a := angles_a_la_base h2
+  have hsum : ∠ a b c + ∠ b c a + ∠ c a b = π := somme_des_angles hba
+  have c1 : ∠ a c b = ∠ b c a := EuclideanGeometry.angle_comm a c b
+  have c2 : ∠ c a b = ∠ b a c := EuclideanGeometry.angle_comm c a b
+  rw [c2, e2] at hsum
+  rw [c1] at e1
+  linarith
 
 /-! ## Inégalité triangulaire -/
 
@@ -253,6 +297,12 @@ theorem triangle_inscrit_demi_cercle {a b c : V} {s : EuclideanGeometry.Sphere V
     (hd : s.IsDiameter a c) : ∠ a b c = π / 2 ↔ b ∈ s :=
   EuclideanGeometry.Sphere.thales_theorem hd
 
+/-- Réciproque : l'hypoténuse d'un triangle rectangle est un diamètre du cercle qui
+passe par les trois sommets. -/
+theorem hypotenuse_diametre {a b c : V} (h : ∠ a b c = π / 2) :
+    b ∈ EuclideanGeometry.Sphere.ofDiameter a c :=
+  EuclideanGeometry.Sphere.angle_eq_pi_div_two_iff_mem_sphere_ofDiameter.mp h
+
 /-- Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de
 l'hypoténuse. -/
 theorem mediane_hypotenuse {a b c : V} (h : ∠ a b c = π / 2) :
@@ -340,6 +390,23 @@ theorem parallelogramme_angles_opposes {a b c d : V} (h : Parallelogramme a b c 
     rw [show -(d - a) = a - d by abel]
     linear_combination (norm := module) hadd
   rw [h1, h2, InnerProductGeometry.angle_neg_neg]
+
+/-! ## Concours des médianes -/
+
+/-- Le centre de gravité est sur la médiane issue de `a`. -/
+theorem centre_de_gravite_sur_mediane_a (a b c : V) :
+    centreDeGravite a b c ∈ droiteAB a (milieu b c) :=
+  ⟨2 / 3, by simp only [centreDeGravite, milieu]; module⟩
+
+/-- Sur celle issue de `b`. -/
+theorem centre_de_gravite_sur_mediane_b (a b c : V) :
+    centreDeGravite a b c ∈ droiteAB b (milieu a c) :=
+  ⟨2 / 3, by simp only [centreDeGravite, milieu]; module⟩
+
+/-- Et sur celle issue de `c` : les trois médianes sont donc concourantes en ce point. -/
+theorem centre_de_gravite_sur_mediane_c (a b c : V) :
+    centreDeGravite a b c ∈ droiteAB c (milieu a b) :=
+  ⟨2 / 3, by simp only [centreDeGravite, milieu]; module⟩
 
 /-! ## Repérage : milieu et distance -/
 

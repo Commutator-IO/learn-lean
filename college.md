@@ -67,7 +67,7 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 | Énoncé | Niveau | Démontré |
 |---|---|---|
 | Par deux points distincts passe une droite et une seule | 6e | ☑ |
-| Deux droites perpendiculaires à une même droite sont parallèles entre elles | 6e | ☐ |
+| Deux droites perpendiculaires à une même droite sont parallèles entre elles | 6e | ☑ |
 | Si deux droites sont parallèles, toute perpendiculaire à l'une est perpendiculaire à l'autre | 6e | ☑ |
 | Deux droites parallèles à une même droite sont parallèles entre elles | 6e | ☑ |
 | Le plus court chemin d'un point à une droite est le segment perpendiculaire | 6e | ☑ |
@@ -83,7 +83,7 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 | Énoncé | Niveau | Démontré |
 |---|---|---|
 | Somme des angles d'un triangle = 180° | 5e | ☑ |
-| Angles d'un triangle équilatéral = 60° ; angles à la base d'un isocèle égaux, et réciproque | 5e | ☐ |
+| Angles d'un triangle équilatéral = 60° ; angles à la base d'un isocèle égaux, et réciproque | 5e | ☑ |
 | Inégalité triangulaire : `AC ≤ AB + BC`, égalité ⟺ `B ∈ [AC]` | 5e | ☑ |
 | Théorème de Pythagore : rectangle en `A` ⟹ `BC² = AB² + AC²` | 4e | ☑ |
 | Réciproque de Pythagore : `BC² = AB² + AC²` ⟹ rectangle en `A` | 4e | ☑ |
@@ -94,14 +94,14 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 | Réciproque de Thalès : égalité des rapports et bon ordre des points ⟹ parallélisme | 3e | ☑ |
 | `cos²x + sin²x = 1` et `tan x = sin x / cos x` | 3e | ☑ |
 | Concours des médiatrices ⟹ cercle circonscrit | 5e | ☑ |
-| Concours des médianes (centre de gravité), des hauteurs (orthocentre), des bissectrices (cercle inscrit) | 5e / 4e | ☐ |
+| Concours des médianes (centre de gravité), des hauteurs (orthocentre), des bissectrices (cercle inscrit) | 5e / 4e | ☑ |
 
 ### Cercle et quadrilatères
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
 | Un triangle inscrit dans un cercle dont un côté est un diamètre est rectangle | 4e | ☑ |
-| Réciproque : l'hypoténuse est un diamètre du cercle circonscrit | 4e | ☐ |
+| Réciproque : l'hypoténuse est un diamètre du cercle circonscrit | 4e | ☑ |
 | Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de l'hypoténuse | 4e | ☑ |
 | La tangente à un cercle est perpendiculaire au rayon au point de contact | 3e | ☑ |
 | Parallélogramme ⟺ diagonales se coupant en leur milieu ⟺ côtés opposés parallèles ⟺ côtés opposés de même longueur | 5e | ☐ |
