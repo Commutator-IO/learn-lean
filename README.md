@@ -119,6 +119,20 @@ Le script ne crée que les index `README.md` manquants — jamais de `.lean` —
 aucun fichier existant. Pour reconstruire un index après modification d'une liste,
 supprimer cet index et relancer.
 
+## À explorer
+
+Deux outils repérés, pas encore essayés ici :
+
+- [cameronfreer/lean4-skills](https://github.com/cameronfreer/lean4-skills) — un jeu de
+  skills et de workflows Lean 4 pour agents de code. À confronter à
+  [`transcrire-preuve-lean`](.claude/skills/transcrire-preuve-lean/SKILL.md), qui ne
+  couvre que la transcription en français : la recherche de preuve, elle, se fait ici sans
+  outillage.
+- [oOo0oOo/lean-lsp-mcp](https://github.com/oOo0oOo/lean-lsp-mcp) — un serveur MCP
+  exposant le serveur de langage de Lean. Il donnerait accès à l'état du but, aux erreurs
+  et à la recherche de lemmes sans passer par `lake build` et ses cycles de compilation,
+  qui sont ce qui coûte le plus de temps dans ce dépôt.
+
 ## Outils logiques transversaux
 
 Ce sont ces schémas, plus que les théorèmes eux-mêmes, que la formalisation met à nu.
