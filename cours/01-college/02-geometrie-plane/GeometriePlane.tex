@@ -1,0 +1,333 @@
+% Fichier engendré par outils/generer-tex.py à partir de 02-geometrie-plane.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Géométrie plane}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{GeometriePlane}
+
+\noindent
+Collège \textemdash{} section \og{} Géométrie plane \fg{}.
+Le plan est un espace vectoriel euclidien : un point est un vecteur, une droite est
+l'ensemble des \texttt{a + t • u}. Les angles sont ceux de Mathlib, non orientés, mesurés en
+radians : l'angle plat vaut \(\pi\) et l'angle droit \(\pi\)/2.
+Énoncés et démonstrations en français : voir GeometriePlane.tex.
+
+\subsection{Définitions}
+
+\noindent
+Toutes les définitions du fichier sont posées ici, avant les démonstrations.
+
+\begin{definition}
+La droite passant par \texttt{a} et dirigée par \texttt{u}.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L21}{GeometriePlane.lean\#L21}
+
+\begin{definition}
+La droite passant par deux points.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L24}{GeometriePlane.lean\#L24}
+
+\begin{definition}
+Deux directions sont parallèles lorsqu'elles sont colinéaires.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L27}{GeometriePlane.lean\#L27}
+
+\begin{definition}
+Deux directions sont perpendiculaires lorsque leur produit scalaire est nul.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L30}{GeometriePlane.lean\#L30}
+
+\begin{definition}
+Le milieu d'un segment.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L33}{GeometriePlane.lean\#L33}
+
+\begin{definition}
+Un quadrilatère \texttt{abcd} est un parallélogramme lorsque les vecteurs de deux côtés
+opposés sont égaux.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L37}{GeometriePlane.lean\#L37}
+
+\subsection{Par deux points distincts passe une droite et une seule}
+
+\begin{theoreme}
+Les deux points appartiennent à la droite qu'ils définissent.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L42}{GeometriePlane.lean\#L42}
+
+\begin{theoreme}
+Et c'est la seule : toute droite contenant \texttt{a} et \texttt{b} distincts leur est égale.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L46}{GeometriePlane.lean\#L46}
+
+\subsection{Perpendicularité et parallélisme}
+
+\begin{theoreme}
+Si deux droites sont parallèles, toute perpendiculaire à l'une est perpendiculaire à
+l'autre.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L59}{GeometriePlane.lean\#L59}
+
+\begin{theoreme}
+Deux droites parallèles à une même droite sont parallèles entre elles.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L66}{GeometriePlane.lean\#L66}
+
+\begin{theoreme}
+Dans le plan, deux droites perpendiculaires à une même droite sont parallèles entre
+elles. La dimension est essentielle : dans l'espace, deux perpendiculaires à une même
+droite ne le sont pas.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L75}{GeometriePlane.lean\#L75}
+
+\subsection{Le plus court chemin d'un point à une droite est le segment perpendiculaire}
+
+\begin{theoreme}
+Si le vecteur joignant \texttt{p} à \texttt{h} est perpendiculaire à la direction de la droite,
+alors \texttt{h} est le point de la droite le plus proche de \texttt{p}.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L105}{GeometriePlane.lean\#L105}
+
+\subsection{Angles opposés par le sommet, adjacents, supplémentaires}
+
+\begin{theoreme}
+Deux angles opposés par le sommet sont égaux : les deux couples de vecteurs sont
+opposés.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L118}{GeometriePlane.lean\#L118}
+
+\begin{theoreme}
+Deux angles adjacents portés par des demi-droites opposées sont supplémentaires :
+leur somme vaut l'angle plat.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L124}{GeometriePlane.lean\#L124}
+
+\subsection{Caractérisation de la médiatrice}
+
+\begin{theoreme}
+Un point est équidistant de deux points si et seulement s'il appartient à leur
+médiatrice.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L133}{GeometriePlane.lean\#L133}
+
+\subsection{Somme des angles d'un triangle}
+
+\begin{theoreme}
+La somme des angles d'un triangle vaut l'angle plat.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L141}{GeometriePlane.lean\#L141}
+
+\subsection{Triangle isocèle : angles à la base}
+
+\begin{theoreme}
+Dans un triangle isocèle, les angles à la base sont égaux.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L148}{GeometriePlane.lean\#L148}
+
+\subsection{Inégalité triangulaire}
+
+\begin{theoreme}
+Inégalité triangulaire : le chemin direct est le plus court.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L155}{GeometriePlane.lean\#L155}
+
+\begin{theoreme}
+Le cas d'égalité caractérise l'alignement, \texttt{b} étant entre \texttt{a} et \texttt{c}.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L159}{GeometriePlane.lean\#L159}
+
+\subsection{Théorème de Pythagore, sa réciproque et sa contraposée}
+
+\begin{theoreme}
+Théorème de Pythagore et sa réciproque : le carré de l'hypoténuse est la somme des
+carrés des deux autres côtés si et seulement si l'angle est droit.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L166}{GeometriePlane.lean\#L166}
+
+\begin{theoreme}
+Contraposée : si l'égalité des carrés est en défaut, le triangle n'est pas rectangle.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L171}{GeometriePlane.lean\#L171}
+
+\subsection{Théorème des milieux et sa réciproque}
+
+\begin{theoreme}
+La droite des milieux est parallèle au troisième côté et de longueur moitié.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L178}{GeometriePlane.lean\#L178}
+
+\begin{theoreme}
+Conséquence sur les longueurs : le segment des milieux mesure la moitié du troisième
+côté.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L185}{GeometriePlane.lean\#L185}
+
+\begin{theoreme}
+Réciproque : la parallèle menée par le milieu d'un côté coupe le deuxième côté en son
+milieu. Écrite vectoriellement : le point du côté \texttt{[a c]} dont l'écart au milieu de
+\texttt{[a b]} est parallèle à \texttt{(b c)} avec le bon rapport est le milieu de \texttt{[a c]}.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L197}{GeometriePlane.lean\#L197}
+
+\subsection{Théorème de Thalès et sa réciproque}
+
+\begin{theoreme}
+Théorème de Thalès : si \texttt{m} et \texttt{n} divisent \texttt{[a b]} et \texttt{[a c]} dans le même rapport
+\texttt{t}, alors \texttt{mn} est parallèle à \texttt{bc} et les rapports de longueurs sont égaux à \texttt{t}.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L208}{GeometriePlane.lean\#L208}
+
+\begin{theoreme}
+Conséquence sur les longueurs : les trois rapports sont égaux.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L213}{GeometriePlane.lean\#L213}
+
+\begin{theoreme}
+Réciproque de Thalès : si \texttt{mn} est parallèle à \texttt{bc} avec le rapport \texttt{t}, les points
+divisent les deux côtés dans ce même rapport.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L219}{GeometriePlane.lean\#L219}
+
+\subsection{Relations trigonométriques}
+
+\begin{theoreme}
+La relation fondamentale de la trigonométrie.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L229}{GeometriePlane.lean\#L229}
+
+\begin{theoreme}
+La tangente est le quotient du sinus par le cosinus.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L233}{GeometriePlane.lean\#L233}
+
+\subsection{Cercle circonscrit}
+
+\begin{theoreme}
+Les médiatrices d'un triangle sont concourantes : il existe un point équidistant des
+trois sommets, centre du cercle circonscrit.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L239}{GeometriePlane.lean\#L239}
+
+\subsection{Triangle inscrit dans un demi-cercle}
+
+\begin{theoreme}
+Un triangle inscrit dans un cercle dont un côté est un diamètre est rectangle, et
+réciproquement : c'est le théorème de Thalès sur le cercle.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L252}{GeometriePlane.lean\#L252}
+
+\begin{theoreme}
+Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de
+l'hypoténuse.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L258}{GeometriePlane.lean\#L258}
+
+\subsection{Tangente à un cercle}
+
+\begin{theoreme}
+La droite passant par un point du cercle et perpendiculaire au rayon en ce point ne
+rencontre le cercle qu'en ce point : c'est la tangente.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L286}{GeometriePlane.lean\#L286}
+
+\subsection{Parallélogramme}
+
+\begin{theoreme}
+Un quadrilatère est un parallélogramme si et seulement si ses diagonales se coupent en
+leur milieu.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L309}{GeometriePlane.lean\#L309}
+
+\begin{theoreme}
+Dans un parallélogramme, les côtés opposés ont la même longueur.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L321}{GeometriePlane.lean\#L321}
+
+\begin{theoreme}
+Dans un parallélogramme, les angles opposés sont égaux : les deux couples de vecteurs
+qui les portent sont opposés.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L331}{GeometriePlane.lean\#L331}
+
+\subsection{Repérage : milieu et distance}
+
+\begin{theoreme}
+Les coordonnées du milieu sont les moyennes des coordonnées.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L347}{GeometriePlane.lean\#L347}
+
+\begin{theoreme}
+La distance entre deux points repérés se calcule par le théorème de Pythagore.
+\end{theoreme}
+% démonstration à transcrire (skill transcrire-preuve-lean)
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L354}{GeometriePlane.lean\#L354}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

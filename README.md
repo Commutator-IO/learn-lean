@@ -117,6 +117,20 @@ section de chapitre ; rien n'est généré à l'intérieur des dossiers de chapi
 [sujets](sujets/README.md) de brevet servent de banc d'essai grandeur nature : un exercice
 de brevet est un énoncé concret, souvent plus retors qu'un théorème du cours.
 
+## Installation
+
+1. Lean et son gestionnaire de versions : suivre <https://lean-lang.org/install/>, qui
+   installe `elan`, `lake` et l'extension d'éditeur. La version utilisée ici est fixée par
+   `lean-toolchain`, `elan` s'en charge tout seul.
+2. Récupérer les binaires de Mathlib plutôt que de la compiler — quelques minutes contre
+   plusieurs heures :
+
+   ```bash
+   lake exe cache get
+   ```
+
+3. Installer les deux outils de la section précédente.
+
 ## Tenir les index à jour
 
 Après avoir modifié `college.md` ou `lycee.md` :
@@ -129,19 +143,20 @@ Le script ne crée que les index `README.md` manquants — jamais de `.lean` —
 aucun fichier existant. Pour reconstruire un index après modification d'une liste,
 supprimer cet index et relancer.
 
-## À explorer
+## Outillage indispensable
 
-Deux outils repérés, pas encore essayés ici :
+Deux outils installés dans ce dépôt, sans lesquels le travail n'avance pas à un rythme
+raisonnable :
 
-- [cameronfreer/lean4-skills](https://github.com/cameronfreer/lean4-skills) — un jeu de
-  skills et de workflows Lean 4 pour agents de code. À confronter à
-  [`transcrire-preuve-lean`](.claude/skills/transcrire-preuve-lean/SKILL.md), qui ne
-  couvre que la transcription en français : la recherche de preuve, elle, se fait ici sans
-  outillage.
-- [oOo0oOo/lean-lsp-mcp](https://github.com/oOo0oOo/lean-lsp-mcp) — un serveur MCP
-  exposant le serveur de langage de Lean. Il donnerait accès à l'état du but, aux erreurs
-  et à la recherche de lemmes sans passer par `lake build` et ses cycles de compilation,
-  qui sont ce qui coûte le plus de temps dans ce dépôt.
+- [oOo0oOo/lean-lsp-mcp](https://github.com/oOo0oOo/lean-lsp-mcp) — serveur MCP exposant
+  le serveur de langage de Lean. Il rend **toutes** les erreurs d'un fichier en une fois,
+  donne l'état du but à n'importe quelle ligne, teste des tactiques sans modifier le
+  fichier et cherche un lemme par sa signature. Sans lui, chaque nom de lemme erroné coûte
+  un `lake build` complet ; avec lui, la boucle se compte en secondes.
+- [cameronfreer/lean4-skills](https://github.com/cameronfreer/lean4-skills) — skills et
+  workflows Lean 4 pour agents de code, sur la recherche de preuve, que
+  [`transcrire-preuve-lean`](.claude/skills/transcrire-preuve-lean/SKILL.md) ne couvre pas :
+  cette dernière ne traite que la transcription en français.
 
 ## Outils logiques transversaux
 

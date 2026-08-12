@@ -17,7 +17,7 @@ globs = ["CalculsEtCalculLitteral", "EcrituresDesNombres", "EntiersDivisibilite"
 [[lean_lib]]
 name = "CollegeGeometriePlane"
 srcDir = "cours/01-college/02-geometrie-plane"
-globs = []
+globs = ["GeometriePlane"]
 
 [[lean_lib]]
 name = "CollegeTransformationsDuPlan"

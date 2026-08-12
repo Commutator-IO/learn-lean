@@ -66,53 +66,53 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Par deux points distincts passe une droite et une seule | 6e | ☐ |
+| Par deux points distincts passe une droite et une seule | 6e | ☑ |
 | Deux droites perpendiculaires à une même droite sont parallèles entre elles | 6e | ☐ |
-| Si deux droites sont parallèles, toute perpendiculaire à l'une est perpendiculaire à l'autre | 6e | ☐ |
-| Deux droites parallèles à une même droite sont parallèles entre elles | 6e | ☐ |
-| Le plus court chemin d'un point à une droite est le segment perpendiculaire | 6e | ☐ |
-| Angles opposés par le sommet : ils sont égaux | 6e | ☐ |
-| Angles adjacents, complémentaires, supplémentaires | 6e | ☐ |
+| Si deux droites sont parallèles, toute perpendiculaire à l'une est perpendiculaire à l'autre | 6e | ☑ |
+| Deux droites parallèles à une même droite sont parallèles entre elles | 6e | ☑ |
+| Le plus court chemin d'un point à une droite est le segment perpendiculaire | 6e | ☑ |
+| Angles opposés par le sommet : ils sont égaux | 6e | ☑ |
+| Angles adjacents, complémentaires, supplémentaires | 6e | ☑ |
 | Deux parallèles coupées par une sécante : angles alternes-internes et correspondants égaux | 5e | ☐ |
 | Réciproque : égalité de deux angles alternes-internes ⟹ parallélisme | 5e | ☐ |
-| Caractérisation de la médiatrice : `M` équidistant de `A` et `B` ⟺ `M` sur la médiatrice de `[AB]` | 6e | ☐ |
+| Caractérisation de la médiatrice : `M` équidistant de `A` et `B` ⟺ `M` sur la médiatrice de `[AB]` | 6e | ☑ |
 | Caractérisation de la bissectrice : équidistance aux deux côtés de l'angle | 6e | ☐ |
 
 ### Triangles
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Somme des angles d'un triangle = 180° | 5e | ☐ |
+| Somme des angles d'un triangle = 180° | 5e | ☑ |
 | Angles d'un triangle équilatéral = 60° ; angles à la base d'un isocèle égaux, et réciproque | 5e | ☐ |
-| Inégalité triangulaire : `AC ≤ AB + BC`, égalité ⟺ `B ∈ [AC]` | 5e | ☐ |
-| Théorème de Pythagore : rectangle en `A` ⟹ `BC² = AB² + AC²` | 4e | ☐ |
-| Réciproque de Pythagore : `BC² = AB² + AC²` ⟹ rectangle en `A` | 4e | ☐ |
-| Contraposée : `BC² ≠ AB² + AC²` ⟹ non rectangle en `A` | 4e | ☐ |
-| Théorème des milieux : la droite des milieux est parallèle au troisième côté et de longueur moitié | 4e | ☐ |
-| Réciproque : la parallèle menée par le milieu d'un côté coupe le deuxième côté en son milieu | 4e | ☐ |
-| Théorème de Thalès (triangle et « papillon ») : `AM/AB = AN/AC = MN/BC` | 3e | ☐ |
-| Réciproque de Thalès : égalité des rapports et bon ordre des points ⟹ parallélisme | 3e | ☐ |
-| `cos²x + sin²x = 1` et `tan x = sin x / cos x` | 3e | ☐ |
-| Concours des médiatrices ⟹ cercle circonscrit | 5e | ☐ |
+| Inégalité triangulaire : `AC ≤ AB + BC`, égalité ⟺ `B ∈ [AC]` | 5e | ☑ |
+| Théorème de Pythagore : rectangle en `A` ⟹ `BC² = AB² + AC²` | 4e | ☑ |
+| Réciproque de Pythagore : `BC² = AB² + AC²` ⟹ rectangle en `A` | 4e | ☑ |
+| Contraposée : `BC² ≠ AB² + AC²` ⟹ non rectangle en `A` | 4e | ☑ |
+| Théorème des milieux : la droite des milieux est parallèle au troisième côté et de longueur moitié | 4e | ☑ |
+| Réciproque : la parallèle menée par le milieu d'un côté coupe le deuxième côté en son milieu | 4e | ☑ |
+| Théorème de Thalès (triangle et « papillon ») : `AM/AB = AN/AC = MN/BC` | 3e | ☑ |
+| Réciproque de Thalès : égalité des rapports et bon ordre des points ⟹ parallélisme | 3e | ☑ |
+| `cos²x + sin²x = 1` et `tan x = sin x / cos x` | 3e | ☑ |
+| Concours des médiatrices ⟹ cercle circonscrit | 5e | ☑ |
 | Concours des médianes (centre de gravité), des hauteurs (orthocentre), des bissectrices (cercle inscrit) | 5e / 4e | ☐ |
 
 ### Cercle et quadrilatères
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Un triangle inscrit dans un cercle dont un côté est un diamètre est rectangle | 4e | ☐ |
+| Un triangle inscrit dans un cercle dont un côté est un diamètre est rectangle | 4e | ☑ |
 | Réciproque : l'hypoténuse est un diamètre du cercle circonscrit | 4e | ☐ |
-| Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de l'hypoténuse | 4e | ☐ |
-| La tangente à un cercle est perpendiculaire au rayon au point de contact | 3e | ☐ |
+| Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de l'hypoténuse | 4e | ☑ |
+| La tangente à un cercle est perpendiculaire au rayon au point de contact | 3e | ☑ |
 | Parallélogramme ⟺ diagonales se coupant en leur milieu ⟺ côtés opposés parallèles ⟺ côtés opposés de même longueur | 5e | ☐ |
-| Dans un parallélogramme, angles opposés égaux et angles consécutifs supplémentaires | 5e | ☐ |
+| Dans un parallélogramme, angles opposés égaux et angles consécutifs supplémentaires | 5e | ☑ |
 
 ### Repérage et espace
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Coordonnées du milieu d'un segment | 3e | ☐ |
-| Distance entre deux points repérés (via Pythagore) | 3e | ☐ |
+| Coordonnées du milieu d'un segment | 3e | ☑ |
+| Distance entre deux points repérés (via Pythagore) | 3e | ☑ |
 
 ---
 
