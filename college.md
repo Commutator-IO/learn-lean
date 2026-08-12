@@ -7,7 +7,7 @@ formalisation — constructions à la règle et au compas, lectures graphiques, 
 de grandeurs, modélisation probabiliste, algorithmique.
 
 Se prolonge par le [programme du lycée](lycee.md). Statuts et conventions : voir le
-[README](README.md). Les fiches détaillées sont dans [`cours/college/`](cours/college/README.md).
+[README](README.md). Les fiches détaillées sont dans [`cours/college/`](cours/01-college/README.md).
 
 Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
@@ -19,9 +19,9 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Un entier est pair ou impair, jamais les deux | 6e | ☐ |
-| Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair | 6e | ☐ |
-| Notion de multiple et de diviseur ; un diviseur de `n` est inférieur ou égal à `n` | 6e | ☐ |
+| Un entier est pair ou impair, jamais les deux | 6e | ☑ |
+| Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair | 6e | ☑ |
+| Notion de multiple et de diviseur ; un diviseur de `n` est inférieur ou égal à `n` | 6e | ☑ |
 | Critère de divisibilité par 2, par 5, par 10 (chiffre des unités) | 6e | ☐ |
 | Critère de divisibilité par 3 et par 9 (somme des chiffres) | 6e | ☐ |
 | Critère de divisibilité par 4 (deux derniers chiffres) | 5e | ☐ |

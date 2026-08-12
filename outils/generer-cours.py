@@ -19,8 +19,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # (fichier source, sous-dossier de cours/, intitulé)
 SOURCES = [
-    ("college.md", "college", "Programme du collège"),
-    ("lycee.md",   "lycee",   "Programme du lycée (filière S)"),
+    ("college.md", "01-college", "Programme du collège"),
+    ("lycee.md",   "02-lycee", "Programme du lycée (filière S)"),
 ]
 
 def ascii_(s):

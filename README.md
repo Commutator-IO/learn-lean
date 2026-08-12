@@ -40,8 +40,8 @@ honnêtement demande un appareillage sans rapport avec le niveau de l'énoncé.
 college.md      liste du programme du collège, un tableau par thème
 lycee.md        idem pour le lycée, filière S
 cours/          un dossier par chapitre, avec l'index de ses énoncés (README.md)
-  college/        7 chapitres
-  lycee/         10 chapitres
+  01-college/     7 chapitres
+  02-lycee/      10 chapitres
                 les fichiers .lean s'y ajoutent au fur et à mesure
 sujets/         annales du brevet (2000-2026) et script de téléchargement
 outils/         generer-cours.py (index), generer-lakefile.py (bibliothèques)
@@ -54,7 +54,7 @@ Un fichier `.lean` par section d'un chapitre, dans le dossier du chapitre — le
 attendu est donné par l'index (`Triangles.lean`, `Integration.lean`) :
 
 ```lean
--- cours/college/01-nombres-et-calculs/EntiersDivisibilite.lean
+-- cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean
 
 /-- If `a` divides both `b` and `c`, it divides their sum. Collège, 5e. -/
 theorem divisibilite_somme {a b c : Nat} (hb : a ∣ b) (hc : a ∣ c) : a ∣ (b + c) :=

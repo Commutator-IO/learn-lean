@@ -13,9 +13,9 @@ Fichier : `EntiersDivisibilite.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
-| Un entier est pair ou impair, jamais les deux | 6e | `un_entier_est_pair_ou_impair_jamais_les` | ☐ |
-| Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair | 6e | `somme_de_deux_pairs_pair_pair_impair_impair` | ☐ |
-| Notion de multiple et de diviseur ; un diviseur de `n` est inférieur ou égal à `n` | 6e | `notion_de_multiple_et_de_diviseur_un_diviseur` | ☐ |
+| Un entier est pair ou impair, jamais les deux | 6e | `un_entier_est_pair_ou_impair_jamais_les_deux` | ☑ |
+| Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair | 6e | `somme_de_deux_pairs_est_paire` + 2 | ☑ |
+| Notion de multiple et de diviseur ; un diviseur de `n` est inférieur ou égal à `n` | 6e | `multiple_ssi_divise`, `diviseur_le_de_pos` | ☑ |
 | Critère de divisibilité par 2, par 5, par 10 (chiffre des unités) | 6e | `critere_de_divisibilite_par_2_par_5_par` | ☐ |
 | Critère de divisibilité par 3 et par 9 (somme des chiffres) | 6e | `critere_de_divisibilite_par_3_et_par_9` | ☐ |
 | Critère de divisibilité par 4 (deux derniers chiffres) | 5e | `critere_de_divisibilite_par_4_deux_derniers_chiffres` | ☐ |

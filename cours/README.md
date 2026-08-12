@@ -5,8 +5,8 @@ des énoncés à démontrer et accueille les fichiers `.lean` au fur et à mesur
 
 | Programme | Dossier | Source |
 |---|---|---|
-| Programme du collège | [`college/`](college/README.md) | [college.md](../college.md) |
-| Programme du lycée (filière S) | [`lycee/`](lycee/README.md) | [lycee.md](../lycee.md) |
+| Programme du collège | [`01-college/`](01-college/README.md) | [college.md](../college.md) |
+| Programme du lycée (filière S) | [`02-lycee/`](02-lycee/README.md) | [lycee.md](../lycee.md) |
 
 ## Écrire les preuves
 
