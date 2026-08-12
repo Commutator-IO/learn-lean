@@ -1,0 +1,592 @@
+% Fichier engendré par outils/generer-tex.py à partir de EntiersDivisibilite.lean.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{\texttt{EntiersDivisibilite}}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\noindent
+Collège \textemdash{} parité, divisibilité, division euclidienne, nombres premiers et PGCD.
+Reprend les quatorze énoncés de la section \og{} Entiers, divisibilité \fg{} du chapitre.
+
+Lean core seulement : pas d'import de Mathlib. \texttt{Pair}, \texttt{Impair}, \texttt{Premier} et la somme
+des chiffres sont donc définis ici plutôt que repris d'une bibliothèque.
+
+\begin{definition}
+\texttt{n} est \emph{pair} s'il existe un entier naturel $k$ tel que $n = 2k$.
+\end{definition}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L9}{EntiersDivisibilite.lean\#L9}
+
+\begin{definition}
+\texttt{n} est \emph{impair} s'il existe un entier naturel $k$ tel que $n = 2k + 1$.
+\end{definition}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L12}{EntiersDivisibilite.lean\#L12}
+
+\begin{definition}
+\texttt{p} est \emph{premier} si $2 \le p$ et si tout diviseur $d$ de $p$ vérifie $d = 1$
+ou $d = p$.
+\end{definition}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L15}{EntiersDivisibilite.lean\#L15}
+
+\section{Un entier est pair ou impair, jamais les deux}
+
+\begin{theoreme}
+Un entier est pair ou impair.
+\end{theoreme}
+
+\begin{proof}
+Le reste $n \bmod 2$ ne peut valoir que $0$ ou $1$ ; distinguons ces deux cas. Dans
+l'un comme dans l'autre, il suffit de prendre $k = \lfloor n/2 \rfloor$ : de
+$n = 2\lfloor n/2 \rfloor + (n \bmod 2)$ on tire $n = 2k$ si le reste est nul, et
+$n = 2k + 1$ sinon. Les deux égalités se vérifient par un calcul.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L20}{EntiersDivisibilite.lean\#L20}
+
+\begin{theoreme}
+Un entier n'est pas les deux à la fois.
+\end{theoreme}
+
+\begin{proof}
+Par l'absurde : si $n$ était à la fois pair et impair, on écrirait $n = 2k$ et
+$n = 2l + 1$, d'où $2k = 2l + 1$. Or un nombre pair ne peut pas être égal à un nombre
+impair.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L26}{EntiersDivisibilite.lean\#L26}
+
+\begin{theoreme}
+Un entier est pair ou impair, jamais les deux.
+\end{theoreme}
+
+\begin{proof}
+C'est la conjonction des deux théorèmes précédents.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L31}{EntiersDivisibilite.lean\#L31}
+
+\section{Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair}
+
+\begin{theoreme}
+Somme de deux pairs = pair.
+\end{theoreme}
+
+\begin{proof}
+On écrit les hypothèses sous la forme $m = 2k$ et $n = 2l$. Alors
+$m + n = 2k + 2l = 2(k+l)$, et $k + l$ convient.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L38}{EntiersDivisibilite.lean\#L38}
+
+\begin{theoreme}
+Pair + impair = impair.
+\end{theoreme}
+
+\begin{proof}
+On écrit $m = 2k$ et $n = 2l + 1$. Alors $m + n = 2(k+l) + 1$ : on prend encore
+$k + l$, et le $+1$ de $n$ devient celui de la conclusion.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L45}{EntiersDivisibilite.lean\#L45}
+
+\begin{theoreme}
+Impair + impair = pair.
+\end{theoreme}
+
+\begin{proof}
+On écrit $m = 2k + 1$ et $n = 2l + 1$. Alors $m + n = 2k + 2l + 2 = 2(k + l + 1)$ : les
+deux $+1$ se recombinent en un facteur $2$, et $k + l + 1$ convient.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L52}{EntiersDivisibilite.lean\#L52}
+
+\section{Notion de multiple et de diviseur ; un diviseur de \texttt{n} est inférieur ou égal à \texttt{n}}
+
+\begin{theoreme}
+Notion de multiple et de diviseur.
+\end{theoreme}
+
+\begin{proof}
+Les deux membres disent la même chose : sur $\mathbb{N}$, « $a$ divise $n$ » signifie
+précisément « il existe un entier $k$ tel que $n = ak$ ». Il n'y a rien à vérifier.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L61}{EntiersDivisibilite.lean\#L61}
+
+\begin{theoreme}
+Un diviseur de \texttt{n} est inférieur ou égal à \texttt{n}.
+\end{theoreme}
+
+\begin{proof}
+C'est \texttt{Nat.le\_of\_dvd} de la bibliothèque standard : si $n = ak$ avec $n > 0$,
+alors $k \ge 1$, donc $a \le ak = n$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L64}{EntiersDivisibilite.lean\#L64}
+
+\begin{theoreme}
+Contre-exemple pour \texttt{n = 0}.
+\end{theoreme}
+
+\begin{proof}
+Il suffit de prendre $k = 0$, puisque $0 = a \cdot 0$.
+
+Cet énoncé est la raison d'être de l'hypothèse $0 < n$ du théorème précédent : les
+diviseurs de $0$ ne sont pas bornés. L'énoncé de la classe, « un diviseur de $n$ est
+inférieur ou égal à $n$ », est donc faux tel quel ; il n'est vrai que parce qu'au
+collège $n$ compte toujours des objets à partager.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L68}{EntiersDivisibilite.lean\#L68}
+
+\section{Critère de divisibilité par 2, par 5, par 10 (chiffre des unités)}
+
+\begin{definition}
+Le \emph{chiffre des unités} de $n$ est $n \bmod 10$.
+\end{definition}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L74}{EntiersDivisibilite.lean\#L74}
+
+\begin{theoreme}
+Critère de divisibilité par 2 (chiffre des unités).
+\end{theoreme}
+
+\begin{proof}
+Après dépliage de la définition du chiffre des unités, il s'agit de
+$2 \mid n \iff 2 \mid (n \bmod 10)$, prouvée dans les deux sens : comme $2 \mid 10$, écrire $n = 10q + (n \bmod 10)$ montre que $n$ et
+$n \bmod 10$ ont le même reste modulo $2$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L77}{EntiersDivisibilite.lean\#L77}
+
+\begin{theoreme}
+Critère de divisibilité par 2, chiffres énumérés.
+\end{theoreme}
+
+\begin{proof}
+Même argument, la condition $2 \mid (n \bmod 10)$ étant énumérée : le reste modulo $10$
+est l'un des dix chiffres, et les pairs sont $0$, $2$, $4$, $6$, $8$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L82}{EntiersDivisibilite.lean\#L82}
+
+\begin{theoreme}
+Critère de divisibilité par 5 (chiffre des unités).
+\end{theoreme}
+
+\begin{proof}
+Identique, avec $5 \mid 10$ : $n$ et $n \bmod 10$ ont même reste modulo $5$, et les
+chiffres divisibles par $5$ sont $0$ et $5$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L89}{EntiersDivisibilite.lean\#L89}
+
+\begin{theoreme}
+Critère de divisibilité par 10 (chiffre des unités).
+\end{theoreme}
+
+\begin{proof}
+Cas limite du même argument : $n \bmod 10$ est le reste de $n$ modulo $10$, donc il est
+nul exactement quand $10$ divise $n$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L95}{EntiersDivisibilite.lean\#L95}
+
+\section{Critère de divisibilité par 3 et par 9 (somme des chiffres)}
+
+\begin{definition}
+La \emph{somme des chiffres} $S(n)$ est définie par récursion : $S(0) = 0$ et, pour
+$n \ne 0$, $S(n) = (n \bmod 10) + S(\lfloor n/10 \rfloor)$. La récursion termine car
+$\lfloor n/10 \rfloor < n$ dès que $n \ne 0$.
+\end{definition}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L102}{EntiersDivisibilite.lean\#L102}
+
+\begin{theoreme}
+\texttt{n} et la somme de ses chiffres ont le même reste modulo 9.
+\end{theoreme}
+
+\begin{proof}
+Par récurrence forte sur $n$. Si $n = 0$, les deux membres valent $0$.
+
+Sinon, on déplie $S(n) = (n \bmod 10) + S(\lfloor n/10 \rfloor)$. Le quotient
+$\lfloor n/10 \rfloor$ est strictement plus petit que $n$, ce qui autorise l'hypothèse de
+récurrence : $\lfloor n/10 \rfloor \equiv S(\lfloor n/10 \rfloor) \pmod 9$. Comme
+$n = 10\lfloor n/10 \rfloor + (n \bmod 10)$ et $10 \equiv 1 \pmod 9$, on obtient
+\[
+n \equiv \lfloor n/10 \rfloor + (n \bmod 10)
+  \equiv S(\lfloor n/10 \rfloor) + (n \bmod 10) = S(n) \pmod 9 .
+\]
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L108}{EntiersDivisibilite.lean\#L108}
+
+\begin{theoreme}
+\texttt{n} et la somme de ses chiffres ont le même reste modulo 3.
+\end{theoreme}
+
+\begin{proof}
+Même récurrence, en remplaçant $9$ par $3$ : $10 \equiv 1 \pmod 3$ également.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L120}{EntiersDivisibilite.lean\#L120}
+
+\begin{theoreme}
+Critère de divisibilité par 3 (somme des chiffres).
+\end{theoreme}
+
+\begin{proof}
+Conséquence immédiate du lemme : $n$ et $S(n)$ ont le même reste modulo $3$, donc l'un
+est divisible par $3$ si et seulement si l'autre l'est.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L132}{EntiersDivisibilite.lean\#L132}
+
+\begin{theoreme}
+Critère de divisibilité par 9 (somme des chiffres).
+\end{theoreme}
+
+\begin{proof}
+Identique avec le lemme modulo $9$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L137}{EntiersDivisibilite.lean\#L137}
+
+\section{Critère de divisibilité par 4 (deux derniers chiffres)}
+
+\begin{definition}
+Le nombre formé par les \emph{deux derniers chiffres} de $n$ est $n \bmod 100$.
+\end{definition}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L144}{EntiersDivisibilite.lean\#L144}
+
+\begin{theoreme}
+Critère de divisibilité par 4 (deux derniers chiffres).
+\end{theoreme}
+
+\begin{proof}
+Même schéma que pour $2$ et $5$, cette fois avec $4 \mid 100$ : écrire
+$n = 100q + (n \bmod 100)$ montre que $n$ et $n \bmod 100$ ont même reste modulo $4$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L147}{EntiersDivisibilite.lean\#L147}
+
+\section{Si \texttt{a \(\mid\) b} et \texttt{a \(\mid\) c} alors \texttt{a \(\mid\) (b + c)} et \texttt{a \(\mid\) (b − c)}}
+
+\begin{theoreme}
+Si \texttt{a \(\mid\) b} et \texttt{a \(\mid\) c} alors \texttt{a \(\mid\) (b + c)}.
+\end{theoreme}
+
+\begin{proof}
+Si $b = ak$ et $c = al$, alors $b + c = a(k+l)$ (\texttt{Nat.dvd\_add}).
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L154}{EntiersDivisibilite.lean\#L154}
+
+\begin{theoreme}
+Si \texttt{a \(\mid\) b} et \texttt{a \(\mid\) c} alors \texttt{a \(\mid\) (b − c)}.
+\end{theoreme}
+
+\begin{proof}
+\texttt{Nat.dvd\_sub}. Sur $\mathbb{N}$, la soustraction est tronquée : si $b < c$, la
+différence vaut $0$, que tout entier divise, et l'énoncé reste vrai. L'énoncé scolaire,
+lui, suppose implicitement $c \le b$, sans quoi la différence n'aurait pas de sens.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L158}{EntiersDivisibilite.lean\#L158}
+
+\section{Division euclidienne : existence et unicité de \texttt{(q, r)} avec \texttt{a = bq + r}, \texttt{0 \(\le\) r < b}}
+
+\begin{theoreme}
+Division euclidienne : existence de \texttt{(q, r)} avec \texttt{a = bq + r}, \texttt{0 \(\le\) r < b}.
+\end{theoreme}
+
+\begin{proof}
+Prendre $q = \lfloor a/b \rfloor$ et $r = a \bmod b$. L'égalité $a = bq + r$ est
+\texttt{Nat.div\_add\_mod}, et l'inégalité $r < b$ est \texttt{Nat.mod\_lt}, qui demande
+$b > 0$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L164}{EntiersDivisibilite.lean\#L164}
+
+\begin{theoreme}
+Division euclidienne : unicité de \texttt{(q, r)}.
+\end{theoreme}
+
+\begin{proof}
+Le critère \texttt{Nat.div\_mod\_unique} dit que, pour $b > 0$, la conjonction de
+$r + bq = a$ et $r < b$ caractérise $q = \lfloor a/b \rfloor$ et $r = a \bmod b$.
+
+La première écriture $a = bq + r$ avec $r < b$ donne donc $q = \lfloor a/b \rfloor$ et
+$r = a \bmod b$ ; la seconde donne de même $q' = \lfloor a/b \rfloor$ et
+$r' = a \bmod b$. D'où $q = q'$ et $r = r'$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L169}{EntiersDivisibilite.lean\#L169}
+
+\section{Nombre premier ; tout entier > 1 admet un diviseur premier}
+
+\begin{theoreme}
+Nombre premier : ses seuls diviseurs sont 1 et lui-même.
+\end{theoreme}
+
+\begin{proof}
+C'est la seconde composante de la définition de \texttt{Premier}.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L181}{EntiersDivisibilite.lean\#L181}
+
+\begin{theoreme}
+Tout entier > 1 admet un diviseur premier.
+\end{theoreme}
+
+\begin{proof}
+Par récurrence forte sur $n$. Distinguons deux cas.
+
+Si $n$ est premier, il est son propre diviseur premier.
+
+Sinon, la négation de la définition fournit, par l'absurde, un diviseur $d$ de $n$ avec
+$d \ne 1$ et $d \ne n$. Ce $d$ n'est pas nul : $0 \mid n$ entraînerait $n = 0$, contraire
+à $n \ge 2$. Donc $2 \le d$. De $d \mid n$ et $n > 0$ on tire $d \le n$, et $d \ne n$
+donne $d < n$. L'hypothèse de récurrence appliquée à $d$ fournit un premier $p$ divisant
+$d$, et $p \mid n$ par transitivité.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L185}{EntiersDivisibilite.lean\#L185}
+
+\section{Crible d'Ératosthène : lister les nombres premiers inférieurs à 100}
+
+\begin{definition}
+Test calculable de primalité : $\textsf{estPremier}(n)$ vaut vrai lorsque $2 \le n$ et
+que, pour tout $d < n$, on a $d < 2$ ou $n \bmod d \ne 0$. C'est le crible, écrit comme un
+test.
+\end{definition}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L211}{EntiersDivisibilite.lean\#L211}
+
+\begin{theoreme}
+Le test et la définition coïncident.
+\end{theoreme}
+
+\begin{proof}
+($\Rightarrow$) Supposons le test satisfait et soit $d \mid n$. Comme $n \ge 2 > 0$, on a
+$d \le n$. Si $d = n$, la conclusion est acquise. Si $d < n$, le test donne $d < 2$ ou
+$n \bmod d \ne 0$ ; or $d \mid n$ force $n \bmod d = 0$, donc $d < 2$, c'est-à-dire
+$d = 0$ ou $d = 1$. Le cas $d = 0$ est exclu, car $0 \mid n$ donnerait $n = 0$. Reste
+$d = 1$.
+
+($\Leftarrow$) Supposons $n$ premier et soit $d < n$. Si $d < 2$, la disjonction du test
+est satisfaite. Sinon, supposons $n \bmod d = 0$ : alors $d \mid n$, donc $d = 1$ ou
+$d = n$ par primalité, ce qui contredit $2 \le d < n$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L215}{EntiersDivisibilite.lean\#L215}
+
+\begin{theoreme}
+Crible d'Ératosthène : les nombres premiers inférieurs à 100.
+\end{theoreme}
+
+\begin{proof}
+Par calcul : le noyau évalue la liste $0, 1, \dots, 99$, la filtre par le test et compare
+le résultat à la liste annoncée. Le crible est donc exécuté, et pas seulement décrit —
+c'est le théorème précédent qui garantit que ce que le test retient est bien la
+primalité.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L247}{EntiersDivisibilite.lean\#L247}
+
+\section{Décomposition en produit de facteurs premiers}
+
+\begin{definition}
+Le \emph{produit} d'une liste vaut $1$ pour la liste vide, et $p \cdot \Pi(l)$ pour la
+liste $p :: l$.
+\end{definition}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L256}{EntiersDivisibilite.lean\#L256}
+
+\begin{theoreme}
+Décomposition en produit de facteurs premiers.
+\end{theoreme}
+
+\begin{proof}
+Par récurrence forte sur $n$. Si $n = 1$, la liste vide convient, son produit valant $1$.
+
+Sinon $n \ge 2$, et le théorème précédent fournit un premier $p$ divisant $n$, disons
+$n = pm$. Alors $m \ne 0$, sinon $n$ serait nul ; et $m < n$, car
+$m = 1 \cdot m < p \cdot m = n$ puisque $p \ge 2$ et $m > 0$. L'hypothèse de récurrence
+donne une liste $l$ de premiers de produit $m$ ; la liste $p :: l$ convient alors pour
+$n$ : tous ses éléments sont premiers, et son produit vaut $p \cdot m = n$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L261}{EntiersDivisibilite.lean\#L261}
+
+\begin{lemme}
+Lemme d'Euclide, sur lequel repose l'unicité.
+\end{lemme}
+
+\begin{proof}
+Distinguons selon que $p$ divise $a$ ou non. S'il le divise, c'est fini.
+
+Sinon, le pgcd $\gcd(p, a)$ divise $p$, donc vaut $1$ ou $p$ par primalité de $p$. S'il
+valait $p$, alors $p$ diviserait $a$, ce qui est exclu. Donc $\gcd(p,a) = 1$ : $p$ et $a$
+sont premiers entre eux, et de $p \mid ab$ on conclut $p \mid b$
+(\texttt{Nat.Coprime.dvd\_of\_dvd\_mul\_left}).
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L290}{EntiersDivisibilite.lean\#L290}
+
+\noindent
+Statut ◐ pour cet énoncé : l'existence de la décomposition est démontrée ci-dessus, et
+le lemme d'Euclide en donne la clé, mais l'unicité elle-même ne l'est pas encore. Elle
+demande de comparer deux listes de facteurs à permutation près (\texttt{List.Perm}), ce qui est
+une récurrence d'une tout autre longueur que l'énoncé de 3e ne le laisse croire \textemdash{} au
+collège, l'unicité est admise sans même être formulée.
+
+\section{PGCD, algorithme d'Euclide}
+
+\begin{theoreme}
+PGCD, algorithme d'Euclide : \texttt{pgcd(a, b) = pgcd(b, a mod b)}.
+\end{theoreme}
+
+\begin{proof}
+C'est l'équation de récursion de \texttt{Nat.gcd} : la définition de la fonction
+\emph{est} l'algorithme d'Euclide, et sa terminaison tient à la décroissance stricte de
+$b \bmod a$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L309}{EntiersDivisibilite.lean\#L309}
+
+\begin{theoreme}
+Le PGCD est un diviseur commun.
+\end{theoreme}
+
+\begin{proof}
+Conjonction de \texttt{Nat.gcd\_dvd\_left} et \texttt{Nat.gcd\_dvd\_right}.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L313}{EntiersDivisibilite.lean\#L313}
+
+\begin{theoreme}
+Tout diviseur commun divise le PGCD.
+\end{theoreme}
+
+\begin{proof}
+\texttt{Nat.dvd\_gcd}. Noter que la maximalité s'exprime ici par la divisibilité et non
+par l'ordre : tout diviseur commun \emph{divise} le pgcd, ce qui est plus fort que de lui
+être inférieur.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L317}{EntiersDivisibilite.lean\#L317}
+
+\section{Deux nombres sont premiers entre eux \(\iff\) \texttt{pgcd = 1}}
+
+\begin{theoreme}
+Nombres premiers entre eux \(\iff\) \texttt{pgcd = 1}.
+\end{theoreme}
+
+\begin{proof}
+Vrai par définition : sur $\mathbb{N}$, « premiers entre eux » \emph{est} l'égalité du
+pgcd à $1$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L324}{EntiersDivisibilite.lean\#L324}
+
+\begin{theoreme}
+Nombres premiers entre eux \(\iff\) seuls diviseurs communs égaux à 1.
+\end{theoreme}
+
+\begin{proof}
+($\Rightarrow$) Un diviseur commun $d$ de $a$ et $b$ divise leur pgcd, qui vaut $1$ ;
+donc $d = 1$.
+
+($\Leftarrow$) Il suffit d'appliquer l'hypothèse au pgcd lui-même, qui est un diviseur
+commun de $a$ et $b$.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L328}{EntiersDivisibilite.lean\#L328}
+
+\section{Toute fraction admet une écriture irréductible}
+
+\begin{theoreme}
+Toute fraction admet une écriture irréductible.
+\end{theoreme}
+
+\begin{proof}
+Posons $g = \gcd(n,d)$, non nul puisque $d$ l'est, puis $n' = n/g$ et $d' = d/g$.
+
+Alors $d' > 0$, car $g \le d$ ; et $n'$ et $d'$ sont premiers entre eux
+(\texttt{Nat.coprime\_div\_gcd\_div\_gcd}). Enfin, de $g \cdot (n/g) = n$ et
+$g \cdot (d/g) = d$ :
+\[
+n \cdot \frac{d}{g}
+ = \Bigl(g \cdot \frac{n}{g}\Bigr) \cdot \frac{d}{g}
+ = \frac{n}{g} \cdot \Bigl(g \cdot \frac{d}{g}\Bigr)
+ = \frac{n}{g} \cdot d ,
+\]
+la deuxième égalité n'étant que la commutativité et l'associativité du produit. L'égalité
+des fractions est écrite en produits croisés pour rester dans $\mathbb{N}$, où $n/d$ n'a
+pas de sens.
+\end{proof}
+
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L341}{EntiersDivisibilite.lean\#L341}
+
+\section*{Citer Lean}
+
+Les preuves de ce document sont vérifiées par Lean~4, dont la citation recommandée est :
+
+\begin{quote}
+Leonardo de Moura et Sebastian Ullrich, \emph{The Lean 4 Theorem Prover and Programming
+Language}, dans \emph{Automated Deduction — CADE 28}, Springer-Verlag, Berlin, Heidelberg,
+2021, p. 625--635. \textsc{isbn}~978-3-030-79875-8.
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}
+\end{quote}
+
+\begin{footnotesize}
+\begin{verbatim}
+@inproceedings{10.1007/978-3-030-79876-5_37,
+  title     = {The Lean 4 Theorem Prover and Programming Language},
+  author    = {de Moura, Leonardo and Ullrich, Sebastian},
+  year      = {2021},
+  isbn      = {978-3-030-79875-8},
+  publisher = {Springer-Verlag},
+  address   = {Berlin, Heidelberg},
+  url       = {https://doi.org/10.1007/978-3-030-79876-5_37},
+  doi       = {10.1007/978-3-030-79876-5_37},
+  booktitle = {Automated Deduction -- CADE 28},
+  pages     = {625--635}
+}
+\end{verbatim}
+\end{footnotesize}
+
+\end{document}

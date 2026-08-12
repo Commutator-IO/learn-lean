@@ -11,24 +11,15 @@ ce dépôt cherche à mesurer, autant que les preuves elles-mêmes.
 
 ## Les deux programmes
 
-| Fichier | Contenu | Items |
+| Fichier | Contenu | Énoncés |
 |---|---|---|
-| [college.md](college.md) | Objectifs d'apprentissage, 6e (cycle 3) et 5e-3e (cycle 4), puis 133 énoncés conservés | 442 |
-| [lycee.md](lycee.md) | Contenus, seconde et spécialité de première et terminale, puis 137 énoncés conservés | 341 |
+| [college.md](college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 133 |
+| [lycee.md](lycee.md) | Seconde, première S, terminale S et spécialité | 138 |
 
-Les deux listes sont **extraites des programmes officiels**, dans leur formulation
-d'origine, par `python3 outils/extraire-programme.py` : cycle 3 au BO du 17 avril 2025,
-cycle 4 au BO du 5 mars 2026, lycée au BO du 2 avril 2026. Les programmes entrent en
-application par paliers — 5e en 2026, 4e en 2027, 3e en 2028, terminale en 2027.
-
-Au lycée, 31 items portent la mention **démonstration exigible** : le programme demande
-explicitement qu'ils soient démontrés. Ce sont les premiers à formaliser.
-
-Chaque liste se termine par un chapitre **Énoncés conservés** : les propositions rédigées
-avant la reprise des programmes, gardées parce qu'un objectif officiel n'est pas toujours
-une proposition démontrable. Celles qu'aucun item de 2026 ne reprend portent la mention
-*hors programme 2026* — 92 sur 133 au collège, 89 sur 137 au lycée. Ce sont ces énoncés
-que porte le travail Lean déjà fait.
+Chaque ligne y porte un statut. Le fichier lycée ajoute une colonne *Admis* qui signale
+les énoncés que le programme admet sans démonstration (théorème des valeurs
+intermédiaires, existence de primitives, Moivre–Laplace…) : c'est la frontière la plus
+intéressante, puisque Lean ne connaît pas cette convention.
 
 ## Statuts
 
@@ -38,7 +29,6 @@ que porte le travail Lean déjà fait.
 | ◐ | énoncé écrit en Lean, preuve en cours (`sorry`) |
 | ☑ | démontré, sans `sorry` |
 | ✗ | tentative faite, énoncé jugé non formalisable en l'état — raison notée en commentaire du fichier `.lean` |
-| — | l'item décrit un geste (construire, tracer, calculer…) et non une proposition : il n'y a rien à démontrer |
 
 `✗` n'est pas un échec, c'est un résultat. Un énoncé peut y aboutir parce qu'il porte sur
 un dessin, sur une procédure, sur une convention d'unités, ou parce que le formaliser
@@ -49,15 +39,12 @@ honnêtement demande un appareillage sans rapport avec le niveau de l'énoncé.
 ```
 college.md      liste du programme du collège, un tableau par thème
 lycee.md        idem pour le lycée, filière S
-cours/          un dossier par chapitre : uniquement les définitions, propriétés et
-                théorèmes des listes — les objectifs qui décrivent un geste ou une
-                compétence n'y entrent pas, il n'y a rien à y démontrer
+cours/          un dossier par chapitre, avec l'index de ses énoncés (README.md)
   01-college/     7 chapitres
   02-lycee/      10 chapitres
                 les fichiers .lean s'y ajoutent au fur et à mesure
 sujets/         annales du brevet (2000-2026) et script de téléchargement
-outils/         extraire-programme.py (les deux listes, depuis le BO),
-                generer-cours.py (index), generer-lakefile.py (bibliothèques),
+outils/         generer-cours.py (index), generer-lakefile.py (bibliothèques),
                 generer-tex.py (documents LaTeX)
 lakefile.toml   généré : une bibliothèque Lean par chapitre
 ```
