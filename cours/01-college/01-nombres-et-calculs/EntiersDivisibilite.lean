@@ -1,55 +1,58 @@
 /-
-Collège — section « Entiers, divisibilité ». Lean core seulement, sans Mathlib.
+Collège — section « Entiers, divisibilité ».
+Les preuves n'utilisent que la bibliothèque standard ; Mathlib n'est importé que pour
+ses notations (ℕ) et la cohérence avec les autres fichiers du chapitre.
 Énoncés et démonstrations en français : voir EntiersDivisibilite.tex.
 -/
+import Mathlib
 
 namespace College.NombresEtCalculs
 
 /-- `n` est pair. -/
-def Pair (n : Nat) : Prop := ∃ k, n = 2 * k
+def Pair (n : ℕ) : Prop := ∃ k, n = 2 * k
 
 /-- `n` est impair. -/
-def Impair (n : Nat) : Prop := ∃ k, n = 2 * k + 1
+def Impair (n : ℕ) : Prop := ∃ k, n = 2 * k + 1
 
 /-- `p` est premier. -/
-def Premier (p : Nat) : Prop := 2 ≤ p ∧ ∀ d, d ∣ p → d = 1 ∨ d = p
+def Premier (p : ℕ) : Prop := 2 ≤ p ∧ ∀ d, d ∣ p → d = 1 ∨ d = p
 
 /-! ## Un entier est pair ou impair, jamais les deux -/
 
 /-- Un entier est pair ou impair. -/
-theorem pair_ou_impair (n : Nat) : Pair n ∨ Impair n := by
+theorem pair_ou_impair (n : ℕ) : Pair n ∨ Impair n := by
   cases Nat.mod_two_eq_zero_or_one n with
   | inl h => exact Or.inl ⟨n / 2, by omega⟩
   | inr h => exact Or.inr ⟨n / 2, by omega⟩
 
-/-- Un entier n'est pas les deux à la fois. -/
-theorem pas_pair_et_impair (n : Nat) : ¬(Pair n ∧ Impair n) := by
+/-- Aucun entier n'est à la fois pair et impair. -/
+theorem pas_pair_et_impair (n : ℕ) : ¬(Pair n ∧ Impair n) := by
   intro ⟨⟨k, hk⟩, ⟨l, hl⟩⟩
   omega
 
-/-- Un entier est pair ou impair, jamais les deux. -/
-theorem un_entier_est_pair_ou_impair_jamais_les_deux (n : Nat) :
+/-- Réunion des deux énoncés précédents : tout entier relève d'un cas, et d'un seul. -/
+theorem un_entier_est_pair_ou_impair_jamais_les_deux (n : ℕ) :
     (Pair n ∨ Impair n) ∧ ¬(Pair n ∧ Impair n) :=
   ⟨pair_ou_impair n, pas_pair_et_impair n⟩
 
 /-! ## Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair -/
 
 /-- Somme de deux pairs = pair. -/
-theorem somme_de_deux_pairs_est_paire {m n : Nat} (hm : Pair m) (hn : Pair n) :
+theorem somme_de_deux_pairs_est_paire {m n : ℕ} (hm : Pair m) (hn : Pair n) :
     Pair (m + n) := by
   obtain ⟨k, hk⟩ := hm
   obtain ⟨l, hl⟩ := hn
   exact ⟨k + l, by omega⟩
 
 /-- Pair + impair = impair. -/
-theorem somme_pair_impair_est_impaire {m n : Nat} (hm : Pair m) (hn : Impair n) :
+theorem somme_pair_impair_est_impaire {m n : ℕ} (hm : Pair m) (hn : Impair n) :
     Impair (m + n) := by
   obtain ⟨k, hk⟩ := hm
   obtain ⟨l, hl⟩ := hn
   exact ⟨k + l, by omega⟩
 
 /-- Impair + impair = pair. -/
-theorem somme_de_deux_impairs_est_paire {m n : Nat} (hm : Impair m) (hn : Impair n) :
+theorem somme_de_deux_impairs_est_paire {m n : ℕ} (hm : Impair m) (hn : Impair n) :
     Pair (m + n) := by
   obtain ⟨k, hk⟩ := hm
   obtain ⟨l, hl⟩ := hn
@@ -58,54 +61,54 @@ theorem somme_de_deux_impairs_est_paire {m n : Nat} (hm : Impair m) (hn : Impair
 /-! ## Notion de multiple et de diviseur ; un diviseur de `n` est inférieur ou égal à `n` -/
 
 /-- Notion de multiple et de diviseur. -/
-theorem multiple_ssi_divise {a n : Nat} : (∃ k, n = a * k) ↔ a ∣ n := Iff.rfl
+theorem multiple_ssi_divise {a n : ℕ} : (∃ k, n = a * k) ↔ a ∣ n := Iff.rfl
 
 /-- Un diviseur de `n` est inférieur ou égal à `n`. -/
-theorem diviseur_le_de_pos {a n : Nat} (hn : 0 < n) (h : a ∣ n) : a ≤ n :=
+theorem diviseur_le_de_pos {a n : ℕ} (hn : 0 < n) (h : a ∣ n) : a ≤ n :=
   Nat.le_of_dvd hn h
 
 /-- Contre-exemple pour `n = 0`. -/
-theorem diviseur_de_zero_non_borne (a : Nat) : a ∣ 0 :=
+theorem diviseur_de_zero_non_borne (a : ℕ) : a ∣ 0 :=
   ⟨0, by omega⟩
 
 /-! ## Critère de divisibilité par 2, par 5, par 10 (chiffre des unités) -/
 
 /-- Chiffre des unités. -/
-def chiffreUnites (n : Nat) : Nat := n % 10
+def chiffreUnites (n : ℕ) : ℕ := n % 10
 
 /-- Critère de divisibilité par 2 (chiffre des unités). -/
-theorem critere_divisibilite_par_2 (n : Nat) : 2 ∣ n ↔ 2 ∣ chiffreUnites n := by
+theorem critere_divisibilite_par_2 (n : ℕ) : 2 ∣ n ↔ 2 ∣ chiffreUnites n := by
   unfold chiffreUnites
   constructor <;> intro h <;> omega
 
 /-- Critère de divisibilité par 2, chiffres énumérés. -/
-theorem critere_divisibilite_par_2_chiffres (n : Nat) :
+theorem critere_divisibilite_par_2_chiffres (n : ℕ) :
     2 ∣ n ↔ chiffreUnites n = 0 ∨ chiffreUnites n = 2 ∨ chiffreUnites n = 4 ∨
             chiffreUnites n = 6 ∨ chiffreUnites n = 8 := by
   unfold chiffreUnites
   constructor <;> intro h <;> omega
 
 /-- Critère de divisibilité par 5 (chiffre des unités). -/
-theorem critere_divisibilite_par_5 (n : Nat) :
+theorem critere_divisibilite_par_5 (n : ℕ) :
     5 ∣ n ↔ chiffreUnites n = 0 ∨ chiffreUnites n = 5 := by
   unfold chiffreUnites
   constructor <;> intro h <;> omega
 
 /-- Critère de divisibilité par 10 (chiffre des unités). -/
-theorem critere_divisibilite_par_10 (n : Nat) : 10 ∣ n ↔ chiffreUnites n = 0 := by
+theorem critere_divisibilite_par_10 (n : ℕ) : 10 ∣ n ↔ chiffreUnites n = 0 := by
   unfold chiffreUnites
   constructor <;> intro h <;> omega
 
 /-! ## Critère de divisibilité par 3 et par 9 (somme des chiffres) -/
 
 /-- Somme des chiffres. -/
-def sommeChiffres (n : Nat) : Nat :=
+def sommeChiffres (n : ℕ) : ℕ :=
   if h : n = 0 then 0
   else n % 10 + sommeChiffres (n / 10)
 decreasing_by exact Nat.div_lt_self (Nat.pos_of_ne_zero h) (by omega)
 
 /-- `n` et la somme de ses chiffres ont le même reste modulo 9. -/
-theorem mod_neuf_somme_chiffres (n : Nat) : n % 9 = sommeChiffres n % 9 := by
+theorem mod_neuf_somme_chiffres (n : ℕ) : n % 9 = sommeChiffres n % 9 := by
   induction n using Nat.strongRecOn with
   | _ n hi =>
     rw [sommeChiffres]
@@ -117,7 +120,7 @@ theorem mod_neuf_somme_chiffres (n : Nat) : n % 9 = sommeChiffres n % 9 := by
       omega
 
 /-- `n` et la somme de ses chiffres ont le même reste modulo 3. -/
-theorem mod_trois_somme_chiffres (n : Nat) : n % 3 = sommeChiffres n % 3 := by
+theorem mod_trois_somme_chiffres (n : ℕ) : n % 3 = sommeChiffres n % 3 := by
   induction n using Nat.strongRecOn with
   | _ n hi =>
     rw [sommeChiffres]
@@ -129,44 +132,44 @@ theorem mod_trois_somme_chiffres (n : Nat) : n % 3 = sommeChiffres n % 3 := by
       omega
 
 /-- Critère de divisibilité par 3 (somme des chiffres). -/
-theorem critere_divisibilite_par_3 (n : Nat) : 3 ∣ n ↔ 3 ∣ sommeChiffres n := by
+theorem critere_divisibilite_par_3 (n : ℕ) : 3 ∣ n ↔ 3 ∣ sommeChiffres n := by
   have h := mod_trois_somme_chiffres n
   constructor <;> intro hd <;> omega
 
 /-- Critère de divisibilité par 9 (somme des chiffres). -/
-theorem critere_divisibilite_par_9 (n : Nat) : 9 ∣ n ↔ 9 ∣ sommeChiffres n := by
+theorem critere_divisibilite_par_9 (n : ℕ) : 9 ∣ n ↔ 9 ∣ sommeChiffres n := by
   have h := mod_neuf_somme_chiffres n
   constructor <;> intro hd <;> omega
 
 /-! ## Critère de divisibilité par 4 (deux derniers chiffres) -/
 
 /-- Nombre formé par les deux derniers chiffres. -/
-def deuxDerniersChiffres (n : Nat) : Nat := n % 100
+def deuxDerniersChiffres (n : ℕ) : ℕ := n % 100
 
 /-- Critère de divisibilité par 4 (deux derniers chiffres). -/
-theorem critere_divisibilite_par_4 (n : Nat) : 4 ∣ n ↔ 4 ∣ deuxDerniersChiffres n := by
+theorem critere_divisibilite_par_4 (n : ℕ) : 4 ∣ n ↔ 4 ∣ deuxDerniersChiffres n := by
   unfold deuxDerniersChiffres
   constructor <;> intro h <;> omega
 
 /-! ## Si `a ∣ b` et `a ∣ c` alors `a ∣ (b + c)` et `a ∣ (b − c)` -/
 
 /-- Si `a ∣ b` et `a ∣ c` alors `a ∣ (b + c)`. -/
-theorem divise_somme {a b c : Nat} (hb : a ∣ b) (hc : a ∣ c) : a ∣ (b + c) :=
+theorem divise_somme {a b c : ℕ} (hb : a ∣ b) (hc : a ∣ c) : a ∣ (b + c) :=
   Nat.dvd_add hb hc
 
 /-- Si `a ∣ b` et `a ∣ c` alors `a ∣ (b − c)`. -/
-theorem divise_difference {a b c : Nat} (hb : a ∣ b) (hc : a ∣ c) : a ∣ (b - c) :=
+theorem divise_difference {a b c : ℕ} (hb : a ∣ b) (hc : a ∣ c) : a ∣ (b - c) :=
   Nat.dvd_sub hb hc
 
 /-! ## Division euclidienne : existence et unicité de `(q, r)` avec `a = bq + r`, `0 ≤ r < b` -/
 
 /-- Division euclidienne : existence de `(q, r)` avec `a = bq + r`, `0 ≤ r < b`. -/
-theorem division_euclidienne_existence (a : Nat) {b : Nat} (hb : 0 < b) :
+theorem division_euclidienne_existence (a : ℕ) {b : ℕ} (hb : 0 < b) :
     ∃ q r, a = b * q + r ∧ r < b :=
   ⟨a / b, a % b, (Nat.div_add_mod a b).symm, Nat.mod_lt a hb⟩
 
 /-- Division euclidienne : unicité de `(q, r)`. -/
-theorem division_euclidienne_unicite {a b q r q' r' : Nat} (hb : 0 < b)
+theorem division_euclidienne_unicite {a b q r q' r' : ℕ} (hb : 0 < b)
     (h : a = b * q + r) (hr : r < b) (h' : a = b * q' + r') (hr' : r' < b) :
     q = q' ∧ r = r' := by
   have e : a / b = q ∧ a % b = r :=
@@ -178,11 +181,11 @@ theorem division_euclidienne_unicite {a b q r q' r' : Nat} (hb : 0 < b)
 /-! ## Nombre premier ; tout entier > 1 admet un diviseur premier -/
 
 /-- Nombre premier : ses seuls diviseurs sont 1 et lui-même. -/
-theorem premier_diviseurs {p d : Nat} (hp : Premier p) (h : d ∣ p) : d = 1 ∨ d = p :=
+theorem premier_diviseurs {p d : ℕ} (hp : Premier p) (h : d ∣ p) : d = 1 ∨ d = p :=
   hp.2 d h
 
 /-- Tout entier > 1 admet un diviseur premier. -/
-theorem existe_diviseur_premier : ∀ {n : Nat}, 2 ≤ n → ∃ p, Premier p ∧ p ∣ n := by
+theorem existe_diviseur_premier : ∀ {n : ℕ}, 2 ≤ n → ∃ p, Premier p ∧ p ∣ n := by
   intro n
   induction n using Nat.strongRecOn with
   | _ n hi =>
@@ -208,11 +211,11 @@ theorem existe_diviseur_premier : ∀ {n : Nat}, 2 ≤ n → ∃ p, Premier p �
 /-! ## Crible d'Ératosthène : lister les nombres premiers inférieurs à 100 -/
 
 /-- Crible d'Ératosthène, écrit comme un test. -/
-def estPremier (n : Nat) : Bool :=
+def estPremier (n : ℕ) : Bool :=
   2 ≤ n && (List.range n).all fun d => d < 2 || n % d != 0
 
 /-- Le test et la définition coïncident. -/
-theorem estPremier_iff (n : Nat) : estPremier n = true ↔ Premier n := by
+theorem estPremier_iff (n : ℕ) : estPremier n = true ↔ Premier n := by
   unfold estPremier Premier
   simp only [Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true, List.mem_range,
     Bool.or_eq_true, bne_iff_ne, ne_eq, decide_eq_true_eq]
@@ -253,13 +256,13 @@ theorem crible_eratosthene :
 /-! ## Décomposition en produit de facteurs premiers -/
 
 /-- Produit des éléments d'une liste. -/
-def produit : List Nat → Nat
+def produit : List ℕ → ℕ
   | [] => 1
   | p :: l => p * produit l
 
 /-- Décomposition en produit de facteurs premiers. -/
 theorem decomposition_en_facteurs_premiers :
-    ∀ {n : Nat}, 0 < n → ∃ l : List Nat, (∀ p ∈ l, Premier p) ∧ produit l = n := by
+    ∀ {n : ℕ}, 0 < n → ∃ l : List ℕ, (∀ p ∈ l, Premier p) ∧ produit l = n := by
   intro n
   induction n using Nat.strongRecOn with
   | _ n hi =>
@@ -287,7 +290,7 @@ theorem decomposition_en_facteurs_premiers :
         · exact hl q h, by simp [produit, hprod, hm]⟩
 
 /-- Lemme d'Euclide, sur lequel repose l'unicité. -/
-theorem lemme_d_euclide {p a b : Nat} (hp : Premier p) (h : p ∣ a * b) :
+theorem lemme_d_euclide {p a b : ℕ} (hp : Premier p) (h : p ∣ a * b) :
     p ∣ a ∨ p ∣ b := by
   by_cases ha : p ∣ a
   · exact Or.inl ha
@@ -306,26 +309,26 @@ deux listes de facteurs à permutation près. Au collège, elle est admise.
 /-! ## PGCD, algorithme d'Euclide -/
 
 /-- PGCD, algorithme d'Euclide : `pgcd(a, b) = pgcd(b, a mod b)`. -/
-theorem pgcd_euclide (a b : Nat) : Nat.gcd a b = Nat.gcd (b % a) a :=
+theorem pgcd_euclide (a b : ℕ) : Nat.gcd a b = Nat.gcd (b % a) a :=
   Nat.gcd_rec a b
 
 /-- Le PGCD est un diviseur commun. -/
-theorem pgcd_divise (a b : Nat) : Nat.gcd a b ∣ a ∧ Nat.gcd a b ∣ b :=
+theorem pgcd_divise (a b : ℕ) : Nat.gcd a b ∣ a ∧ Nat.gcd a b ∣ b :=
   ⟨Nat.gcd_dvd_left a b, Nat.gcd_dvd_right a b⟩
 
 /-- Tout diviseur commun divise le PGCD. -/
-theorem pgcd_le_de_diviseur_commun {a b d : Nat} (ha : d ∣ a) (hb : d ∣ b) :
+theorem pgcd_le_de_diviseur_commun {a b d : ℕ} (ha : d ∣ a) (hb : d ∣ b) :
     d ∣ Nat.gcd a b :=
   Nat.dvd_gcd ha hb
 
 /-! ## Deux nombres sont premiers entre eux ⟺ `pgcd = 1` -/
 
 /-- Nombres premiers entre eux ⟺ `pgcd = 1`. -/
-theorem premiers_entre_eux_ssi_pgcd_un {a b : Nat} :
+theorem premiers_entre_eux_ssi_pgcd_un {a b : ℕ} :
     Nat.Coprime a b ↔ Nat.gcd a b = 1 := Iff.rfl
 
 /-- Nombres premiers entre eux ⟺ seuls diviseurs communs égaux à 1. -/
-theorem premiers_entre_eux_ssi_diviseurs_communs_triviaux {a b : Nat} :
+theorem premiers_entre_eux_ssi_diviseurs_communs_triviaux {a b : ℕ} :
     Nat.Coprime a b ↔ ∀ d, d ∣ a → d ∣ b → d = 1 := by
   constructor
   · intro h d hda hdb
@@ -338,7 +341,7 @@ theorem premiers_entre_eux_ssi_diviseurs_communs_triviaux {a b : Nat} :
 /-! ## Toute fraction admet une écriture irréductible -/
 
 /-- Toute fraction admet une écriture irréductible. -/
-theorem fraction_irreductible {n d : Nat} (hd : 0 < d) :
+theorem fraction_irreductible {n d : ℕ} (hd : 0 < d) :
     ∃ n' d', 0 < d' ∧ Nat.Coprime n' d' ∧ n * d' = n' * d := by
   have hg : 0 < Nat.gcd n d := Nat.gcd_pos_of_pos_right n hd
   refine ⟨n / Nat.gcd n d, d / Nat.gcd n d, ?_, Nat.coprime_div_gcd_div_gcd hg, ?_⟩

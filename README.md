@@ -45,7 +45,7 @@ cours/          un dossier par chapitre, avec l'index de ses énoncés (README.m
                 les fichiers .lean s'y ajoutent au fur et à mesure
 sujets/         annales du brevet (2000-2026) et script de téléchargement
 outils/         generer-cours.py (index), generer-lakefile.py (bibliothèques),
-                generer-tex.py (documents LaTeX)
+                generer-tex.py (un document LaTeX par chapitre)
 lakefile.toml   généré : une bibliothèque Lean par chapitre
 ```
 
@@ -74,7 +74,7 @@ python3 outils/generer-lakefile.py && lake build
 
 ## Lire les preuves hors de Lean
 
-Chaque fichier `.lean` a un jumeau `.tex`, engendré à partir de lui :
+Chaque chapitre a un document `.tex` unique, engendré à partir de ses fichiers Lean :
 
 ```bash
 python3 outils/generer-tex.py

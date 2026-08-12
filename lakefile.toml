@@ -4,10 +4,15 @@
 name = "learn-lean"
 defaultTargets = ["CollegeNombresEtCalculs", "CollegeGeometriePlane", "CollegeTransformationsDuPlan", "CollegeGrandeursEtMesures", "CollegeProportionnaliteEtFonctions", "CollegeStatistiquesEtProbabilites", "CollegeAlgorithmiqueEtProgrammation", "LyceeNombresCalculAlgebrique", "LyceeFonctionsSecondDegre", "LyceeSuites", "LyceeLimitesContinuiteDerivation", "LyceeExponentielleLogarithmeTrigonometrie", "LyceeIntegration", "LyceeNombresComplexes", "LyceeGeometrieVecteursProduitScalaireEspace", "LyceeProbabilitesEtStatistiques", "LyceeSpecialiteMathematiquesTerminaleS"]
 
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.33.0"
+
 [[lean_lib]]
 name = "CollegeNombresEtCalculs"
 srcDir = "cours/01-college/01-nombres-et-calculs"
-globs = ["EntiersDivisibilite"]
+globs = ["CalculsEtCalculLitteral", "EcrituresDesNombres", "EntiersDivisibilite"]
 
 [[lean_lib]]
 name = "CollegeGeometriePlane"

@@ -24,7 +24,7 @@ sont donc conservées. Pour repartir d'un squelette neuf, supprimer le `.tex`.
 Il se compile avec `tectonic` ou `pdflatex`.
 """
 
-import re, sys, os, subprocess
+import re, sys, os, subprocess, unicodedata
 
 # --- conversion des symboles ------------------------------------------------
 
@@ -84,6 +84,12 @@ def prose_latex(texte):
     return "".join(sortie)
 
 # --- lien vers la source ----------------------------------------------------
+
+def camel(titre):
+    """Nom de fichier en CamelCase à partir d'un titre."""
+    t = unicodedata.normalize("NFKD", titre).encode("ascii", "ignore").decode()
+    t = re.sub(r"^\d+[-_. ]*", "", t)
+    return "".join(m.capitalize() for m in re.split(r"[^A-Za-z0-9]+", t) if m)
 
 def racine_depot(chemin):
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -184,34 +190,14 @@ ENTETE = r"""%% Fichier engendré par outils/generer-tex.py à partir de %(sourc
 \sloppy
 """
 
-# Citation recommandée par les auteurs de Lean, https://lean-lang.org/learn/#how-to-cite-lean
-CITATION = r"""\section*{Citer Lean}
-
-Les preuves de ce document sont vérifiées par Lean~4, dont la citation recommandée est :
-
-\begin{quote}
-Leonardo de Moura et Sebastian Ullrich, \emph{The Lean 4 Theorem Prover and Programming
-Language}, dans \emph{Automated Deduction — CADE 28}, Springer-Verlag, Berlin, Heidelberg,
-2021, p. 625--635. \textsc{isbn}~978-3-030-79875-8.
-\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}
-\end{quote}
-
-\begin{footnotesize}
-\begin{verbatim}
-@inproceedings{10.1007/978-3-030-79876-5_37,
-  title     = {The Lean 4 Theorem Prover and Programming Language},
-  author    = {de Moura, Leonardo and Ullrich, Sebastian},
-  year      = {2021},
-  isbn      = {978-3-030-79875-8},
-  publisher = {Springer-Verlag},
-  address   = {Berlin, Heidelberg},
-  url       = {https://doi.org/10.1007/978-3-030-79876-5_37},
-  doi       = {10.1007/978-3-030-79876-5_37},
-  booktitle = {Automated Deduction -- CADE 28},
-  pages     = {625--635}
-}
-\end{verbatim}
-\end{footnotesize}
+# Référence de Lean, donnée discrètement en pied de document
+# (https://lean-lang.org/learn/#how-to-cite-lean)
+CITATION = r"""\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
 """
 
 def environnement(sorte, nom):
@@ -219,24 +205,46 @@ def environnement(sorte, nom):
         return "definition"
     return "lemme" if nom.startswith("lemme") else "theoreme"
 
-def convertir(chemin_lean):
-    intro, blocs = lire(chemin_lean)
-    source = os.path.basename(chemin_lean)
-    titre = os.path.splitext(source)[0]
+def titre_chapitre(dossier):
+    """Titre lisible du chapitre, lu dans son index."""
+    index = os.path.join(dossier, "README.md")
+    if os.path.exists(index):
+        for ligne in open(index, encoding="utf-8"):
+            if ligne.startswith("# "):
+                return ligne[2:].strip()
+    return os.path.basename(dossier)
 
-    racine = racine_depot(chemin_lean)
+def convertir(dossier):
+    """Un document par chapitre : une section par fichier Lean du dossier."""
+    fichiers = sorted(f for f in os.listdir(dossier) if f.endswith(".lean"))
+    if not fichiers:
+        return None, 0
+    racine = racine_depot(dossier)
     base = base_github(racine)
-    relatif = os.path.relpath(os.path.abspath(chemin_lean), racine)
+    titre = titre_chapitre(dossier)
+    chemin_tex = os.path.join(dossier, camel(titre) + ".tex")
+    if os.path.exists(chemin_tex):
+        return chemin_tex, None
 
-    out = [ENTETE % {"source": source, "titre": r"\texttt{" + code_latex(titre) + "}"}]
-    if intro:
-        out.append(r"\noindent")
-        out.append(prose_latex(intro))
-        out.append("")
+    out = [ENTETE % {"source": os.path.basename(dossier), "titre": prose_latex(titre)}]
+    total = 0
+    for fichier in fichiers:
+        intro, blocs = lire(os.path.join(dossier, fichier))
+        relatif = os.path.relpath(os.path.abspath(os.path.join(dossier, fichier)), racine)
+        out += [r"\section{" + code_latex(os.path.splitext(fichier)[0]) + "}", ""]
+        if intro:
+            out += [r"\noindent", prose_latex(intro), ""]
+        total += ecrire_blocs(out, blocs, base, relatif, fichier)
+    out += [CITATION, r"\end{document}", ""]
+    open(chemin_tex, "w", encoding="utf-8").write("\n".join(out))
+    return chemin_tex, total
 
+def ecrire_blocs(out, blocs, base, relatif, source):
+    """Ajoute au document les blocs d'un fichier Lean ; renvoie le nombre d'énoncés."""
+    total = 0
     for sorte, contenu in blocs:
         if sorte == "section":
-            out += [r"\section{" + prose_latex(contenu) + "}", ""]
+            out += [r"\subsection{" + prose_latex(contenu) + "}", ""]
         elif sorte == "remarque":
             out += [r"\noindent", prose_latex(contenu), ""]
         else:
@@ -254,20 +262,15 @@ def convertir(chemin_lean):
                 # la démonstration transcrite vient s'insérer ici, avant le renvoi
                 out.append(r"% démonstration à transcrire (skill transcrire-preuve-lean)")
             out += [r"\source{" + lien + "}{" + reperage + "}", ""]
-
-    out += [CITATION, r"\end{document}", ""]
-    chemin_tex = os.path.splitext(chemin_lean)[0] + ".tex"
-    if os.path.exists(chemin_tex):
-        return chemin_tex, None
-    open(chemin_tex, "w", encoding="utf-8").write("\n".join(out))
-    return chemin_tex, sum(1 for s, _ in blocs if s == "declaration")
+            total += 1
+    return total
 
 def tous_les_fichiers():
+    """Les dossiers de chapitre contenant au moins un fichier Lean."""
     racine = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/cours"
     for dossier, _, fichiers in os.walk(racine):
-        for f in sorted(fichiers):
-            if f.endswith(".lean"):
-                yield os.path.join(dossier, f)
+        if any(f.endswith(".lean") for f in fichiers):
+            yield dossier
 
 if __name__ == "__main__":
     if len(sys.argv) > 2:

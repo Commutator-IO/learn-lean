@@ -34,19 +34,19 @@ Fichier : `EcrituresDesNombres.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
-| Numération décimale de position ; valeur d'un chiffre selon son rang | 6e | `numeration_decimale_de_position_valeur_d_un_chiffre` | ☐ |
-| Ordre sur les décimaux ; comparaison, encadrement, intercalation | 6e | `ordre_sur_les_decimaux_comparaison_encadrement_intercalation` | ☐ |
-| Ordre sur les relatifs ; opposé, distance à zéro | 5e | `ordre_sur_les_relatifs_oppose_distance_a_zero` | ☐ |
-| Égalité de fractions : `a/b = (ka)/(kb)` pour `k ≠ 0` | 5e | `egalite_de_fractions_pour` | ☐ |
-| Comparaison de fractions ; mise au même dénominateur | 5e | `comparaison_de_fractions_mise_au_meme_denominateur` | ☐ |
-| Une fraction n'a pas toujours d'écriture décimale exacte (`1/3`) | 5e | `une_fraction_n_a_pas_toujours_d_ecriture` | ☐ |
-| Arrondi, troncature, valeur approchée à `10⁻ⁿ` près, encadrement | 6e / 5e | `arrondi_troncature_valeur_approchee_a_pres_encadrement` | ☐ |
-| Ordre de grandeur d'un résultat ; contrôle de la vraisemblance d'un calcul | 5e | `ordre_de_grandeur_d_un_resultat_controle_de` | ☐ |
-| Écriture scientifique : existence et unicité de `a × 10ⁿ` avec `1 ≤ \|a\| < 10` | 4e | `ecriture_scientifique_existence_et_unicite_de_avec` | ☐ |
-| Racine carrée : `(√a)² = a` et `√(a²) = a` pour `a ≥ 0` | 3e | `racine_carree_et_pour` | ☐ |
-| `√(ab) = √a × √b` et `√(a/b) = √a / √b` (`a ≥ 0`, `b > 0`) | 3e | `et` | ☐ |
-| Contre-exemple : `√(a + b) ≠ √a + √b` en général | 3e | `contre_exemple_en_general` | ☐ |
-| Rationnels et irrationnels : `√2` n'est pas rationnel (admis au collège) | 3e | `rationnels_et_irrationnels_n_est_pas_rationnel_admis` | ☐ |
+| Numération décimale de position ; valeur d'un chiffre selon son rang | 6e | `numeration_decimale_de_position_valeur_d_un_chiffre` | ☑ |
+| Ordre sur les décimaux ; comparaison, encadrement, intercalation | 6e | `ordre_sur_les_decimaux_comparaison_encadrement_intercalation` | ☑ |
+| Ordre sur les relatifs ; opposé, distance à zéro | 5e | `ordre_sur_les_relatifs_oppose_distance_a_zero` | ☑ |
+| Égalité de fractions : `a/b = (ka)/(kb)` pour `k ≠ 0` | 5e | `egalite_de_fractions_pour` | ☑ |
+| Comparaison de fractions ; mise au même dénominateur | 5e | `comparaison_de_fractions_mise_au_meme_denominateur` | ☑ |
+| Une fraction n'a pas toujours d'écriture décimale exacte (`1/3`) | 5e | `une_fraction_n_a_pas_toujours_d_ecriture` | ☑ |
+| Arrondi, troncature, valeur approchée à `10⁻ⁿ` près, encadrement | 6e / 5e | `arrondi_troncature_valeur_approchee_a_pres_encadrement` | ☑ |
+| Ordre de grandeur d'un résultat ; contrôle de la vraisemblance d'un calcul | 5e | `ordre_de_grandeur_d_un_resultat_controle_de` | ☑ |
+| Écriture scientifique : existence et unicité de `a × 10ⁿ` avec `1 ≤ \|a\| < 10` | 4e | `ecriture_scientifique_existence_et_unicite_de_avec` | ☑ |
+| Racine carrée : `(√a)² = a` et `√(a²) = a` pour `a ≥ 0` | 3e | `racine_carree_et_pour` | ☑ |
+| `√(ab) = √a × √b` et `√(a/b) = √a / √b` (`a ≥ 0`, `b > 0`) | 3e | `et` | ☑ |
+| Contre-exemple : `√(a + b) ≠ √a + √b` en général | 3e | `contre_exemple_en_general` | ☑ |
+| Rationnels et irrationnels : `√2` n'est pas rationnel (admis au collège) | 3e | `rationnels_et_irrationnels_n_est_pas_rationnel_admis` | ☑ |
 
 ## Calculs et calcul littéral
 

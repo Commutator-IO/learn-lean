@@ -50,7 +50,14 @@ texte français : nommer ce qu'elle fait.
 | `Classical.byContradiction` | « par l'absurde » |
 | `calc` | une chaîne d'égalités affichée, avec la justification de chaque pas |
 | `rw [h]`, `▸` | « en remplaçant … par … », le plus souvent silencieux |
-| un lemme de la bibliothèque | l'énoncer en français, et donner son nom entre parenthèses |
+| un lemme de la bibliothèque (`Nat.dvd_add`, `Real.sq_sqrt`, `mul_eq_zero`…) | **le traduire** : dire en français ce qu'il affirme, jamais recopier l'identifiant seul |
+
+Un nom de lemme n'est pas une démonstration. `Nat.le_of_dvd` ne se transcrit pas par
+« c'est `Nat.le_of_dvd` », mais par ce qu'il dit : « si `n = ak` avec `n > 0`, alors
+`k ≥ 1`, donc `a ≤ n` ». Le nom peut suivre entre parenthèses quand il aide à retrouver le
+lemme, jamais tenir lieu d'argument. Même chose pour les notations : `Nat`, `Int`, `Rat`,
+`Real` s'écrivent ℕ, ℤ, ℚ, ℝ, et `a ∣ b`, `a % b`, `a / b` deviennent respectivement
+« `a` divise `b` », `a \bmod b` et `\lfloor a/b \rfloor` sur les entiers.
 
 Exhiber un objet ne se dit pas « le témoin est `w` », calque de la logique formelle : en
 français on écrit « il suffit de prendre `w` », « on prend `w` », « `w` convient ». Même

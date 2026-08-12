@@ -38,19 +38,19 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Numération décimale de position ; valeur d'un chiffre selon son rang | 6e | ☐ |
-| Ordre sur les décimaux ; comparaison, encadrement, intercalation | 6e | ☐ |
-| Ordre sur les relatifs ; opposé, distance à zéro | 5e | ☐ |
-| Égalité de fractions : `a/b = (ka)/(kb)` pour `k ≠ 0` | 5e | ☐ |
-| Comparaison de fractions ; mise au même dénominateur | 5e | ☐ |
-| Une fraction n'a pas toujours d'écriture décimale exacte (`1/3`) | 5e | ☐ |
-| Arrondi, troncature, valeur approchée à `10⁻ⁿ` près, encadrement | 6e / 5e | ☐ |
-| Ordre de grandeur d'un résultat ; contrôle de la vraisemblance d'un calcul | 5e | ☐ |
-| Écriture scientifique : existence et unicité de `a × 10ⁿ` avec `1 ≤ \|a\| < 10` | 4e | ☐ |
-| Racine carrée : `(√a)² = a` et `√(a²) = a` pour `a ≥ 0` | 3e | ☐ |
-| `√(ab) = √a × √b` et `√(a/b) = √a / √b` (`a ≥ 0`, `b > 0`) | 3e | ☐ |
-| Contre-exemple : `√(a + b) ≠ √a + √b` en général | 3e | ☐ |
-| Rationnels et irrationnels : `√2` n'est pas rationnel (admis au collège) | 3e | ☐ |
+| Numération décimale de position ; valeur d'un chiffre selon son rang | 6e | ☑ |
+| Ordre sur les décimaux ; comparaison, encadrement, intercalation | 6e | ☑ |
+| Ordre sur les relatifs ; opposé, distance à zéro | 5e | ☑ |
+| Égalité de fractions : `a/b = (ka)/(kb)` pour `k ≠ 0` | 5e | ☑ |
+| Comparaison de fractions ; mise au même dénominateur | 5e | ☑ |
+| Une fraction n'a pas toujours d'écriture décimale exacte (`1/3`) | 5e | ☑ |
+| Arrondi, troncature, valeur approchée à `10⁻ⁿ` près, encadrement | 6e / 5e | ☑ |
+| Ordre de grandeur d'un résultat ; contrôle de la vraisemblance d'un calcul | 5e | ☑ |
+| Écriture scientifique : existence et unicité de `a × 10ⁿ` avec `1 ≤ \|a\| < 10` | 4e | ☑ |
+| Racine carrée : `(√a)² = a` et `√(a²) = a` pour `a ≥ 0` | 3e | ☑ |
+| `√(ab) = √a × √b` et `√(a/b) = √a / √b` (`a ≥ 0`, `b > 0`) | 3e | ☑ |
+| Contre-exemple : `√(a + b) ≠ √a + √b` en général | 3e | ☑ |
+| Rationnels et irrationnels : `√2` n'est pas rationnel (admis au collège) | 3e | ☑ |
 
 ### Calculs et calcul littéral
 
