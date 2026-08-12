@@ -33,6 +33,75 @@
 % espacements plus lâches plutôt que des lignes qui débordent.
 \sloppy
 
+\section{AnglesOrientes}
+
+\noindent
+Collège \textemdash{} angles alternes-internes et correspondants.
+
+Ces énoncés demandent des angles *orientés* : deux angles alternes-internes ont même
+mesure non orientée sans être le même angle, et la réciproque \textemdash{} l'égalité des angles
+entraîne le parallélisme \textemdash{} est fausse si l'on oublie l'orientation. On travaille donc dans
+un plan orienté, ce qu'impose l'hypothèse \texttt{Fact (finrank \(\mathbb{R}\) V = 2)} : elle vaut pour tout
+le fichier, d'où sa séparation d'avec GeometriePlane.lean.
+Énoncés et démonstrations en français : voir GeometriePlane.tex.
+
+\subsection{Deux parallèles coupées par une sécante : angles correspondants}
+
+\begin{theoreme}
+Deux droites parallèles coupées par une sécante font avec elle des \emph{angles
+correspondants} égaux : multiplier le vecteur directeur par un réel strictement positif —
+c'est-à-dire prendre une parallèle de même sens — ne change pas l'angle orienté avec la
+sécante.
+\end{theoreme}
+
+\begin{proof}
+C'est la propriété de l'angle orienté : $\widehat{(ku, w)} = \widehat{(u, w)}$ pour
+$k > 0$, le vecteur $ku$ pointant dans la même direction que $u$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/AnglesOrientes.lean\#L23}{AnglesOrientes.lean\#L23}
+
+\subsection{Angles alternes-internes}
+
+\begin{theoreme}
+Les \emph{angles alternes-internes} sont égaux : ils se déduisent des angles
+correspondants en retournant les deux demi-droites,
+\[ \widehat{(ku, w)} = \widehat{(-u, -w)} \qquad (k > 0) . \]
+\end{theoreme}
+
+\begin{proof}
+On applique l'énoncé précédent, puis le fait qu'un angle orienté ne change pas quand on
+remplace ses deux vecteurs par leurs opposés — ce qui revient à faire tourner la figure
+d'un demi-tour.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/AnglesOrientes.lean\#L31}{AnglesOrientes.lean\#L31}
+
+\subsection{Réciproque : égalité des angles alternes-internes \(\implies\) parallélisme}
+
+\begin{theoreme}
+Réciproque : si deux droites font le même angle orienté avec une sécante, leurs
+directions sont colinéaires — elles sont parallèles.
+\end{theoreme}
+
+\begin{proof}
+La relation de Chasles sur les angles orientés donne
+\[ \widehat{(u, v)} = \widehat{(u, w)} + \widehat{(w, v)} , \]
+et l'hypothèse remplace le premier terme par $\widehat{(v, w)}$, dont la somme avec
+$\widehat{(w, v)}$ est nulle. L'angle $\widehat{(u, v)}$ est donc nul, ce qui caractérise
+deux vecteurs colinéaires de même sens.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/AnglesOrientes.lean\#L40}{AnglesOrientes.lean\#L40}
+
+\begin{theoreme}
+Sous la forme du cours : l'égalité des angles alternes-internes entraîne le
+parallélisme.
+\end{theoreme}
+
+\begin{proof}
+On se ramène à l'énoncé précédent en retournant les deux demi-droites, ce qui ne change
+pas l'angle orienté.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/AnglesOrientes.lean\#L53}{AnglesOrientes.lean\#L53}
+
 \section{GeometriePlane}
 
 \noindent

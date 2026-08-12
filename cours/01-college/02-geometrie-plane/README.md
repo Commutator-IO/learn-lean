@@ -20,8 +20,8 @@ Fichier : `DroitesAnglesParalleles.lean`
 | Le plus court chemin d'un point à une droite est le segment perpendiculaire | 6e | `le_plus_court_chemin_d_un_point_a` | ☑ |
 | Angles opposés par le sommet : ils sont égaux | 6e | `angles_opposes_par_le_sommet_ils_sont_egaux` | ☑ |
 | Angles adjacents, complémentaires, supplémentaires | 6e | `angles_adjacents_complementaires_supplementaires` | ☑ |
-| Deux parallèles coupées par une sécante : angles alternes-internes et correspondants égaux | 5e | `deux_paralleles_coupees_par_une_secante_angles_alternes` | ☐ |
-| Réciproque : égalité de deux angles alternes-internes ⟹ parallélisme | 5e | `reciproque_egalite_de_deux_angles_alternes_internes_parallelisme` | ☐ |
+| Deux parallèles coupées par une sécante : angles alternes-internes et correspondants égaux | 5e | `deux_paralleles_coupees_par_une_secante_angles_alternes` | ☑ |
+| Réciproque : égalité de deux angles alternes-internes ⟹ parallélisme | 5e | `reciproque_egalite_de_deux_angles_alternes_internes_parallelisme` | ☑ |
 | Caractérisation de la médiatrice : `M` équidistant de `A` et `B` ⟺ `M` sur la médiatrice de `[AB]` | 6e | `caracterisation_de_la_mediatrice_equidistant_de_et_sur` | ☑ |
 | Caractérisation de la bissectrice : équidistance aux deux côtés de l'angle | 6e | `caracterisation_de_la_bissectrice_equidistance_aux_deux_cotes` | ☐ |
 

@@ -73,8 +73,8 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 | Le plus court chemin d'un point à une droite est le segment perpendiculaire | 6e | ☑ |
 | Angles opposés par le sommet : ils sont égaux | 6e | ☑ |
 | Angles adjacents, complémentaires, supplémentaires | 6e | ☑ |
-| Deux parallèles coupées par une sécante : angles alternes-internes et correspondants égaux | 5e | ☐ |
-| Réciproque : égalité de deux angles alternes-internes ⟹ parallélisme | 5e | ☐ |
+| Deux parallèles coupées par une sécante : angles alternes-internes et correspondants égaux | 5e | ☑ |
+| Réciproque : égalité de deux angles alternes-internes ⟹ parallélisme | 5e | ☑ |
 | Caractérisation de la médiatrice : `M` équidistant de `A` et `B` ⟺ `M` sur la médiatrice de `[AB]` | 6e | ☑ |
 | Caractérisation de la bissectrice : équidistance aux deux côtés de l'angle | 6e | ☐ |
 
