@@ -76,7 +76,7 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 | Deux parallèles coupées par une sécante : angles alternes-internes et correspondants égaux | 5e | ☑ |
 | Réciproque : égalité de deux angles alternes-internes ⟹ parallélisme | 5e | ☑ |
 | Caractérisation de la médiatrice : `M` équidistant de `A` et `B` ⟺ `M` sur la médiatrice de `[AB]` | 6e | ☑ |
-| Caractérisation de la bissectrice : équidistance aux deux côtés de l'angle | 6e | ☐ |
+| Caractérisation de la bissectrice : équidistance aux deux côtés de l'angle | 6e | ☑ |
 
 ### Triangles
 
@@ -104,7 +104,7 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 | Réciproque : l'hypoténuse est un diamètre du cercle circonscrit | 4e | ☑ |
 | Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de l'hypoténuse | 4e | ☑ |
 | La tangente à un cercle est perpendiculaire au rayon au point de contact | 3e | ☑ |
-| Parallélogramme ⟺ diagonales se coupant en leur milieu ⟺ côtés opposés parallèles ⟺ côtés opposés de même longueur | 5e | ☐ |
+| Parallélogramme ⟺ diagonales se coupant en leur milieu ⟺ côtés opposés parallèles ⟺ côtés opposés de même longueur | 5e | ☑ |
 | Dans un parallélogramme, angles opposés égaux et angles consécutifs supplémentaires | 5e | ☑ |
 
 ### Repérage et espace

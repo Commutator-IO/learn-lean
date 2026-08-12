@@ -23,7 +23,7 @@ Fichier : `DroitesAnglesParalleles.lean`
 | Deux parallèles coupées par une sécante : angles alternes-internes et correspondants égaux | 5e | `deux_paralleles_coupees_par_une_secante_angles_alternes` | ☑ |
 | Réciproque : égalité de deux angles alternes-internes ⟹ parallélisme | 5e | `reciproque_egalite_de_deux_angles_alternes_internes_parallelisme` | ☑ |
 | Caractérisation de la médiatrice : `M` équidistant de `A` et `B` ⟺ `M` sur la médiatrice de `[AB]` | 6e | `caracterisation_de_la_mediatrice_equidistant_de_et_sur` | ☑ |
-| Caractérisation de la bissectrice : équidistance aux deux côtés de l'angle | 6e | `caracterisation_de_la_bissectrice_equidistance_aux_deux_cotes` | ☐ |
+| Caractérisation de la bissectrice : équidistance aux deux côtés de l'angle | 6e | `caracterisation_de_la_bissectrice_equidistance_aux_deux_cotes` | ☑ |
 
 ## Triangles
 
@@ -55,7 +55,7 @@ Fichier : `CercleEtQuadrilateres.lean`
 | Réciproque : l'hypoténuse est un diamètre du cercle circonscrit | 4e | `reciproque_l_hypotenuse_est_un_diametre_du_cercle` | ☑ |
 | Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de l'hypoténuse | 4e | `dans_un_triangle_rectangle_la_mediane_issue_de` | ☑ |
 | La tangente à un cercle est perpendiculaire au rayon au point de contact | 3e | `la_tangente_a_un_cercle_est_perpendiculaire_au` | ☑ |
-| Parallélogramme ⟺ diagonales se coupant en leur milieu ⟺ côtés opposés parallèles ⟺ côtés opposés de même longueur | 5e | `parallelogramme_diagonales_se_coupant_en_leur_milieu_cotes` | ☐ |
+| Parallélogramme ⟺ diagonales se coupant en leur milieu ⟺ côtés opposés parallèles ⟺ côtés opposés de même longueur | 5e | `parallelogramme_diagonales_se_coupant_en_leur_milieu_cotes` | ☑ |
 | Dans un parallélogramme, angles opposés égaux et angles consécutifs supplémentaires | 5e | `dans_un_parallelogramme_angles_opposes_egaux_et_angles` | ☑ |
 
 ## Repérage et espace

@@ -36,6 +36,11 @@ noncomputable def milieu (a b : V) : V := (1 / 2 : ℝ) • (a + b)
 opposés sont égaux. -/
 def Parallelogramme (a b c d : V) : Prop := b - a = c - d
 
+/-- Distance d'un point à la droite passant par `a` et dirigée par le vecteur unitaire
+`u` : c'est la longueur de la composante orthogonale. -/
+noncomputable def distanceDroite (p a u : V) : ℝ :=
+  ‖(p - a) - (inner ℝ (p - a) u : ℝ) • u‖
+
 /-- Le centre de gravité d'un triangle. -/
 noncomputable def centreDeGravite (a b c : V) : V := (1 / 3 : ℝ) • (a + b + c)
 
@@ -376,6 +381,32 @@ theorem parallelogramme_cotes_opposes {a b c d : V} (h : Parallelogramme a b c d
     linear_combination (norm := module) -hh
   rw [hab]
 
+/-- Réciproque, avec l'hypothèse que le quadrilatère n'est pas croisé : si les côtés
+opposés ont même longueur et pointent dans le même sens, c'est un parallélogramme.
+
+C'est cette seconde hypothèse que la figure porte au collège et que l'énoncé tait : sans
+elle, le quadrilatère croisé est un contre-exemple, ses côtés opposés ayant même longueur
+mais des vecteurs opposés. -/
+theorem parallelogramme_de_cotes_egaux {a b c d : V}
+    (hsens : SameRay ℝ (b - a) (c - d)) (hlong : dist a b = dist d c) :
+    Parallelogramme a b c d := by
+  have hnorm : ‖b - a‖ = ‖c - d‖ := by
+    rw [dist_eq_norm, dist_eq_norm] at hlong
+    rw [show b - a = -(a - b) by abel, show c - d = -(d - c) by abel, norm_neg, norm_neg]
+    exact hlong
+  exact hsens.eq_of_norm_eq hnorm
+
+/-- Sans cette hypothèse, l'énoncé est faux : voici un quadrilatère croisé dont les côtés
+opposés ont même longueur sans qu'il soit un parallélogramme. -/
+theorem cotes_egaux_ne_suffisent_pas {u : V} (hu : u ≠ 0) :
+    dist 0 u = dist u 0 ∧ ¬ Parallelogramme (0 : V) u 0 u := by
+  refine ⟨dist_comm 0 u, ?_⟩
+  simp only [Parallelogramme, sub_zero, zero_sub]
+  intro h
+  apply hu
+  have : (2 : ℝ) • u = 0 := by linear_combination (norm := module) h
+  simpa using this
+
 /-- Dans un parallélogramme, les angles opposés sont égaux : les deux couples de vecteurs
 qui les portent sont opposés. -/
 theorem parallelogramme_angles_opposes {a b c d : V} (h : Parallelogramme a b c d) :
@@ -407,6 +438,48 @@ theorem centre_de_gravite_sur_mediane_b (a b c : V) :
 theorem centre_de_gravite_sur_mediane_c (a b c : V) :
     centreDeGravite a b c ∈ droiteAB c (milieu a b) :=
   ⟨2 / 3, by simp only [centreDeGravite, milieu]; module⟩
+
+/-! ## Caractérisation de la bissectrice : équidistance aux deux côtés -/
+
+/-- Les points de la bissectrice d'un angle sont à égale distance de ses deux côtés. La
+bissectrice est portée par la somme des deux vecteurs unitaires, ce qui est la traduction
+vectorielle de « elle partage l'angle en deux ». -/
+theorem bissectrice_equidistance {u v : V} (hu : ‖u‖ = 1) (hv : ‖v‖ = 1) (a : V) (t : ℝ) :
+    distanceDroite (a + t • (u + v)) a u = distanceDroite (a + t • (u + v)) a v := by
+  have hpu : (a + t • (u + v)) - a = t • (u + v) := by abel
+  have huu : (inner ℝ u u : ℝ) = 1 := by
+    rw [real_inner_self_eq_norm_sq, hu]; norm_num
+  have hvv : (inner ℝ v v : ℝ) = 1 := by
+    rw [real_inner_self_eq_norm_sq, hv]; norm_num
+  have hcomm : (inner ℝ u v : ℝ) = (inner ℝ v u : ℝ) := real_inner_comm v u
+  -- chaque composante orthogonale se réduit à `t • (v - ⟪u,v⟫ u)`, resp. `t • (u - ⟪u,v⟫ v)`
+  have e1 : distanceDroite (a + t • (u + v)) a u = |t| * ‖v - (inner ℝ v u : ℝ) • u‖ := by
+    simp only [distanceDroite, hpu, inner_smul_left, inner_add_left, huu,
+      starRingEnd_apply, star_trivial]
+    rw [show t • (u + v) - (t * (1 + (inner ℝ v u : ℝ))) • u
+          = t • (v - (inner ℝ v u : ℝ) • u) by module,
+      norm_smul, Real.norm_eq_abs]
+  have e2 : distanceDroite (a + t • (u + v)) a v = |t| * ‖u - (inner ℝ u v : ℝ) • v‖ := by
+    simp only [distanceDroite, hpu, inner_smul_left, inner_add_left, hvv,
+      starRingEnd_apply, star_trivial]
+    rw [show t • (u + v) - (t * ((inner ℝ u v : ℝ) + 1)) • v
+          = t • (u - (inner ℝ u v : ℝ) • v) by module,
+      norm_smul, Real.norm_eq_abs]
+  -- les deux composantes ont même norme, leur carré valant `1 - ⟪u,v⟫²`
+  have carre1 : ‖v - (inner ℝ v u : ℝ) • u‖ ^ 2 = 1 - (inner ℝ v u : ℝ) ^ 2 := by
+    rw [norm_sub_sq_real, real_inner_smul_right, norm_smul, Real.norm_eq_abs, hu, hv]
+    simp only [mul_one, sq_abs]
+    ring
+  have carre2 : ‖u - (inner ℝ u v : ℝ) • v‖ ^ 2 = 1 - (inner ℝ u v : ℝ) ^ 2 := by
+    rw [norm_sub_sq_real, real_inner_smul_right, norm_smul, Real.norm_eq_abs, hu, hv]
+    simp only [mul_one, sq_abs]
+    ring
+  have hegal : ‖v - (inner ℝ v u : ℝ) • u‖ = ‖u - (inner ℝ u v : ℝ) • v‖ := by
+    have h1 : (0 : ℝ) ≤ ‖v - (inner ℝ v u : ℝ) • u‖ := norm_nonneg _
+    have h2 : (0 : ℝ) ≤ ‖u - (inner ℝ u v : ℝ) • v‖ := norm_nonneg _
+    have hc : (inner ℝ v u : ℝ) ^ 2 = (inner ℝ u v : ℝ) ^ 2 := by rw [hcomm]
+    nlinarith [carre1, carre2, hc]
+  rw [e1, e2, hegal]
 
 /-! ## Concours des hauteurs et des bissectrices -/
 
