@@ -108,7 +108,10 @@ def base_github(racine):
 
 # --- lecture du fichier Lean ------------------------------------------------
 
-DECLARATION = re.compile(r"^(theorem|lemma|def|abbrev|instance|example)\s+([^\s({\[:]*)")
+# les modificateurs (noncomputable, private…) précèdent le mot-clé
+DECLARATION = re.compile(
+    r"^(?:noncomputable |private |protected |partial |unsafe )*"
+    r"(theorem|lemma|def|abbrev|instance|example)\s+([^\s({\[:]*)")
 
 def lire(chemin):
     """Découpe le fichier en blocs : intro, sections, remarques, déclarations."""
