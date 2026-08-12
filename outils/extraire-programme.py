@@ -41,7 +41,9 @@ SOURCES = {
                   "BO n° 14 du 2 avril 2026"),
 }
 
-NIVEAUX = {"Sixième": "6e", "Cinquième": "5e", "Quatrième": "4e", "Troisième": "3e"}
+NIVEAUX = {"Sixième": "6e", "Cinquième": "5e", "Quatrième": "4e", "Troisième": "3e",
+           # le cycle 3 couvre aussi l'école élémentaire, hors sujet ici
+           "Cours moyen première année": None, "Cours moyen deuxième année": None}
 RUBRIQUES = {"Automatismes", "Objectifs d’apprentissage", "Objectifs d'apprentissage",
              "Prolongements possibles : mises en perspective historiques et culturelles",
              "Contenus", "Capacités attendues", "Démonstrations", "Exemple d’algorithme",
@@ -61,52 +63,58 @@ def texte(nom):
 
 def items(lignes):
     """Regroupe les lignes d'une rubrique en items, en recollant les continuations."""
-    sortie = []
+    sortie, creux_puce = [], 0
     for ligne in lignes:
         nu = ligne.strip()
         if not nu:
             continue
-        debut = re.match(r"^[−–\-•]\s*(.*)", nu)
-        if debut:
-            sortie.append(debut.group(1))
-        elif sortie and (ligne.startswith("   ") or nu[0].islower()):
+        creux = len(ligne) - len(ligne.lstrip())
+        puce = re.match(r"^[−–\-•]\s*(.*)", nu)
+        if puce:
+            sortie.append(puce.group(1))
+            creux_puce = creux
+        elif sortie and (creux > creux_puce or nu[0].islower()):
             sortie[-1] += " " + nu
         else:
             sortie.append(nu)
+            creux_puce = creux
     return [re.sub(r"\s+", " ", i).strip(" .;") for i in sortie if len(i) > 3]
 
 def sommaire(lignes, profondeurs):
-    """Hiérarchie tirée du sommaire : [(niveau_indentation, titre)] jusqu'au corps."""
+    """Hiérarchie tirée du sommaire, et indice de la première ligne du corps.
+
+    Le corps du document reprend la première entrée du sommaire : sa deuxième
+    occurrence marque donc la fin du sommaire."""
     debut = next(i for i, l in enumerate(lignes) if l.strip() == "Sommaire")
-    plan, vus = [], set()
-    for ligne in lignes[debut + 1:]:
+    plan, fin, premiere = [], debut + 1, None
+    for i, ligne in enumerate(lignes[debut + 1:], debut + 1):
         nu = ligne.strip()
+        fin = i
         if not nu:
             continue
-        creux = len(ligne) - len(ligne.lstrip())
-        if nu in vus:                      # le corps recommence : le sommaire est fini
+        if premiere is None:
+            premiere = nu
+        elif nu == premiere:
             break
+        creux = len(ligne) - len(ligne.lstrip())
         if creux in profondeurs:
             plan.append((profondeurs[creux], nu))
-            vus.add(nu)
-    return plan
+    return plan, fin
 
 def college():
     """[(domaine, niveau, thème, [objectifs])] pour les cycles 3 et 4."""
     resultat = []
     for nom in ("cycle3", "cycle4"):
         lignes = texte(nom)
-        plan = sommaire(lignes, {0: "titre", 3: "theme"})
+        plan, debut = sommaire(lignes, {0: "titre", 2: "theme", 3: "theme"})
         titres = {t for p, t in plan if p == "titre"}
         themes = {t for p, t in plan if p == "theme"}
-        domaines = titres - set(NIVEAUX)
-        debut = next(i for i, l in enumerate(lignes)
-                     if i > 5 and l.strip() in domaines and not l.startswith(" "))
+        domaines = titres - set(NIVEAUX) - RUBRIQUES
         domaine = niveau = theme = None
         rubrique, tampon = None, []
 
         def vider():
-            if rubrique and rubrique.startswith("Objectifs") and tampon and theme:
+            if rubrique and rubrique.startswith("Objectifs") and tampon and theme and niveau:
                 objectifs = items(tampon)
                 if objectifs:
                     resultat.append((domaine, niveau, theme, objectifs))
@@ -136,10 +144,12 @@ def college():
 def lycee(nom):
     """[(domaine, thème, [(énoncé, démonstration exigible)])] pour un programme de lycée."""
     lignes = texte(nom)
-    plan = sommaire(lignes, {3: "domaine", 5: "theme", 6: "theme"})
+    plan, _ = sommaire(lignes, {3: "domaine", 5: "theme", 6: "theme"})
     domaines = [t for p, t in plan if p == "domaine"]
-    themes = [t for p, t in plan if p == "theme"]
-    debut = next(i for i, l in enumerate(lignes) if l.strip() == "Programme" and i > 3)
+    themes = [t for p, t in plan if p == "theme" and t not in
+              ("Objectifs", "Histoire des mathématiques")]
+    debut = next(i for i, l in enumerate(lignes)
+                 if l.strip() == "Programme" and i > 30)
     resultat, domaine, theme = [], None, None
     rubrique, contenus, demos = None, [], []
 
@@ -173,7 +183,117 @@ def lycee(nom):
     vider()
     return resultat
 
+
+# --- écriture des listes ------------------------------------------------------
+
+# Un objectif qui commence par l'un de ces verbes décrit un geste, pas une
+# proposition : il ne se démontre pas, et reçoit le statut « — ».
+GESTES = ("construire", "tracer", "reconnaitre", "reconnaître", "utiliser", "calculer",
+          "placer", "lire", "représenter", "résoudre", "effectuer", "déterminer",
+          "mesurer", "estimer", "convertir", "comparer", "ranger", "écrire", "passer",
+          "modéliser", "programmer", "choisir", "interpréter", "exploiter", "produire",
+          "réaliser", "compléter", "dénombrer", "organiser", "traiter", "vérifier",
+          "contrôler", "simplifier", "décomposer", "additionner", "soustraire",
+          "multiplier", "diviser", "encadrer", "arrondir", "repérer", "extraire",
+          "manipuler", "mobiliser", "s’initier", "expérimenter", "trier", "classer")
+
+def statut(enonce):
+    premier = enonce.split()[0].lower().strip("’'")
+    if "démontrer" in enonce.lower() or "démonstration" in enonce.lower():
+        return "☐"
+    return "—" if premier in GESTES else "☐"
+
+def echapper(texte):
+    return texte.replace("|", "\\|")
+
+def ecrire_college():
+    plan = college()
+    ordre = []
+    for domaine, _, _, _ in plan:
+        if domaine not in ordre:
+            ordre.append(domaine)
+    out = ["# Programme du collège — objectifs d'apprentissage",
+           "",
+           "Liste extraite telle quelle des programmes officiels, par",
+           "`python3 outils/extraire-programme.py` :",
+           "",
+           "- **6e** — programme de mathématiques du cycle 3, [BO n° 16 du 17 avril 2025]"
+           "(https://www.education.gouv.fr/bo/2025/Hebdo16/MENE2504620A), en application"
+           " depuis la rentrée 2025 ;",
+           "- **5e, 4e, 3e** — programme du cycle 4, [BO n° 10 du 5 mars 2026]"
+           "(https://www.education.gouv.fr/bo/2026/Hebdo10/MENE2602912A), en application en 5e"
+           " à la rentrée 2026, en 4e en 2027, en 3e en 2028.",
+           "",
+           "Seuls les « objectifs d'apprentissage » sont repris ; les « automatismes » et les",
+           "« prolongements possibles » du texte officiel ne donnent pas d'énoncés.",
+           "",
+           "Statuts : ☐ à formaliser · ◐ preuve en cours · ☑ démontré · ✗ non formalisable en",
+           "l'état · **—** l'objectif décrit un geste (construire, calculer, tracer…) et non une",
+           "proposition : il n'y a rien à démontrer.",
+           "",
+           "Se prolonge par le [programme du lycée](lycee.md). Fiches : [`cours/01-college/`]"
+           "(cours/01-college/README.md).",
+           "",
+           "---",
+           ""]
+    for n, domaine in enumerate(ordre, 1):
+        out += [f"## {n}. {domaine}", ""]
+        for d, niveau, theme, objectifs in plan:
+            if d != domaine:
+                continue
+            out += [f"### {niveau} — {theme}", "",
+                    "| Objectif d'apprentissage | Niveau | Démontré |", "|---|---|---|"]
+            for o in objectifs:
+                out.append(f"| {echapper(o)} | {niveau} | {statut(o)} |")
+            out.append("")
+        out.append("---")
+        out.append("")
+    open(os.path.join(ROOT, "college.md"), "w", encoding="utf-8").write("\n".join(out))
+    return sum(len(o) for _, _, _, o in plan)
+
+CLASSES = [("seconde", "Seconde générale et technologique", "2de",
+            "https://www.education.gouv.fr/bo/2026/Hebdo14/MENE2602914A"),
+           ("premiere", "Première — enseignement de spécialité", "1re",
+            "https://www.education.gouv.fr/bo/2026/Hebdo14/MENE2602917A"),
+           ("terminale", "Terminale — enseignement de spécialité", "Tle",
+            "https://www.education.gouv.fr/bo/2026/Hebdo14/MENE2602919A")]
+
+def ecrire_lycee():
+    out = ["# Programme du lycée — contenus",
+           "",
+           "Liste extraite telle quelle des programmes officiels, par",
+           "`python3 outils/extraire-programme.py`. Les trois textes sont parus au",
+           "[BO n° 14 du 2 avril 2026](https://www.education.gouv.fr/bo/2026/Hebdo14/) :",
+           "seconde et spécialité de première en application à la rentrée 2026, spécialité de",
+           "terminale à la rentrée 2027.",
+           "",
+           "Ce sont les « contenus » du texte officiel qui sont repris. Les énoncés dont le",
+           "programme exige la démonstration portent la mention **démonstration exigible** :",
+           "ce sont les premiers à formaliser.",
+           "",
+           "Statuts : ☐ à formaliser · ◐ preuve en cours · ☑ démontré · ✗ non formalisable en",
+           "l'état · **—** l'item décrit un geste ou une notation, et non une proposition.",
+           "",
+           "Suite du [programme du collège](college.md). Fiches :"
+           " [`cours/02-lycee/`](cours/02-lycee/README.md).",
+           "",
+           "---",
+           ""]
+    total = 0
+    for n, (nom, titre, sigle, lien) in enumerate(CLASSES, 1):
+        out += [f"## {n}. {titre}", "", f"Source : <{lien}>", ""]
+        for domaine, theme, enonces in lycee(nom):
+            out += [f"### {domaine} — {theme}", "",
+                    "| Contenu | Classe | Démontré |", "|---|---|---|"]
+            for enonce, exigible in enonces:
+                texte_ = echapper(enonce) + (" **(démonstration exigible)**" if exigible else "")
+                out.append(f"| {texte_} | {sigle} | {'☐' if exigible else statut(enonce)} |")
+                total += 1
+            out.append("")
+        out += ["---", ""]
+    open(os.path.join(ROOT, "lycee.md"), "w", encoding="utf-8").write("\n".join(out))
+    return total
+
 if __name__ == "__main__":
-    print("collège :", len(college()), "blocs")
-    for n in ("seconde", "premiere", "terminale"):
-        print(n, ":", len(lycee(n)), "thèmes")
+    print("college.md :", ecrire_college(), "objectifs")
+    print("lycee.md   :", ecrire_lycee(), "contenus")

@@ -2,89 +2,49 @@
 # ajouté un fichier .lean dans cours/. Les blocs [[require]] sont conservés.
 
 name = "learn-lean"
-defaultTargets = ["CollegeNombresEtCalculs", "CollegeGeometriePlane", "CollegeTransformationsDuPlan", "CollegeGrandeursEtMesures", "CollegeProportionnaliteEtFonctions", "CollegeStatistiquesEtProbabilites", "CollegeAlgorithmiqueEtProgrammation", "LyceeNombresCalculAlgebrique", "LyceeFonctionsSecondDegre", "LyceeSuites", "LyceeLimitesContinuiteDerivation", "LyceeExponentielleLogarithmeTrigonometrie", "LyceeIntegration", "LyceeNombresComplexes", "LyceeGeometrieVecteursProduitScalaireEspace", "LyceeProbabilitesEtStatistiques", "LyceeSpecialiteMathematiquesTerminaleS"]
+defaultTargets = ["CollegeNombresCalculEtResolutionDeProblemes", "CollegeGrandeursEtMesures", "CollegeEspaceEtGeometrie", "CollegeOrganisationEtGestionDeDonneesEt", "CollegeNombresEtCalculs", "CollegeProportionnaliteFonctions", "LyceeSecondeGeneraleEtTechnologique", "LyceePremiereEnseignementDeSpecialite", "LyceeTerminaleEnseignementDeSpecialite"]
 
 [[lean_lib]]
-name = "CollegeNombresEtCalculs"
-srcDir = "cours/01-college/01-nombres-et-calculs"
-globs = ["EntiersDivisibilite"]
-
-[[lean_lib]]
-name = "CollegeGeometriePlane"
-srcDir = "cours/01-college/02-geometrie-plane"
-globs = []
-
-[[lean_lib]]
-name = "CollegeTransformationsDuPlan"
-srcDir = "cours/01-college/03-transformations-du-plan"
+name = "CollegeNombresCalculEtResolutionDeProblemes"
+srcDir = "cours/01-college/01-nombres-calcul-et-resolution-de-problemes"
 globs = []
 
 [[lean_lib]]
 name = "CollegeGrandeursEtMesures"
-srcDir = "cours/01-college/04-grandeurs-et-mesures"
+srcDir = "cours/01-college/02-grandeurs-et-mesures"
 globs = []
 
 [[lean_lib]]
-name = "CollegeProportionnaliteEtFonctions"
-srcDir = "cours/01-college/05-proportionnalite-et-fonctions"
+name = "CollegeEspaceEtGeometrie"
+srcDir = "cours/01-college/03-espace-et-geometrie"
 globs = []
 
 [[lean_lib]]
-name = "CollegeStatistiquesEtProbabilites"
-srcDir = "cours/01-college/06-statistiques-et-probabilites"
+name = "CollegeOrganisationEtGestionDeDonneesEt"
+srcDir = "cours/01-college/04-organisation-et-gestion-de-donnees-et"
 globs = []
 
 [[lean_lib]]
-name = "CollegeAlgorithmiqueEtProgrammation"
-srcDir = "cours/01-college/07-algorithmique-et-programmation"
+name = "CollegeNombresEtCalculs"
+srcDir = "cours/01-college/05-nombres-et-calculs"
+globs = ["EntiersDivisibilite"]
+
+[[lean_lib]]
+name = "CollegeProportionnaliteFonctions"
+srcDir = "cours/01-college/06-proportionnalite-fonctions"
 globs = []
 
 [[lean_lib]]
-name = "LyceeNombresCalculAlgebrique"
-srcDir = "cours/02-lycee/01-nombres-calcul-algebrique"
+name = "LyceeSecondeGeneraleEtTechnologique"
+srcDir = "cours/02-lycee/01-seconde-generale-et-technologique"
 globs = []
 
 [[lean_lib]]
-name = "LyceeFonctionsSecondDegre"
-srcDir = "cours/02-lycee/02-fonctions-second-degre"
+name = "LyceePremiereEnseignementDeSpecialite"
+srcDir = "cours/02-lycee/02-premiere-enseignement-de-specialite"
 globs = []
 
 [[lean_lib]]
-name = "LyceeSuites"
-srcDir = "cours/02-lycee/03-suites"
-globs = []
-
-[[lean_lib]]
-name = "LyceeLimitesContinuiteDerivation"
-srcDir = "cours/02-lycee/04-limites-continuite-derivation"
-globs = []
-
-[[lean_lib]]
-name = "LyceeExponentielleLogarithmeTrigonometrie"
-srcDir = "cours/02-lycee/05-exponentielle-logarithme-trigonometrie"
-globs = []
-
-[[lean_lib]]
-name = "LyceeIntegration"
-srcDir = "cours/02-lycee/06-integration"
-globs = []
-
-[[lean_lib]]
-name = "LyceeNombresComplexes"
-srcDir = "cours/02-lycee/07-nombres-complexes"
-globs = []
-
-[[lean_lib]]
-name = "LyceeGeometrieVecteursProduitScalaireEspace"
-srcDir = "cours/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace"
-globs = []
-
-[[lean_lib]]
-name = "LyceeProbabilitesEtStatistiques"
-srcDir = "cours/02-lycee/09-probabilites-et-statistiques"
-globs = []
-
-[[lean_lib]]
-name = "LyceeSpecialiteMathematiquesTerminaleS"
-srcDir = "cours/02-lycee/10-specialite-mathematiques-terminale-s"
+name = "LyceeTerminaleEnseignementDeSpecialite"
+srcDir = "cours/02-lycee/03-terminale-enseignement-de-specialite"
 globs = []

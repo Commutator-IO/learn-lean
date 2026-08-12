@@ -4,12 +4,11 @@ Index dérivé de [college.md](../../college.md) · retour à l'[index du cours]
 
 | Chapitre | Dossier | Énoncés |
 |---|---|---|
-| 1. Nombres et calculs | [`01-nombres-et-calculs/`](01-nombres-et-calculs/README.md) | 42 |
-| 2. Géométrie plane | [`02-geometrie-plane/`](02-geometrie-plane/README.md) | 43 |
-| 3. Transformations du plan | [`03-transformations-du-plan/`](03-transformations-du-plan/README.md) | 6 |
-| 4. Grandeurs et mesures | [`04-grandeurs-et-mesures/`](04-grandeurs-et-mesures/README.md) | 10 |
-| 5. Proportionnalité et fonctions | [`05-proportionnalite-et-fonctions/`](05-proportionnalite-et-fonctions/README.md) | 14 |
-| 6. Statistiques et probabilités | [`06-statistiques-et-probabilites/`](06-statistiques-et-probabilites/README.md) | 13 |
-| 7. Algorithmique et programmation | [`07-algorithmique-et-programmation/`](07-algorithmique-et-programmation/README.md) | 5 |
+| 1. Nombres, calcul et résolution de problèmes | [`01-nombres-calcul-et-resolution-de-problemes/`](01-nombres-calcul-et-resolution-de-problemes/README.md) | 54 |
+| 2. Grandeurs et mesures | [`02-grandeurs-et-mesures/`](02-grandeurs-et-mesures/README.md) | 21 |
+| 3. Espace et géométrie | [`03-espace-et-geometrie/`](03-espace-et-geometrie/README.md) | 104 |
+| 4. Organisation et gestion de données et probabilités | [`04-organisation-et-gestion-de-donnees-et/`](04-organisation-et-gestion-de-donnees-et/README.md) | 47 |
+| 5. Nombres et calculs | [`05-nombres-et-calculs/`](05-nombres-et-calculs/README.md) | 98 |
+| 6. Proportionnalité, fonctions | [`06-proportionnalite-fonctions/`](06-proportionnalite-fonctions/README.md) | 44 |
 
-**133 énoncés** au total.
+**368 énoncés** au total.
