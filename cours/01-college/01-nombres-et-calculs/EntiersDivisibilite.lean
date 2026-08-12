@@ -2,11 +2,15 @@
 Collège — section « Entiers, divisibilité ».
 Les preuves n'utilisent que la bibliothèque standard ; Mathlib n'est importé que pour
 ses notations (ℕ) et la cohérence avec les autres fichiers du chapitre.
-Énoncés et démonstrations en français : voir EntiersDivisibilite.tex.
+Énoncés et démonstrations en français : voir NombresEtCalculs.tex.
 -/
 import Mathlib
 
 namespace College.NombresEtCalculs
+
+/-! ## Définitions -/
+
+/- Toutes les définitions du fichier sont posées ici, avant les démonstrations. -/
 
 /-- `n` est pair. -/
 def Pair (n : ℕ) : Prop := ∃ k, n = 2 * k
@@ -16,6 +20,27 @@ def Impair (n : ℕ) : Prop := ∃ k, n = 2 * k + 1
 
 /-- `p` est premier. -/
 def Premier (p : ℕ) : Prop := 2 ≤ p ∧ ∀ d, d ∣ p → d = 1 ∨ d = p
+
+/-- Chiffre des unités. -/
+def chiffreUnites (n : ℕ) : ℕ := n % 10
+
+/-- Somme des chiffres. -/
+def sommeChiffres (n : ℕ) : ℕ :=
+  if h : n = 0 then 0
+  else n % 10 + sommeChiffres (n / 10)
+decreasing_by exact Nat.div_lt_self (Nat.pos_of_ne_zero h) (by omega)
+
+/-- Nombre formé par les deux derniers chiffres. -/
+def deuxDerniersChiffres (n : ℕ) : ℕ := n % 100
+
+/-- Crible d'Ératosthène, écrit comme un test. -/
+def estPremier (n : ℕ) : Bool :=
+  2 ≤ n && (List.range n).all fun d => d < 2 || n % d != 0
+
+/-- Produit des éléments d'une liste. -/
+def produit : List ℕ → ℕ
+  | [] => 1
+  | p :: l => p * produit l
 
 /-! ## Un entier est pair ou impair, jamais les deux -/
 
@@ -73,9 +98,6 @@ theorem diviseur_de_zero_non_borne (a : ℕ) : a ∣ 0 :=
 
 /-! ## Critère de divisibilité par 2, par 5, par 10 (chiffre des unités) -/
 
-/-- Chiffre des unités. -/
-def chiffreUnites (n : ℕ) : ℕ := n % 10
-
 /-- Critère de divisibilité par 2 (chiffre des unités). -/
 theorem critere_divisibilite_par_2 (n : ℕ) : 2 ∣ n ↔ 2 ∣ chiffreUnites n := by
   unfold chiffreUnites
@@ -100,12 +122,6 @@ theorem critere_divisibilite_par_10 (n : ℕ) : 10 ∣ n ↔ chiffreUnites n = 0
   constructor <;> intro h <;> omega
 
 /-! ## Critère de divisibilité par 3 et par 9 (somme des chiffres) -/
-
-/-- Somme des chiffres. -/
-def sommeChiffres (n : ℕ) : ℕ :=
-  if h : n = 0 then 0
-  else n % 10 + sommeChiffres (n / 10)
-decreasing_by exact Nat.div_lt_self (Nat.pos_of_ne_zero h) (by omega)
 
 /-- `n` et la somme de ses chiffres ont le même reste modulo 9. -/
 theorem mod_neuf_somme_chiffres (n : ℕ) : n % 9 = sommeChiffres n % 9 := by
@@ -142,9 +158,6 @@ theorem critere_divisibilite_par_9 (n : ℕ) : 9 ∣ n ↔ 9 ∣ sommeChiffres n
   constructor <;> intro hd <;> omega
 
 /-! ## Critère de divisibilité par 4 (deux derniers chiffres) -/
-
-/-- Nombre formé par les deux derniers chiffres. -/
-def deuxDerniersChiffres (n : ℕ) : ℕ := n % 100
 
 /-- Critère de divisibilité par 4 (deux derniers chiffres). -/
 theorem critere_divisibilite_par_4 (n : ℕ) : 4 ∣ n ↔ 4 ∣ deuxDerniersChiffres n := by
@@ -210,10 +223,6 @@ theorem existe_diviseur_premier : ∀ {n : ℕ}, 2 ≤ n → ∃ p, Premier p �
 
 /-! ## Crible d'Ératosthène : lister les nombres premiers inférieurs à 100 -/
 
-/-- Crible d'Ératosthène, écrit comme un test. -/
-def estPremier (n : ℕ) : Bool :=
-  2 ≤ n && (List.range n).all fun d => d < 2 || n % d != 0
-
 /-- Le test et la définition coïncident. -/
 theorem estPremier_iff (n : ℕ) : estPremier n = true ↔ Premier n := by
   unfold estPremier Premier
@@ -254,11 +263,6 @@ theorem crible_eratosthene :
   decide
 
 /-! ## Décomposition en produit de facteurs premiers -/
-
-/-- Produit des éléments d'une liste. -/
-def produit : List ℕ → ℕ
-  | [] => 1
-  | p :: l => p * produit l
 
 /-- Décomposition en produit de facteurs premiers. -/
 theorem decomposition_en_facteurs_premiers :
@@ -301,10 +305,27 @@ theorem lemme_d_euclide {p a b : ℕ} (hp : Premier p) (h : p ∣ a * b) :
       · exact absurd (h1 ▸ Nat.gcd_dvd_right p a) ha
     exact hcop.dvd_of_dvd_mul_left h
 
-/-
-Statut ◐ : l'existence est démontrée, l'unicité ne l'est pas — elle demande de comparer
-deux listes de facteurs à permutation près. Au collège, elle est admise.
--/
+/-- Le prédicat `Premier` défini ici coïncide avec celui de la bibliothèque. -/
+theorem premier_ssi_prime {p : ℕ} : Premier p ↔ Nat.Prime p := Nat.prime_def.symm
+
+/-- Le produit défini par récursion est celui de la bibliothèque. -/
+theorem produit_eq_prod (l : List ℕ) : produit l = l.prod := by
+  induction l with
+  | nil => rfl
+  | cons p l hi => simp [produit, hi]
+
+/-- Unicité de la décomposition, à l'ordre des facteurs près : deux listes de nombres
+premiers de même produit sont permutées l'une de l'autre. -/
+theorem decomposition_unicite {l l' : List ℕ}
+    (hl : ∀ p ∈ l, Premier p) (hl' : ∀ p ∈ l', Premier p)
+    (h : produit l = produit l') : l.Perm l' := by
+  have h1 : l.Perm (Nat.primeFactorsList (produit l)) :=
+    Nat.primeFactorsList_unique (produit_eq_prod l).symm
+      (fun p hp => premier_ssi_prime.mp (hl p hp))
+  have h2 : l'.Perm (Nat.primeFactorsList (produit l)) :=
+    Nat.primeFactorsList_unique (by rw [← produit_eq_prod, h])
+      (fun p hp => premier_ssi_prime.mp (hl' p hp))
+  exact h1.trans h2.symm
 
 /-! ## PGCD, algorithme d'Euclide -/
 

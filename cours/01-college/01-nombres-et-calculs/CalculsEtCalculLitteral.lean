@@ -1,6 +1,6 @@
 /-
 Collège — section « Calculs et calcul littéral ».
-Énoncés et démonstrations en français : voir CalculsEtCalculLitteral.tex.
+Énoncés et démonstrations en français : voir NombresEtCalculs.tex.
 -/
 import Mathlib
 

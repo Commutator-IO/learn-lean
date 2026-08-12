@@ -1,7 +1,7 @@
 /-
 Collège — section « Écritures des nombres ». Mathlib est nécessaire ici : les réels,
 la racine carrée et l'irrationalité de √2 n'existent pas dans Lean core.
-Énoncés et démonstrations en français : voir EcrituresDesNombres.tex.
+Énoncés et démonstrations en français : voir NombresEtCalculs.tex.
 -/
 import Mathlib
 
