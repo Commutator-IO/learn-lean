@@ -408,6 +408,18 @@ theorem centre_de_gravite_sur_mediane_c (a b c : V) :
     centreDeGravite a b c ∈ droiteAB c (milieu a b) :=
   ⟨2 / 3, by simp only [centreDeGravite, milieu]; module⟩
 
+/-! ## Concours des hauteurs et des bissectrices -/
+
+/-- Les hauteurs d'un triangle sont concourantes : l'orthocentre appartient à chacune
+d'elles. -/
+theorem concours_des_hauteurs (t : Affine.Triangle ℝ V) (i : Fin 3) :
+    t.orthocenter ∈ t.altitude i := Affine.Triangle.orthocenter_mem_altitude t
+
+/-- Les bissectrices sont concourantes : le centre du cercle inscrit est à la même
+distance des trois côtés, cette distance commune étant le rayon du cercle inscrit. -/
+theorem concours_des_bissectrices (t : Affine.Triangle ℝ V) (i : Fin 3) :
+    dist t.incenter (t.touchpoint ∅ i) = t.inradius := Affine.Simplex.dist_incenter t i
+
 /-! ## Repérage : milieu et distance -/
 
 /-- Les coordonnées du milieu sont les moyennes des coordonnées. -/

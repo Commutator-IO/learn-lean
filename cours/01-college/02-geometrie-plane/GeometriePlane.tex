@@ -568,6 +568,33 @@ Même calcul une troisième fois : les trois médianes passent par le centre de 
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L407}{GeometriePlane.lean\#L407}
 
+\subsection{Concours des hauteurs et des bissectrices}
+
+\begin{theoreme}
+Les hauteurs d'un triangle sont concourantes : l'orthocentre appartient à chacune
+d'elles.
+\end{theoreme}
+
+\begin{proof}
+C'est le résultat de la bibliothèque : l'orthocentre, défini comme point de Monge du
+triangle, appartient à chacune des trois hauteurs. Les trois hauteurs se coupent donc en
+un même point.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L415}{GeometriePlane.lean\#L415}
+
+\begin{theoreme}
+Les bissectrices sont concourantes : le centre du cercle inscrit est à la même distance
+des trois côtés, cette distance commune étant le rayon du cercle inscrit.
+\end{theoreme}
+
+\begin{proof}
+La bibliothèque construit le centre du cercle inscrit et établit que sa distance à
+chacun des trois côtés vaut le rayon de ce cercle. Être à égale distance de deux côtés,
+c'est être sur leur bissectrice : ce point est donc sur les trois bissectrices, qui sont
+ainsi concourantes.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L420}{GeometriePlane.lean\#L420}
+
 \subsection{Repérage : milieu et distance}
 
 \begin{theoreme}
@@ -578,7 +605,7 @@ $\text{milieu}(a,b)_i = \dfrac{a_i + b_i}{2}$.
 \begin{proof}
 La définition du milieu s'applique coordonnée par coordonnée.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L414}{GeometriePlane.lean\#L414}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L426}{GeometriePlane.lean\#L426}
 
 \begin{theoreme}
 La distance entre deux points repérés se calcule par le théorème de Pythagore :
@@ -590,7 +617,7 @@ C'est la définition de la distance euclidienne en coordonnées, qui n'est autre
 théorème de Pythagore appliqué au triangle rectangle dont les côtés sont les écarts en
 abscisse et en ordonnée.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L421}{GeometriePlane.lean\#L421}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L433}{GeometriePlane.lean\#L433}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par
