@@ -11,4 +11,4 @@ build/
 *.aux
 *.log
 *.out
-*.pdf.png
+__pycache__/

@@ -61,6 +61,33 @@ Une tactique d'automatisation ne dispense pas d'expliquer : `omega` qui clôt
 `n = 2 * (n / 2)` sous l'hypothèse `n % 2 = 0` se transcrit par la raison mathématique,
 pas par « la tactique conclut ».
 
+## Se mettre au niveau de la classe
+
+Chaque énoncé porte un niveau dans `college.md` ou `lycee.md` (6e à 3e, 2de à terminale).
+La rédaction se règle sur ce niveau : un critère de divisibilité de 6e ne se démontre pas
+dans la langue d'un article de recherche.
+
+**Au collège** : phrases courtes, pas de quantificateur symbolique, pas de vocabulaire de
+logique. On écrit « un nombre pair s'écrit `2k` », « le reste de la division de `n` par
+`10` », « on met les deux fractions au même dénominateur ». On évite « existentielle »,
+« prédicat », « témoin », « hypothèse », au profit de « on peut écrire », « on sait que »,
+« il suffit de prendre ». Un calcul se dit « en développant », « en simplifiant », pas
+« par arithmétique linéaire ».
+
+**Au lycée** : quantificateurs, notations ensemblistes, récurrence, fonctions et suites
+sont disponibles à partir du moment où le programme du niveau visé les a introduits — la
+récurrence en terminale, le produit scalaire en première, et ainsi de suite.
+
+**Quand la preuve formelle dépasse le niveau**, ce qui arrive souvent — une récurrence
+forte pour un énoncé de 6e, des congruences pour un critère de divisibilité, la théorie de
+la mesure derrière une loi de probabilité de terminale — le dire en une phrase, sans
+s'excuser et sans faire semblant : « la démonstration ci-dessous emploie une récurrence,
+outil de terminale, alors que l'énoncé est de 6e ». Cet écart est précisément ce que le
+dépôt cherche à mesurer.
+
+Ne jamais simplifier au point de fausser : mieux vaut un mot hors niveau, signalé comme
+tel, qu'une phrase fausse mais accessible.
+
 ## Conventions du document
 
 - Tout en français : énoncés, démonstrations, titres. Seuls les identifiants Lean restent
