@@ -46,12 +46,12 @@ Fichier : `CalculsEtCalculLitteral.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
-| Règle des signes pour la multiplication et la division | 5e | `regle_des_signes_pour_la_multiplication_et_la` | ☐ |
-| Distributivité simple : `k(a + b) = ka + kb` | 5e | `distributivite_simple` | ☐ |
-| Double distributivité : `(a + b)(c + d) = ac + ad + bc + bd` | 4e | `double_distributivite` | ☐ |
-| Un produit est nul ⟺ l'un des facteurs est nul | 3e | `un_produit_est_nul_l_un_des_facteurs` | ☐ |
-| Puissances : `aᵐ × aⁿ = aᵐ⁺ⁿ`, `aᵐ / aⁿ = aᵐ⁻ⁿ`, `(aᵐ)ⁿ = aᵐⁿ`, `(ab)ⁿ = aⁿbⁿ` | 4e | `puissances` | ☐ |
-| `a⁻ⁿ = 1/aⁿ` pour `a ≠ 0` ; `a⁰ = 1` | 4e | `pour` | ☐ |
-| Conservation des inégalités : `a ≤ b ⟹ a + c ≤ b + c` ; multiplier par `c > 0` conserve, par `c < 0` inverse | 4e | `conservation_des_inegalites_multiplier_par_conserve_par_inverse` | ☐ |
-| Équation du premier degré `ax + b = 0` : solution unique si `a ≠ 0` | 4e / 3e | `equation_du_premier_degre_solution_unique_si` | ☐ |
-| Équation produit `(ax + b)(cx + d) = 0` | 3e | `equation_produit` | ☐ |
+| Règle des signes pour la multiplication et la division | 5e | `regle_des_signes_pour_la_multiplication_et_la` | ☑ |
+| Distributivité simple : `k(a + b) = ka + kb` | 5e | `distributivite_simple` | ☑ |
+| Double distributivité : `(a + b)(c + d) = ac + ad + bc + bd` | 4e | `double_distributivite` | ☑ |
+| Un produit est nul ⟺ l'un des facteurs est nul | 3e | `un_produit_est_nul_l_un_des_facteurs` | ☑ |
+| Puissances : `aᵐ × aⁿ = aᵐ⁺ⁿ`, `aᵐ / aⁿ = aᵐ⁻ⁿ`, `(aᵐ)ⁿ = aᵐⁿ`, `(ab)ⁿ = aⁿbⁿ` | 4e | `puissances` | ☑ |
+| `a⁻ⁿ = 1/aⁿ` pour `a ≠ 0` ; `a⁰ = 1` | 4e | `pour` | ☑ |
+| Conservation des inégalités : `a ≤ b ⟹ a + c ≤ b + c` ; multiplier par `c > 0` conserve, par `c < 0` inverse | 4e | `conservation_des_inegalites_multiplier_par_conserve_par_inverse` | ☑ |
+| Équation du premier degré `ax + b = 0` : solution unique si `a ≠ 0` | 4e / 3e | `equation_du_premier_degre_solution_unique_si` | ☑ |
+| Équation produit `(ax + b)(cx + d) = 0` | 3e | `equation_produit` | ☑ |
