@@ -95,6 +95,20 @@ dépôt cherche à mesurer.
 Ne jamais simplifier au point de fausser : mieux vaut un mot hors niveau, signalé comme
 tel, qu'une phrase fausse mais accessible.
 
+## Les définitions portent leur formule
+
+Une définition ne se transcrit pas par son intitulé. « Somme des chiffres » ne définit
+rien ; ce qui définit, c'est la formule, reprise du corps du `def` Lean et posée en
+display :
+
+    \[ S(0) = 0, \qquad S(n) = (n \bmod 10) + S(\lfloor n/10 \rfloor)
+       \ \text{ pour } n \ne 0 . \]
+
+Une phrase en français dit ce que la formule veut dire, la formule dit ce qu'elle est.
+Pour une définition récursive, donner les deux cas et la raison de la terminaison ; pour
+un prédicat, l'équivalence complète. Seules les définitions sans contenu algébrique (un
+type, une structure) s'en passent.
+
 ## Garder les calculs
 
 Quand la preuve Lean calcule — un `calc`, un `ring`, un `field_simp`, une suite de
