@@ -37,7 +37,7 @@ globs = ["ProportionnaliteEtFonctions"]
 [[lean_lib]]
 name = "CollegeStatistiquesEtProbabilites"
 srcDir = "cours/01-college/06-statistiques-et-probabilites"
-globs = []
+globs = ["StatistiquesEtProbabilites"]
 
 [[lean_lib]]
 name = "CollegeAlgorithmiqueEtProgrammation"

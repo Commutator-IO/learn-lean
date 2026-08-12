@@ -160,15 +160,15 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Moyenne : linéarité (`moyenne(x + c) = moyenne(x) + c`), moyenne pondérée | 4e | ☐ |
-| La moyenne est comprise entre le minimum et le maximum de la série | 4e | ☐ |
-| La moyenne de plusieurs moyennes n'est pas la moyenne de la série globale | 4e | ☐ |
-| Médiane : au moins la moitié des valeurs lui sont inférieures ou égales | 4e | ☐ |
-| Probabilité : `0 ≤ P(A) ≤ 1`, somme des probabilités des issues = 1 | 3e | ☐ |
-| Événement contraire : `P(Ā) = 1 − P(A)` | 3e | ☐ |
-| Équiprobabilité : `P(A) = card(A) / card(Ω)` | 3e | ☐ |
-| Expérience à deux épreuves : arbre pondéré, produit des probabilités le long d'une branche | 3e | ☐ |
-| Fréquence observée et probabilité : fluctuation d'échantillonnage, stabilisation quand `n` grandit | 3e | ☐ |
+| Moyenne : linéarité (`moyenne(x + c) = moyenne(x) + c`), moyenne pondérée | 4e | ☑ |
+| La moyenne est comprise entre le minimum et le maximum de la série | 4e | ☑ |
+| La moyenne de plusieurs moyennes n'est pas la moyenne de la série globale | 4e | ☑ |
+| Médiane : au moins la moitié des valeurs lui sont inférieures ou égales | 4e | ☑ |
+| Probabilité : `0 ≤ P(A) ≤ 1`, somme des probabilités des issues = 1 | 3e | ☑ |
+| Événement contraire : `P(Ā) = 1 − P(A)` | 3e | ☑ |
+| Équiprobabilité : `P(A) = card(A) / card(Ω)` | 3e | ☑ |
+| Expérience à deux épreuves : arbre pondéré, produit des probabilités le long d'une branche | 3e | ☑ |
+| Fréquence observée et probabilité : fluctuation d'échantillonnage, stabilisation quand `n` grandit | 3e | ☑ |
 
 ---
 
