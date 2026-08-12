@@ -22,7 +22,7 @@ globs = []
 [[lean_lib]]
 name = "CollegeTransformationsDuPlan"
 srcDir = "cours/01-college/03-transformations-du-plan"
-globs = []
+globs = ["TransformationsDuPlan"]
 
 [[lean_lib]]
 name = "CollegeGrandeursEtMesures"
@@ -42,7 +42,7 @@ globs = []
 [[lean_lib]]
 name = "CollegeAlgorithmiqueEtProgrammation"
 srcDir = "cours/01-college/07-algorithmique-et-programmation"
-globs = []
+globs = ["AlgorithmiqueEtProgrammation"]
 
 [[lean_lib]]
 name = "LyceeNombresCalculAlgebrique"

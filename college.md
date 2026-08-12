@@ -120,11 +120,11 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Symétrie axiale, symétrie centrale, translation, rotation : conservation des longueurs, des angles, des aires, de l'alignement | 6e → 4e | ☐ |
-| La symétrie centrale transforme une droite en une droite parallèle | 5e | ☐ |
-| Composition de deux symétries centrales = translation | 5e | ☐ |
-| Homothétie de rapport `k` : longueurs multipliées par `\|k\|`, angles conservés, droite envoyée sur une parallèle | 3e | ☐ |
-| Figures semblables : angles égaux et longueurs proportionnelles | 3e | ☐ |
+| Symétrie axiale, symétrie centrale, translation, rotation : conservation des longueurs, des angles, des aires, de l'alignement | 6e → 4e | ☑ |
+| La symétrie centrale transforme une droite en une droite parallèle | 5e | ☑ |
+| Composition de deux symétries centrales = translation | 5e | ☑ |
+| Homothétie de rapport `k` : longueurs multipliées par `\|k\|`, angles conservés, droite envoyée sur une parallèle | 3e | ☑ |
+| Figures semblables : angles égaux et longueurs proportionnelles | 3e | ☑ |
 
 ---
 
@@ -176,3 +176,8 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
+| Une suite d'affectations compose ses instructions dans l'ordre d'écriture | 5e | ☑ |
+| Boucle bornée : répéter `n` fois l'ajout de `a` ajoute `n × a` ; répéter `n` fois le doublement multiplie par `2ⁿ` | 5e | ☑ |
+| Terminaison d'une boucle non bornée : « retrancher `b` tant que c'est possible » s'arrête et laisse `x mod b` | 4e | ☑ |
+| Correction d'un programme de calcul : ce qu'il calcule vaut telle expression de l'entrée | 4e / 3e | ☑ |
+| Deux programmes de longueurs différentes calculent la même chose | 4e / 3e | ☑ |
