@@ -8,6 +8,9 @@ Rien n'est rédigé ici : tout le texte vient du fichier `.lean` lui-même.
   - la déclaration Lean qui suit          → lien GitHub vers ses lignes ;
   - les commentaires libres `/- … -/`     → remarques entre deux énoncés.
 
+Le document se termine par la citation de Lean recommandée par ses auteurs
+(<https://lean-lang.org/learn/#how-to-cite-lean>).
+
 Le code Lean n'est pas recopié dans le document : chaque énoncé renvoie au fichier
 source, sur la branche et aux lignes exactes de sa déclaration.
 
@@ -181,6 +184,36 @@ ENTETE = r"""%% Fichier engendré par outils/generer-tex.py à partir de %(sourc
 \sloppy
 """
 
+# Citation recommandée par les auteurs de Lean, https://lean-lang.org/learn/#how-to-cite-lean
+CITATION = r"""\section*{Citer Lean}
+
+Les preuves de ce document sont vérifiées par Lean~4, dont la citation recommandée est :
+
+\begin{quote}
+Leonardo de Moura et Sebastian Ullrich, \emph{The Lean 4 Theorem Prover and Programming
+Language}, dans \emph{Automated Deduction — CADE 28}, Springer-Verlag, Berlin, Heidelberg,
+2021, p. 625--635. \textsc{isbn}~978-3-030-79875-8.
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}
+\end{quote}
+
+\begin{footnotesize}
+\begin{verbatim}
+@inproceedings{10.1007/978-3-030-79876-5_37,
+  title     = {The Lean 4 Theorem Prover and Programming Language},
+  author    = {de Moura, Leonardo and Ullrich, Sebastian},
+  year      = {2021},
+  isbn      = {978-3-030-79875-8},
+  publisher = {Springer-Verlag},
+  address   = {Berlin, Heidelberg},
+  url       = {https://doi.org/10.1007/978-3-030-79876-5_37},
+  doi       = {10.1007/978-3-030-79876-5_37},
+  booktitle = {Automated Deduction -- CADE 28},
+  pages     = {625--635}
+}
+\end{verbatim}
+\end{footnotesize}
+"""
+
 def environnement(sorte, nom):
     if sorte in ("def", "abbrev", "instance"):
         return "definition"
@@ -222,7 +255,7 @@ def convertir(chemin_lean):
                 out.append(r"% démonstration à transcrire (skill transcrire-preuve-lean)")
             out += [r"\source{" + lien + "}{" + reperage + "}", ""]
 
-    out += [r"\end{document}", ""]
+    out += [CITATION, r"\end{document}", ""]
     chemin_tex = os.path.splitext(chemin_lean)[0] + ".tex"
     if os.path.exists(chemin_tex):
         return chemin_tex, None
