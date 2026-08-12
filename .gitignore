@@ -12,3 +12,6 @@ build/
 *.log
 *.out
 __pycache__/
+
+# Programmes officiels téléchargés par outils/extraire-programme.py
+.programmes/

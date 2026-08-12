@@ -75,96 +75,103 @@ def items(lignes):
             sortie.append(nu)
     return [re.sub(r"\s+", " ", i).strip(" .;") for i in sortie if len(i) > 3]
 
+def sommaire(lignes, profondeurs):
+    """Hiérarchie tirée du sommaire : [(niveau_indentation, titre)] jusqu'au corps."""
+    debut = next(i for i, l in enumerate(lignes) if l.strip() == "Sommaire")
+    plan, vus = [], set()
+    for ligne in lignes[debut + 1:]:
+        nu = ligne.strip()
+        if not nu:
+            continue
+        creux = len(ligne) - len(ligne.lstrip())
+        if nu in vus:                      # le corps recommence : le sommaire est fini
+            break
+        if creux in profondeurs:
+            plan.append((profondeurs[creux], nu))
+            vus.add(nu)
+    return plan
+
 def college():
-    """Domaine -> [(niveau, sous-thème, [objectifs])] pour les cycles 3 et 4."""
-    plan = []
+    """[(domaine, niveau, thème, [objectifs])] pour les cycles 3 et 4."""
+    resultat = []
     for nom in ("cycle3", "cycle4"):
         lignes = texte(nom)
-        # le sommaire répète les titres : on démarre au second passage du 1er domaine
-        depart = 0
-        for i, l in enumerate(lignes):
-            if l.strip() == "Nombres et calculs" and i > 5:
-                depart = i
-                break
+        plan = sommaire(lignes, {0: "titre", 3: "theme"})
+        titres = {t for p, t in plan if p == "titre"}
+        themes = {t for p, t in plan if p == "theme"}
+        domaines = titres - set(NIVEAUX)
+        debut = next(i for i, l in enumerate(lignes)
+                     if i > 5 and l.strip() in domaines and not l.startswith(" "))
         domaine = niveau = theme = None
         rubrique, tampon = None, []
 
         def vider():
-            if rubrique in ("Objectifs d’apprentissage", "Objectifs d'apprentissage") and tampon:
+            if rubrique and rubrique.startswith("Objectifs") and tampon and theme:
                 objectifs = items(tampon)
-                if objectifs and domaine and theme:
-                    plan.append((domaine, niveau, theme, objectifs))
+                if objectifs:
+                    resultat.append((domaine, niveau, theme, objectifs))
 
-        for ligne in lignes[depart:]:
+        for ligne in lignes[debut:]:
             nu = ligne.strip()
-            indente = ligne.startswith(" ")
             if not nu:
                 continue
-            if nu in RUBRIQUES and not indente:
+            if nu in RUBRIQUES:
                 vider(); rubrique, tampon = nu, []
-                continue
-            if nu in NIVEAUX and not indente:
+            elif nu in NIVEAUX:
                 vider(); rubrique, tampon = None, []
-                niveau, theme = nu, None
-                continue
-            if not indente and re.match(r"^[A-ZÉÀÇ][^.!?]{3,70}$", nu) and not nu.endswith(":"):
+                niveau, theme = NIVEAUX[nu], None
+            elif nu in domaines:
                 vider(); rubrique, tampon = None, []
-                # un domaine réapparait en tête de page, un thème suit un niveau
-                if nu in DOMAINES_COLLEGE:
-                    domaine, theme = nu, None
-                else:
-                    theme = nu
-                continue
-            if rubrique:
+                domaine, theme = nu, None
+            elif nu in themes and not rubrique:
+                vider(); theme = nu
+            elif nu in themes and rubrique and not ligne.startswith(" "):
+                vider(); rubrique, tampon = None, []
+                theme = nu
+            elif rubrique:
                 tampon.append(ligne)
         vider()
-    return plan
-
-DOMAINES_COLLEGE = {"Nombres et calculs", "Grandeurs et mesures", "Espace et géométrie",
-                    "Organisation et gestion de données", "Proportionnalité, fonctions",
-                    "Organisation et gestion de données et probabilités",
-                    "La pensée informatique", "Algèbre", "Les fractions",
-                    "Les nombres entiers et décimaux"}
+    return resultat
 
 def lycee(nom):
-    """[(domaine, thème, [(énoncé, exigible)])] pour un programme de lycée."""
+    """[(domaine, thème, [(énoncé, démonstration exigible)])] pour un programme de lycée."""
     lignes = texte(nom)
-    depart = next((i for i, l in enumerate(lignes) if l.strip() == "Programme" and i > 3), 0)
-    plan, domaine, theme = [], None, None
+    plan = sommaire(lignes, {3: "domaine", 5: "theme", 6: "theme"})
+    domaines = [t for p, t in plan if p == "domaine"]
+    themes = [t for p, t in plan if p == "theme"]
+    debut = next(i for i, l in enumerate(lignes) if l.strip() == "Programme" and i > 3)
+    resultat, domaine, theme = [], None, None
     rubrique, contenus, demos = None, [], []
 
     def vider():
-        if theme and (contenus or demos):
-            exig = " ".join(demos).lower()
-            plan.append((domaine, theme,
-                         [(c, any(mot in exig for mot in c.lower().split()[:4] if len(mot) > 5))
-                          for c in contenus] + [(d, True) for d in demos if d not in contenus]))
+        if not theme:
+            return
+        listes = items(contenus), items(demos)
+        if any(listes):
+            cles = [d.lower()[:40] for d in listes[1]]
+            enonces = [(c, any(k in c.lower() for k in cles)) for c in listes[0]]
+            enonces += [(d, True) for d in listes[1]
+                        if not any(d.lower()[:40] in c.lower() for c, _ in enonces)]
+            resultat.append((domaine, theme, enonces))
 
-    for ligne in lignes[depart + 1:]:
+    for ligne in lignes[debut + 1:]:
         nu = ligne.strip()
         if not nu:
             continue
-        if nu in RUBRIQUES and not ligne.startswith("      "):
+        if nu in RUBRIQUES and not ligne.startswith("    "):
             rubrique = nu
-            continue
-        if not ligne.startswith(" ") and re.match(r"^[A-ZÉÀÇ][^.!?]{3,70}$", nu):
-            vider()
-            contenus, demos, rubrique = [], [], None
-            if nu in DOMAINES_LYCEE:
-                domaine, theme = nu, None
-            else:
-                theme = nu
-            continue
-        if rubrique == "Contenus":
+        elif nu in domaines and not ligne.startswith(" "):
+            vider(); contenus, demos, rubrique = [], [], None
+            domaine, theme = nu, None
+        elif nu in themes and not ligne.startswith(" "):
+            vider(); contenus, demos, rubrique = [], [], None
+            theme = nu
+        elif rubrique == "Contenus":
             contenus.append(ligne)
         elif rubrique == "Démonstrations":
             demos.append(ligne)
     vider()
-    return [(d, t, [(e, x) for e, x in lst]) for d, t, lst in plan]
-
-DOMAINES_LYCEE = {"Nombres et calculs", "Géométrie", "Fonctions", "Statistiques et probabilités",
-                  "Algorithmique et programmation", "Vocabulaire ensembliste et logique",
-                  "Algèbre", "Analyse", "Probabilités et statistiques", "Automatismes"}
+    return resultat
 
 if __name__ == "__main__":
     print("collège :", len(college()), "blocs")
