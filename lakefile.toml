@@ -57,7 +57,7 @@ globs = []
 [[lean_lib]]
 name = "LyceeSuites"
 srcDir = "cours/02-lycee/03-suites"
-globs = []
+globs = ["Suites"]
 
 [[lean_lib]]
 name = "LyceeLimitesContinuiteDerivation"

@@ -72,18 +72,18 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Suites arithmétiques : `uₙ = u₀ + nr` ; suites géométriques : `uₙ = u₀qⁿ` | 1S | | ☐ |
-| Sens de variation d'une suite arithmétique (signe de `r`), géométrique (signe de `q − 1`, `u₀`) | 1S | | ☐ |
-| Limite d'une suite : définition avec `ε` (ou avec `A` pour `+∞`) | TS | | ☐ |
-| Unicité de la limite | TS | oui | ☐ |
-| Opérations sur les limites (somme, produit, quotient), formes indéterminées | TS | oui | ☐ |
-| Limite de `qⁿ` selon `\|q\| < 1`, `q = 1`, `q > 1` | TS | | ☐ |
-| Théorèmes de comparaison ; théorème des gendarmes | TS | | ☐ |
-| Toute suite croissante majorée converge (convergence monotone) | TS | oui | ☐ |
-| Une suite croissante non majorée tend vers `+∞` | TS | | ☐ |
-| Toute suite convergente est bornée | TS | | ☐ |
-| Suites adjacentes ; dichotomie | TS | | ☐ |
-| Suites `uₙ₊₁ = f(uₙ)` : si `f` continue et `uₙ → ℓ` alors `f(ℓ) = ℓ` | TS | | ☐ |
+| Suites arithmétiques : `uₙ = u₀ + nr` ; suites géométriques : `uₙ = u₀qⁿ` | 1S | | ☑ |
+| Sens de variation d'une suite arithmétique (signe de `r`), géométrique (signe de `q − 1`, `u₀`) | 1S | | ☑ |
+| Limite d'une suite : définition avec `ε` (ou avec `A` pour `+∞`) | TS | | ☑ |
+| Unicité de la limite | TS | oui | ☑ |
+| Opérations sur les limites (somme, produit, quotient), formes indéterminées | TS | oui | ☑ |
+| Limite de `qⁿ` selon `\|q\| < 1`, `q = 1`, `q > 1` | TS | | ☑ |
+| Théorèmes de comparaison ; théorème des gendarmes | TS | | ☑ |
+| Toute suite croissante majorée converge (convergence monotone) | TS | oui | ☑ |
+| Une suite croissante non majorée tend vers `+∞` | TS | | ☑ |
+| Toute suite convergente est bornée | TS | | ☑ |
+| Suites adjacentes ; dichotomie | TS | | ◐ |
+| Suites `uₙ₊₁ = f(uₙ)` : si `f` continue et `uₙ → ℓ` alors `f(ℓ) = ℓ` | TS | | ☑ |
 
 ---
 
