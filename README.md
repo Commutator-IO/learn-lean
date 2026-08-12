@@ -13,8 +13,8 @@ ce dépôt cherche à mesurer, autant que les preuves elles-mêmes.
 
 | Fichier | Contenu | Énoncés |
 |---|---|---|
-| [college.md](college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 133 |
-| [lycee.md](lycee.md) | Seconde, première S, terminale S et spécialité | 138 |
+| [college.md](college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 93, dont 38 démontrés |
+| [lycee.md](lycee.md) | Seconde, première S, terminale S et spécialité | 137, aucun démontré |
 
 Chaque ligne y porte un statut. Le fichier lycée ajoute une colonne *Admis* qui signale
 les énoncés que le programme admet sans démonstration (théorème des valeurs

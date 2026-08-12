@@ -24,7 +24,6 @@ Fichier : `DroitesAnglesParalleles.lean`
 | Réciproque : égalité de deux angles alternes-internes ⟹ parallélisme | 5e | `reciproque_egalite_de_deux_angles_alternes_internes_parallelisme` | ☐ |
 | Caractérisation de la médiatrice : `M` équidistant de `A` et `B` ⟺ `M` sur la médiatrice de `[AB]` | 6e | `caracterisation_de_la_mediatrice_equidistant_de_et_sur` | ☐ |
 | Caractérisation de la bissectrice : équidistance aux deux côtés de l'angle | 6e | `caracterisation_de_la_bissectrice_equidistance_aux_deux_cotes` | ☐ |
-| Constructions à la règle et au compas : médiatrice, bissectrice, perpendiculaire, report de longueur | 6e | `constructions_a_la_regle_et_au_compas_mediatrice` | ☐ |
 
 ## Triangles
 
@@ -35,8 +34,6 @@ Fichier : `Triangles.lean`
 | Somme des angles d'un triangle = 180° | 5e | `somme_des_angles_d_un_triangle_180` | ☐ |
 | Angles d'un triangle équilatéral = 60° ; angles à la base d'un isocèle égaux, et réciproque | 5e | `angles_d_un_triangle_equilateral_60_angles_a` | ☐ |
 | Inégalité triangulaire : `AC ≤ AB + BC`, égalité ⟺ `B ∈ [AC]` | 5e | `inegalite_triangulaire_egalite` | ☐ |
-| Un triangle est constructible ⟺ l'inégalité triangulaire est vérifiée | 5e | `un_triangle_est_constructible_l_inegalite_triangulaire_est` | ☐ |
-| Cas d'égalité et cas de similitude des triangles | 4e / 3e | `cas_d_egalite_et_cas_de_similitude_des` | ☐ |
 | Théorème de Pythagore : rectangle en `A` ⟹ `BC² = AB² + AC²` | 4e | `theoreme_de_pythagore_rectangle_en` | ☐ |
 | Réciproque de Pythagore : `BC² = AB² + AC²` ⟹ rectangle en `A` | 4e | `reciproque_de_pythagore_rectangle_en` | ☐ |
 | Contraposée : `BC² ≠ AB² + AC²` ⟹ non rectangle en `A` | 4e | `contraposee_non_rectangle_en` | ☐ |
@@ -44,7 +41,6 @@ Fichier : `Triangles.lean`
 | Réciproque : la parallèle menée par le milieu d'un côté coupe le deuxième côté en son milieu | 4e | `reciproque_la_parallele_menee_par_le_milieu_d` | ☐ |
 | Théorème de Thalès (triangle et « papillon ») : `AM/AB = AN/AC = MN/BC` | 3e | `theoreme_de_thales_triangle_et_papillon` | ☐ |
 | Réciproque de Thalès : égalité des rapports et bon ordre des points ⟹ parallélisme | 3e | `reciproque_de_thales_egalite_des_rapports_et_bon` | ☐ |
-| Trigonométrie du triangle rectangle : définitions de `cos`, `sin`, `tan` d'un angle aigu | 4e / 3e | `trigonometrie_du_triangle_rectangle_definitions_de_d_un` | ☐ |
 | `cos²x + sin²x = 1` et `tan x = sin x / cos x` | 3e | `et` | ☐ |
 | Concours des médiatrices ⟹ cercle circonscrit | 5e | `concours_des_mediatrices_cercle_circonscrit` | ☐ |
 | Concours des médianes (centre de gravité), des hauteurs (orthocentre), des bissectrices (cercle inscrit) | 5e / 4e | `concours_des_medianes_centre_de_gravite_des_hauteurs` | ☐ |
@@ -61,8 +57,6 @@ Fichier : `CercleEtQuadrilateres.lean`
 | La tangente à un cercle est perpendiculaire au rayon au point de contact | 3e | `la_tangente_a_un_cercle_est_perpendiculaire_au` | ☐ |
 | Parallélogramme ⟺ diagonales se coupant en leur milieu ⟺ côtés opposés parallèles ⟺ côtés opposés de même longueur | 5e | `parallelogramme_diagonales_se_coupant_en_leur_milieu_cotes` | ☐ |
 | Dans un parallélogramme, angles opposés égaux et angles consécutifs supplémentaires | 5e | `dans_un_parallelogramme_angles_opposes_egaux_et_angles` | ☐ |
-| Caractérisations du rectangle, du losange, du carré | 5e | `caracterisations_du_rectangle_du_losange_du_carre` | ☐ |
-| Axes de symétrie et centre de symétrie des quadrilatères usuels et du cercle | 6e / 5e | `axes_de_symetrie_et_centre_de_symetrie_des` | ☐ |
 
 ## Repérage et espace
 
@@ -70,10 +64,5 @@ Fichier : `ReperageEtEspace.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
-| Repérage dans le plan : couple de coordonnées, abscisse et ordonnée | 5e | `reperage_dans_le_plan_couple_de_coordonnees_abscisse` | ☐ |
 | Coordonnées du milieu d'un segment | 3e | `coordonnees_du_milieu_d_un_segment` | ☐ |
 | Distance entre deux points repérés (via Pythagore) | 3e | `distance_entre_deux_points_reperes_via_pythagore` | ☐ |
-| Solides usuels : pavé, prisme, cylindre, pyramide, cône, boule ; faces, arêtes, sommets | 6e → 4e | `solides_usuels_pave_prisme_cylindre_pyramide_cone_boule` | ☐ |
-| Patrons d'un solide ; représentation en perspective cavalière | 6e / 5e | `patrons_d_un_solide_representation_en_perspective_cavaliere` | ☐ |
-| Sections planes d'un pavé, d'un cylindre | 3e | `sections_planes_d_un_pave_d_un_cylindre` | ☐ |
-| Repérage sur la sphère terrestre : latitude, longitude | 5e | `reperage_sur_la_sphere_terrestre_latitude_longitude` | ☐ |

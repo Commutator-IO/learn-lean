@@ -95,6 +95,17 @@ dépôt cherche à mesurer.
 Ne jamais simplifier au point de fausser : mieux vaut un mot hors niveau, signalé comme
 tel, qu'une phrase fausse mais accessible.
 
+## Les énoncés portent leur formule
+
+Un théorème se transcrit par ce qu'il affirme, formule comprise. « Une homothétie de
+rapport `k` multiplie les distances » ne dit pas de combien ; l'énoncé est :
+
+    \[ \mathrm{dist}\bigl(h(x), h(y)\bigr) = |k| \times \mathrm{dist}(x, y) . \]
+
+La phrase française nomme le résultat, la formule le donne. Quand l'énoncé Lean porte des
+hypothèses (`k ≠ 0`, `0 < b`, `a ≥ 0`), elles figurent dans la transcription : un énoncé
+amputé de ses hypothèses est faux, pas simplifié.
+
 ## Les définitions portent leur formule
 
 Une définition ne se transcrit pas par son intitulé. « Somme des chiffres » ne définit

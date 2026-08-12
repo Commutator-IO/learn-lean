@@ -13,8 +13,8 @@ Fichier : `AlgorithmiqueEtProgrammation.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
-| Notion de variable, d'affectation ; état d'un programme après exécution | 5e | `notion_de_variable_d_affectation_etat_d_un` | ☐ |
-| Boucle bornée : un programme répétant `n` fois une instruction produit tel résultat | 5e | `boucle_bornee_un_programme_repetant_fois_une_instruction` | ☐ |
-| Boucle non bornée, instruction conditionnelle ; terminaison d'un programme simple | 4e | `boucle_non_bornee_instruction_conditionnelle_terminaison_d_un` | ☐ |
-| Correction d'un programme de calcul : ce qu'il calcule vaut telle expression de l'entrée | 4e / 3e | `correction_d_un_programme_de_calcul_ce_qu` | ☐ |
-| Deux programmes différents calculent la même chose | 4e / 3e | `deux_programmes_differents_calculent_la_meme_chose` | ☐ |
+| Une suite d'affectations compose ses instructions dans l'ordre d'écriture | 5e | `une_suite_d_affectations_compose_ses_instructions_dans` | ☑ |
+| Boucle bornée : répéter `n` fois l'ajout de `a` ajoute `n × a` ; répéter `n` fois le doublement multiplie par `2ⁿ` | 5e | `boucle_bornee_repeter_fois_l_ajout_de_ajoute` | ☑ |
+| Terminaison d'une boucle non bornée : « retrancher `b` tant que c'est possible » s'arrête et laisse `x mod b` | 4e | `terminaison_d_une_boucle_non_bornee_retrancher_tant` | ☑ |
+| Correction d'un programme de calcul : ce qu'il calcule vaut telle expression de l'entrée | 4e / 3e | `correction_d_un_programme_de_calcul_ce_qu` | ☑ |
+| Deux programmes de longueurs différentes calculent la même chose | 4e / 3e | `deux_programmes_de_longueurs_differentes_calculent_la_meme` | ☑ |
