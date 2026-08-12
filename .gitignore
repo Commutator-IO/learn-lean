@@ -1,0 +1,8 @@
+# Aucun PDF n'est versionné (sujets de brevet récupérés par sujets/telecharger.sh, etc.)
+*.pdf
+sujets/pdf/
+
+# Lean
+.lake/
+build/
+*.olean
