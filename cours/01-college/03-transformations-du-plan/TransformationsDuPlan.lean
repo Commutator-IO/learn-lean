@@ -31,11 +31,13 @@ def droite (a u : V) : Set V := {x | ∃ t : ℝ, x = a + t • u}
 
 /-! ## Conservation des longueurs, des angles et de l'alignement -/
 
+omit [InnerProductSpace ℝ V] in
 /-- La translation conserve les distances. -/
 theorem translation_conserve_distances (v x y : V) :
     dist (translation v x) (translation v y) = dist x y := by
   simp [translation, dist_eq_norm]
 
+omit [InnerProductSpace ℝ V] in
 /-- La symétrie centrale conserve les distances. -/
 theorem symetrie_centrale_conserve_distances (c x y : V) :
     dist (symetrieCentrale c x) (symetrieCentrale c y) = dist x y := by
@@ -79,6 +81,7 @@ theorem symetrie_centrale_image_droite (c a u : V) :
 
 /-! ## Composition de deux symétries centrales = translation -/
 
+omit [InnerProductSpace ℝ V] in
 /-- Composer deux demi-tours donne une translation, de vecteur le double de celui qui
 joint les deux centres. -/
 theorem composition_symetries_centrales (c c' x : V) :
@@ -86,6 +89,7 @@ theorem composition_symetries_centrales (c c' x : V) :
   simp [symetrieCentrale, translation, smul_sub]
   abel
 
+omit [InnerProductSpace ℝ V] in
 /-- En particulier, deux demi-tours de même centre se compensent. -/
 theorem symetrie_centrale_involutive (c x : V) :
     symetrieCentrale c (symetrieCentrale c x) = x := by
@@ -135,7 +139,7 @@ theorem homothetie_image_droite (c : V) (k : ℝ) (a u : V) :
 longueurs est inchangé : c'est la proportionnalité des longueurs des figures
 semblables. -/
 theorem homothetie_conserve_rapports (c : V) {k : ℝ} (hk : k ≠ 0) (x y z w : V)
-    (h : dist z w ≠ 0) :
+    (_h : dist z w ≠ 0) :
     dist (homothetie c k x) (homothetie c k y) / dist (homothetie c k z) (homothetie c k w)
       = dist x y / dist z w := by
   rw [homothetie_multiplie_distances, homothetie_multiplie_distances]

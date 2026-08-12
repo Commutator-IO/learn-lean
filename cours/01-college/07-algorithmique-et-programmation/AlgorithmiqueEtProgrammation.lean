@@ -22,7 +22,7 @@ def repeter (f : Instruction) (n : ℕ) : Instruction := f^[n]
 
 /-- Boucle non bornée : retrancher `b` à `x` tant que c'est possible. -/
 def soustraireTantQue (b x : ℕ) : ℕ :=
-  if h : 0 < b ∧ b ≤ x then soustraireTantQue b (x - b) else x
+  if _h : 0 < b ∧ b ≤ x then soustraireTantQue b (x - b) else x
 decreasing_by omega
 
 /-- Le programme « ajouter 3, doubler, retrancher 6 ». -/
