@@ -13,24 +13,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Installe elan à la version de lean-toolchain, met en cache .lake,
-      # puis lance `lake build` sur les bibliothèques du lakefile.
+      # Installs elan at the version pinned in lean-toolchain, caches .lake,
+      # then runs `lake build` over the libraries declared in lakefile.toml.
       - uses: leanprover/lean-action@v1
         with:
           build-args: --wfail
 
   lakefile:
-    name: lakefile à jour
+    name: lakefile up to date
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # lakefile.toml est généré depuis l'arborescence de cours/ : il doit être
-      # régénéré et commité après chaque ajout ou suppression d'un fichier .lean.
-      - name: Régénérer et comparer
+      # lakefile.toml is generated from the cours/ tree: it must be regenerated
+      # and committed whenever a .lean file is added or removed.
+      - name: Regenerate and compare
         run: |
           python3 outils/generer-lakefile.py
           if ! git diff --exit-code -- lakefile.toml; then
-            echo "::error::lakefile.toml n'est pas à jour — relance 'python3 outils/generer-lakefile.py' et commite le résultat."
+            echo "::error::lakefile.toml is out of date - run 'python3 outils/generer-lakefile.py' and commit the result."
             exit 1
           fi
