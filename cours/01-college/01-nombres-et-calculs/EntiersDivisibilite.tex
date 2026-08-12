@@ -1,0 +1,653 @@
+% Fichier engendré par outils/generer-tex.py à partir de EntiersDivisibilite.lean.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{alltt}
+\usepackage[margin=2.5cm]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Nom Lean de l'énoncé, sous celui-ci : les identifiants sont trop longs pour
+% tenir sur la ligne de titre d'un théorème.
+\newcommand{\nom}[1]{\par\smallskip{\footnotesize\raggedright Lean~: \texttt{#1}\par}}
+
+\title{\texttt{EntiersDivisibilite}}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\noindent
+Collège \textemdash{} parité, divisibilité, division euclidienne, nombres premiers et PGCD.
+Reprend les quatorze énoncés de la section \og{} Entiers, divisibilité \fg{} du chapitre.
+
+Lean core seulement : pas d'import de Mathlib. \texttt{Pair}, \texttt{Impair}, \texttt{Premier} et la somme
+des chiffres sont donc définis ici plutôt que repris d'une bibliothèque.
+
+\begin{definition}
+\texttt{n} est pair : il vaut deux fois un entier naturel.
+\nom{Pair}
+\end{definition}
+{\footnotesize\begin{alltt}
+def Pair (n : Nat) : Prop := \(\exists\) k, n = 2 * k
+\end{alltt}}
+
+\begin{definition}
+\texttt{n} est impair : il vaut deux fois un entier naturel, plus un.
+\nom{Impair}
+\end{definition}
+{\footnotesize\begin{alltt}
+def Impair (n : Nat) : Prop := \(\exists\) k, n = 2 * k + 1
+\end{alltt}}
+
+\begin{definition}
+\texttt{p} est premier : au moins égal à 2, et sans diviseur autre que 1 et lui-même.
+\nom{Premier}
+\end{definition}
+{\footnotesize\begin{alltt}
+def Premier (p : Nat) : Prop := 2 \(\le\) p \(\land\) \(\forall\) d, d \(\mid\) p \(\to\) d = 1 \(\lor\) d = p
+\end{alltt}}
+
+\section{Un entier est pair ou impair, jamais les deux}
+
+\begin{theoreme}
+Tout entier naturel est pair ou impair. Le témoin est \texttt{n / 2} dans les deux cas ;
+c'est \texttt{n \% 2}, qui ne peut valoir que \texttt{0} ou \texttt{1}, qui décide lequel s'applique.
+\nom{pair\_ou\_impair}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem pair\_ou\_impair (n : Nat) : Pair n \(\lor\) Impair n := by
+  cases Nat.mod\_two\_eq\_zero\_or\_one n with
+  | inl h => exact Or.inl \(\langle\)n / 2, by omega\(\rangle\)
+  | inr h => exact Or.inr \(\langle\)n / 2, by omega\(\rangle\)
+\end{alltt}}
+
+\begin{theoreme}
+Aucun entier n'est à la fois pair et impair : \texttt{2 * k = 2 * l + 1} est impossible.
+\nom{pas\_pair\_et\_impair}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem pas\_pair\_et\_impair (n : Nat) : \(\lnot\)(Pair n \(\land\) Impair n) := by
+  intro \(\langle\)\(\langle\)k, hk\(\rangle\), \(\langle\)l, hl\(\rangle\)\(\rangle\)
+  omega
+\end{alltt}}
+
+\begin{theoreme}
+Les deux énoncés réunis : l'un des deux cas se produit, et un seul.
+\nom{un\_entier\_est\_pair\_ou\_impair\_jamais\_les\_deux}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem un\_entier\_est\_pair\_ou\_impair\_jamais\_les\_deux (n : Nat) :
+    (Pair n \(\lor\) Impair n) \(\land\) \(\lnot\)(Pair n \(\land\) Impair n) :=
+  \(\langle\)pair\_ou\_impair n, pas\_pair\_et\_impair n\(\rangle\)
+\end{alltt}}
+
+\section{Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair}
+
+\begin{theoreme}
+pair + pair = pair. On écrit \texttt{m = 2k} et \texttt{n = 2l} ; le témoin de la conclusion est
+\texttt{k + l}, et l'égalité \texttt{m + n = 2 (k + l)} est linéaire.
+\nom{somme\_de\_deux\_pairs\_est\_paire}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem somme\_de\_deux\_pairs\_est\_paire \{m n : Nat\} (hm : Pair m) (hn : Pair n) :
+    Pair (m + n) := by
+  obtain \(\langle\)k, hk\(\rangle\) := hm
+  obtain \(\langle\)l, hl\(\rangle\) := hn
+  exact \(\langle\)k + l, by omega\(\rangle\)
+\end{alltt}}
+
+\begin{theoreme}
+pair + impair = impair. Même schéma, avec le témoin \texttt{k + l} : le \texttt{+ 1} de \texttt{n} est
+celui de la conclusion.
+\nom{somme\_pair\_impair\_est\_impaire}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem somme\_pair\_impair\_est\_impaire \{m n : Nat\} (hm : Pair m) (hn : Impair n) :
+    Impair (m + n) := by
+  obtain \(\langle\)k, hk\(\rangle\) := hm
+  obtain \(\langle\)l, hl\(\rangle\) := hn
+  exact \(\langle\)k + l, by omega\(\rangle\)
+\end{alltt}}
+
+\begin{theoreme}
+impair + impair = pair. C'est le cas qui surprend les élèves, et celui où les deux
+\texttt{+ 1} se recombinent en un facteur \texttt{2}.
+\nom{somme\_de\_deux\_impairs\_est\_paire}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem somme\_de\_deux\_impairs\_est\_paire \{m n : Nat\} (hm : Impair m) (hn : Impair n) :
+    Pair (m + n) := by
+  obtain \(\langle\)k, hk\(\rangle\) := hm
+  obtain \(\langle\)l, hl\(\rangle\) := hn
+  exact \(\langle\)k + l + 1, by omega\(\rangle\)
+\end{alltt}}
+
+\section{Notion de multiple et de diviseur ; un diviseur de \texttt{n} est inférieur ou égal à \texttt{n}}
+
+\begin{theoreme}
+\og{} \texttt{n} est un multiple de \texttt{a} \fg{} et \og{} \texttt{a} divise \texttt{n} \fg{} sont le même énoncé : sur \texttt{Nat},
+\texttt{Dvd} se déplie exactement en cette existentielle.
+\nom{multiple\_ssi\_divise}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem multiple\_ssi\_divise \{a n : Nat\} : (\(\exists\) k, n = a * k) \(\leftrightarrow\) a \(\mid\) n := Iff.rfl
+\end{alltt}}
+
+\begin{theoreme}
+Un diviseur d'un entier \texttt{n} non nul est inférieur ou égal à \texttt{n}. L'énoncé scolaire
+laisse l'hypothèse implicite, parce que le cas \texttt{n = 0} n'y est pas envisagé.
+\nom{diviseur\_le\_de\_pos}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem diviseur\_le\_de\_pos \{a n : Nat\} (hn : 0 < n) (h : a \(\mid\) n) : a \(\le\) n :=
+  Nat.le\_of\_dvd hn h
+\end{alltt}}
+
+\begin{theoreme}
+L'hypothèse \texttt{0 < n} ne peut pas être retirée : \texttt{0} est multiple de tout entier, donc
+ses diviseurs ne sont pas bornés. C'est tout l'écart entre l'énoncé de la classe et
+l'énoncé formel \textemdash{} au collège, \texttt{n} est toujours un nombre d'objets à partager.
+\nom{diviseur\_de\_zero\_non\_borne}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem diviseur\_de\_zero\_non\_borne (a : Nat) : a \(\mid\) 0 :=
+  \(\langle\)0, by omega\(\rangle\)
+\end{alltt}}
+
+\section{Critère de divisibilité par 2, par 5, par 10 (chiffre des unités)}
+
+\begin{definition}
+Le chiffre des unités de \texttt{n} en écriture décimale.
+\nom{chiffreUnites}
+\end{definition}
+{\footnotesize\begin{alltt}
+def chiffreUnites (n : Nat) : Nat := n \% 10
+\end{alltt}}
+
+\begin{theoreme}
+Divisible par 2 si et seulement si le chiffre des unités l'est. La preuve tient à
+\texttt{2 \(\mid\) 10} : réduire modulo 10 d'abord ne change rien au reste modulo 2.
+\nom{critere\_divisibilite\_par\_2}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem critere\_divisibilite\_par\_2 (n : Nat) : 2 \(\mid\) n \(\leftrightarrow\) 2 \(\mid\) chiffreUnites n := by
+  unfold chiffreUnites
+  constructor <;> intro h <;> omega
+\end{alltt}}
+
+\begin{theoreme}
+Version \og{} en toutes lettres \fg{} du critère : le chiffre des unités est 0, 2, 4, 6 ou 8.
+\nom{critere\_divisibilite\_par\_2\_chiffres}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem critere\_divisibilite\_par\_2\_chiffres (n : Nat) :
+    2 \(\mid\) n \(\leftrightarrow\) chiffreUnites n = 0 \(\lor\) chiffreUnites n = 2 \(\lor\) chiffreUnites n = 4 \(\lor\)
+            chiffreUnites n = 6 \(\lor\) chiffreUnites n = 8 := by
+  unfold chiffreUnites
+  constructor <;> intro h <;> omega
+\end{alltt}}
+
+\begin{theoreme}
+Divisible par 5 si et seulement si le chiffre des unités est 0 ou 5.
+\nom{critere\_divisibilite\_par\_5}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem critere\_divisibilite\_par\_5 (n : Nat) :
+    5 \(\mid\) n \(\leftrightarrow\) chiffreUnites n = 0 \(\lor\) chiffreUnites n = 5 := by
+  unfold chiffreUnites
+  constructor <;> intro h <;> omega
+\end{alltt}}
+
+\begin{theoreme}
+Divisible par 10 si et seulement si le chiffre des unités est 0.
+\nom{critere\_divisibilite\_par\_10}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem critere\_divisibilite\_par\_10 (n : Nat) : 10 \(\mid\) n \(\leftrightarrow\) chiffreUnites n = 0 := by
+  unfold chiffreUnites
+  constructor <;> intro h <;> omega
+\end{alltt}}
+
+\section{Critère de divisibilité par 3 et par 9 (somme des chiffres)}
+
+\begin{definition}
+Somme des chiffres de l'écriture décimale de \texttt{n}. La récursion se fait sur \texttt{n / 10},
+strictement décroissant tant que \texttt{n \(\ne\) 0}.
+\nom{sommeChiffres}
+\end{definition}
+{\footnotesize\begin{alltt}
+def sommeChiffres (n : Nat) : Nat :=
+  if h : n = 0 then 0
+  else n \% 10 + sommeChiffres (n / 10)
+decreasing\_by exact Nat.div\_lt\_self (Nat.pos\_of\_ne\_zero h) (by omega)
+\end{alltt}}
+
+\begin{theoreme}
+\texttt{n} et la somme de ses chiffres ont le même reste modulo 9. C'est le cœur des deux
+critères : \texttt{10 \(\equiv\) 1 [9]}, donc chaque chiffre compte pour lui-même.
+\nom{mod\_neuf\_somme\_chiffres}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem mod\_neuf\_somme\_chiffres (n : Nat) : n \% 9 = sommeChiffres n \% 9 := by
+  induction n using Nat.strongRecOn with
+  | \_ n hi =>
+    rw [sommeChiffres]
+    split
+    \(\cdot\) omega
+    \(\cdot\) rename\_i h
+      have hlt : n / 10 < n := Nat.div\_lt\_self (Nat.pos\_of\_ne\_zero h) (by omega)
+      have := hi (n / 10) hlt
+      omega
+\end{alltt}}
+
+\begin{theoreme}
+\texttt{n} et la somme de ses chiffres ont le même reste modulo 3, pour la même raison.
+\nom{mod\_trois\_somme\_chiffres}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem mod\_trois\_somme\_chiffres (n : Nat) : n \% 3 = sommeChiffres n \% 3 := by
+  induction n using Nat.strongRecOn with
+  | \_ n hi =>
+    rw [sommeChiffres]
+    split
+    \(\cdot\) omega
+    \(\cdot\) rename\_i h
+      have hlt : n / 10 < n := Nat.div\_lt\_self (Nat.pos\_of\_ne\_zero h) (by omega)
+      have := hi (n / 10) hlt
+      omega
+\end{alltt}}
+
+\begin{theoreme}
+Divisible par 3 si et seulement si la somme des chiffres l'est.
+\nom{critere\_divisibilite\_par\_3}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem critere\_divisibilite\_par\_3 (n : Nat) : 3 \(\mid\) n \(\leftrightarrow\) 3 \(\mid\) sommeChiffres n := by
+  have h := mod\_trois\_somme\_chiffres n
+  constructor <;> intro hd <;> omega
+\end{alltt}}
+
+\begin{theoreme}
+Divisible par 9 si et seulement si la somme des chiffres l'est.
+\nom{critere\_divisibilite\_par\_9}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem critere\_divisibilite\_par\_9 (n : Nat) : 9 \(\mid\) n \(\leftrightarrow\) 9 \(\mid\) sommeChiffres n := by
+  have h := mod\_neuf\_somme\_chiffres n
+  constructor <;> intro hd <;> omega
+\end{alltt}}
+
+\section{Critère de divisibilité par 4 (deux derniers chiffres)}
+
+\begin{definition}
+Le nombre formé par les deux derniers chiffres de \texttt{n}.
+\nom{deuxDerniersChiffres}
+\end{definition}
+{\footnotesize\begin{alltt}
+def deuxDerniersChiffres (n : Nat) : Nat := n \% 100
+\end{alltt}}
+
+\begin{theoreme}
+Divisible par 4 si et seulement si le nombre formé par les deux derniers chiffres
+l'est : ici c'est \texttt{4 \(\mid\) 100} qui fait tout le travail.
+\nom{critere\_divisibilite\_par\_4}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem critere\_divisibilite\_par\_4 (n : Nat) : 4 \(\mid\) n \(\leftrightarrow\) 4 \(\mid\) deuxDerniersChiffres n := by
+  unfold deuxDerniersChiffres
+  constructor <;> intro h <;> omega
+\end{alltt}}
+
+\section{Si \texttt{a \(\mid\) b} et \texttt{a \(\mid\) c} alors \texttt{a \(\mid\) (b + c)} et \texttt{a \(\mid\) (b − c)}}
+
+\begin{theoreme}
+Un diviseur commun divise la somme.
+\nom{divise\_somme}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem divise\_somme \{a b c : Nat\} (hb : a \(\mid\) b) (hc : a \(\mid\) c) : a \(\mid\) (b + c) :=
+  Nat.dvd\_add hb hc
+\end{alltt}}
+
+\begin{theoreme}
+Un diviseur commun divise la différence. Sur \texttt{Nat} la soustraction est tronquée,
+mais l'énoncé reste vrai : si \texttt{b < c}, la différence vaut \texttt{0}, que tout entier divise.
+\nom{divise\_difference}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem divise\_difference \{a b c : Nat\} (hb : a \(\mid\) b) (hc : a \(\mid\) c) : a \(\mid\) (b - c) :=
+  Nat.dvd\_sub hb hc
+\end{alltt}}
+
+\section{Division euclidienne : existence et unicité de \texttt{(q, r)} avec \texttt{a = bq + r}, \texttt{0 \(\le\) r < b}}
+
+\begin{theoreme}
+Existence du quotient et du reste. Ce sont \texttt{a / b} et \texttt{a \% b}.
+\nom{division\_euclidienne\_existence}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem division\_euclidienne\_existence (a : Nat) \{b : Nat\} (hb : 0 < b) :
+    \(\exists\) q r, a = b * q + r \(\land\) r < b :=
+  \(\langle\)a / b, a \% b, (Nat.div\_add\_mod a b).symm, Nat.mod\_lt a hb\(\rangle\)
+\end{alltt}}
+
+\begin{theoreme}
+Unicité : deux écritures \texttt{a = bq + r} avec \texttt{r < b} coïncident. Le critère
+\texttt{Nat.div\_mod\_unique} dit que, pour \texttt{b > 0}, l'égalité \texttt{r + bq = a} jointe à \texttt{r < b}
+caractérise \texttt{q = a / b} et \texttt{r = a \% b} ; appliqué aux deux écritures, il donne
+\texttt{q = a / b = q'} et \texttt{r = a \% b = r'}.
+\nom{division\_euclidienne\_unicite}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem division\_euclidienne\_unicite \{a b q r q' r' : Nat\} (hb : 0 < b)
+    (h : a = b * q + r) (hr : r < b) (h' : a = b * q' + r') (hr' : r' < b) :
+    q = q' \(\land\) r = r' := by
+  have e : a / b = q \(\land\) a \% b = r :=
+    (Nat.div\_mod\_unique hb).mpr \(\langle\)by rw [h]; exact Nat.add\_comm \_ \_, hr\(\rangle\)
+  have e' : a / b = q' \(\land\) a \% b = r' :=
+    (Nat.div\_mod\_unique hb).mpr \(\langle\)by rw [h']; exact Nat.add\_comm \_ \_, hr'\(\rangle\)
+  exact \(\langle\)by rw [← e.1, e'.1], by rw [← e.2, e'.2]\(\rangle\)
+\end{alltt}}
+
+\section{Nombre premier ; tout entier > 1 admet un diviseur premier}
+
+\begin{theoreme}
+Un nombre premier n'est divisible que par 1 et par lui-même \textemdash{} c'est sa définition,
+rappelée ici sous la forme utilisée dans les preuves.
+\nom{premier\_diviseurs}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem premier\_diviseurs \{p d : Nat\} (hp : Premier p) (h : d \(\mid\) p) : d = 1 \(\lor\) d = p :=
+  hp.2 d h
+\end{alltt}}
+
+\begin{theoreme}
+Tout entier supérieur ou égal à 2 admet un diviseur premier. Récurrence forte : si
+\texttt{n} n'est pas premier, il a un diviseur strict \texttt{d} avec \texttt{2 \(\le\) d < n}, auquel on applique
+l'hypothèse de récurrence.
+\nom{existe\_diviseur\_premier}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem existe\_diviseur\_premier : \(\forall\) \{n : Nat\}, 2 \(\le\) n \(\to\) \(\exists\) p, Premier p \(\land\) p \(\mid\) n := by
+  intro n
+  induction n using Nat.strongRecOn with
+  | \_ n hi =>
+    intro hn
+    by\_cases hp : Premier n
+    \(\cdot\) exact \(\langle\)n, hp, Nat.dvd\_refl n\(\rangle\)
+    \(\cdot\) have : \(\exists\) d, d \(\mid\) n \(\land\) d \(\ne\) 1 \(\land\) d \(\ne\) n := by
+        refine Classical.byContradiction fun hc => hp \(\langle\)hn, fun d hd => ?\_\(\rangle\)
+        refine Classical.byContradiction fun hne => hc \(\langle\)d, hd, ?\_, ?\_\(\rangle\)
+        \(\cdot\) exact fun h1 => hne (Or.inl h1)
+        \(\cdot\) exact fun h2 => hne (Or.inr h2)
+      obtain \(\langle\)d, hd, hd1, hdn\(\rangle\) := this
+      have hd0 : d \(\ne\) 0 := by
+        intro h0
+        subst h0
+        obtain \(\langle\)k, hk\(\rangle\) := hd
+        omega
+      have hle : d \(\le\) n := Nat.le\_of\_dvd (by omega) hd
+      have hlt : d < n := Nat.lt\_of\_le\_of\_ne hle hdn
+      obtain \(\langle\)p, hp', hpd\(\rangle\) := hi d hlt (by omega)
+      exact \(\langle\)p, hp', Nat.dvd\_trans hpd hd\(\rangle\)
+\end{alltt}}
+
+\section{Crible d'Ératosthène : lister les nombres premiers inférieurs à 100}
+
+\begin{definition}
+Version calculable de la primalité : aucun \texttt{d} strictement compris entre 1 et \texttt{n}
+ne divise \texttt{n}. C'est exactement le crible, écrit comme un test.
+\nom{estPremier}
+\end{definition}
+{\footnotesize\begin{alltt}
+def estPremier (n : Nat) : Bool :=
+  2 \(\le\) n \&\& (List.range n).all fun d => d < 2 || n \% d != 0
+\end{alltt}}
+
+\begin{theoreme}
+Le test calculable et la définition mathématique coïncident.
+
+De gauche à droite : soit \texttt{d \(\mid\) n}. Comme \texttt{n \(\ge\) 2 > 0}, on a \texttt{d \(\le\) n}. Si \texttt{d = n}, c'est
+fini ; si \texttt{d < n}, le test donne \texttt{d < 2} ou \texttt{n \% d \(\ne\) 0}, et \texttt{d \(\mid\) n} force \texttt{n \% d = 0},
+donc \texttt{d < 2}, c'est-à-dire \texttt{d = 0} ou \texttt{d = 1}. Le cas \texttt{d = 0} est exclu, car \texttt{0 \(\mid\) n}
+donnerait \texttt{n = 0}.
+
+De droite à gauche : soit \texttt{d < n}. Si \texttt{d < 2} la disjonction est satisfaite ; sinon
+\texttt{n \% d = 0} donnerait \texttt{d \(\mid\) n}, donc \texttt{d = 1} ou \texttt{d = n} par primalité, ce qui contredit
+\texttt{2 \(\le\) d < n}.
+\nom{estPremier\_iff}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem estPremier\_iff (n : Nat) : estPremier n = true \(\leftrightarrow\) Premier n := by
+  unfold estPremier Premier
+  simp only [Bool.and\_eq\_true, decide\_eq\_true\_eq, List.all\_eq\_true, List.mem\_range,
+    Bool.or\_eq\_true, bne\_iff\_ne, ne\_eq, decide\_eq\_true\_eq]
+  constructor
+  \(\cdot\) intro \(\langle\)hn, hall\(\rangle\)
+    refine \(\langle\)hn, fun d hd => ?\_\(\rangle\)
+    have hle : d \(\le\) n := Nat.le\_of\_dvd (by omega) hd
+    rcases Nat.lt\_or\_ge d n with hlt | hge
+    \(\cdot\) have := hall d hlt
+      have hmod : n \% d = 0 := Nat.mod\_eq\_zero\_of\_dvd hd
+      have : d < 2 := by
+        rcases this with h | h
+        \(\cdot\) exact h
+        \(\cdot\) exact absurd hmod h
+      have : d = 0 \(\lor\) d = 1 := by omega
+      rcases this with rfl | rfl
+      \(\cdot\) exfalso
+        obtain \(\langle\)k, hk\(\rangle\) := hd
+        simp at hk
+        omega
+      \(\cdot\) exact Or.inl rfl
+    \(\cdot\) exact Or.inr (Nat.le\_antisymm hle hge)
+  \(\cdot\) intro \(\langle\)hn, hdiv\(\rangle\)
+    refine \(\langle\)hn, fun d hd => ?\_\(\rangle\)
+    by\_cases h2 : d < 2
+    \(\cdot\) exact Or.inl h2
+    \(\cdot\) refine Or.inr fun hmod => ?\_
+      have : d \(\mid\) n := Nat.dvd\_of\_mod\_eq\_zero hmod
+      rcases hdiv d this with h1 | h1 <;> omega
+\end{alltt}}
+
+\begin{theoreme}
+Les nombres premiers inférieurs à 100, obtenus en filtrant \texttt{0, \(\dots\), 99} par le test.
+L'égalité est vérifiée par calcul : le noyau évalue les deux listes et les compare. Le
+crible est donc exécuté, et pas seulement décrit.
+\nom{crible\_eratosthene}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem crible\_eratosthene :
+    (List.range 100).filter estPremier =
+      [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73,
+       79, 83, 89, 97] := by
+  decide
+\end{alltt}}
+
+\section{Décomposition en produit de facteurs premiers}
+
+\begin{definition}
+Produit des éléments d'une liste.
+\nom{produit}
+\end{definition}
+{\footnotesize\begin{alltt}
+def produit : List Nat \(\to\) Nat
+  | [] => 1
+  | p :: l => p * produit l
+\end{alltt}}
+
+\begin{theoreme}
+Tout entier non nul est un produit de nombres premiers \textemdash{} la liste est vide pour \texttt{1}.
+Récurrence forte : on extrait un diviseur premier \texttt{p}, et on décompose \texttt{n / p}.
+\nom{decomposition\_en\_facteurs\_premiers}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem decomposition\_en\_facteurs\_premiers :
+    \(\forall\) \{n : Nat\}, 0 < n \(\to\) \(\exists\) l : List Nat, (\(\forall\) p \(\in\) l, Premier p) \(\land\) produit l = n := by
+  intro n
+  induction n using Nat.strongRecOn with
+  | \_ n hi =>
+    intro hn
+    by\_cases h1 : n = 1
+    \(\cdot\) exact \(\langle\)[], by simp, by simp [produit, h1]\(\rangle\)
+    \(\cdot\) obtain \(\langle\)p, hp, hpd\(\rangle\) := existe\_diviseur\_premier (n := n) (by omega)
+      obtain \(\langle\)m, hm\(\rangle\) := hpd
+      have hp2 : 2 \(\le\) p := hp.1
+      have hm0 : 0 < m := by
+        rcases Nat.eq\_zero\_or\_pos m with h | h
+        \(\cdot\) subst h
+          rw [Nat.mul\_zero] at hm
+          omega
+        \(\cdot\) exact h
+      have hmlt : m < n := by
+        have h1 : 1 * m < p * m := (Nat.mul\_lt\_mul\_right hm0).mpr (by omega)
+        rw [Nat.one\_mul] at h1
+        exact hm \(\triangleright\) h1
+      obtain \(\langle\)l, hl, hprod\(\rangle\) := hi m hmlt hm0
+      exact \(\langle\)p :: l, by
+        intro q hq
+        rcases List.mem\_cons.mp hq with h | h
+        \(\cdot\) exact h \(\triangleright\) hp
+        \(\cdot\) exact hl q h, by simp [produit, hprod, hm]\(\rangle\)
+\end{alltt}}
+
+\begin{lemme}
+Lemme d'Euclide : un nombre premier qui divise un produit divise l'un des facteurs.
+C'est lui qui porte l'unicité de la décomposition, admise au collège.
+
+Supposons \texttt{p \(\nmid\) a}. Le pgcd de \texttt{p} et \texttt{a} divise \texttt{p}, donc vaut \texttt{1} ou \texttt{p} par primalité ;
+s'il valait \texttt{p}, alors \texttt{p} diviserait \texttt{a}, exclu. Donc \texttt{p} et \texttt{a} sont premiers entre eux,
+et de \texttt{p \(\mid\) a * b} on conclut \texttt{p \(\mid\) b}.
+\nom{lemme\_d\_euclide}
+\end{lemme}
+{\footnotesize\begin{alltt}
+theorem lemme\_d\_euclide \{p a b : Nat\} (hp : Premier p) (h : p \(\mid\) a * b) :
+    p \(\mid\) a \(\lor\) p \(\mid\) b := by
+  by\_cases ha : p \(\mid\) a
+  \(\cdot\) exact Or.inl ha
+  \(\cdot\) refine Or.inr ?\_
+    have hcop : Nat.Coprime p a := by
+      rcases hp.2 (Nat.gcd p a) (Nat.gcd\_dvd\_left p a) with h1 | h1
+      \(\cdot\) exact h1
+      \(\cdot\) exact absurd (h1 \(\triangleright\) Nat.gcd\_dvd\_right p a) ha
+    exact hcop.dvd\_of\_dvd\_mul\_left h
+\end{alltt}}
+
+\noindent
+Statut ◐ pour cet énoncé : l'existence de la décomposition est démontrée ci-dessus, et
+le lemme d'Euclide en donne la clé, mais l'unicité elle-même ne l'est pas encore. Elle
+demande de comparer deux listes de facteurs à permutation près (\texttt{List.Perm}), ce qui est
+une récurrence d'une tout autre longueur que l'énoncé de 3e ne le laisse croire \textemdash{} au
+collège, l'unicité est admise sans même être formulée.
+
+\section{PGCD, algorithme d'Euclide}
+
+\begin{theoreme}
+L'étape de l'algorithme d'Euclide : \texttt{pgcd(a, b) = pgcd(b mod a, a)}. C'est la
+définition même de \texttt{Nat.gcd}, et donc ce qui garantit que l'algorithme termine.
+\nom{pgcd\_euclide}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem pgcd\_euclide (a b : Nat) : Nat.gcd a b = Nat.gcd (b \% a) a :=
+  Nat.gcd\_rec a b
+\end{alltt}}
+
+\begin{theoreme}
+Le PGCD est un diviseur commun : c'est la conjonction de \texttt{Nat.gcd\_dvd\_left} et
+\texttt{Nat.gcd\_dvd\_right}.
+\nom{pgcd\_divise}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem pgcd\_divise (a b : Nat) : Nat.gcd a b \(\mid\) a \(\land\) Nat.gcd a b \(\mid\) b :=
+  \(\langle\)Nat.gcd\_dvd\_left a b, Nat.gcd\_dvd\_right a b\(\rangle\)
+\end{alltt}}
+
+\begin{theoreme}
+Et c'est le plus grand : tout diviseur commun divise le PGCD.
+\nom{pgcd\_le\_de\_diviseur\_commun}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem pgcd\_le\_de\_diviseur\_commun \{a b d : Nat\} (ha : d \(\mid\) a) (hb : d \(\mid\) b) :
+    d \(\mid\) Nat.gcd a b :=
+  Nat.dvd\_gcd ha hb
+\end{alltt}}
+
+\section{Deux nombres sont premiers entre eux \(\iff\) \texttt{pgcd = 1}}
+
+\begin{theoreme}
+\og{} Premiers entre eux \fg{} et \og{} PGCD égal à 1 \fg{} sont le même énoncé : sur \texttt{Nat},
+\texttt{Coprime} est défini comme l'égalité du PGCD à 1.
+\nom{premiers\_entre\_eux\_ssi\_pgcd\_un}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem premiers\_entre\_eux\_ssi\_pgcd\_un \{a b : Nat\} :
+    Nat.Coprime a b \(\leftrightarrow\) Nat.gcd a b = 1 := Iff.rfl
+\end{alltt}}
+
+\begin{theoreme}
+Formulation scolaire : deux entiers sont premiers entre eux exactement quand leurs
+seuls diviseurs communs sont \texttt{1}. Dans un sens, un diviseur commun divise le pgcd, qui
+vaut \texttt{1} ; dans l'autre, il suffit d'appliquer l'hypothèse au pgcd lui-même.
+\nom{premiers\_entre\_eux\_ssi\_diviseurs\_communs\_triviaux}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem premiers\_entre\_eux\_ssi\_diviseurs\_communs\_triviaux \{a b : Nat\} :
+    Nat.Coprime a b \(\leftrightarrow\) \(\forall\) d, d \(\mid\) a \(\to\) d \(\mid\) b \(\to\) d = 1 := by
+  constructor
+  \(\cdot\) intro h d hda hdb
+    have : d \(\mid\) Nat.gcd a b := Nat.dvd\_gcd hda hdb
+    rw [h] at this
+    exact Nat.eq\_one\_of\_dvd\_one this
+  \(\cdot\) intro h
+    exact h (Nat.gcd a b) (Nat.gcd\_dvd\_left a b) (Nat.gcd\_dvd\_right a b)
+\end{alltt}}
+
+\section{Toute fraction admet une écriture irréductible}
+
+\begin{theoreme}
+Toute fraction \texttt{n / d} de dénominateur non nul est égale à une fraction irréductible :
+on divise les deux termes par leur PGCD. L'égalité des fractions est écrite en produits
+croisés, pour rester dans \texttt{Nat}.
+
+En posant \texttt{g = pgcd(n, d)}, qui est non nul puisque \texttt{d} l'est, on prend \texttt{n' = n / g} et
+\texttt{d' = d / g} : \texttt{d' > 0} car \texttt{g \(\le\) d}, la primalité entre eux est
+\texttt{Nat.coprime\_div\_gcd\_div\_gcd}, et le produit croisé s'obtient de \texttt{g * (n / g) = n} et
+\texttt{g * (d / g) = d} par commutativité et associativité.
+\nom{fraction\_irreductible}
+\end{theoreme}
+{\footnotesize\begin{alltt}
+theorem fraction\_irreductible \{n d : Nat\} (hd : 0 < d) :
+    \(\exists\) n' d', 0 < d' \(\land\) Nat.Coprime n' d' \(\land\) n * d' = n' * d := by
+  have hg : 0 < Nat.gcd n d := Nat.gcd\_pos\_of\_pos\_right n hd
+  refine \(\langle\)n / Nat.gcd n d, d / Nat.gcd n d, ?\_, Nat.coprime\_div\_gcd\_div\_gcd hg, ?\_\(\rangle\)
+  \(\cdot\) exact Nat.div\_pos (Nat.le\_of\_dvd hd (Nat.gcd\_dvd\_right n d)) hg
+  \(\cdot\) have hn : Nat.gcd n d * (n / Nat.gcd n d) = n :=
+      Nat.mul\_div\_cancel' (Nat.gcd\_dvd\_left n d)
+    have hd' : Nat.gcd n d * (d / Nat.gcd n d) = d :=
+      Nat.mul\_div\_cancel' (Nat.gcd\_dvd\_right n d)
+    calc n * (d / Nat.gcd n d)
+        = (Nat.gcd n d * (n / Nat.gcd n d)) * (d / Nat.gcd n d) := by rw [hn]
+      \_ = (n / Nat.gcd n d) * (Nat.gcd n d * (d / Nat.gcd n d)) := by
+            rw [Nat.mul\_comm (Nat.gcd n d) (n / Nat.gcd n d), Nat.mul\_assoc]
+      \_ = (n / Nat.gcd n d) * d := by rw [hd']
+\end{alltt}}
+
+\end{document}

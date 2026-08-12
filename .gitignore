@@ -6,3 +6,9 @@ sujets/pdf/
 .lake/
 build/
 *.olean
+
+# LaTeX (les .tex sont versionnés, pas leurs sorties)
+*.aux
+*.log
+*.out
+*.pdf.png

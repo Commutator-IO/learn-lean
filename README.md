@@ -44,7 +44,8 @@ cours/          un dossier par chapitre, avec l'index de ses énoncés (README.m
   02-lycee/      10 chapitres
                 les fichiers .lean s'y ajoutent au fur et à mesure
 sujets/         annales du brevet (2000-2026) et script de téléchargement
-outils/         generer-cours.py (index), generer-lakefile.py (bibliothèques)
+outils/         generer-cours.py (index), generer-lakefile.py (bibliothèques),
+                generer-tex.py (documents LaTeX)
 lakefile.toml   généré : une bibliothèque Lean par chapitre
 ```
 
@@ -70,6 +71,20 @@ Après chaque ajout ou suppression de fichier `.lean` :
 ```bash
 python3 outils/generer-lakefile.py && lake build
 ```
+
+## Lire les preuves hors de Lean
+
+Chaque fichier `.lean` a un jumeau `.tex`, engendré à partir de lui :
+
+```bash
+python3 outils/generer-tex.py
+```
+
+Le script n'écrit aucun texte de son cru : l'introduction vient du commentaire de tête,
+les sections des en-têtes `/-! ## … -/`, les énoncés et les démonstrations en français
+des docstrings, et chaque déclaration Lean est reproduite en regard, symboles Unicode
+convertis en notation mathématique. Le document se compile avec `tectonic` ou
+`pdflatex` ; les PDF ne sont pas versionnés.
 
 Les dossiers de chapitre portent des noms lisibles et ordonnés (`06-integration`), qui ne
 sont pas des identifiants Lean valides. Le lakefile les déclare donc en `srcDir` d'une
