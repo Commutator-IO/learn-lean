@@ -80,11 +80,15 @@ Chaque fichier `.lean` a un jumeau `.tex`, engendré à partir de lui :
 python3 outils/generer-tex.py
 ```
 
-Le script n'écrit aucun texte de son cru : l'introduction vient du commentaire de tête,
-les sections des en-têtes `/-! ## … -/`, les énoncés et les démonstrations en français
-des docstrings, et chaque déclaration Lean est reproduite en regard, symboles Unicode
-convertis en notation mathématique. Le document se compile avec `tectonic` ou
-`pdflatex` ; les PDF ne sont pas versionnés.
+Le script produit le squelette : introduction tirée du commentaire de tête, sections des
+en-têtes `/-! ## … -/`, énoncés tirés des docstrings, et pour chacun un lien vers ses
+lignes dans le dépôt — le code Lean n'est pas recopié. Les démonstrations en français
+sont ensuite transcrites à la main, selon la skill
+[`transcrire-preuve-lean`](.claude/skills/transcrire-preuve-lean/SKILL.md), qui fixe la
+correspondance entre tactiques et rédaction française. Le script ne réécrit jamais un
+`.tex` existant : les transcriptions sont conservées.
+
+Le document se compile avec `tectonic` ou `pdflatex` ; les PDF ne sont pas versionnés.
 
 Les dossiers de chapitre portent des noms lisibles et ordonnés (`06-integration`), qui ne
 sont pas des identifiants Lean valides. Le lakefile les déclare donc en `srcDir` d'une

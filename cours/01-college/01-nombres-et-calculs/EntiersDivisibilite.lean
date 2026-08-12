@@ -19,14 +19,13 @@ def Premier (p : Nat) : Prop := 2 ≤ p ∧ ∀ d, d ∣ p → d = 1 ∨ d = p
 
 /-! ## Un entier est pair ou impair, jamais les deux -/
 
-/-- Tout entier naturel est pair ou impair. Le témoin est `n / 2` dans les deux cas ;
-c'est `n % 2`, qui ne peut valoir que `0` ou `1`, qui décide lequel s'applique. -/
+/-- Tout entier naturel est pair ou impair. -/
 theorem pair_ou_impair (n : Nat) : Pair n ∨ Impair n := by
   cases Nat.mod_two_eq_zero_or_one n with
   | inl h => exact Or.inl ⟨n / 2, by omega⟩
   | inr h => exact Or.inr ⟨n / 2, by omega⟩
 
-/-- Aucun entier n'est à la fois pair et impair : `2 * k = 2 * l + 1` est impossible. -/
+/-- Aucun entier n'est à la fois pair et impair. -/
 theorem pas_pair_et_impair (n : Nat) : ¬(Pair n ∧ Impair n) := by
   intro ⟨⟨k, hk⟩, ⟨l, hl⟩⟩
   omega
@@ -38,24 +37,21 @@ theorem un_entier_est_pair_ou_impair_jamais_les_deux (n : Nat) :
 
 /-! ## Somme de deux pairs = pair ; pair + impair = impair ; impair + impair = pair -/
 
-/-- pair + pair = pair. On écrit `m = 2k` et `n = 2l` ; le témoin de la conclusion est
-`k + l`, et l'égalité `m + n = 2 (k + l)` est linéaire. -/
+/-- pair + pair = pair. -/
 theorem somme_de_deux_pairs_est_paire {m n : Nat} (hm : Pair m) (hn : Pair n) :
     Pair (m + n) := by
   obtain ⟨k, hk⟩ := hm
   obtain ⟨l, hl⟩ := hn
   exact ⟨k + l, by omega⟩
 
-/-- pair + impair = impair. Même schéma, avec le témoin `k + l` : le `+ 1` de `n` est
-celui de la conclusion. -/
+/-- pair + impair = impair. -/
 theorem somme_pair_impair_est_impaire {m n : Nat} (hm : Pair m) (hn : Impair n) :
     Impair (m + n) := by
   obtain ⟨k, hk⟩ := hm
   obtain ⟨l, hl⟩ := hn
   exact ⟨k + l, by omega⟩
 
-/-- impair + impair = pair. C'est le cas qui surprend les élèves, et celui où les deux
-`+ 1` se recombinent en un facteur `2`. -/
+/-- impair + impair = pair. C'est le cas qui surprend les élèves. -/
 theorem somme_de_deux_impairs_est_paire {m n : Nat} (hm : Impair m) (hn : Impair n) :
     Pair (m + n) := by
   obtain ⟨k, hk⟩ := hm
@@ -181,10 +177,7 @@ theorem division_euclidienne_existence (a : Nat) {b : Nat} (hb : 0 < b) :
     ∃ q r, a = b * q + r ∧ r < b :=
   ⟨a / b, a % b, (Nat.div_add_mod a b).symm, Nat.mod_lt a hb⟩
 
-/-- Unicité : deux écritures `a = bq + r` avec `r < b` coïncident. Le critère
-`Nat.div_mod_unique` dit que, pour `b > 0`, l'égalité `r + bq = a` jointe à `r < b`
-caractérise `q = a / b` et `r = a % b` ; appliqué aux deux écritures, il donne
-`q = a / b = q'` et `r = a % b = r'`. -/
+/-- Unicité : deux écritures `a = bq + r` avec `r < b` coïncident. -/
 theorem division_euclidienne_unicite {a b q r q' r' : Nat} (hb : 0 < b)
     (h : a = b * q + r) (hr : r < b) (h' : a = b * q' + r') (hr' : r' < b) :
     q = q' ∧ r = r' := by
@@ -201,9 +194,7 @@ rappelée ici sous la forme utilisée dans les preuves. -/
 theorem premier_diviseurs {p d : Nat} (hp : Premier p) (h : d ∣ p) : d = 1 ∨ d = p :=
   hp.2 d h
 
-/-- Tout entier supérieur ou égal à 2 admet un diviseur premier. Récurrence forte : si
-`n` n'est pas premier, il a un diviseur strict `d` avec `2 ≤ d < n`, auquel on applique
-l'hypothèse de récurrence. -/
+/-- Tout entier supérieur ou égal à 2 admet un diviseur premier. -/
 theorem existe_diviseur_premier : ∀ {n : Nat}, 2 ≤ n → ∃ p, Premier p ∧ p ∣ n := by
   intro n
   induction n using Nat.strongRecOn with
@@ -234,16 +225,7 @@ ne divise `n`. C'est exactement le crible, écrit comme un test. -/
 def estPremier (n : Nat) : Bool :=
   2 ≤ n && (List.range n).all fun d => d < 2 || n % d != 0
 
-/-- Le test calculable et la définition mathématique coïncident.
-
-De gauche à droite : soit `d ∣ n`. Comme `n ≥ 2 > 0`, on a `d ≤ n`. Si `d = n`, c'est
-fini ; si `d < n`, le test donne `d < 2` ou `n % d ≠ 0`, et `d ∣ n` force `n % d = 0`,
-donc `d < 2`, c'est-à-dire `d = 0` ou `d = 1`. Le cas `d = 0` est exclu, car `0 ∣ n`
-donnerait `n = 0`.
-
-De droite à gauche : soit `d < n`. Si `d < 2` la disjonction est satisfaite ; sinon
-`n % d = 0` donnerait `d ∣ n`, donc `d = 1` ou `d = n` par primalité, ce qui contredit
-`2 ≤ d < n`. -/
+/-- Le test calculable et la définition mathématique coïncident. -/
 theorem estPremier_iff (n : Nat) : estPremier n = true ↔ Premier n := by
   unfold estPremier Premier
   simp only [Bool.and_eq_true, decide_eq_true_eq, List.all_eq_true, List.mem_range,
@@ -275,9 +257,7 @@ theorem estPremier_iff (n : Nat) : estPremier n = true ↔ Premier n := by
       have : d ∣ n := Nat.dvd_of_mod_eq_zero hmod
       rcases hdiv d this with h1 | h1 <;> omega
 
-/-- Les nombres premiers inférieurs à 100, obtenus en filtrant `0, …, 99` par le test.
-L'égalité est vérifiée par calcul : le noyau évalue les deux listes et les compare. Le
-crible est donc exécuté, et pas seulement décrit. -/
+/-- Les nombres premiers inférieurs à 100, obtenus en filtrant `0, …, 99` par le test. -/
 theorem crible_eratosthene :
     (List.range 100).filter estPremier =
       [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73,
@@ -291,8 +271,7 @@ def produit : List Nat → Nat
   | [] => 1
   | p :: l => p * produit l
 
-/-- Tout entier non nul est un produit de nombres premiers — la liste est vide pour `1`.
-Récurrence forte : on extrait un diviseur premier `p`, et on décompose `n / p`. -/
+/-- Tout entier non nul est un produit de nombres premiers — la liste est vide pour `1`. -/
 theorem decomposition_en_facteurs_premiers :
     ∀ {n : Nat}, 0 < n → ∃ l : List Nat, (∀ p ∈ l, Premier p) ∧ produit l = n := by
   intro n
@@ -322,11 +301,7 @@ theorem decomposition_en_facteurs_premiers :
         · exact hl q h, by simp [produit, hprod, hm]⟩
 
 /-- Lemme d'Euclide : un nombre premier qui divise un produit divise l'un des facteurs.
-C'est lui qui porte l'unicité de la décomposition, admise au collège.
-
-Supposons `p ∤ a`. Le pgcd de `p` et `a` divise `p`, donc vaut `1` ou `p` par primalité ;
-s'il valait `p`, alors `p` diviserait `a`, exclu. Donc `p` et `a` sont premiers entre eux,
-et de `p ∣ a * b` on conclut `p ∣ b`. -/
+C'est lui qui porte l'unicité de la décomposition, admise au collège. -/
 theorem lemme_d_euclide {p a b : Nat} (hp : Premier p) (h : p ∣ a * b) :
     p ∣ a ∨ p ∣ b := by
   by_cases ha : p ∣ a
@@ -353,8 +328,7 @@ définition même de `Nat.gcd`, et donc ce qui garantit que l'algorithme termine
 theorem pgcd_euclide (a b : Nat) : Nat.gcd a b = Nat.gcd (b % a) a :=
   Nat.gcd_rec a b
 
-/-- Le PGCD est un diviseur commun : c'est la conjonction de `Nat.gcd_dvd_left` et
-`Nat.gcd_dvd_right`. -/
+/-- Le PGCD est un diviseur commun. -/
 theorem pgcd_divise (a b : Nat) : Nat.gcd a b ∣ a ∧ Nat.gcd a b ∣ b :=
   ⟨Nat.gcd_dvd_left a b, Nat.gcd_dvd_right a b⟩
 
@@ -371,8 +345,7 @@ theorem premiers_entre_eux_ssi_pgcd_un {a b : Nat} :
     Nat.Coprime a b ↔ Nat.gcd a b = 1 := Iff.rfl
 
 /-- Formulation scolaire : deux entiers sont premiers entre eux exactement quand leurs
-seuls diviseurs communs sont `1`. Dans un sens, un diviseur commun divise le pgcd, qui
-vaut `1` ; dans l'autre, il suffit d'appliquer l'hypothèse au pgcd lui-même. -/
+seuls diviseurs communs sont `1`. -/
 theorem premiers_entre_eux_ssi_diviseurs_communs_triviaux {a b : Nat} :
     Nat.Coprime a b ↔ ∀ d, d ∣ a → d ∣ b → d = 1 := by
   constructor
@@ -387,12 +360,7 @@ theorem premiers_entre_eux_ssi_diviseurs_communs_triviaux {a b : Nat} :
 
 /-- Toute fraction `n / d` de dénominateur non nul est égale à une fraction irréductible :
 on divise les deux termes par leur PGCD. L'égalité des fractions est écrite en produits
-croisés, pour rester dans `Nat`.
-
-En posant `g = pgcd(n, d)`, qui est non nul puisque `d` l'est, on prend `n' = n / g` et
-`d' = d / g` : `d' > 0` car `g ≤ d`, la primalité entre eux est
-`Nat.coprime_div_gcd_div_gcd`, et le produit croisé s'obtient de `g * (n / g) = n` et
-`g * (d / g) = d` par commutativité et associativité. -/
+croisés, pour rester dans `Nat`. -/
 theorem fraction_irreductible {n d : Nat} (hd : 0 < d) :
     ∃ n' d', 0 < d' ∧ Nat.Coprime n' d' ∧ n * d' = n' * d := by
   have hg : 0 < Nat.gcd n d := Nat.gcd_pos_of_pos_right n hd

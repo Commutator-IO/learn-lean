@@ -5,16 +5,23 @@ Rien n'est rédigé ici : tout le texte vient du fichier `.lean` lui-même.
   - le commentaire de tête `/- … -/`      → introduction du document ;
   - les sections `/-! ## Titre -/`        → sections LaTeX ;
   - les docstrings `/-- … -/`             → énoncé et démonstration en français ;
-  - la déclaration Lean qui suit          → bloc de code, symboles convertis ;
+  - la déclaration Lean qui suit          → lien GitHub vers ses lignes ;
   - les commentaires libres `/- … -/`     → remarques entre deux énoncés.
+
+Le code Lean n'est pas recopié dans le document : chaque énoncé renvoie au fichier
+source, sur la branche et aux lignes exactes de sa déclaration.
 
     python3 outils/generer-tex.py                 # tous les fichiers de cours/
     python3 outils/generer-tex.py chemin/vers/Fichier.lean
 
-Le `.tex` est écrit à côté du `.lean`. Il se compile avec `tectonic` ou `pdflatex`.
+Le `.tex` est écrit à côté du `.lean`, et **n'est jamais réécrit s'il existe déjà** :
+les démonstrations en français qu'on y ajoute (voir la skill `transcrire-preuve-lean`)
+sont donc conservées. Pour repartir d'un squelette neuf, supprimer le `.tex`.
+
+Il se compile avec `tectonic` ou `pdflatex`.
 """
 
-import re, sys, os
+import re, sys, os, subprocess
 
 # --- conversion des symboles ------------------------------------------------
 
@@ -73,6 +80,23 @@ def prose_latex(texte):
             sortie.append(m)
     return "".join(sortie)
 
+# --- lien vers la source ----------------------------------------------------
+
+def racine_depot(chemin):
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+def base_github(racine):
+    """URL GitHub du dépôt, sur la branche courante, déduite du remote `origin`."""
+    def git(*args):
+        return subprocess.run(("git", "-C", racine) + args, capture_output=True,
+                              text=True).stdout.strip()
+    remote = git("remote", "get-url", "origin")
+    branche = git("rev-parse", "--abbrev-ref", "HEAD") or "main"
+    m = re.match(r"(?:git@github\.com:|https://github\.com/)(.+?)(?:\.git)?$", remote)
+    if not m:
+        return None
+    return f"https://github.com/{m.group(1)}/blob/{branche}"
+
 # --- lecture du fichier Lean ------------------------------------------------
 
 DECLARATION = re.compile(r"^(theorem|lemma|def|abbrev|instance|example)\s+([^\s({\[:]*)")
@@ -106,8 +130,9 @@ def lire(chemin):
                 corps.append(lignes[i])
                 i += 1
             m = DECLARATION.match(corps[0]) if corps else None
+            debut, fin = i - len(corps) + 1, i          # lignes 1-indexées
             blocs.append(("declaration", (m.group(1) if m else "", m.group(2) if m else "",
-                                          doc, "\n".join(corps))))
+                                          doc, debut, fin)))
         elif ligne.startswith("/-"):
             texte, i = bloc_commentaire(i, "/-", "-/")
             if intro is None and not blocs:
@@ -134,8 +159,8 @@ ENTETE = r"""%% Fichier engendré par outils/generer-tex.py à partir de %(sourc
 \fi
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage{alltt}
 \usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
@@ -143,9 +168,10 @@ ENTETE = r"""%% Fichier engendré par outils/generer-tex.py à partir de %(sourc
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
-%% Nom Lean de l'énoncé, sous celui-ci : les identifiants sont trop longs pour
-%% tenir sur la ligne de titre d'un théorème.
-\newcommand{\nom}[1]{\par\smallskip{\footnotesize\raggedright Lean~: \texttt{#1}\par}}
+%% Nom Lean de l'énoncé et lien vers sa déclaration dans le dépôt, sous l'énoncé :
+%% les identifiants sont trop longs pour tenir sur la ligne de titre d'un théorème.
+\newcommand{\nom}[3]{\par\smallskip{\footnotesize\raggedright
+  Lean~: \texttt{#1} \textemdash{} \href{#2}{#3}\par}}
 
 \title{%(titre)s}
 \date{}
@@ -167,6 +193,10 @@ def convertir(chemin_lean):
     source = os.path.basename(chemin_lean)
     titre = os.path.splitext(source)[0]
 
+    racine = racine_depot(chemin_lean)
+    base = base_github(racine)
+    relatif = os.path.relpath(os.path.abspath(chemin_lean), racine)
+
     out = [ENTETE % {"source": source, "titre": r"\texttt{" + code_latex(titre) + "}"}]
     if intro:
         out.append(r"\noindent")
@@ -179,19 +209,23 @@ def convertir(chemin_lean):
         elif sorte == "remarque":
             out += [r"\noindent", prose_latex(contenu), ""]
         else:
-            mot, nom, doc, corps = contenu
+            mot, nom, doc, debut, fin = contenu
             env = environnement(mot, nom)
+            lignes = f"L{debut}" + (f"-L{fin}" if fin > debut else "")
+            # « # » est le caractère de paramètre de TeX : il doit être échappé
+            # jusque dans une URL passée à \href.
+            lien = f"{base}/{relatif}#{lignes}".replace("#", r"\#") if base else ""
+            reperage = code_latex(f"{source}, ligne {debut}")
             out += [r"\begin{" + env + "}",
                     prose_latex(doc),
-                    r"\nom{" + code_latex(nom) + "}",
+                    r"\nom{" + code_latex(nom) + "}{" + lien + "}{" + reperage + "}",
                     r"\end{" + env + "}",
-                    r"{\footnotesize\begin{alltt}",
-                    code_latex(corps),
-                    r"\end{alltt}}",
                     ""]
 
     out += [r"\end{document}", ""]
     chemin_tex = os.path.splitext(chemin_lean)[0] + ".tex"
+    if os.path.exists(chemin_tex):
+        return chemin_tex, None
     open(chemin_tex, "w", encoding="utf-8").write("\n".join(out))
     return chemin_tex, sum(1 for s, _ in blocs if s == "declaration")
 
@@ -211,4 +245,7 @@ if __name__ == "__main__":
         print("aucun fichier .lean dans cours/")
     for chemin in fichiers:
         tex, n = convertir(chemin)
-        print(f"{tex} : {n} déclarations")
+        if n is None:
+            print(f"{tex} : déjà présent, laissé tel quel")
+        else:
+            print(f"{tex} : {n} déclarations")
