@@ -48,33 +48,36 @@ radians : l'angle plat vaut \(\pi\) et l'angle droit \(\pi\)/2.
 Toutes les définitions du fichier sont posées ici, avant les démonstrations.
 
 \begin{definition}
-La droite passant par \texttt{a} et dirigée par \texttt{u}.
+La \emph{droite} passant par $a$ et dirigée par $u$ est l'ensemble
+\[ \mathcal{D}(a, u) = \{\, a + tu \ ;\ t \in \mathbb{R} \,\} . \]
 \end{definition}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L21}{GeometriePlane.lean\#L21}
 
 \begin{definition}
-La droite passant par deux points.
+La \emph{droite passant par deux points} $a$ et $b$ est $\mathcal{D}(a,\, b - a)$.
 \end{definition}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L24}{GeometriePlane.lean\#L24}
 
 \begin{definition}
-Deux directions sont parallèles lorsqu'elles sont colinéaires.
+Deux directions sont \emph{parallèles} lorsqu'elles sont colinéaires : $v = ku$ pour un
+réel $k$.
 \end{definition}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L27}{GeometriePlane.lean\#L27}
 
 \begin{definition}
-Deux directions sont perpendiculaires lorsque leur produit scalaire est nul.
+Deux directions sont \emph{perpendiculaires} lorsque leur produit scalaire est nul :
+$\langle u, v\rangle = 0$.
 \end{definition}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L30}{GeometriePlane.lean\#L30}
 
 \begin{definition}
-Le milieu d'un segment.
+Le \emph{milieu} de $[ab]$ est $\dfrac{a + b}{2}$.
 \end{definition}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L33}{GeometriePlane.lean\#L33}
 
 \begin{definition}
-Un quadrilatère \texttt{abcd} est un parallélogramme lorsque les vecteurs de deux côtés
-opposés sont égaux.
+Un quadrilatère $abcd$ est un \emph{parallélogramme} lorsque deux côtés opposés portent
+le même vecteur : $b - a = c - d$.
 \end{definition}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L37}{GeometriePlane.lean\#L37}
 
@@ -83,13 +86,23 @@ opposés sont égaux.
 \begin{theoreme}
 Les deux points appartiennent à la droite qu'ils définissent.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Le paramètre $t = 0$ donne $a$, le paramètre $t = 1$ donne $a + (b - a) = b$.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L42}{GeometriePlane.lean\#L42}
 
 \begin{theoreme}
-Et c'est la seule : toute droite contenant \texttt{a} et \texttt{b} distincts leur est égale.
+Et c'est la seule : toute droite contenant $a$ et $b$ distincts contient la droite
+$(ab)$.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Si $a = c + su$ et $b = c + tu$, alors tout point $a + r(b - a)$ de la droite $(ab)$
+s'écrit
+\[ c + su + r\bigl((c + tu) - (c + su)\bigr) = c + \bigl(s + r(t - s)\bigr)u , \]
+qui est bien un point de la droite $\mathcal{D}(c, u)$.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L46}{GeometriePlane.lean\#L46}
 
 \subsection{Perpendicularité et parallélisme}
@@ -98,159 +111,268 @@ Et c'est la seule : toute droite contenant \texttt{a} et \texttt{b} distincts le
 Si deux droites sont parallèles, toute perpendiculaire à l'une est perpendiculaire à
 l'autre.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Si $v = ku$ et $\langle w, u\rangle = 0$, alors
+$\langle w, v\rangle = k\,\langle w, u\rangle = 0$.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L59}{GeometriePlane.lean\#L59}
 
 \begin{theoreme}
 Deux droites parallèles à une même droite sont parallèles entre elles.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Si $v = ku$ et $w = \ell v$, alors $w = (\ell k)u$ : la colinéarité se transmet, les
+coefficients se multipliant.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L66}{GeometriePlane.lean\#L66}
 
 \begin{theoreme}
 Dans le plan, deux droites perpendiculaires à une même droite sont parallèles entre
-elles. La dimension est essentielle : dans l'espace, deux perpendiculaires à une même
-droite ne le sont pas.
+elles : leur déterminant est nul,
+\[ u_0 v_1 - u_1 v_0 = 0 . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Les deux conditions d'orthogonalité s'écrivent en coordonnées
+\[ w_0 u_0 + w_1 u_1 = 0, \qquad w_0 v_0 + w_1 v_1 = 0 , \]
+et $w$ n'étant pas nul, l'une de ses coordonnées ne l'est pas. Supposons $w_0 \ne 0$ : on
+en tire $u_0 = -w_1 u_1 / w_0$ et $v_0 = -w_1 v_1 / w_0$, d'où
+\[ u_0 v_1 - u_1 v_0 = \frac{-w_1 u_1 v_1 + w_1 u_1 v_1}{w_0} = 0 . \]
+Le cas $w_1 \ne 0$ est symétrique.
+
+La dimension est essentielle : dans l'espace, deux perpendiculaires à une même droite ne
+sont pas parallèles en général. C'est pourquoi cet énoncé, seul du fichier, est posé dans
+le plan de coordonnées et non dans un espace euclidien quelconque.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L75}{GeometriePlane.lean\#L75}
 
 \subsection{Le plus court chemin d'un point à une droite est le segment perpendiculaire}
 
 \begin{theoreme}
-Si le vecteur joignant \texttt{p} à \texttt{h} est perpendiculaire à la direction de la droite,
-alors \texttt{h} est le point de la droite le plus proche de \texttt{p}.
+Le plus court chemin d'un point à une droite est le segment perpendiculaire : si
+$p - h$ est perpendiculaire à la direction de la droite, alors
+\[ \|p - h\| \le \|p - (h + tu)\| \quad \text{pour tout } t . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+On développe le carré de la distance à un point courant de la droite :
+\[ \|p - (h + tu)\|^2 = \|(p - h) - tu\|^2
+   = \|p - h\|^2 - 2t\,\langle p - h, u\rangle + t^2\|u\|^2 . \]
+Le terme du milieu est nul par hypothèse, et le dernier est positif : la distance est
+minimale pour $t = 0$, c'est-à-dire au pied de la perpendiculaire.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L105}{GeometriePlane.lean\#L105}
 
 \subsection{Angles opposés par le sommet, adjacents, supplémentaires}
 
 \begin{theoreme}
-Deux angles opposés par le sommet sont égaux : les deux couples de vecteurs sont
-opposés.
+Deux angles opposés par le sommet sont égaux.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Les deux couples de vecteurs sont opposés, et l'angle de deux vecteurs ne change pas
+quand on les remplace tous deux par leurs opposés.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L118}{GeometriePlane.lean\#L118}
 
 \begin{theoreme}
 Deux angles adjacents portés par des demi-droites opposées sont supplémentaires :
-leur somme vaut l'angle plat.
+\[ \widehat{(u, v)} + \widehat{(u, -v)} = \pi . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Remplacer un vecteur par son opposé remplace l'angle par son supplémentaire :
+$\widehat{(u, -v)} = \pi - \widehat{(u, v)}$. La somme vaut donc $\pi$, l'angle plat.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L124}{GeometriePlane.lean\#L124}
 
 \subsection{Caractérisation de la médiatrice}
 
 \begin{theoreme}
-Un point est équidistant de deux points si et seulement s'il appartient à leur
-médiatrice.
+Caractérisation de la médiatrice : un point est équidistant de $a$ et $b$ si et
+seulement s'il appartient à la médiatrice de $[ab]$.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+C'est la définition de la médiatrice dans la bibliothèque, à l'ordre des arguments de
+la distance près.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L133}{GeometriePlane.lean\#L133}
 
 \subsection{Somme des angles d'un triangle}
 
 \begin{theoreme}
-La somme des angles d'un triangle vaut l'angle plat.
+La somme des angles d'un triangle vaut l'angle plat :
+\[ \widehat{abc} + \widehat{bca} + \widehat{cab} = \pi . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+C'est le théorème de la bibliothèque, valable dès que deux des sommets sont distincts.
+Sa démonstration passe par la trigonométrie du produit scalaire, là où le collège trace
+une parallèle et utilise les angles alternes-internes.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L141}{GeometriePlane.lean\#L141}
 
 \subsection{Triangle isocèle : angles à la base}
 
 \begin{theoreme}
-Dans un triangle isocèle, les angles à la base sont égaux.
+Dans un triangle isocèle, les angles à la base sont égaux :
+$\mathrm{dist}(a,b) = \mathrm{dist}(a,c) \Rightarrow \widehat{abc} = \widehat{acb}$.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Deux côtés égaux rendent la figure symétrique par rapport à la médiatrice du troisième,
+qui échange les deux angles à la base.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L148}{GeometriePlane.lean\#L148}
 
 \subsection{Inégalité triangulaire}
 
 \begin{theoreme}
-Inégalité triangulaire : le chemin direct est le plus court.
+Inégalité triangulaire : $\mathrm{dist}(a,c) \le \mathrm{dist}(a,b) + \mathrm{dist}(b,c)$.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+C'est l'inégalité triangulaire de la distance : le chemin direct est le plus court.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L155}{GeometriePlane.lean\#L155}
 
 \begin{theoreme}
-Le cas d'égalité caractérise l'alignement, \texttt{b} étant entre \texttt{a} et \texttt{c}.
+Le cas d'égalité caractérise l'alignement :
+\[ \mathrm{dist}(a,b) + \mathrm{dist}(b,c) = \mathrm{dist}(a,c)
+   \iff b \text{ appartient au segment } [ac] . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+L'égalité n'a lieu que si le détour par $b$ ne coûte rien, c'est-à-dire si $b$ est entre
+$a$ et $c$. Le résultat vaut dans un espace strictement convexe, ce qu'est tout espace
+euclidien.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L159}{GeometriePlane.lean\#L159}
 
 \subsection{Théorème de Pythagore, sa réciproque et sa contraposée}
 
 \begin{theoreme}
-Théorème de Pythagore et sa réciproque : le carré de l'hypoténuse est la somme des
-carrés des deux autres côtés si et seulement si l'angle est droit.
+Théorème de Pythagore et sa réciproque :
+\[ \mathrm{dist}(a,c)^2 = \mathrm{dist}(a,b)^2 + \mathrm{dist}(c,b)^2
+   \iff \widehat{abc} = \frac{\pi}{2} . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Le carré de la distance se développe en produits scalaires :
+\[ \|a - c\|^2 = \|a - b\|^2 + \|c - b\|^2 - 2\,\langle a - b, c - b\rangle , \]
+et le double produit est nul exactement quand les deux côtés sont perpendiculaires,
+c'est-à-dire quand l'angle en $b$ est droit. L'équivalence donne d'un coup le théorème et
+sa réciproque.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L166}{GeometriePlane.lean\#L166}
 
 \begin{theoreme}
 Contraposée : si l'égalité des carrés est en défaut, le triangle n'est pas rectangle.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+C'est la contraposée de la réciproque : si l'angle était droit, l'égalité aurait lieu.
+Cette forme est celle qu'on utilise en classe pour montrer qu'un triangle \emph{n'est
+pas} rectangle.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L171}{GeometriePlane.lean\#L171}
 
 \subsection{Théorème des milieux et sa réciproque}
 
 \begin{theoreme}
-La droite des milieux est parallèle au troisième côté et de longueur moitié.
+Théorème des milieux : la droite des milieux est parallèle au troisième côté,
+\[ \text{milieu}(a,c) - \text{milieu}(a,b) = \tfrac{1}{2}(c - b) . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+On calcule directement :
+\[ \frac{a+c}{2} - \frac{a+b}{2} = \frac{c - b}{2} . \]
+Le vecteur obtenu est colinéaire à $c - b$ : les deux droites sont parallèles.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L178}{GeometriePlane.lean\#L178}
 
 \begin{theoreme}
 Conséquence sur les longueurs : le segment des milieux mesure la moitié du troisième
 côté.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+La norme du vecteur précédent vaut $\tfrac12\|b - c\|$, le facteur $\tfrac12$ sortant de
+la norme en valeur absolue.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L185}{GeometriePlane.lean\#L185}
 
 \begin{theoreme}
-Réciproque : la parallèle menée par le milieu d'un côté coupe le deuxième côté en son
-milieu. Écrite vectoriellement : le point du côté \texttt{[a c]} dont l'écart au milieu de
-\texttt{[a b]} est parallèle à \texttt{(b c)} avec le bon rapport est le milieu de \texttt{[a c]}.
+Réciproque : le point du côté $[ac]$ dont l'écart au milieu de $[ab]$ vaut
+$\tfrac12(c-b)$ est le milieu de $[ac]$.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+En reportant l'écart depuis le milieu de $[ab]$ :
+\[ \frac{a+b}{2} + \frac{c-b}{2} = \frac{a+c}{2} , \]
+qui est le milieu de $[ac]$.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L197}{GeometriePlane.lean\#L197}
 
 \subsection{Théorème de Thalès et sa réciproque}
 
 \begin{theoreme}
-Théorème de Thalès : si \texttt{m} et \texttt{n} divisent \texttt{[a b]} et \texttt{[a c]} dans le même rapport
-\texttt{t}, alors \texttt{mn} est parallèle à \texttt{bc} et les rapports de longueurs sont égaux à \texttt{t}.
+Théorème de Thalès : si $m$ et $n$ divisent $[ab]$ et $[ac]$ dans le même rapport $t$,
+alors
+\[ \bigl(a + t(b-a)\bigr) - \bigl(a + t(c-a)\bigr) = t\,(b - c) . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Le calcul est immédiat : les deux $a$ se simplifient et le facteur $t$ se met en
+facteur. Le vecteur $mn$ est donc colinéaire à $bc$ — les droites sont parallèles — et le
+coefficient est le rapport commun.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L208}{GeometriePlane.lean\#L208}
 
 \begin{theoreme}
-Conséquence sur les longueurs : les trois rapports sont égaux.
+Conséquence sur les longueurs : les trois rapports sont égaux,
+\[ \mathrm{dist}(m, n) = t \times \mathrm{dist}(b, c) . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+On prend la norme de l'égalité précédente, le facteur $t \ge 0$ sortant tel quel.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L213}{GeometriePlane.lean\#L213}
 
 \begin{theoreme}
-Réciproque de Thalès : si \texttt{mn} est parallèle à \texttt{bc} avec le rapport \texttt{t}, les points
-divisent les deux côtés dans ce même rapport.
+Réciproque de Thalès : si $mn$ est parallèle à $bc$ avec le rapport $t$, alors $n$
+divise $[ac]$ dans ce même rapport.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+En reportant l'écart depuis $m = a + t(b-a)$ :
+\[ n = a + t(b-a) + t(c-b) = a + t(c-a) . \]
+Le point $n$ divise donc $[ac]$ dans le rapport $t$.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L219}{GeometriePlane.lean\#L219}
 
 \subsection{Relations trigonométriques}
 
 \begin{theoreme}
-La relation fondamentale de la trigonométrie.
+Relation fondamentale de la trigonométrie : $\cos^2 x + \sin^2 x = 1$.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+C'est l'identité de Pythagore sur le cercle trigonométrique : le point de coordonnées
+$(\cos x, \sin x)$ est à distance $1$ de l'origine.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L229}{GeometriePlane.lean\#L229}
 
 \begin{theoreme}
-La tangente est le quotient du sinus par le cosinus.
+La tangente est le quotient du sinus par le cosinus : $\tan x = \dfrac{\sin x}{\cos x}$.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+C'est la définition de la tangente.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L233}{GeometriePlane.lean\#L233}
 
 \subsection{Cercle circonscrit}
@@ -259,23 +381,45 @@ La tangente est le quotient du sinus par le cosinus.
 Les médiatrices d'un triangle sont concourantes : il existe un point équidistant des
 trois sommets, centre du cercle circonscrit.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+On prend le centre du cercle circonscrit au triangle, dont la bibliothèque garantit
+l'existence dès que les trois points ne sont pas alignés. Il est à égale distance des trois
+sommets — cette distance étant le rayon —, donc situé sur chacune des trois médiatrices,
+qui sont ainsi concourantes.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L239}{GeometriePlane.lean\#L239}
 
 \subsection{Triangle inscrit dans un demi-cercle}
 
 \begin{theoreme}
 Un triangle inscrit dans un cercle dont un côté est un diamètre est rectangle, et
-réciproquement : c'est le théorème de Thalès sur le cercle.
+réciproquement :
+\[ \widehat{abc} = \frac{\pi}{2} \iff b \text{ appartient au cercle de diamètre } [ac] . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+C'est le théorème de Thalès sur le cercle, tel que la bibliothèque l'établit. L'énoncé
+donne les deux sens à la fois : le triangle inscrit dans un demi-cercle est rectangle, et
+l'hypoténuse d'un triangle rectangle est un diamètre de son cercle circonscrit.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L252}{GeometriePlane.lean\#L252}
 
 \begin{theoreme}
 Dans un triangle rectangle, la médiane issue de l'angle droit vaut la moitié de
-l'hypoténuse.
+l'hypoténuse :
+\[ \mathrm{dist}\bigl(b, \text{milieu}(a,c)\bigr) = \frac{\mathrm{dist}(a,c)}{2} . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+L'angle droit en $b$ donne $\langle a - b, c - b\rangle = 0$. Or
+\[ b - \text{milieu}(a,c) = \tfrac{1}{2}\bigl((b-a) + (b-c)\bigr) , \]
+et l'orthogonalité donne, d'une part
+\[ \|(b-a) + (b-c)\|^2 = \|b-a\|^2 + \|b-c\|^2 , \]
+d'autre part, en écrivant $a - c = (b-c) - (b-a)$,
+\[ \|a-c\|^2 = \|b-a\|^2 + \|b-c\|^2 . \]
+Les deux normes sont donc égales, et la médiane vaut la moitié de $\|a - c\|$.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L258}{GeometriePlane.lean\#L258}
 
 \subsection{Tangente à un cercle}
@@ -284,43 +428,72 @@ l'hypoténuse.
 La droite passant par un point du cercle et perpendiculaire au rayon en ce point ne
 rencontre le cercle qu'en ce point : c'est la tangente.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Si $p + tu$ est à la même distance du centre que $p$, alors
+\[ \|p - o\|^2 = \|(p-o) + tu\|^2 = \|p-o\|^2 + t^2\|u\|^2 , \]
+le double produit étant nul par perpendicularité. Il reste $t^2\|u\|^2 = 0$, et comme
+$u \ne 0$, on obtient $t = 0$ : le seul point commun est $p$.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L286}{GeometriePlane.lean\#L286}
 
 \subsection{Parallélogramme}
 
 \begin{theoreme}
 Un quadrilatère est un parallélogramme si et seulement si ses diagonales se coupent en
-leur milieu.
+leur milieu : $b - a = c - d \iff \text{milieu}(a,c) = \text{milieu}(b,d)$.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+Les deux conditions sont deux écritures de la même égalité $a + c = b + d$ : la
+première la donne en retranchant, la seconde en divisant par deux.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L309}{GeometriePlane.lean\#L309}
 
 \begin{theoreme}
 Dans un parallélogramme, les côtés opposés ont la même longueur.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+De $b - a = c - d$ on tire $a - b = d - c$ : les deux côtés portent des vecteurs opposés,
+donc de même norme.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L321}{GeometriePlane.lean\#L321}
 
 \begin{theoreme}
-Dans un parallélogramme, les angles opposés sont égaux : les deux couples de vecteurs
-qui les portent sont opposés.
+Dans un parallélogramme, les angles opposés sont égaux.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+L'égalité $b - a = c - d$ équivaut à $b + d = c + a$, d'où
+\[ d - c = -(b - a), \qquad b - c = -(d - a) . \]
+Les deux couples de vecteurs portant les angles en $a$ et en $c$ sont donc opposés, et
+l'angle est inchangé quand on remplace les deux vecteurs par leurs opposés.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L331}{GeometriePlane.lean\#L331}
 
 \subsection{Repérage : milieu et distance}
 
 \begin{theoreme}
-Les coordonnées du milieu sont les moyennes des coordonnées.
+Les coordonnées du milieu sont les moyennes des coordonnées :
+$\text{milieu}(a,b)_i = \dfrac{a_i + b_i}{2}$.
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+La définition du milieu s'applique coordonnée par coordonnée.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L347}{GeometriePlane.lean\#L347}
 
 \begin{theoreme}
-La distance entre deux points repérés se calcule par le théorème de Pythagore.
+La distance entre deux points repérés se calcule par le théorème de Pythagore :
+\[ \mathrm{dist}(a,b) = \sqrt{(a_0 - b_0)^2 + (a_1 - b_1)^2} . \]
 \end{theoreme}
-% démonstration à transcrire (skill transcrire-preuve-lean)
+
+\begin{proof}
+C'est la définition de la distance euclidienne en coordonnées, qui n'est autre que le
+théorème de Pythagore appliqué au triangle rectangle dont les côtés sont les écarts en
+abscisse et en ordonnée.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/02-geometrie-plane/GeometriePlane.lean\#L354}{GeometriePlane.lean\#L354}
 
 \vfill
