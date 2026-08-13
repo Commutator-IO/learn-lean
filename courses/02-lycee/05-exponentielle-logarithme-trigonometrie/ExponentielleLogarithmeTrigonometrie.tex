@@ -1,0 +1,400 @@
+% Fichier engendré par tools/generate-tex.py à partir de 05-exponentielle-logarithme-trigonometrie.
+% Les démonstrations en français sont transcrites du fichier Lean (skill transcribe-lean-proof).
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Exponentielle, logarithme, trigonométrie}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{ExponentielleLogarithmeTrigonometrie}
+
+\noindent
+Lycée \textemdash{} section \og{} Exponentielle, logarithme, trigonométrie \fg{}, niveau
+première et terminale S.
+
+\medskip\noindent
+Une différence de construction traverse tout le chapitre. Le programme \emph{définit}
+l'exponentielle comme l'unique fonction dérivable vérifiant $f' = f$ et $f(0) = 1$, et
+admet que cette fonction existe. Mathlib procède autrement : $\exp$, $\sin$ et $\cos$ y
+sont construits par leurs séries entières, et $\pi$ comme le double du premier zéro du
+cosinus. Le premier énoncé rétablit le pont : l'exponentielle de la bibliothèque est
+solution de l'équation différentielle, et le second démontre qu'elle en est la seule
+solution \textemdash{} c'est la démonstration substantielle du chapitre, celle que le
+programme admet.
+
+\medskip\noindent
+Les autres énoncés sont, pour l'essentiel, empruntés à Mathlib. Les transcriptions disent
+ce que le résultat cité affirme et par quel argument il s'obtient, sans faire croire que le
+travail est fait ici.
+
+\subsection{Exponentielle : équation différentielle}
+
+\begin{theoreme}
+L'exponentielle est solution de l'équation différentielle du programme : elle est
+dérivable, égale à sa dérivée, et vaut $1$ en zéro,
+\[ \exp' = \exp, \qquad \exp(0) = 1 . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux faits sont ceux de la bibliothèque, où $\exp$ est définie par la série
+\[ \exp(x) = \sum_{n \ge 0} \frac{x^{n}}{n!} , \]
+dont on dérive terme à terme pour obtenir $\exp' = \exp$, et dont le terme constant donne
+$\exp(0) = 1$. Le fichier ne fait que les citer côte à côte : leur intérêt est de dire que
+la fonction de Mathlib est bien celle que le programme définit.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L19}{ExponentielleLogarithmeTrigonometrie.lean\#L19}
+
+\begin{theoreme}
+Et c'est la seule : si $f$ est dérivable sur $\mathbb{R}$, vérifie $f'(x) = f(x)$ pour tout
+$x$ et $f(0) = 1$, alors $f = \exp$.
+\end{theoreme}
+
+\begin{proof}
+Posons $g(t) = f(t)\,e^{-t}$. La fonction $t \mapsto e^{-t}$ est dérivable de dérivée
+$-e^{-t}$ \textemdash{} c'est la dérivée d'une composée, l'exponentielle étant composée avec
+$t \mapsto -t$ dont la dérivée vaut $-1$. La règle du produit donne alors, en tout point
+$y$,
+\[ g'(y) = f'(y)\,e^{-y} + f(y)\,\bigl(-e^{-y}\bigr)
+        = f(y)\,e^{-y} - f(y)\,e^{-y} = 0 , \]
+où l'on a remplacé $f'(y)$ par $f(y)$ selon l'hypothèse.
+
+Une fonction dérivable sur $\mathbb{R}$ de dérivée identiquement nulle est constante
+(conséquence du théorème des accroissements finis, démontrée dans la bibliothèque). Donc
+$g(x) = g(0)$ pour tout $x$, et
+\[ f(x)\,e^{-x} = f(0)\,e^{0} = 1 . \]
+Comme $e^{-x} = 1/e^{x}$ et que l'exponentielle ne s'annule pas, on peut multiplier par
+$e^{x}$ : $f(x) = e^{x}$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L25}{ExponentielleLogarithmeTrigonometrie.lean\#L25}
+
+\subsection{Propriétés algébriques de l'exponentielle}
+
+\begin{theoreme}
+L'exponentielle transforme les sommes en produits :
+\[ \exp(a + b) = \exp(a)\exp(b), \qquad
+   \exp(-a) = \frac{1}{\exp(a)}, \qquad
+   \exp(na) = \exp(a)^{n} \quad (n \in \mathbb{N}) . \]
+\end{theoreme}
+
+\begin{proof}
+La première égalité est celle de la bibliothèque, qui l'obtient du produit de Cauchy des
+séries. Les deux autres s'en déduisent : la bibliothèque donne $\exp(-a) = \exp(a)^{-1}$,
+que l'on récrit en fraction, et $\exp(na) = \exp(a)^{n}$, lue de droite à gauche.
+
+\medskip\noindent
+C'est cette propriété qui vaut à $\exp$ son nom : elle échange la structure additive de
+$\mathbb{R}$ et la structure multiplicative de $\mathbb{R}_{+}^{*}$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L45}{ExponentielleLogarithmeTrigonometrie.lean\#L45}
+
+\begin{theoreme}
+L'exponentielle est strictement positive et strictement croissante :
+\[ \exp(x) > 0 \quad \text{pour tout } x, \qquad
+   x < y \implies \exp(x) < \exp(y) . \]
+\end{theoreme}
+
+\begin{proof}
+Deux résultats de la bibliothèque, cités. La positivité tient à l'identité
+$\exp(x) = \exp(x/2)^{2}$, qui donne un carré, non nul puisque l'exponentielle ne s'annule
+jamais. La croissance stricte s'en déduit : pour $x < y$,
+\[ \exp(y) - \exp(x) = \exp(x)\bigl(\exp(y - x) - 1\bigr) > 0 , \]
+le second facteur étant strictement positif dès que $y - x > 0$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L54}{ExponentielleLogarithmeTrigonometrie.lean\#L54}
+
+\subsection{Limites de l'exponentielle}
+
+\begin{theoreme}
+\[ e^{x} \xrightarrow[x \to +\infty]{} +\infty , \qquad
+   e^{x} \xrightarrow[x \to -\infty]{} 0 . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux limites sont celles de la bibliothèque. La première vient de la minoration
+$\exp(x) \ge 1 + x$, valable pour tout $x$ ; la seconde s'en déduit par
+$\exp(-x) = 1/\exp(x)$, l'inverse d'une quantité tendant vers $+\infty$ tendant vers zéro.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L61}{ExponentielleLogarithmeTrigonometrie.lean\#L61}
+
+\subsection{Logarithme népérien}
+
+\begin{theoreme}
+Le logarithme est la fonction réciproque de l'exponentielle :
+\[ \ln(e^{x}) = x \ \text{ pour tout } x, \qquad
+   e^{\ln x} = x \ \text{ pour } x > 0 . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux identités sont celles de la bibliothèque, qui définit $\ln$ comme la réciproque de
+$\exp$ sur $\mathbb{R}_{+}^{*}$.
+
+\medskip\noindent
+L'asymétrie des hypothèses n'est pas un oubli : $\ln(e^{x}) = x$ vaut pour tout réel
+puisque $e^{x} > 0$, tandis que $e^{\ln x} = x$ réclame $x > 0$. Le logarithme de Lean est
+pourtant une fonction totale \textemdash{} la bibliothèque pose $\ln x = \ln|x|$ pour
+$x < 0$ et $\ln 0 = 0$ \textemdash{} mais ces valeurs de remplissage ne sont pas des
+mathématiques : elles rendent la fonction totale, rien de plus, et l'hypothèse $x > 0$ reste
+celle de l'énoncé.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L69}{ExponentielleLogarithmeTrigonometrie.lean\#L69}
+
+\begin{theoreme}
+Pour $a > 0$ et $b > 0$, le logarithme transforme les produits en sommes :
+\[ \ln(ab) = \ln a + \ln b, \qquad \ln\frac{a}{b} = \ln a - \ln b, \]
+\[ \ln(a^{n}) = n \ln a \quad (n \in \mathbb{N}), \qquad
+   \ln\sqrt{a} = \tfrac{1}{2}\ln a . \]
+\end{theoreme}
+
+\begin{proof}
+Les quatre identités sont citées à la bibliothèque, qui les énonce sous des hypothèses
+légèrement plus faibles : $a \ne 0$ et $b \ne 0$ suffisent, parce que le logarithme de Lean
+d'un négatif vaut celui de sa valeur absolue. La transcription retient les hypothèses du
+lycée, $a > 0$ et $b > 0$, qui sont celles sous lesquelles l'énoncé a un sens.
+
+\medskip\noindent
+Toutes découlent de la première par la réciprocité : $\ln(ab) = \ln a + \ln b$ est la
+traduction, par $\ln$, de $e^{u+v} = e^{u}e^{v}$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L75}{ExponentielleLogarithmeTrigonometrie.lean\#L75}
+
+\begin{theoreme}
+Le logarithme est dérivable en tout point non nul, de dérivée
+\[ (\ln x)' = \frac{1}{x} , \]
+et il est strictement croissant sur $]0\,;+\infty[$.
+\end{theoreme}
+
+\begin{proof}
+La dérivée est celle de la bibliothèque, qui donne $x^{-1}$ et que l'on récrit $1/x$. Elle
+s'obtient par dérivation de la réciproque : en dérivant $e^{\ln x} = x$ on trouve
+$e^{\ln x} \times (\ln x)' = 1$, soit $x\,(\ln x)' = 1$.
+
+La croissance stricte est le résultat de la bibliothèque affirmant que $\ln$ conserve les
+inégalités strictes entre réels strictement positifs. La transcription se contente
+d'appliquer ce résultat à deux points $x < y$ de $]0\,;+\infty[$ ; l'appartenance de $y$ à
+l'intervalle ne sert pas, seule celle de $x$ est requise.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L85}{ExponentielleLogarithmeTrigonometrie.lean\#L85}
+
+\begin{theoreme}
+\[ \ln x \xrightarrow[\substack{x \to 0 \\ x > 0}]{} -\infty , \qquad
+   \ln x \xrightarrow[x \to +\infty]{} +\infty . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux limites sont celles de la bibliothèque ; elles sont l'image, par la réciprocité,
+des limites de l'exponentielle : $\exp$ envoie $-\infty$ sur $0^{+}$ et $+\infty$ sur
+$+\infty$, donc $\ln$ fait l'inverse.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L93}{ExponentielleLogarithmeTrigonometrie.lean\#L93}
+
+\subsection{Cercle trigonométrique}
+
+\begin{theoreme}
+Le point de coordonnées $(\cos x, \sin x)$ est sur le cercle de centre l'origine et de
+rayon $1$ :
+\[ \cos^{2} x + \sin^{2} x = 1 , \]
+et les deux coordonnées sont donc comprises entre $-1$ et $1$.
+\end{theoreme}
+
+\begin{proof}
+Les trois faits sont cités à la bibliothèque. L'identité de Pythagore s'y obtient à partir
+des séries définissant $\cos$ et $\sin$ ; les deux majorations $|\cos x| \le 1$ et
+$|\sin x| \le 1$ en découlent, un carré ne pouvant excéder la somme.
+
+\medskip\noindent
+Ce que le fichier ne formalise pas : que le paramètre $x$ mesure la \emph{longueur} de
+l'arc parcouru sur ce cercle, c'est-à-dire la définition même du radian. Établir ce point
+demande la longueur d'un arc, donc une intégrale, absente de ce chapitre. Le cercle
+trigonométrique y est donc présent par son équation, non par sa géométrie.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L102}{ExponentielleLogarithmeTrigonometrie.lean\#L102}
+
+\begin{theoreme}
+Un tour complet vaut $2\pi$ radians : le cosinus et le sinus sont $2\pi$-périodiques,
+\[ \cos(x + 2\pi) = \cos x, \qquad \sin(x + 2\pi) = \sin x . \]
+\end{theoreme}
+
+\begin{proof}
+Deux résultats de la bibliothèque. Dans Mathlib, $\pi$ est \emph{défini} comme le double du
+premier zéro du cosinus sur $[0\,;2]$ ; la périodicité est ensuite démontrée à partir des
+formules d'addition. La définition scolaire \textemdash{} $\pi$ est le rapport de la
+circonférence au diamètre \textemdash{} n'est pas celle-là, et le fichier ne démontre pas
+qu'elles coïncident.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L107}{ExponentielleLogarithmeTrigonometrie.lean\#L107}
+
+\subsection{Valeurs remarquables et angles associés}
+
+\begin{theoreme}
+Valeurs remarquables sur le premier quadrant :
+\[ \cos 0 = 1, \quad \cos\frac{\pi}{6} = \frac{\sqrt{3}}{2}, \quad
+   \cos\frac{\pi}{4} = \frac{\sqrt{2}}{2}, \quad \cos\frac{\pi}{3} = \frac{1}{2}, \quad
+   \cos\frac{\pi}{2} = 0, \]
+\[ \sin 0 = 0, \quad \sin\frac{\pi}{6} = \frac{1}{2}, \quad
+   \sin\frac{\pi}{4} = \frac{\sqrt{2}}{2}, \quad \sin\frac{\pi}{3} = \frac{\sqrt{3}}{2},
+   \quad \sin\frac{\pi}{2} = 1 . \]
+\end{theoreme}
+
+\begin{proof}
+Les dix valeurs sont celles de la bibliothèque, citées une à une. Elles ne se calculent pas
+à partir des séries mais des relations remarquables : $\cos(\pi/2) = 0$ tient à la
+définition de $\pi$, $\cos(\pi/3) = 1/2$ vient de la formule de duplication appliquée à
+$\pi/3$, et $\cos(\pi/4) = \sqrt{2}/2$ de $\cos^{2} + \sin^{2} = 1$ jointe à
+$\cos(\pi/4) = \sin(\pi/4)$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L114}{ExponentielleLogarithmeTrigonometrie.lean\#L114}
+
+\begin{theoreme}
+Angles associés, qui se lisent par symétrie sur le cercle :
+\[ \cos(-x) = \cos x, \qquad \sin(-x) = -\sin x, \]
+\[ \cos(\pi - x) = -\cos x, \qquad \sin(\pi - x) = \sin x, \]
+\[ \cos\Bigl(\frac{\pi}{2} - x\Bigr) = \sin x, \qquad
+   \sin\Bigl(\frac{\pi}{2} - x\Bigr) = \cos x . \]
+\end{theoreme}
+
+\begin{proof}
+Six identités de la bibliothèque, citées. Les deux premières disent que le cosinus est pair
+et le sinus impair \textemdash{} symétrie par rapport à l'axe des abscisses ; les deux
+suivantes, la symétrie par rapport à l'axe des ordonnées ; les deux dernières, la symétrie
+par rapport à la première bissectrice, qui échange les deux coordonnées.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L125}{ExponentielleLogarithmeTrigonometrie.lean\#L125}
+
+\subsection{Formules d'addition et de duplication}
+
+\begin{theoreme}
+\[ \cos(a + b) = \cos a \cos b - \sin a \sin b, \qquad
+   \sin(a + b) = \sin a \cos b + \cos a \sin b, \]
+\[ \cos(2a) = \cos^{2} a - \sin^{2} a, \qquad \sin(2a) = 2 \sin a \cos a . \]
+\end{theoreme}
+
+\begin{proof}
+Les quatre formules sont citées à la bibliothèque, qui les obtient des séries \textemdash{}
+ou, plus commodément, de l'identité $e^{i\theta} = \cos\theta + i\sin\theta$, le produit
+$e^{ia}e^{ib} = e^{i(a+b)}$ donnant d'un coup les deux formules d'addition en séparant
+partie réelle et partie imaginaire. Les formules de duplication en sont le cas $b = a$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L135}{ExponentielleLogarithmeTrigonometrie.lean\#L135}
+
+\subsection{Résolution des équations trigonométriques}
+
+\begin{theoreme}
+Pour $-1 \le a \le 1$, l'équation $\cos x = a$ admet $\arccos a$ pour solution, et ses
+solutions sont exactement
+\[ x = 2k\pi + \arccos a \quad \text{ou} \quad x = 2k\pi - \arccos a,
+   \qquad k \in \mathbb{Z} . \]
+\end{theoreme}
+
+\begin{proof}
+La bibliothèque fournit deux ingrédients : $\cos(\arccos a) = a$ dès que
+$-1 \le a \le 1$, et la caractérisation
+\[ \cos u = \cos v \iff \exists k \in \mathbb{Z},\
+   v = 2k\pi + u \ \text{ ou } \ v = 2k\pi - u . \]
+
+Dans un sens : si $\cos x = a$, alors $\cos(\arccos a) = a = \cos x$, et la
+caractérisation appliquée à $u = \arccos a$, $v = x$ donne la forme annoncée.
+
+Dans l'autre : si $x$ a l'une des deux formes, la caractérisation donne
+$\cos(\arccos a) = \cos x$, et le membre de gauche vaut $a$.
+
+\medskip\noindent
+Les deux familles de solutions sont les deux points du cercle de même abscisse $a$,
+symétriques par rapport à l'axe des abscisses.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L146}{ExponentielleLogarithmeTrigonometrie.lean\#L146}
+
+\begin{theoreme}
+Pour $-1 \le a \le 1$, l'équation $\sin x = a$ admet $\arcsin a$ pour solution, et ses
+solutions sont exactement
+\[ x = 2k\pi + \arcsin a \quad \text{ou} \quad x = (2k+1)\pi - \arcsin a,
+   \qquad k \in \mathbb{Z} . \]
+\end{theoreme}
+
+\begin{proof}
+Même démonstration, avec $\sin(\arcsin a) = a$ et la caractérisation
+\[ \sin u = \sin v \iff \exists k \in \mathbb{Z},\
+   v = 2k\pi + u \ \text{ ou } \ v = (2k+1)\pi - u . \]
+La seconde famille correspond au point symétrique par rapport à l'axe des ordonnées : même
+ordonnée $a$, abscisse opposée.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L162}{ExponentielleLogarithmeTrigonometrie.lean\#L162}
+
+\begin{theoreme}
+Une équation trigonométrique a donc une infinité de solutions : à toute solution on peut
+ajouter un nombre entier de tours,
+\[ \cos(x + 2k\pi) = \cos x, \qquad \sin(x + 2k\pi) = \sin x, \qquad k \in \mathbb{Z} . \]
+\end{theoreme}
+
+\begin{proof}
+La bibliothèque énonce ces deux identités sous la forme $\cos(x + k \times 2\pi) = \cos x$.
+La transcription se ramène à cette écriture par
+\[ 2k\pi = k \times (2\pi) , \]
+simple réassociation des facteurs.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L177}{ExponentielleLogarithmeTrigonometrie.lean\#L177}
+
+\subsection{Dérivées du sinus et du cosinus}
+
+\begin{theoreme}
+\[ \sin' = \cos, \qquad \cos' = -\sin . \]
+\end{theoreme}
+
+\begin{proof}
+Deux résultats de la bibliothèque, qui les obtient en dérivant terme à terme les séries de
+$\sin$ et $\cos$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L187}{ExponentielleLogarithmeTrigonometrie.lean\#L187}
+
+\begin{theoreme}
+\[ \frac{\sin x}{x} \xrightarrow[\substack{x \to 0 \\ x \ne 0}]{} 1 . \]
+\end{theoreme}
+
+\begin{proof}
+Cette limite est le nombre dérivé du sinus en zéro. On part de $\sin'(0) = \cos 0 = 1$ et
+on l'écrit comme limite du taux d'accroissement : la pente du sinus entre $0$ et $x$ vaut
+\[ \frac{\sin x - \sin 0}{x - 0} = \frac{\sin x}{x} , \]
+puisque $\sin 0 = 0$. La dérivabilité en zéro dit exactement que ce quotient tend vers $1$
+lorsque $x$ tend vers zéro en restant distinct de zéro.
+
+\medskip\noindent
+Au lycée, l'ordre est inverse : on établit d'abord $\sin x / x \to 1$, par un encadrement
+géométrique, pour en déduire $\sin' = \cos$. Ici il n'y a pas de cercle vicieux, parce que
+la bibliothèque démontre $\sin' = \cos$ à partir des séries, sans passer par cette limite.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L192}{ExponentielleLogarithmeTrigonometrie.lean\#L192}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

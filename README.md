@@ -47,14 +47,14 @@ honnêtement demande un appareillage sans rapport avec le niveau de l'énoncé.
 ```
 college.md      liste du programme du collège, un tableau par thème
 lycee.md        idem pour le lycée, filière S
-cours/          un dossier par chapitre, avec l'index de ses énoncés (README.md)
+courses/        un dossier par chapitre, avec l'index de ses énoncés (README.md)
   01-college/     7 chapitres
   02-lycee/      10 chapitres
                 chaque chapitre contient ses .lean (les preuves) et son .tex
                 (les mêmes énoncés rédigés en français), et produit un PDF
-sujets/         annales du brevet (2000-2026) et script de téléchargement
-outils/         generer-cours.py (index), generer-lakefile.py (bibliothèques),
-                generer-tex.py (un document LaTeX par chapitre)
+exams/          annales du brevet (2000-2026) et script de téléchargement
+tools/          generate-courses.py (index), generate-lakefile.py (bibliothèques),
+                generate-tex.py (un document LaTeX par chapitre)
 lakefile.toml   généré : une bibliothèque Lean par chapitre
 ```
 
@@ -64,7 +64,7 @@ Un fichier `.lean` par section d'un chapitre, dans le dossier du chapitre — le
 attendu est donné par l'index (`Triangles.lean`, `Integration.lean`) :
 
 ```lean
--- cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean
+-- courses/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean
 
 /-- Si `a` divise `b` et `c`, il divise leur somme. Collège, 5e. -/
 theorem divisibilite_somme {a b c : Nat} (hb : a ∣ b) (hc : a ∣ c) : a ∣ (b + c) :=
@@ -78,12 +78,12 @@ GitHub Actions sont en anglais.
 Après chaque ajout ou suppression de fichier `.lean` :
 
 ```bash
-python3 outils/generer-lakefile.py && lake build
+python3 tools/generate-lakefile.py && lake build
 ```
 
 Pour ne reconstruire qu'un chapitre, ce qui évite de parcourir tout le graphe de
 dépendances, lui passer le nom de sa bibliothèque — celui qu'affiche
-`generer-lakefile.py`, par exemple `CollegeGrandeursEtMesures` :
+`generate-lakefile.py`, par exemple `CollegeGrandeursEtMesures` :
 
 ```bash
 lake build --wfail CollegeGrandeursEtMesures
@@ -96,14 +96,14 @@ Le `--wfail` est celui de la CI : un avertissement y fait échouer la constructi
 Chaque chapitre a un document `.tex` unique, engendré à partir de ses fichiers Lean :
 
 ```bash
-python3 outils/generer-tex.py
+python3 tools/generate-tex.py
 ```
 
 Le script produit le squelette : introduction tirée du commentaire de tête, sections des
 en-têtes `/-! ## … -/`, énoncés tirés des docstrings, et pour chacun un lien vers ses
 lignes dans le dépôt — le code Lean n'est pas recopié. Les démonstrations en français
 sont ensuite transcrites à la main, selon la skill
-[`transcrire-preuve-lean`](.claude/skills/transcrire-preuve-lean/SKILL.md), qui fixe la
+[`transcribe-lean-proof`](.claude/skills/transcribe-lean-proof/SKILL.md), qui fixe la
 correspondance entre tactiques et rédaction française. Le script ne réécrit jamais un
 `.tex` existant : les transcriptions sont conservées.
 
@@ -119,11 +119,11 @@ Pour travailler sur Mathlib, ajouter le bloc `[[require]]` correspondant dans
 `lakefile.toml` (le script le conserve d'une régénération à l'autre) et aligner
 `lean-toolchain` sur la version attendue par Mathlib.
 
-Le [cours](cours/README.md) est le plan de travail : l'index d'un chapitre liste ses
+Le [cours](courses/README.md) est le plan de travail : l'index d'un chapitre liste ses
 énoncés, le fichier `.lean` où les écrire (`Integration.lean`) et un nom de théorème
 suggéré (`integration_par_parties`). Les fichiers `.lean` sont écrits à la main, un par
 section de chapitre ; rien n'est généré à l'intérieur des dossiers de chapitre. Les
-[sujets](sujets/README.md) de brevet servent de banc d'essai grandeur nature : un exercice
+[sujets](exams/README.md) de brevet servent de banc d'essai grandeur nature : un exercice
 de brevet est un énoncé concret, souvent plus retors qu'un théorème du cours.
 
 ## Installation
@@ -145,7 +145,7 @@ de brevet est un énoncé concret, souvent plus retors qu'un théorème du cours
 Après avoir modifié `college.md` ou `lycee.md` :
 
 ```bash
-python3 outils/generer-cours.py
+python3 tools/generate-courses.py
 ```
 
 Le script ne crée que les index `README.md` manquants — jamais de `.lean` — et ne réécrit
@@ -165,8 +165,23 @@ raisonnable :
   un `lake build` complet ; avec lui, la boucle se compte en secondes.
 - [cameronfreer/lean4-skills](https://github.com/cameronfreer/lean4-skills) — skills et
   workflows Lean 4 pour agents de code, sur la recherche de preuve, que
-  [`transcrire-preuve-lean`](.claude/skills/transcrire-preuve-lean/SKILL.md) ne couvre pas :
+  [`transcribe-lean-proof`](.claude/skills/transcribe-lean-proof/SKILL.md) ne couvre pas :
   cette dernière ne traite que la transcription en français.
+
+## Pour aller plus loin
+
+Ce dépôt s'arrête à la terminale. Deux ressources pour ce qui vient après :
+
+- [leanprover.zulipchat.com](https://leanprover.zulipchat.com/) — le Zulip de la
+  communauté Lean, où se tiennent le développement de Mathlib et l'entraide. Le canal
+  *Is there code for X?* répond à la question qui coûte le plus cher ici : le résultat
+  existe-t-il déjà dans la bibliothèque, et sous quel nom ?
+- [google-deepmind/formal-conjectures](https://google-deepmind.github.io/formal-conjectures/)
+  — un recueil de conjectures ouvertes énoncées en Lean, sans démonstration. C'est
+  exactement l'exercice inverse du nôtre : ici les énoncés sont élémentaires et les
+  preuves existent ; là les énoncés sont hors de portée et la seule chose qu'on puisse
+  faire est de les écrire correctement. Les deux se rejoignent sur le point difficile
+  — formaliser un énoncé sans le trahir.
 
 ## Outils logiques transversaux
 

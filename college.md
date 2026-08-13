@@ -7,7 +7,7 @@ formalisation — constructions à la règle et au compas, lectures graphiques, 
 de grandeurs, modélisation probabiliste, algorithmique.
 
 Se prolonge par le [programme du lycée](lycee.md). Statuts et conventions : voir le
-[README](README.md). Les fiches détaillées sont dans [`cours/college/`](cours/01-college/README.md).
+[README](README.md). Les fiches détaillées sont dans [`courses/college/`](courses/01-college/README.md).
 
 Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 

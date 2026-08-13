@@ -1,0 +1,244 @@
+% Fichier engendré par tools/generate-tex.py à partir de 03-transformations-du-plan.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Transformations du plan}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{TransformationsDuPlan}
+
+\noindent
+Collège \textemdash{} section \og{} Transformations du plan \fg{}.
+Le plan est vu comme un espace vectoriel euclidien : un point est un vecteur, une droite
+est l'ensemble des \texttt{a + t • u}, et les transformations s'écrivent avec les opérations
+vectorielles. C'est le prix à payer pour parler de figures sans dessin.
+Énoncés et démonstrations en français : voir TransformationsDuPlan.tex.
+
+\subsection{Définitions}
+
+\noindent
+Toutes les définitions du fichier sont posées ici, avant les démonstrations.
+
+\begin{definition}
+La \emph{translation} de vecteur $v$ envoie chaque point sur
+\[ t_v(x) = x + v . \]
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L21}{TransformationsDuPlan.lean\#L21}
+
+\begin{definition}
+La \emph{symétrie centrale} de centre $c$, ou demi-tour, envoie chaque point sur
+\[ s_c(x) = 2c - x , \]
+c'est-à-dire sur le point tel que $c$ soit le milieu de $[x\,s_c(x)]$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L24}{TransformationsDuPlan.lean\#L24}
+
+\begin{definition}
+L'\emph{homothétie} de centre $c$ et de rapport $k$ envoie chaque point sur
+\[ h_{c,k}(x) = c + k(x - c) . \]
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L27}{TransformationsDuPlan.lean\#L27}
+
+\begin{definition}
+La \emph{droite} passant par $a$ et dirigée par $u$ est l'ensemble
+\[ \mathcal{D}(a, u) = \{\, a + tu \ ;\ t \in \mathbb{R} \,\} . \]
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L30}{TransformationsDuPlan.lean\#L30}
+
+\subsection{Conservation des longueurs, des angles et de l'alignement}
+
+\begin{theoreme}
+La translation conserve les distances :
+\[ \mathrm{dist}\bigl(t_v(x), t_v(y)\bigr) = \mathrm{dist}(x, y) . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux translatés diffèrent du même vecteur que les points de départ :
+$(x + v) - (y + v) = x - y$, et la distance est la norme de cette différence.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L36}{TransformationsDuPlan.lean\#L36}
+
+\begin{theoreme}
+La symétrie centrale conserve les distances :
+\[ \mathrm{dist}\bigl(s_c(x), s_c(y)\bigr) = \mathrm{dist}(x, y) . \]
+\end{theoreme}
+
+\begin{proof}
+On calcule la différence des images :
+\[ (2c - x) - (2c - y) = y - x , \]
+qui est l'opposée de $x - y$. Deux vecteurs opposés ayant même norme, les distances sont
+égales.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L42}{TransformationsDuPlan.lean\#L42}
+
+\begin{theoreme}
+La translation conserve les angles :
+\[ \widehat{t_v(x)\,t_v(y)\,t_v(z)} = \widehat{x\,y\,z} . \]
+\end{theoreme}
+
+\begin{proof}
+L'angle en $y$ est celui des deux vecteurs $x - y$ et $z - y$. Après translation, ces
+vecteurs valent $(x+v) - (y+v) = x - y$ et $(z+v) - (y+v) = z - y$ : ils sont inchangés,
+donc l'angle aussi.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L48}{TransformationsDuPlan.lean\#L48}
+
+\begin{theoreme}
+La symétrie centrale conserve les angles :
+\[ \widehat{s_c(x)\,s_c(y)\,s_c(z)} = \widehat{x\,y\,z} . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux vecteurs qui portent l'angle deviennent leurs opposés :
+\[ s_c(x) - s_c(y) = -(x - y), \qquad s_c(z) - s_c(y) = -(z - y) . \]
+Or l'angle de deux vecteurs ne change pas quand on les remplace tous deux par leurs
+opposés : c'est un demi-tour appliqué à la figure entière.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L55}{TransformationsDuPlan.lean\#L55}
+
+\begin{theoreme}
+La translation conserve l'alignement : si $x$ appartient à $\mathcal{D}(a, u)$,
+alors $t_v(x)$ appartient à $\mathcal{D}(a + v, u)$.
+\end{theoreme}
+
+\begin{proof}
+Si $x = a + tu$, alors $t_v(x) = a + tu + v = (a + v) + tu$ : le point image s'écrit
+avec le même paramètre $t$ sur la droite translatée, de même vecteur directeur $u$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L64}{TransformationsDuPlan.lean\#L64}
+
+\subsection{La symétrie centrale transforme une droite en une droite parallèle}
+
+\begin{theoreme}
+L'image d'une droite par une symétrie centrale est une droite :
+\[ s_c\bigl(\mathcal{D}(a, u)\bigr) = \mathcal{D}\bigl(s_c(a),\, -u\bigr) , \]
+de vecteur directeur opposé, donc parallèle à la droite de départ.
+\end{theoreme}
+
+\begin{proof}
+Double inclusion. Si $x = a + tu$, alors
+\[ s_c(x) = 2c - a - tu = s_c(a) + t(-u) , \]
+donc l'image est bien sur $\mathcal{D}(s_c(a), -u)$. Réciproquement, tout point
+$s_c(a) + t(-u)$ est l'image du point $a + tu$ de la droite de départ.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L73}{TransformationsDuPlan.lean\#L73}
+
+\subsection{Composition de deux symétries centrales = translation}
+
+\begin{theoreme}
+Composer deux demi-tours donne une translation :
+\[ s_{c'}\bigl(s_c(x)\bigr) = t_{2(c' - c)}(x) = x + 2(c' - c) . \]
+\end{theoreme}
+
+\begin{proof}
+On compose les deux écritures :
+\[ s_{c'}\bigl(s_c(x)\bigr) = 2c' - (2c - x) = x + 2(c' - c) . \]
+Le résultat ne dépend plus de $x$ que par l'ajout d'un vecteur constant : c'est une
+translation, de vecteur le double de celui qui joint les deux centres.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L87}{TransformationsDuPlan.lean\#L87}
+
+\begin{theoreme}
+Deux demi-tours de même centre se compensent : $s_c\bigl(s_c(x)\bigr) = x$.
+\end{theoreme}
+
+\begin{proof}
+Cas particulier du précédent avec $c' = c$, où le vecteur de translation est nul :
+$2c - (2c - x) = x$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L94}{TransformationsDuPlan.lean\#L94}
+
+\subsection{Homothétie de rapport \texttt{k} : longueurs multipliées par \texttt{|k|}}
+
+\begin{theoreme}
+Une homothétie de rapport $k$ multiplie les distances par $|k|$ :
+\[ \mathrm{dist}\bigl(h_{c,k}(x), h_{c,k}(y)\bigr) = |k| \times \mathrm{dist}(x, y) . \]
+\end{theoreme}
+
+\begin{proof}
+La différence des images se factorise :
+\[ \bigl(c + k(x - c)\bigr) - \bigl(c + k(y - c)\bigr) = k(x - y) , \]
+et la norme d'un vecteur multiplié par $k$ est celle du vecteur multipliée par $|k|$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L101}{TransformationsDuPlan.lean\#L101}
+
+\begin{theoreme}
+Une homothétie de rapport $k > 0$ conserve les angles :
+\[ \widehat{h_{c,k}(x)\,h_{c,k}(y)\,h_{c,k}(z)} = \widehat{x\,y\,z} . \]
+\end{theoreme}
+
+\begin{proof}
+Comme ci-dessus, les deux vecteurs portant l'angle deviennent $k(x - y)$ et $k(z - y)$.
+Multiplier un vecteur par un réel strictement positif ne change pas sa direction, donc
+pas l'angle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L109}{TransformationsDuPlan.lean\#L109}
+
+\begin{theoreme}
+L'image d'une droite par une homothétie est une droite :
+\[ h_{c,k}\bigl(\mathcal{D}(a, u)\bigr)
+   = \mathcal{D}\bigl(h_{c,k}(a),\, ku\bigr) , \]
+de vecteur directeur proportionnel, donc parallèle à la droite de départ.
+\end{theoreme}
+
+\begin{proof}
+Double inclusion, comme pour la symétrie centrale. Si $x = a + tu$, alors
+\[ h_{c,k}(x) = c + k(a + tu - c) = h_{c,k}(a) + t\,(ku) , \]
+et réciproquement tout point $h_{c,k}(a) + t(ku)$ est l'image de $a + tu$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L121}{TransformationsDuPlan.lean\#L121}
+
+\subsection{Figures semblables : angles égaux et longueurs proportionnelles}
+
+\begin{theoreme}
+Le rapport de deux longueurs est inchangé par une homothétie de rapport
+$k \ne 0$ :
+\[ \frac{\mathrm{dist}\bigl(h(x), h(y)\bigr)}{\mathrm{dist}\bigl(h(z), h(w)\bigr)}
+   = \frac{\mathrm{dist}(x, y)}{\mathrm{dist}(z, w)} \qquad (\mathrm{dist}(z,w) \ne 0) . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux distances sont multipliées par le même facteur $|k|$, qui se simplifie dans le
+quotient :
+\[ \frac{|k| \times \mathrm{dist}(x,y)}{|k| \times \mathrm{dist}(z,w)}
+   = \frac{\mathrm{dist}(x,y)}{\mathrm{dist}(z,w)} , \]
+la simplification étant licite puisque $k \ne 0$. C'est la proportionnalité des longueurs
+des figures semblables.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L141}{TransformationsDuPlan.lean\#L141}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

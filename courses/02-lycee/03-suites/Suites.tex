@@ -1,0 +1,381 @@
+% Fichier engendré par tools/generate-tex.py à partir de 03-suites.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Suites}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{Suites}
+
+\noindent
+Lycée \textemdash{} section \og{} Suites \fg{}.
+Une suite est une application de \(\mathbb{N}\) dans \(\mathbb{R}\). Les limites sont celles de Mathlib :
+\texttt{Tendsto u atTop (nhds \(\ell\))} pour la convergence vers \texttt{\(\ell\)}, \texttt{Tendsto u atTop atTop} pour la
+divergence vers \texttt{+∞}. Les deux se déplient en la définition avec \texttt{\(\varepsilon\)} et avec \texttt{A} du
+programme, ce que le premier énoncé vérifie.
+Énoncés et démonstrations en français : voir Suites.tex.
+
+\subsection{Définitions}
+
+\noindent
+Toutes les définitions du fichier sont posées ici, avant les démonstrations.
+
+\begin{definition}
+La \emph{suite arithmétique} de premier terme $u_0$ et de raison $r$ est
+$u_n = u_0 + nr$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L20}{Suites.lean\#L20}
+
+\begin{definition}
+La \emph{suite géométrique} de premier terme $u_0$ et de raison $q$ est
+$u_n = u_0 q^n$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L23}{Suites.lean\#L23}
+
+\begin{definition}
+Deux suites sont \emph{adjacentes} lorsque l'une croît, l'autre décroît, et que leur
+différence tend vers zéro.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L27}{Suites.lean\#L27}
+
+\subsection{Suites arithmétiques et géométriques : terme général}
+
+\begin{theoreme}
+Terme général d'une suite arithmétique : $u_n = u_0 + nr$.
+\end{theoreme}
+
+\begin{proof}
+C'est la définition, écrite sous forme explicite.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L33}{Suites.lean\#L33}
+
+\begin{theoreme}
+Une suite arithmétique passe d'un terme au suivant en ajoutant la raison :
+$u_{n+1} = u_n + r$.
+\end{theoreme}
+
+\begin{proof}
+On compare les deux termes généraux :
+\[ u_0 + (n+1)r = \bigl(u_0 + nr\bigr) + r . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L37}{Suites.lean\#L37}
+
+\begin{theoreme}
+Terme général d'une suite géométrique : $u_n = u_0 q^n$.
+\end{theoreme}
+
+\begin{proof}
+C'est la définition, écrite sous forme explicite.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L44}{Suites.lean\#L44}
+
+\begin{theoreme}
+Une suite géométrique passe d'un terme au suivant en multipliant par la raison :
+$u_{n+1} = u_n \times q$.
+\end{theoreme}
+
+\begin{proof}
+On compare les deux termes généraux :
+\[ u_0 q^{n+1} = \bigl(u_0 q^n\bigr) \times q . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L48}{Suites.lean\#L48}
+
+\subsection{Sens de variation}
+
+\begin{theoreme}
+Une suite arithmétique de raison positive est croissante.
+\end{theoreme}
+
+\begin{proof}
+Si $m \le n$ alors $mr \le nr$ puisque $r \ge 0$, donc $u_0 + mr \le u_0 + nr$. C'est le
+signe de la raison qui décide du sens de variation.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L56}{Suites.lean\#L56}
+
+\begin{theoreme}
+De raison négative, elle est décroissante.
+\end{theoreme}
+
+\begin{proof}
+Même calcul : multiplier l'inégalité $m \le n$ par $r \le 0$ la renverse.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L64}{Suites.lean\#L64}
+
+\begin{theoreme}
+Une suite géométrique de premier terme positif et de raison au moins un est croissante :
+c'est le signe de $q - 1$ qui décide.
+\end{theoreme}
+
+\begin{proof}
+La suite des puissances $q^n$ est croissante dès que $q \ge 1$ ; la multiplier par
+$u_0 \ge 0$ conserve l'ordre.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L73}{Suites.lean\#L73}
+
+\begin{theoreme}
+De raison comprise entre zéro et un, elle est décroissante.
+\end{theoreme}
+
+\begin{proof}
+Les puissances d'un nombre de $[0, 1]$ décroissent, et la multiplication par
+$u_0 \ge 0$ conserve l'ordre.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L81}{Suites.lean\#L81}
+
+\subsection{Limite d'une suite : la définition avec \texttt{\(\varepsilon\)}}
+
+\begin{theoreme}
+La convergence de la bibliothèque est exactement la définition du programme :
+\[ u_n \to \ell \iff \forall \varepsilon > 0,\ \exists N,\ \forall n \ge N,\
+   |u_n - \ell| < \varepsilon . \]
+\end{theoreme}
+
+\begin{proof}
+La convergence au sens de Mathlib signifie que tout voisinage de $\ell$ contient les
+termes à partir d'un certain rang ; dans un espace métrique, cela se réécrit avec les
+boules, c'est-à-dire avec $\varepsilon$. Les deux formulations sont donc la même, ce que
+la démonstration vérifie en dépliant la distance $|u_n - \ell|$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L91}{Suites.lean\#L91}
+
+\begin{theoreme}
+Et la divergence vers $+\infty$ est la définition avec $A$ :
+\[ u_n \to +\infty \iff \forall A,\ \exists N,\ \forall n \ge N,\ A \le u_n . \]
+\end{theoreme}
+
+\begin{proof}
+Même vérification, les voisinages de $+\infty$ étant les intervalles $[A ; +\infty[$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L99}{Suites.lean\#L99}
+
+\subsection{Unicité de la limite}
+
+\begin{theoreme}
+Unicité de la limite : une suite a au plus une limite.
+\end{theoreme}
+
+\begin{proof}
+Si la suite tendait vers deux limites distinctes, les voisinages disjoints de celles-ci
+devraient tous deux contenir les termes à partir d'un certain rang, ce qui est impossible.
+Le programme admet ce résultat ; il tient à la séparation de la droite réelle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L106}{Suites.lean\#L106}
+
+\subsection{Opérations sur les limites}
+
+\begin{theoreme}
+La limite d'une somme est la somme des limites.
+\end{theoreme}
+
+\begin{proof}
+Si $|u_n - \ell| < \varepsilon/2$ et $|v_n - \ell'| < \varepsilon/2$ au-delà d'un
+certain rang, alors $|(u_n + v_n) - (\ell + \ell')| < \varepsilon$ par inégalité
+triangulaire.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L113}{Suites.lean\#L113}
+
+\begin{theoreme}
+Celle d'un produit est le produit des limites.
+\end{theoreme}
+
+\begin{proof}
+Même principe, en majorant $|u_n v_n - \ell\ell'|$ par
+$|u_n||v_n - \ell'| + |\ell'||u_n - \ell|$, le premier facteur étant borné puisque la
+suite converge.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L118}{Suites.lean\#L118}
+
+\begin{theoreme}
+Celle d'un quotient est le quotient des limites, à condition que le dénominateur ne
+tende pas vers zéro : c'est là que naissent les formes indéterminées.
+\end{theoreme}
+
+\begin{proof}
+L'hypothèse $\ell' \ne 0$ garantit que le dénominateur ne s'annule pas au voisinage de
+l'infini, ce qui permet de majorer l'écart des quotients.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L124}{Suites.lean\#L124}
+
+\begin{theoreme}
+Forme indéterminée : deux suites tendant toutes deux vers $+\infty$ peuvent avoir une
+différence de limite quelconque — ici $c$, choisi à l'avance.
+\end{theoreme}
+
+\begin{proof}
+Les suites $n + c$ et $n$ tendent toutes deux vers $+\infty$, et leur différence est
+constante égale à $c$. « $\infty - \infty$ » n'a donc pas de valeur : c'est ce qu'on
+appelle une forme indéterminée.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L131}{Suites.lean\#L131}
+
+\subsection{Limite de \texttt{qⁿ}}
+
+\begin{theoreme}
+Si $|q| < 1$, la suite $q^n$ tend vers zéro.
+\end{theoreme}
+
+\begin{proof}
+Les puissances d'un nombre de module strictement inférieur à un décroissent
+géométriquement vers zéro.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L142}{Suites.lean\#L142}
+
+\begin{theoreme}
+Si $q > 1$, elle tend vers $+\infty$.
+\end{theoreme}
+
+\begin{proof}
+L'inégalité de Bernoulli donne $q^n \ge 1 + n(q-1)$, qui tend vers $+\infty$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L147}{Suites.lean\#L147}
+
+\begin{theoreme}
+Si $q = 1$, elle est constante égale à un.
+\end{theoreme}
+
+\begin{proof}
+$1^n = 1$ pour tout $n$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L152}{Suites.lean\#L152}
+
+\subsection{Théorèmes de comparaison et théorème des gendarmes}
+
+\begin{theoreme}
+Théorème des gendarmes : une suite encadrée par deux suites de même limite converge
+vers cette limite.
+\end{theoreme}
+
+\begin{proof}
+Si $v_n \le u_n \le w_n$ et si $v_n$ et $w_n$ tendent toutes deux vers $\ell$, alors
+au-delà d'un certain rang les deux encadrants sont dans l'intervalle
+$]\ell - \varepsilon ; \ell + \varepsilon[$, donc $u_n$ aussi.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L160}{Suites.lean\#L160}
+
+\begin{theoreme}
+Comparaison : une suite minorée par une suite qui tend vers $+\infty$ tend vers
+$+\infty$.
+\end{theoreme}
+
+\begin{proof}
+Si $v_n \le u_n$ et si $v_n$ dépasse tout $A$ à partir d'un rang, alors $u_n$ le dépasse
+aussi.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L167}{Suites.lean\#L167}
+
+\subsection{Convergence monotone}
+
+\begin{theoreme}
+Convergence monotone : toute suite croissante majorée converge.
+\end{theoreme}
+
+\begin{proof}
+L'ensemble des valeurs de la suite est non vide et majoré : il admet donc une borne
+supérieure, vers laquelle la suite converge, la croissance assurant qu'elle s'en approche
+autant qu'on veut.
+
+Le programme admet ce théorème. Il n'est pas anodin : c'est une forme de la propriété de
+la borne supérieure, c'est-à-dire de la complétude de $\mathbb{R}$ — ce qui distingue les
+réels des rationnels.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L175}{Suites.lean\#L175}
+
+\begin{theoreme}
+Une suite croissante non majorée tend vers $+\infty$.
+\end{theoreme}
+
+\begin{proof}
+Soit $A$ un réel. La suite n'étant pas majorée, l'un de ses termes $u_n$ dépasse $A$ ;
+la croissance fait que tous les suivants aussi. C'est la définition de la divergence vers
+$+\infty$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L180}{Suites.lean\#L180}
+
+\subsection{Toute suite convergente est bornée}
+
+\begin{theoreme}
+Toute suite convergente est bornée.
+\end{theoreme}
+
+\begin{proof}
+Au-delà d'un certain rang, tous les termes sont à distance moins de un de la limite,
+donc bornés ; avant ce rang, il n'y a qu'un nombre fini de termes, dont on prend le plus
+grand en valeur absolue.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L190}{Suites.lean\#L190}
+
+\subsection{Suites adjacentes}
+
+\begin{theoreme}
+Deux suites adjacentes convergent vers une même limite.
+\end{theoreme}
+
+\begin{proof}
+Montrons d'abord que $u_n \le v_n$ pour tout $n$. Sinon, pour un certain rang $n$ on
+aurait $v_n < u_n$, et pour tout $m \ge n$ la croissance de $u$ et la décroissance de $v$
+donneraient $v_m - u_m \le v_n - u_n < 0$ ; en passant à la limite, on obtiendrait
+$0 \le v_n - u_n$, contradiction.
+
+La suite $u$ est donc croissante et majorée par $v_0$ : elle converge vers un réel $\ell$.
+Comme $v_n = (v_n - u_n) + u_n$ et que la différence tend vers zéro, $v$ converge vers le
+même $\ell$.
+
+La dichotomie, second volet de l'énoncé du programme, n'est pas traitée ici : elle demande
+de construire la suite des intervalles emboités et d'en déduire l'existence d'une racine,
+ce qui relève du théorème des valeurs intermédiaires.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L198}{Suites.lean\#L198}
+
+\subsection{Suites définies par récurrence \texttt{uₙ₊₁ = f(uₙ)}}
+
+\begin{theoreme}
+Suites définies par récurrence : si $u_{n+1} = f(u_n)$, si $f$ est continue et si
+$u_n \to \ell$, alors $f(\ell) = \ell$.
+\end{theoreme}
+
+\begin{proof}
+La suite décalée $u_{n+1}$ tend vers la même limite $\ell$ que $u_n$. Par continuité de
+$f$, la suite $f(u_n)$ tend vers $f(\ell)$. Or ces deux suites sont la même, et une suite
+n'a qu'une limite : $f(\ell) = \ell$.
+
+C'est ce qui permet de trouver la limite en résolvant l'équation $f(x) = x$ — à condition
+d'avoir établi \emph{par ailleurs} que la suite converge, ce que ce théorème ne dit pas.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L223}{Suites.lean\#L223}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

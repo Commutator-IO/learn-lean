@@ -1,0 +1,272 @@
+% Fichier engendré par tools/generate-tex.py à partir de 06-statistiques-et-probabilites.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Statistiques et probabilités}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{StatistiquesEtProbabilites}
+
+\noindent
+Collège \textemdash{} section \og{} Statistiques et probabilités \fg{}.
+Une série statistique est une liste de nombres, une expérience aléatoire est donnée par
+la probabilité de chacune de ses issues.
+Énoncés et démonstrations en français : voir StatistiquesEtProbabilites.tex.
+
+\subsection{Définitions}
+
+\noindent
+Toutes les définitions du fichier sont posées ici, avant les démonstrations.
+
+\begin{definition}
+La \emph{moyenne} d'une série $s = (x_1, \dots, x_n)$ est
+\[ \bar{x} = \frac{x_1 + \cdots + x_n}{n} . \]
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L20}{StatistiquesEtProbabilites.lean\#L20}
+
+\begin{definition}
+La série \emph{translatée} de $c$ est celle obtenue en ajoutant $c$ à chaque valeur.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L23}{StatistiquesEtProbabilites.lean\#L23}
+
+\begin{definition}
+La \emph{moyenne pondérée} de valeurs $v_i$ affectées d'effectifs $n_i$ est
+\[ \frac{\sum_i n_i v_i}{\sum_i n_i} . \]
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L26}{StatistiquesEtProbabilites.lean\#L26}
+
+\begin{definition}
+$m$ est une \emph{médiane} de la série $s$ lorsque au moins la moitié des valeurs lui
+sont inférieures ou égales, et au moins la moitié lui sont supérieures ou égales.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L31}{StatistiquesEtProbabilites.lean\#L31}
+
+\begin{definition}
+Une \emph{loi de probabilité} sur un ensemble fini d'issues $\Omega$ est la donnée
+d'un nombre $p(\omega) \ge 0$ pour chaque issue, tel que
+\[ \sum_{\omega \in \Omega} p(\omega) = 1 . \]
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L36}{StatistiquesEtProbabilites.lean\#L36}
+
+\begin{definition}
+La \emph{probabilité} d'un événement $A$ est la somme des probabilités de ses issues :
+$P(A) = \sum_{\omega \in A} p(\omega)$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L42}{StatistiquesEtProbabilites.lean\#L42}
+
+\subsection{Moyenne : linéarité et moyenne pondérée}
+
+\begin{theoreme}
+Ajouter un même nombre à toutes les valeurs ajoute ce nombre à la moyenne :
+\[ \overline{x + c} = \bar{x} + c . \]
+\end{theoreme}
+
+\begin{proof}
+La somme des valeurs translatées vaut la somme des valeurs augmentée de $nc$ :
+\[ \frac{\sum_i (x_i + c)}{n} = \frac{\left(\sum_i x_i\right) + nc}{n}
+   = \bar{x} + c , \]
+la division par $n$ étant licite puisque la série n'est pas vide.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L48}{StatistiquesEtProbabilites.lean\#L48}
+
+\begin{theoreme}
+Quand tous les effectifs valent un, la moyenne pondérée est la moyenne ordinaire :
+\[ \frac{\sum_i 1 \times v_i}{\sum_i 1} = \frac{\sum_i v_i}{k} . \]
+\end{theoreme}
+
+\begin{proof}
+Le dénominateur $\sum_i 1$ vaut le nombre $k$ de valeurs, et chaque terme du numérateur
+se simplifie. La moyenne pondérée n'est donc que la moyenne, écrite sans répéter les
+valeurs identiques.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L60}{StatistiquesEtProbabilites.lean\#L60}
+
+\subsection{La moyenne est comprise entre le minimum et le maximum}
+
+\begin{theoreme}
+La moyenne est comprise entre deux bornes qui encadrent toutes les valeurs : si
+$a \le x_i \le b$ pour tout $i$, alors $a \le \bar{x} \le b$.
+\end{theoreme}
+
+\begin{proof}
+Chaque valeur étant au moins $a$, la somme est au moins $na$, donc $\bar{x} \ge a$
+après division par $n > 0$ :
+\[ na = \sum_i a \le \sum_i x_i . \]
+Le même raisonnement avec $b$ en majorant donne l'autre inégalité. En particulier, la
+moyenne est comprise entre le minimum et le maximum de la série.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L69}{StatistiquesEtProbabilites.lean\#L69}
+
+\subsection{La moyenne de plusieurs moyennes n'est pas la moyenne de la série globale}
+
+\begin{theoreme}
+La moyenne de plusieurs moyennes n'est pas la moyenne de la série globale :
+\[ \overline{\bigl(\overline{(0,0,0)},\ \overline{(6)}\bigr)} \ne \overline{(0,0,0,6)} . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux groupes ont pour moyennes $0$ et $6$, dont la moyenne vaut $3$. La série
+réunie, elle, a pour moyenne $\tfrac{0+0+0+6}{4} = 1{,}5$. Moyenner des moyennes revient
+à donner le même poids à des groupes de tailles différentes.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L90}{StatistiquesEtProbabilites.lean\#L90}
+
+\subsection{Médiane : au moins la moitié des valeurs lui sont inférieures ou égales}
+
+\begin{theoreme}
+Sur la série $(1, 2, 3, 4, 5)$, la valeur centrale $3$ est bien une médiane.
+\end{theoreme}
+
+\begin{proof}
+Trois valeurs sur cinq lui sont inférieures ou égales ($1$, $2$, $3$) et trois lui sont
+supérieures ou égales ($3$, $4$, $5$) : dans les deux cas, plus de la moitié des cinq
+valeurs.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L98}{StatistiquesEtProbabilites.lean\#L98}
+
+\begin{theoreme}
+Une médiane sépare la série en deux moitiés : au moins la moitié des valeurs lui sont
+inférieures ou égales.
+\end{theoreme}
+
+\begin{proof}
+C'est la première moitié de la définition, isolée pour l'usage.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L103}{StatistiquesEtProbabilites.lean\#L103}
+
+\subsection{Probabilité : \texttt{0 \(\le\) P(A) \(\le\) 1} et somme des probabilités des issues = 1}
+
+\begin{theoreme}
+Une probabilité est positive : $P(A) \ge 0$.
+\end{theoreme}
+
+\begin{proof}
+C'est une somme de nombres positifs, chacun étant la probabilité d'une issue.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L111}{StatistiquesEtProbabilites.lean\#L111}
+
+\begin{theoreme}
+Une probabilité ne dépasse pas un : $P(A) \le 1$.
+\end{theoreme}
+
+\begin{proof}
+La somme sur $A$ est majorée par la somme sur toutes les issues, puisqu'on ajoute des
+termes positifs ; or cette dernière vaut $1$ par définition d'une loi.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L115}{StatistiquesEtProbabilites.lean\#L115}
+
+\begin{theoreme}
+La probabilité de l'événement certain vaut un : $P(\Omega) = 1$.
+\end{theoreme}
+
+\begin{proof}
+C'est exactement la condition imposée à une loi de probabilité : la somme des
+probabilités des issues vaut un.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L122}{StatistiquesEtProbabilites.lean\#L122}
+
+\subsection{Événement contraire : \texttt{P(Ā) = 1 − P(A)}}
+
+\begin{theoreme}
+Événement contraire : $P(\bar{A}) = 1 - P(A)$.
+\end{theoreme}
+
+\begin{proof}
+Les issues de $A$ et celles de $\bar{A}$ forment ensemble toutes les issues, sans
+recouvrement :
+\[ P(A) + P(\bar{A}) = \sum_{\omega \in \Omega} p(\omega) = 1 , \]
+d'où le résultat en retranchant $P(A)$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L127}{StatistiquesEtProbabilites.lean\#L127}
+
+\subsection{Équiprobabilité : \texttt{P(A) = card(A) / card(Ω)}}
+
+\begin{theoreme}
+Équiprobabilité : si toutes les issues ont la même probabilité, alors
+\[ P(A) = \frac{\operatorname{card} A}{\operatorname{card} \Omega} . \]
+\end{theoreme}
+
+\begin{proof}
+Chaque issue ayant la probabilité $1/\operatorname{card}\Omega$, la somme sur $A$
+compte $\operatorname{card} A$ fois cette valeur :
+\[ P(A) = \operatorname{card} A \times \frac{1}{\operatorname{card}\Omega} . \]
+C'est la règle « nombre de cas favorables sur nombre de cas possibles ».
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L137}{StatistiquesEtProbabilites.lean\#L137}
+
+\subsection{Expérience à deux épreuves : produit des probabilités le long d'une branche}
+
+\begin{definition}
+La \emph{loi produit} de deux épreuves indépendantes affecte à un couple d'issues le
+produit de leurs probabilités : $p(a, b) = p(a)\,p'(b)$. C'en est bien une : ses valeurs
+sont positives et leur somme vaut un.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L146}{StatistiquesEtProbabilites.lean\#L146}
+
+\begin{theoreme}
+Le long d'une branche de l'arbre, les probabilités se multiplient :
+$P\bigl((a, b)\bigr) = P(a) \times P(b)$.
+\end{theoreme}
+
+\begin{proof}
+C'est la définition de la loi produit. Ce qui demande une vérification, c'est qu'elle
+soit une loi : la somme de tous les produits vaut
+\[ \sum_{a}\sum_{b} p(a)p'(b) = \sum_a p(a) \left(\sum_b p'(b)\right)
+   = \sum_a p(a) \times 1 = 1 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L156}{StatistiquesEtProbabilites.lean\#L156}
+
+\subsection{Fréquence observée et probabilité : stabilisation quand \texttt{n} grandit}
+
+\begin{theoreme}
+La fluctuation d'échantillonnage s'amenuise : la suite $1/\sqrt{n}$, qui donne l'ordre
+de grandeur de l'écart entre fréquence observée et probabilité, tend vers zéro.
+\end{theoreme}
+
+\begin{proof}
+La racine carrée tend vers l'infini avec $n$, donc son inverse tend vers zéro.
+
+L'énoncé du collège — « les fréquences se stabilisent autour de la probabilité quand le
+nombre d'essais grandit » — est plus fort : c'est la loi des grands nombres, dont la
+démonstration relève de la théorie de la mesure. Ce qui est établi ici est la décroissance
+de l'ordre de grandeur $1/\sqrt{n}$ de la fluctuation, pas la convergence des fréquences
+elles-mêmes.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L164}{StatistiquesEtProbabilites.lean\#L164}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

@@ -1,5 +1,5 @@
-# Fichier généré par outils/generer-lakefile.py — à régénérer après avoir
-# ajouté un fichier .lean dans cours/. Les blocs [[require]] sont conservés.
+# Fichier généré par tools/generate-lakefile.py — à régénérer après avoir
+# ajouté un fichier .lean dans courses/. Les blocs [[require]] sont conservés.
 
 name = "learn-lean"
 defaultTargets = ["CollegeNombresEtCalculs", "CollegeGeometriePlane", "CollegeTransformationsDuPlan", "CollegeGrandeursEtMesures", "CollegeProportionnaliteEtFonctions", "CollegeStatistiquesEtProbabilites", "CollegeAlgorithmiqueEtProgrammation", "LyceeNombresCalculAlgebrique", "LyceeFonctionsSecondDegre", "LyceeSuites", "LyceeLimitesContinuiteDerivation", "LyceeExponentielleLogarithmeTrigonometrie", "LyceeIntegration", "LyceeNombresComplexes", "LyceeGeometrieVecteursProduitScalaireEspace", "LyceeProbabilitesEtStatistiques", "LyceeSpecialiteMathematiquesTerminaleS"]
@@ -11,85 +11,85 @@ rev = "v4.33.0"
 
 [[lean_lib]]
 name = "CollegeNombresEtCalculs"
-srcDir = "cours/01-college/01-nombres-et-calculs"
+srcDir = "courses/01-college/01-nombres-et-calculs"
 globs = ["CalculsEtCalculLitteral", "EcrituresDesNombres", "EntiersDivisibilite"]
 
 [[lean_lib]]
 name = "CollegeGeometriePlane"
-srcDir = "cours/01-college/02-geometrie-plane"
+srcDir = "courses/01-college/02-geometrie-plane"
 globs = ["AnglesOrientes", "GeometriePlane"]
 
 [[lean_lib]]
 name = "CollegeTransformationsDuPlan"
-srcDir = "cours/01-college/03-transformations-du-plan"
+srcDir = "courses/01-college/03-transformations-du-plan"
 globs = ["TransformationsDuPlan"]
 
 [[lean_lib]]
 name = "CollegeGrandeursEtMesures"
-srcDir = "cours/01-college/04-grandeurs-et-mesures"
+srcDir = "courses/01-college/04-grandeurs-et-mesures"
 globs = ["GrandeursEtMesures"]
 
 [[lean_lib]]
 name = "CollegeProportionnaliteEtFonctions"
-srcDir = "cours/01-college/05-proportionnalite-et-fonctions"
+srcDir = "courses/01-college/05-proportionnalite-et-fonctions"
 globs = ["ProportionnaliteEtFonctions"]
 
 [[lean_lib]]
 name = "CollegeStatistiquesEtProbabilites"
-srcDir = "cours/01-college/06-statistiques-et-probabilites"
+srcDir = "courses/01-college/06-statistiques-et-probabilites"
 globs = ["StatistiquesEtProbabilites"]
 
 [[lean_lib]]
 name = "CollegeAlgorithmiqueEtProgrammation"
-srcDir = "cours/01-college/07-algorithmique-et-programmation"
+srcDir = "courses/01-college/07-algorithmique-et-programmation"
 globs = ["AlgorithmiqueEtProgrammation"]
 
 [[lean_lib]]
 name = "LyceeNombresCalculAlgebrique"
-srcDir = "cours/02-lycee/01-nombres-calcul-algebrique"
+srcDir = "courses/02-lycee/01-nombres-calcul-algebrique"
 globs = ["NombresCalculAlgebrique"]
 
 [[lean_lib]]
 name = "LyceeFonctionsSecondDegre"
-srcDir = "cours/02-lycee/02-fonctions-second-degre"
+srcDir = "courses/02-lycee/02-fonctions-second-degre"
 globs = ["FonctionsSecondDegre"]
 
 [[lean_lib]]
 name = "LyceeSuites"
-srcDir = "cours/02-lycee/03-suites"
+srcDir = "courses/02-lycee/03-suites"
 globs = ["Suites"]
 
 [[lean_lib]]
 name = "LyceeLimitesContinuiteDerivation"
-srcDir = "cours/02-lycee/04-limites-continuite-derivation"
+srcDir = "courses/02-lycee/04-limites-continuite-derivation"
 globs = ["LimitesContinuiteDerivation"]
 
 [[lean_lib]]
 name = "LyceeExponentielleLogarithmeTrigonometrie"
-srcDir = "cours/02-lycee/05-exponentielle-logarithme-trigonometrie"
+srcDir = "courses/02-lycee/05-exponentielle-logarithme-trigonometrie"
 globs = ["ExponentielleLogarithmeTrigonometrie"]
 
 [[lean_lib]]
 name = "LyceeIntegration"
-srcDir = "cours/02-lycee/06-integration"
+srcDir = "courses/02-lycee/06-integration"
 globs = ["Integration"]
 
 [[lean_lib]]
 name = "LyceeNombresComplexes"
-srcDir = "cours/02-lycee/07-nombres-complexes"
+srcDir = "courses/02-lycee/07-nombres-complexes"
 globs = ["NombresComplexes"]
 
 [[lean_lib]]
 name = "LyceeGeometrieVecteursProduitScalaireEspace"
-srcDir = "cours/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace"
+srcDir = "courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace"
 globs = ["GeometrieVecteursProduitScalaireEspace"]
 
 [[lean_lib]]
 name = "LyceeProbabilitesEtStatistiques"
-srcDir = "cours/02-lycee/09-probabilites-et-statistiques"
+srcDir = "courses/02-lycee/09-probabilites-et-statistiques"
 globs = ["ProbabilitesEtStatistiques"]
 
 [[lean_lib]]
 name = "LyceeSpecialiteMathematiquesTerminaleS"
-srcDir = "cours/02-lycee/10-specialite-mathematiques-terminale-s"
+srcDir = "courses/02-lycee/10-specialite-mathematiques-terminale-s"
 globs = ["Arithmetique", "MatricesEtGraphes"]

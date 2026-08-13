@@ -1,6 +1,6 @@
-# Aucun PDF n'est versionné (sujets de brevet récupérés par sujets/telecharger.sh, etc.)
+# Aucun PDF n'est versionné (sujets de brevet récupérés par exams/download.sh, etc.)
 *.pdf
-sujets/pdf/
+exams/pdf/
 
 # Lean : tout ce que produisent lake et elan
 .lake/

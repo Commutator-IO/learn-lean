@@ -1,0 +1,539 @@
+% Fichier engendré par tools/generate-tex.py à partir de 04-limites-continuite-derivation.
+% Les démonstrations en français sont transcrites du fichier Lean (skill transcribe-lean-proof).
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Limites, continuité, dérivation}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{LimitesContinuiteDerivation}
+
+\noindent
+Lycée \textemdash{} section \og{} Limites, continuité, dérivation \fg{}, niveau première
+et terminale S. Les limites sont celles de Mathlib : \texttt{Tendsto f (nhds a) (nhds l)}
+pour la limite en un point, \texttt{Tendsto f atTop (nhds l)} pour la limite en
+\(+\infty\). Les trois premiers énoncés vérifient que ces écritures sont bien les
+définitions \og{} \(\varepsilon\)\textendash{}\(\delta\) \fg{} et
+\og{} \(\varepsilon\)\textendash{}A \fg{} du programme. La dérivabilité s'écrit
+\texttt{HasDerivAt f d a} : \og{} \texttt{f} admet le nombre dérivé \texttt{d} en
+\texttt{a} \fg{}.
+
+\medskip\noindent
+Le programme du lycée \emph{admet} l'essentiel de ce chapitre : opérations sur les
+limites, théorème des valeurs intermédiaires, lien entre le signe de la dérivée et le
+sens de variation. Ces résultats sont ici empruntés à Mathlib, où ils sont démontrés. La
+démonstration Lean se réduit alors à citer le résultat de la bibliothèque ; les
+transcriptions ci-dessous disent ce que ce résultat affirme et par quel argument il
+s'obtient, en signalant à chaque fois que le travail est fait ailleurs.
+
+\subsection{Définitions}
+
+\noindent
+Toutes les définitions du fichier sont posées ici, avant les démonstrations.
+
+\begin{definition}
+La \emph{tangente} à la courbe de $f$ au point d'abscisse $a$, lorsque le nombre dérivé
+en $a$ vaut $d$, est la fonction affine
+\[ T(x) = f(a) + d\,(x - a) . \]
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L21}{LimitesContinuiteDerivation.lean\#L21}
+
+\subsection{Limite en un point, limite en l'infini}
+
+\begin{theoreme}
+La limite en un point est la définition du programme : $f$ tend vers $\ell$ en $a$ si et
+seulement si
+\[ \forall \varepsilon > 0,\ \exists \delta > 0,\ \forall x,\quad
+   |x - a| < \delta \implies |f(x) - \ell| < \varepsilon . \]
+\end{theoreme}
+
+\begin{proof}
+Mathlib définit la limite par les voisinages, mais donne pour tout espace métrique la
+caractérisation équivalente : $f$ tend vers $\ell$ en $a$ si et seulement si, pour tout
+$\varepsilon > 0$, il existe $\delta > 0$ tel que $\mathrm{dist}(x, a) < \delta$ entraîne
+$\mathrm{dist}(f(x), \ell) < \varepsilon$. Sur $\mathbb{R}$ la distance est la valeur
+absolue de la différence,
+\[ \mathrm{dist}(x, y) = |x - y| , \]
+de sorte que les deux énoncés ne diffèrent que par la notation. Dans chaque sens on prend
+donc le même $\delta$ que celui fourni par l'autre membre, et on récrit les distances en
+valeurs absolues.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L28}{LimitesContinuiteDerivation.lean\#L28}
+
+\begin{theoreme}
+La limite en $+\infty$ est la définition avec $A$ : $f$ tend vers $\ell$ en $+\infty$ si
+et seulement si
+\[ \forall \varepsilon > 0,\ \exists A \in \mathbb{R},\ \forall x \ge A,\quad
+   |f(x) - \ell| < \varepsilon . \]
+\end{theoreme}
+
+\begin{proof}
+Même situation qu'au point précédent : la caractérisation métrique de la convergence le
+long du filtre des grandes valeurs s'écrit avec $\mathrm{dist}(f(x), \ell) < \varepsilon$
+pour $x \ge A$. En remplaçant la distance par $|f(x) - \ell|$, les deux membres sont le
+même énoncé, mot pour mot.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L43}{LimitesContinuiteDerivation.lean\#L43}
+
+\begin{theoreme}
+Asymptote horizontale : si $f$ tend vers $\ell$ en $+\infty$, l'écart entre la courbe et
+la droite d'équation $y = \ell$ tend vers zéro,
+\[ f(x) - \ell \xrightarrow[x \to +\infty]{} 0 . \]
+\end{theoreme}
+
+\begin{proof}
+La fonction $x \mapsto f(x) - \ell$ est la différence de $f$, qui tend vers $\ell$, et de
+la fonction constante $\ell$. Sa limite est donc $\ell - \ell = 0$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L50}{LimitesContinuiteDerivation.lean\#L50}
+
+\begin{theoreme}
+Asymptote verticale : $1/x \to +\infty$ lorsque $x \to 0$ par valeurs strictement
+positives ; l'axe des ordonnées est asymptote à l'hyperbole de la fonction inverse.
+\end{theoreme}
+
+\begin{proof}
+C'est un résultat de la bibliothèque sur les corps ordonnés : l'inverse tend vers
+$+\infty$ à droite de zéro. L'argument est immédiat : pour $A > 0$ donné, tout $x$ tel que
+$0 < x < 1/A$ vérifie $1/x > A$. Comme $1/x$ et $x^{-1}$ sont deux écritures de la même
+fonction, l'énoncé s'y ramène.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L56}{LimitesContinuiteDerivation.lean\#L56}
+
+\begin{theoreme}
+Asymptote oblique : l'écart entre la courbe de $x \mapsto ax + b + 1/x$ et la droite
+d'équation $y = ax + b$ tend vers zéro en $+\infty$ :
+\[ \bigl(ax + b + \tfrac{1}{x}\bigr) - (ax + b) \xrightarrow[x \to +\infty]{} 0 . \]
+\end{theoreme}
+
+\begin{proof}
+La différence se simplifie :
+\[ \bigl(ax + b + \tfrac{1}{x}\bigr) - (ax + b) = \frac{1}{x} , \]
+et l'inverse tend vers zéro en $+\infty$ : pour $\varepsilon > 0$ donné, tout $x > 1/\varepsilon$
+vérifie $0 < 1/x < \varepsilon$. Les coefficients $a$ et $b$ ont disparu : c'est bien
+l'écart à la droite, et non la fonction elle-même, qui tend vers zéro.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L62}{LimitesContinuiteDerivation.lean\#L62}
+
+\subsection{Opérations sur les limites}
+
+\begin{theoreme}
+La limite d'une somme est la somme des limites : si $f \to \ell$ et $g \to \ell'$ en $a$,
+alors $f + g \to \ell + \ell'$.
+\end{theoreme}
+
+\begin{proof}
+Résultat de la bibliothèque, que le programme admet. Si $|f(x) - \ell| < \varepsilon/2$ et
+$|g(x) - \ell'| < \varepsilon/2$ pour $x$ assez proche de $a$, alors l'inégalité
+triangulaire donne
+\[ \bigl|(f(x) + g(x)) - (\ell + \ell')\bigr|
+   \le |f(x) - \ell| + |g(x) - \ell'| < \varepsilon . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L69}{LimitesContinuiteDerivation.lean\#L69}
+
+\begin{theoreme}
+Celle d'un produit est le produit des limites : $f \times g \to \ell\ell'$.
+\end{theoreme}
+
+\begin{proof}
+Même principe, en majorant l'écart par
+\[ |f(x)g(x) - \ell\ell'| \le |f(x)|\,|g(x) - \ell'| + |\ell'|\,|f(x) - \ell| , \]
+le premier facteur étant borné au voisinage de $a$ puisque $f$ y converge.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L74}{LimitesContinuiteDerivation.lean\#L74}
+
+\begin{theoreme}
+Celle d'un quotient est le quotient des limites, $f/g \to \ell/\ell'$, tant que la limite
+du dénominateur n'est pas nulle : $\ell' \ne 0$.
+\end{theoreme}
+
+\begin{proof}
+L'hypothèse $\ell' \ne 0$ garantit que $g$ ne s'annule pas au voisinage de $a$, ce qui
+permet de majorer l'écart des quotients. C'est exactement là que naissent les formes
+indéterminées : sans cette hypothèse, l'énoncé est faux. En Lean, $\ell'$ nul n'empêcherait
+pas d'écrire $\ell/\ell'$ \textemdash{} la bibliothèque pose $x/0 = 0$ pour que la division
+soit une fonction totale \textemdash{} mais cette valeur de remplissage n'a aucun sens
+mathématique, et l'hypothèse est bien nécessaire.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L80}{LimitesContinuiteDerivation.lean\#L80}
+
+\begin{theoreme}
+Limite d'une composée : si $f \to b$ en $a$ et $g \to c$ en $b$, alors $g \circ f \to c$
+en $a$.
+\end{theoreme}
+
+\begin{proof}
+Les limites s'enchaînent : $f$ envoie les points proches de $a$ sur des points proches de
+$b$, et $g$ envoie ceux-ci sur des points proches de $c$. En Lean, la composition des
+limites est la transitivité de la relation \og{} envoyer un filtre dans un autre \fg{}.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L86}{LimitesContinuiteDerivation.lean\#L86}
+
+\subsection{Croissances comparées}
+
+\begin{theoreme}
+L'exponentielle l'emporte sur toute puissance : pour tout entier $n$,
+\[ \frac{e^x}{x^n} \xrightarrow[x \to +\infty]{} +\infty . \]
+\end{theoreme}
+
+\begin{proof}
+Résultat de la bibliothèque, cité tel quel dans le fichier Lean. Il repose sur la
+minoration de l'exponentielle par un terme de sa série : pour $x \ge 0$,
+\[ e^x \ge \frac{x^{n+1}}{(n+1)!} ,
+   \qquad\text{d'où}\qquad \frac{e^x}{x^n} \ge \frac{x}{(n+1)!} \]
+dès que $x > 0$, et le membre de droite tend vers $+\infty$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L92}{LimitesContinuiteDerivation.lean\#L92}
+
+\begin{theoreme}
+Le logarithme est négligeable devant l'identité :
+\[ \frac{\ln x}{x} \xrightarrow[x \to +\infty]{} 0 . \]
+\end{theoreme}
+
+\begin{proof}
+La bibliothèque énonce que $\ln$ est négligeable devant la fonction identité en
+$+\infty$, ce qui signifie précisément que le quotient des deux tend vers zéro. Comme la
+fonction identité vaut $x$ en $x$, le quotient est bien $\ln x / x$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L97}{LimitesContinuiteDerivation.lean\#L97}
+
+\begin{theoreme}
+En zéro, le facteur $x$ l'emporte sur le logarithme :
+\[ x \ln x \xrightarrow[\substack{x \to 0 \\ x > 0}]{} 0 . \]
+\end{theoreme}
+
+\begin{proof}
+La bibliothèque donne, pour tout exposant réel $r > 0$,
+\[ \ln x \cdot x^{r} \xrightarrow[\substack{x \to 0 \\ x > 0}]{} 0 . \]
+On l'applique à $r = 1$ : la puissance réelle $x^{1}$ vaut $x$, et le produit se lit dans
+l'autre ordre, ce qui donne $x \ln x$. La restriction aux $x > 0$ n'est pas un artifice de
+formalisation : le logarithme n'est défini que là.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L102}{LimitesContinuiteDerivation.lean\#L102}
+
+\subsection{Continuité}
+
+\begin{theoreme}
+La continuité en un point : la limite y existe et vaut l'image du point,
+\[ f(x) \xrightarrow[x \to a]{} f(a) . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux membres sont le même énoncé : c'est ainsi que Mathlib définit la continuité en un
+point. La transcription n'a rien à démontrer, seulement à constater que la définition de la
+bibliothèque est celle du programme.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L111}{LimitesContinuiteDerivation.lean\#L111}
+
+\begin{theoreme}
+Toute fonction dérivable en un point y est continue.
+\end{theoreme}
+
+\begin{proof}
+Si $f$ admet le nombre dérivé $d$ en $a$, on écrit pour $x \ne a$
+\[ f(x) - f(a) = (x - a) \times \frac{f(x) - f(a)}{x - a} . \]
+Le second facteur tend vers $d$, donc reste borné au voisinage de $a$, tandis que le
+premier tend vers zéro : le produit tend vers zéro, c'est-à-dire $f(x) \to f(a)$.
+
+\medskip\noindent
+La réciproque est fausse \textemdash{} la valeur absolue est continue en zéro sans y être
+dérivable, ses taux d'accroissement valant $-1$ à gauche et $+1$ à droite. Ce
+contre-exemple est mentionné dans le fichier Lean mais n'y est pas formalisé.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L116}{LimitesContinuiteDerivation.lean\#L116}
+
+\subsection{Théorème des valeurs intermédiaires}
+
+\begin{theoreme}
+Théorème des valeurs intermédiaires : si $f$ est continue sur $[a\,;b]$ avec $a \le b$,
+alors pour tout $k$ compris entre $f(a)$ et $f(b)$ il existe $c \in [a\,;b]$ tel que
+$f(c) = k$.
+\end{theoreme}
+
+\begin{proof}
+Le programme admet ce théorème ; Mathlib le démontre sous la forme d'une inclusion
+d'ensembles,
+\[ [f(a)\,;f(b)] \subseteq f\bigl([a\,;b]\bigr) , \]
+c'est-à-dire que toute valeur intermédiaire est atteinte. Dire que $k$ appartient à
+l'image, c'est exactement dire qu'il existe $c$ dans $[a\,;b]$ avec $f(c) = k$ : la
+démonstration consiste à lire l'appartenance à l'image sous cette forme.
+
+\medskip\noindent
+Le contenu du théorème est la complétude de $\mathbb{R}$, jamais énoncée au lycée : c'est
+elle qui interdit à la courbe de \og{} sauter \fg{} par-dessus la valeur $k$. Mathlib
+l'obtient de la connexité de l'intervalle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L123}{LimitesContinuiteDerivation.lean\#L123}
+
+\begin{theoreme}
+Corollaire : si de plus $f$ est strictement croissante sur $[a\,;b]$, la solution de
+$f(x) = k$ y est unique.
+\end{theoreme}
+
+\begin{proof}
+L'existence est le théorème précédent : il fournit $c \in [a\,;b]$ tel que $f(c) = k$.
+Pour l'unicité, soit $y \in [a\,;b]$ un autre point avec $f(y) = k$. Une fonction
+strictement croissante est injective sur son intervalle : si $y \ne c$, l'un des deux est
+strictement plus petit que l'autre, donc son image l'est aussi, et $f(y) \ne f(c)$. Comme
+$f(y) = k = f(c)$, il reste $y = c$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L130}{LimitesContinuiteDerivation.lean\#L130}
+
+\subsection{Nombre dérivé et tangente}
+
+\begin{theoreme}
+Le nombre dérivé est la limite du taux d'accroissement : $f$ admet le nombre dérivé $d$
+en $a$ si et seulement si
+\[ \frac{f(x) - f(a)}{x - a} \xrightarrow[\substack{x \to a \\ x \ne a}]{} d . \]
+\end{theoreme}
+
+\begin{proof}
+Mathlib appelle \emph{pente} de $f$ entre $a$ et $x$ la quantité
+\[ \mathrm{pente}(x) = (x - a)^{-1}\,\bigl(f(x) - f(a)\bigr) , \]
+qui est le taux d'accroissement écrit avec un inverse plutôt qu'une barre de fraction :
+les deux fonctions sont égales, point par point. La bibliothèque démontre que la
+dérivabilité équivaut à la convergence de la pente lorsque $x$ tend vers $a$ en restant
+distinct de $a$ ; il suffit donc de substituer une écriture à l'autre.
+
+\medskip\noindent
+La restriction $x \ne a$ est indispensable : en $x = a$ le taux d'accroissement s'écrit
+$0/0$. Lean donne à ce quotient la valeur zéro pour rendre la division totale, mais cette
+valeur ne veut rien dire ici, et le voisinage épointé l'écarte.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L143}{LimitesContinuiteDerivation.lean\#L143}
+
+\begin{theoreme}
+Équation de la tangente : la droite d'équation $y = f(a) + d\,(x - a)$ passe par le point
+de la courbe d'abscisse $a$, et a le nombre dérivé pour coefficient directeur.
+\end{theoreme}
+
+\begin{proof}
+En $x = a$, le second terme s'annule et il reste $T(a) = f(a)$ : la droite passe bien par
+le point de la courbe.
+
+Pour le coefficient directeur, on dérive $x \mapsto f(a) + d\,(x - a)$ en un point
+quelconque : la fonction $x \mapsto x - a$ a pour dérivée $1$, la multiplier par la
+constante $d$ donne $d \times 1 = d$, et ajouter la constante $f(a)$ ne change rien. La
+tangente est donc la fonction affine de coefficient directeur $d$ qui coïncide avec $f$ en
+$a$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L153}{LimitesContinuiteDerivation.lean\#L153}
+
+\subsection{Dérivées usuelles}
+
+\begin{theoreme}
+Dérivées des fonctions de référence :
+\[ (x^n)' = n\,x^{n-1}, \qquad
+   \Bigl(\frac{1}{x}\Bigr)' = -\frac{1}{x^{2}} \ (x \ne 0), \qquad
+   (\sqrt{x}\,)' = \frac{1}{2\sqrt{x}} \ (x > 0), \]
+\[ \sin' = \cos, \qquad \cos' = -\sin, \qquad \exp' = \exp, \qquad
+   (\ln x)' = \frac{1}{x} \ (x \ne 0). \]
+\end{theoreme}
+
+\begin{proof}
+Les sept dérivées sont celles de la bibliothèque, citées une à une ; deux d'entre elles
+demandent une mise en forme.
+
+\smallskip\noindent
+\emph{L'inverse.} Mathlib donne $(x^{-1})' = -(x^{2})^{-1}$ pour $x \ne 0$. C'est la même
+chose que $-1/x^{2}$, une fois les inverses écrits en fractions.
+
+\smallskip\noindent
+\emph{Le logarithme.} La bibliothèque donne $x^{-1}$, que l'on récrit $1/x$.
+
+\smallskip\noindent
+Deux remarques sur les hypothèses. La racine carrée de Lean est totale \textemdash{} elle
+vaut zéro sur les négatifs \textemdash{} et sa formule de dérivation exige $x > 0$, comme
+au lycée. Pour la puissance, l'exposant $n - 1$ est une soustraction d'entiers naturels,
+donc tronquée : pour $n = 0$ elle vaut $0$ au lieu de $-1$, mais le facteur $n = 0$ annule
+le produit et la formule reste juste, la dérivée d'une constante étant nulle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L165}{LimitesContinuiteDerivation.lean\#L165}
+
+\subsection{Opérations sur les dérivées}
+
+\begin{theoreme}
+Si $u$ et $v$ ont pour nombres dérivés $u'$ et $v'$ en $x$, alors
+\[ (u + v)' = u' + v', \qquad (uv)' = u'v(x) + u(x)v', \]
+\[ \Bigl(\frac{1}{v}\Bigr)' = -\frac{v'}{v(x)^{2}}, \qquad
+   \Bigl(\frac{u}{v}\Bigr)' = \frac{u'v(x) - u(x)v'}{v(x)^{2}}, \]
+les deux dernières là où $v$ ne s'annule pas.
+\end{theoreme}
+
+\begin{proof}
+La somme, le produit et le quotient sont les règles de la bibliothèque, citées
+directement.
+
+L'inverse s'en déduit sans nouvelle règle : c'est le quotient de la fonction constante
+égale à $1$, de dérivée nulle, par $v$. La formule du quotient donne alors
+\[ \frac{0 \times v(x) - 1 \times v'}{v(x)^{2}} = -\frac{v'}{v(x)^{2}} , \]
+ce qui est bien la formule annoncée.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L184}{LimitesContinuiteDerivation.lean\#L184}
+
+\subsection{Dérivée d'une composée}
+
+\begin{theoreme}
+Dérivée d'une composée : si $u$ a pour nombre dérivé $u'$ en $x$ et $v$ pour nombre
+dérivé $v'$ en $u(x)$, alors
+\[ (v \circ u)'(x) = v'\bigl(u(x)\bigr) \times u'(x) . \]
+\end{theoreme}
+
+\begin{proof}
+C'est la règle de dérivation en chaîne de la bibliothèque, citée telle quelle : le facteur
+$u'$ mesure la vitesse à laquelle $u$ parcourt son image, et $v'$ la sensibilité de $v$ au
+point atteint.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L199}{LimitesContinuiteDerivation.lean\#L199}
+
+\begin{theoreme}
+Cas particulier $x \mapsto u(ax + b)$, dont la dérivée est $a\,u'(ax + b)$.
+\end{theoreme}
+
+\begin{proof}
+La fonction affine $t \mapsto at + b$ a pour dérivée $a$ : l'identité a pour dérivée $1$,
+la multiplier par $a$ donne $a \times 1 = a$, et la constante $b$ ne change rien. La règle
+de la composée donne alors $u' \times a$ pour dérivée de $x \mapsto u(ax + b)$, que l'on
+écrit $a\,u'$ en échangeant les facteurs.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L203}{LimitesContinuiteDerivation.lean\#L203}
+
+\subsection{Signe de la dérivée et sens de variation}
+
+\begin{theoreme}
+Si $f$ est continue sur $[a\,;b]$ et si $f' > 0$ sur $]a\,;b[$, alors $f$ est strictement
+croissante sur $[a\,;b]$.
+\end{theoreme}
+
+\begin{proof}
+Le programme admet ce résultat ; Mathlib le démontre pour une partie convexe quelconque de
+$\mathbb{R}$, à partir du théorème des accroissements finis : pour $x < y$ dans
+l'intervalle, il existe $c$ entre eux tel que
+\[ f(y) - f(x) = (y - x)\,f'(c) > 0 . \]
+Le segment $[a\,;b]$ est convexe et son intérieur est l'intervalle ouvert $]a\,;b[$ : les
+hypothèses du fichier sont donc exactement celles du résultat cité, une fois l'intérieur
+identifié.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L215}{LimitesContinuiteDerivation.lean\#L215}
+
+\begin{theoreme}
+Si $f$ est continue sur $[a\,;b]$ et si $f' < 0$ sur $]a\,;b[$, alors $f$ est strictement
+décroissante sur $[a\,;b]$.
+\end{theoreme}
+
+\begin{proof}
+Même argument avec l'inégalité renversée : $f(y) - f(x) = (y - x)f'(c) < 0$ pour $x < y$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L222}{LimitesContinuiteDerivation.lean\#L222}
+
+\subsection{Extremum local}
+
+\begin{theoreme}
+Si $f$ admet le nombre dérivé $d$ en $a$ et présente en $a$ un maximum local, alors
+$d = 0$.
+\end{theoreme}
+
+\begin{proof}
+C'est le lemme de Fermat, cité à la bibliothèque. Son argument : au voisinage de $a$ on a
+$f(x) \le f(a)$, donc le taux d'accroissement
+\[ \frac{f(x) - f(a)}{x - a} \]
+est négatif ou nul pour $x > a$, positif ou nul pour $x < a$. Sa limite $d$ est donc à la
+fois $\le 0$ et $\ge 0$, c'est-à-dire nulle. L'hypothèse que le point est intérieur est
+portée par la notion de maximum \emph{local}, qui compare $f(a)$ aux valeurs prises de part
+et d'autre.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L232}{LimitesContinuiteDerivation.lean\#L232}
+
+\begin{theoreme}
+La réciproque est fausse : la fonction cube a un nombre dérivé nul en zéro,
+\[ (x^{3})'\big|_{x=0} = 3 \times 0^{2} = 0 , \]
+sans y présenter de maximum local.
+\end{theoreme}
+
+\begin{proof}
+Le nombre dérivé se lit sur la formule $(x^n)' = n x^{n-1}$ prise en $n = 3$ et $x = 0$ :
+il vaut $3 \times 0^{2} = 0$.
+
+Supposons maintenant que zéro soit un maximum local : on aurait $x^{3} \le 0^{3} = 0$ pour
+tout $x$ assez proche de zéro. Cette propriété resterait vraie en n'approchant zéro que par
+la droite ; or tout voisinage de zéro à droite contient un $x > 0$, et un tel $x$ vérifie
+$x^{3} > 0$. Les deux inégalités $x^3 \le 0$ et $x^3 > 0$ se contredisent.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L237}{LimitesContinuiteDerivation.lean\#L237}
+
+\subsection{Dérivée seconde, convexité, point d'inflexion}
+
+\begin{theoreme}
+Si $f$ est dérivable ainsi que $f'$ sur $[a\,;b]$, et si $f'' \ge 0$ sur $[a\,;b]$, alors
+$f$ est convexe sur $[a\,;b]$.
+\end{theoreme}
+
+\begin{proof}
+Résultat de la bibliothèque, cité pour la partie convexe $[a\,;b]$. Son argument : une
+dérivée seconde positive rend $f'$ croissante, et une fonction dont la dérivée croît est
+convexe \textemdash{} sa courbe reste au-dessous de ses cordes. Les hypothèses du fichier
+sont celles du résultat cité, à ceci près qu'elles portent sur le segment fermé tout entier
+plutôt que sur son intérieur.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L254}{LimitesContinuiteDerivation.lean\#L254}
+
+\begin{theoreme}
+Point d'inflexion : la fonction cube a pour dérivée $3x^{2}$ et pour dérivée seconde
+$6x$, qui s'annule en zéro en changeant de signe ; la fonction est convexe sur
+$[0\,;+\infty[$.
+\end{theoreme}
+
+\begin{proof}
+La première dérivée se lit sur la formule des puissances : $(x^{3})' = 3x^{3-1} = 3x^{2}$,
+l'exposant $3 - 1$ se calculant dans les entiers naturels.
+
+Pour la seconde, on dérive $t \mapsto 3t^{2}$ : la puissance donne $2x^{2-1} = 2x$, et le
+facteur constant $3$ se conserve, d'où
+\[ 3 \times (2x) = 6x . \]
+Cette expression est négative avant zéro et positive après : la dérivée seconde change de
+signe en zéro, ce qui est la définition d'un point d'inflexion.
+
+Enfin, la convexité sur les positifs est celle des puissances entières, démontrée dans la
+bibliothèque pour tout exposant.
+
+\medskip\noindent
+Le fichier ne formalise pas la concavité sur $]-\infty\,;0]$, qui achèverait le
+changement de convexité ; seul le changement de signe de la dérivée seconde y est établi.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L264}{LimitesContinuiteDerivation.lean\#L264}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

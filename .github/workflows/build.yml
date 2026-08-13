@@ -25,12 +25,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # lakefile.toml is generated from the cours/ tree: it must be regenerated
+      # lakefile.toml is generated from the courses/ tree: it must be regenerated
       # and committed whenever a .lean file is added or removed.
       - name: Regenerate and compare
         run: |
-          python3 outils/generer-lakefile.py
+          python3 tools/generate-lakefile.py
           if ! git diff --exit-code -- lakefile.toml; then
-            echo "::error::lakefile.toml is out of date - run 'python3 outils/generer-lakefile.py' and commit the result."
+            echo "::error::lakefile.toml is out of date - run 'python3 tools/generate-lakefile.py' and commit the result."
             exit 1
           fi
