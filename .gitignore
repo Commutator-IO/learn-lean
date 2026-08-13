@@ -2,14 +2,46 @@
 *.pdf
 sujets/pdf/
 
-# Lean
+# Lean : tout ce que produisent lake et elan
 .lake/
 build/
 *.olean
+*.ilean
+*.trace
+*.hash
+lake-packages/
+lakefile.olean
 
-# LaTeX (les .tex sont versionnés, pas leurs sorties)
+# LaTeX : les .tex sont versionnés, pas leurs sorties
 *.aux
 *.log
 *.out
-__pycache__/
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.xdv
+*.dvi
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
 
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Éditeurs et systèmes de fichiers
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*~
