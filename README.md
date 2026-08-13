@@ -52,7 +52,7 @@ courses/        les deux programmes et un dossier par chapitre
   02-lycee/      10 chapitres
                 chaque chapitre contient ses .lean (les preuves) et son .tex
                 (les mêmes énoncés rédigés en français), et produit un PDF
-exams/          annales du brevet (2000-2026) et script de téléchargement
+exams/          annales du brevet et du baccalauréat (2000-2026)
 tools/          generate-courses.py (index), generate-lakefile.py (bibliothèques),
                 generate-tex.py (un document LaTeX par chapitre)
 lakefile.toml   généré : une bibliothèque Lean par chapitre
@@ -123,8 +123,9 @@ Le [cours](courses/README.md) est le plan de travail : l'index d'un chapitre lis
 énoncés, le fichier `.lean` où les écrire (`Integration.lean`) et un nom de théorème
 suggéré (`integration_par_parties`). Les fichiers `.lean` sont écrits à la main, un par
 section de chapitre ; rien n'est généré à l'intérieur des dossiers de chapitre. Les
-[sujets](exams/README.md) de brevet servent de banc d'essai grandeur nature : un exercice
-de brevet est un énoncé concret, souvent plus retors qu'un théorème du cours.
+[sujets](exams/README.md) de brevet et de baccalauréat servent de banc d'essai grandeur
+nature : un exercice d'examen est un énoncé concret, souvent plus retors qu'un théorème
+du cours.
 
 ## Installation
 
