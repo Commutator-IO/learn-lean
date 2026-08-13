@@ -166,25 +166,25 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Vecteurs : relation de Chasles, colinéarité ; `AB` et `CD` colinéaires ⟺ `(AB) ∥ (CD)` | 2de | | ☐ |
-| Critère de colinéarité par le déterminant `xy' − x'y = 0` | 2de | | ☐ |
-| Décomposition unique d'un vecteur dans une base du plan | 2de / 1S | | ☐ |
-| Coordonnées du milieu, distance entre deux points | 2de | | ☐ |
-| Équation de droite `y = mx + p` et `ax + by + c = 0` ; parallélisme et coefficients directeurs | 2de | | ☐ |
-| Système linéaire 2×2 : existence et unicité de la solution si le déterminant est non nul | 2de / 1S | | ☐ |
-| Produit scalaire : définitions équivalentes (projeté, coordonnées, normes, `\|u\|\|v\|cos θ`) | 1S | | ☐ |
-| Bilinéarité et symétrie du produit scalaire | 1S | | ☐ |
-| `u ⊥ v ⟺ u · v = 0` | 1S | | ☐ |
-| Théorème d'Al-Kashi | 1S | | ☐ |
-| Théorème de la médiane ; formule des trois normes | 1S | | ☐ |
-| Équation cartésienne d'un cercle ; caractérisation `MA · MB = 0` | 1S | | ☐ |
-| Loi des sinus ; aire `½ ab sin C` | 1S | | ☐ |
-| Géométrie dans l'espace : positions relatives de droites et plans | TS | | ☐ |
+| Vecteurs : relation de Chasles, colinéarité ; `AB` et `CD` colinéaires ⟺ `(AB) ∥ (CD)` | 2de | | ☑ |
+| Critère de colinéarité par le déterminant `xy' − x'y = 0` | 2de | | ☑ |
+| Décomposition unique d'un vecteur dans une base du plan | 2de / 1S | | ☑ |
+| Coordonnées du milieu, distance entre deux points | 2de | | ☑ |
+| Équation de droite `y = mx + p` et `ax + by + c = 0` ; parallélisme et coefficients directeurs | 2de | | ☑ |
+| Système linéaire 2×2 : existence et unicité de la solution si le déterminant est non nul | 2de / 1S | | ☑ |
+| Produit scalaire : définitions équivalentes (projeté, coordonnées, normes, `\|u\|\|v\|cos θ`) | 1S | | ☑ |
+| Bilinéarité et symétrie du produit scalaire | 1S | | ☑ |
+| `u ⊥ v ⟺ u · v = 0` | 1S | | ☑ |
+| Théorème d'Al-Kashi | 1S | | ☑ |
+| Théorème de la médiane ; formule des trois normes | 1S | | ☑ |
+| Équation cartésienne d'un cercle ; caractérisation `MA · MB = 0` | 1S | | ☑ |
+| Loi des sinus ; aire `½ ab sin C` | 1S | | ☑ |
+| Géométrie dans l'espace : positions relatives de droites et plans | TS | | ◐ |
 | Théorème du toit ; parallélisme de deux plans par deux sécantes | TS | oui | ☐ |
-| Vecteurs de l'espace, coplanarité, repère et base | TS | | ☐ |
-| Représentation paramétrique d'une droite, d'un plan | TS | | ☐ |
-| Produit scalaire dans l'espace ; vecteur normal et équation cartésienne `ax + by + cz + d = 0` | TS | | ☐ |
-| Distance d'un point à un plan ; intersection droite-plan, plan-plan | TS | | ☐ |
+| Vecteurs de l'espace, coplanarité, repère et base | TS | | ☑ |
+| Représentation paramétrique d'une droite, d'un plan | TS | | ☑ |
+| Produit scalaire dans l'espace ; vecteur normal et équation cartésienne `ax + by + cz + d = 0` | TS | | ☑ |
+| Distance d'un point à un plan ; intersection droite-plan, plan-plan | TS | | ◐ |
 
 ---
 
