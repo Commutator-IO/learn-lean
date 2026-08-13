@@ -1,6 +1,6 @@
 # Programme du lycée (filière S)
 
-Index dérivé de [lycee.md](../../lycee.md) · retour à l'[index du cours](../README.md).
+Index dérivé de [lycee.md](../lycee.md) · retour à l'[index du cours](../README.md).
 
 | Chapitre | Dossier | Énoncés | Démontrés |
 |---|---|---|---|

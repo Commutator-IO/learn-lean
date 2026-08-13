@@ -70,7 +70,7 @@ pas par « la tactique conclut ».
 
 ## Se mettre au niveau de la classe
 
-Chaque énoncé porte un niveau dans `college.md` ou `lycee.md` (6e à 3e, 2de à terminale).
+Chaque énoncé porte un niveau dans `courses/college.md` ou `courses/lycee.md` (6e à 3e, 2de à terminale).
 La rédaction se règle sur ce niveau : un critère de divisibilité de 6e ne se démontre pas
 dans la langue d'un article de recherche.
 

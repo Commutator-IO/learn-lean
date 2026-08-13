@@ -13,8 +13,8 @@ ce dépôt cherche à mesurer, autant que les preuves elles-mêmes.
 
 | Fichier | Contenu | Énoncés | Démontrés |
 |---|---|---|---|
-| [college.md](college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 93 | 90 |
-| [lycee.md](lycee.md) | Seconde, première S, terminale S et spécialité | 137 | 123 |
+| [college.md](courses/college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 93 | 90 |
+| [lycee.md](courses/lycee.md) | Seconde, première S, terminale S et spécialité | 137 | 123 |
 
 Les dix-sept chapitres des deux programmes ont leurs fichiers `.lean`, leur transcription
 française et leur PDF. Les énoncés restants sont ceux qui résistent, et les raisons sont
@@ -45,9 +45,9 @@ honnêtement demande un appareillage sans rapport avec le niveau de l'énoncé.
 ## Organisation
 
 ```
-college.md      liste du programme du collège, un tableau par thème
-lycee.md        idem pour le lycée, filière S
-courses/        un dossier par chapitre, avec l'index de ses énoncés (README.md)
+courses/        les deux programmes et un dossier par chapitre
+  college.md      liste du programme du collège, un tableau par thème
+  lycee.md        idem pour le lycée, filière S
   01-college/     7 chapitres
   02-lycee/      10 chapitres
                 chaque chapitre contient ses .lean (les preuves) et son .tex
@@ -142,7 +142,7 @@ de brevet est un énoncé concret, souvent plus retors qu'un théorème du cours
 
 ## Tenir les index à jour
 
-Après avoir modifié `college.md` ou `lycee.md` :
+Après avoir modifié `courses/college.md` ou `courses/lycee.md` :
 
 ```bash
 python3 tools/generate-courses.py

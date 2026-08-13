@@ -1,6 +1,6 @@
 # Géométrie plane
 
-*Programme du collège* — énoncés tirés de [college.md](../../../college.md) · retour à l'[index](../README.md).
+*Programme du collège* — énoncés tirés de [college.md](../../college.md) · retour à l'[index](../README.md).
 
 Statuts : ☐ à faire · ◐ preuve en cours (`sorry`) · ☑ démontré · ✗ non formalisable en l'état.
 

@@ -1,6 +1,6 @@
 # Programme du collège
 
-Index dérivé de [college.md](../../college.md) · retour à l'[index du cours](../README.md).
+Index dérivé de [college.md](../college.md) · retour à l'[index du cours](../README.md).
 
 | Chapitre | Dossier | Énoncés | Démontrés |
 |---|---|---|---|

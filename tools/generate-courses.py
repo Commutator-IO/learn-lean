@@ -81,13 +81,13 @@ racine = ["# Cours",
           "|---|---|---|---|"]
 
 for source, dossier, intitule in SOURCES:
-    chapitres = lire(f"{ROOT}/{source}")
+    chapitres = lire(f"{ROOT}/courses/{source}")
     base = f"{ROOT}/courses/{dossier}"
     os.makedirs(base, exist_ok=True)
 
     index = [f"# {intitule}",
              "",
-             f"Index dérivé de [{source}](../../{source}) · retour à l'[index du cours](../README.md).",
+             f"Index dérivé de [{source}](../{source}) · retour à l'[index du cours](../README.md).",
              "",
              "| Chapitre | Dossier | Énoncés | Démontrés |",
              "|---|---|---|---|"]
@@ -105,7 +105,7 @@ for source, dossier, intitule in SOURCES:
             groupes[key].append((enonce, niveau, statut))
 
         chap = [f"# {titre}", "",
-                f"*{intitule}* — énoncés tirés de [{source}](../../../{source}) · "
+                f"*{intitule}* — énoncés tirés de [{source}](../../{source}) · "
                 f"retour à l'[index](../README.md).",
                 "",
                 "Statuts : ☐ à faire · ◐ preuve en cours (`sorry`) · ☑ démontré · "
@@ -134,7 +134,7 @@ for source, dossier, intitule in SOURCES:
     index += ["", f"**{total} énoncés** au total, dont **{total_dem} démontrés**.", ""]
     ecrire(f"{base}/README.md", index)
     racine.append(f"| {intitule} | [`{dossier}/`]({dossier}/README.md) | "
-                  f"[{source}](../{source}) | {total_dem}/{total} |")
+                  f"[{source}]({source}) | {total_dem}/{total} |")
 
 racine += ["",
            "## Écrire les preuves",
