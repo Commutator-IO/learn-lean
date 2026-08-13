@@ -1,4 +1,4 @@
-"""Produit un document LaTeX lisible à partir d'un fichier Lean de cours.
+r"""Produit un document LaTeX lisible à partir d'un fichier Lean de cours.
 
 Rien n'est rédigé ici : tout le texte vient du fichier `.lean` lui-même.
 
@@ -20,6 +20,15 @@ source, sur la branche et aux lignes exactes de sa déclaration.
 Le `.tex` est écrit à côté du `.lean`, et **n'est jamais réécrit s'il existe déjà** :
 les démonstrations en français qu'on y ajoute (voir la skill `transcrire-preuve-lean`)
 sont donc conservées. Pour repartir d'un squelette neuf, supprimer le `.tex`.
+
+Modifier une preuve décale les lignes du fichier Lean, et les renvois `\source` du
+document deviennent faux. Pour les remettre à jour sans toucher aux transcriptions :
+
+    python3 outils/generer-tex.py --liens
+
+Les renvois sont réécrits dans l'ordre des déclarations. Si leur nombre a changé —
+énoncé ajouté ou supprimé — le document concerné est laissé tel quel et signalé :
+il faut alors y insérer ou en retirer le bloc à la main.
 
 Il se compile avec `tectonic` ou `pdflatex`.
 """
@@ -268,6 +277,44 @@ def ecrire_blocs(out, blocs, base, relatif, source):
             total += 1
     return total
 
+def renvois(dossier):
+    """Les renvois attendus, dans l'ordre des déclarations du chapitre."""
+    racine = racine_depot(dossier)
+    base = base_github(racine)
+    attendus = []
+    for fichier in sorted(f for f in os.listdir(dossier) if f.endswith(".lean")):
+        _, blocs = lire(os.path.join(dossier, fichier))
+        relatif = os.path.relpath(os.path.abspath(os.path.join(dossier, fichier)), racine)
+        for sorte, contenu in blocs:
+            if sorte == "declaration":
+                debut = contenu[3]
+                lien = f"{base}/{relatif}#L{debut}".replace("#", r"\#") if base else ""
+                attendus.append(r"\source{" + lien + "}{"
+                                + code_latex(f"{fichier}#L{debut}") + "}")
+    return attendus
+
+def rafraichir_liens(dossier):
+    """Réécrit les `\\source` d'un `.tex` existant d'après les lignes actuelles du Lean.
+
+    Renvoie (chemin, nombre de renvois modifiés) ou (chemin, None) si le nombre de
+    déclarations ne correspond plus."""
+    chemin_tex = os.path.join(dossier, camel(titre_chapitre(dossier)) + ".tex")
+    if not os.path.exists(chemin_tex):
+        return None, 0
+    lignes = open(chemin_tex, encoding="utf-8").read().split("\n")
+    positions = [i for i, l in enumerate(lignes) if l.startswith(r"\source{")]
+    attendus = renvois(dossier)
+    if len(positions) != len(attendus):
+        return chemin_tex, None
+    modifies = 0
+    for i, nouveau in zip(positions, attendus):
+        if lignes[i] != nouveau:
+            lignes[i] = nouveau
+            modifies += 1
+    if modifies:
+        open(chemin_tex, "w", encoding="utf-8").write("\n".join(lignes))
+    return chemin_tex, modifies
+
 def tous_les_fichiers():
     """Les dossiers de chapitre contenant au moins un fichier Lean."""
     racine = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/cours"
@@ -279,6 +326,16 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         print(__doc__)
         raise SystemExit(1)
+    if len(sys.argv) == 2 and sys.argv[1] == "--liens":
+        for chemin in tous_les_fichiers():
+            tex, n = rafraichir_liens(chemin)
+            if tex is None:
+                continue
+            if n is None:
+                print(f"{tex} : le nombre de déclarations a changé, document laissé tel quel")
+            elif n:
+                print(f"{tex} : {n} renvoi(s) mis à jour")
+        raise SystemExit(0)
     fichiers = [sys.argv[1]] if len(sys.argv) == 2 else list(tous_les_fichiers())
     if not fichiers:
         print("aucun fichier .lean dans cours/")

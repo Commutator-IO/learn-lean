@@ -101,25 +101,25 @@ theorem diviseur_de_zero_non_borne (a : ℕ) : a ∣ 0 :=
 /-- Critère de divisibilité par 2 (chiffre des unités). -/
 theorem critere_divisibilite_par_2 (n : ℕ) : 2 ∣ n ↔ 2 ∣ chiffreUnites n := by
   unfold chiffreUnites
-  constructor <;> intro h <;> omega
+  omega
 
 /-- Critère de divisibilité par 2, chiffres énumérés. -/
 theorem critere_divisibilite_par_2_chiffres (n : ℕ) :
     2 ∣ n ↔ chiffreUnites n = 0 ∨ chiffreUnites n = 2 ∨ chiffreUnites n = 4 ∨
             chiffreUnites n = 6 ∨ chiffreUnites n = 8 := by
   unfold chiffreUnites
-  constructor <;> intro h <;> omega
+  omega
 
 /-- Critère de divisibilité par 5 (chiffre des unités). -/
 theorem critere_divisibilite_par_5 (n : ℕ) :
     5 ∣ n ↔ chiffreUnites n = 0 ∨ chiffreUnites n = 5 := by
   unfold chiffreUnites
-  constructor <;> intro h <;> omega
+  omega
 
 /-- Critère de divisibilité par 10 (chiffre des unités). -/
 theorem critere_divisibilite_par_10 (n : ℕ) : 10 ∣ n ↔ chiffreUnites n = 0 := by
   unfold chiffreUnites
-  constructor <;> intro h <;> omega
+  omega
 
 /-! ## Critère de divisibilité par 3 et par 9 (somme des chiffres) -/
 
@@ -150,19 +150,19 @@ theorem mod_trois_somme_chiffres (n : ℕ) : n % 3 = sommeChiffres n % 3 := by
 /-- Critère de divisibilité par 3 (somme des chiffres). -/
 theorem critere_divisibilite_par_3 (n : ℕ) : 3 ∣ n ↔ 3 ∣ sommeChiffres n := by
   have h := mod_trois_somme_chiffres n
-  constructor <;> intro hd <;> omega
+  omega
 
 /-- Critère de divisibilité par 9 (somme des chiffres). -/
 theorem critere_divisibilite_par_9 (n : ℕ) : 9 ∣ n ↔ 9 ∣ sommeChiffres n := by
   have h := mod_neuf_somme_chiffres n
-  constructor <;> intro hd <;> omega
+  omega
 
 /-! ## Critère de divisibilité par 4 (deux derniers chiffres) -/
 
 /-- Critère de divisibilité par 4 (deux derniers chiffres). -/
 theorem critere_divisibilite_par_4 (n : ℕ) : 4 ∣ n ↔ 4 ∣ deuxDerniersChiffres n := by
   unfold deuxDerniersChiffres
-  constructor <;> intro h <;> omega
+  omega
 
 /-! ## Si `a ∣ b` et `a ∣ c` alors `a ∣ (b + c)` et `a ∣ (b − c)` -/
 
@@ -231,22 +231,13 @@ theorem estPremier_iff (n : ℕ) : estPremier n = true ↔ Premier n := by
   constructor
   · intro ⟨hn, hall⟩
     refine ⟨hn, fun d hd => ?_⟩
-    have hle : d ≤ n := Nat.le_of_dvd (by omega) hd
-    rcases Nat.lt_or_ge d n with hlt | hge
-    · have := hall d hlt
-      have hmod : n % d = 0 := Nat.mod_eq_zero_of_dvd hd
-      have : d < 2 := by
-        rcases this with h | h
-        · exact h
-        · exact absurd hmod h
-      have : d = 0 ∨ d = 1 := by omega
-      rcases this with rfl | rfl
-      · exfalso
-        obtain ⟨k, hk⟩ := hd
-        simp at hk
-        omega
-      · exact Or.inl rfl
-    · exact Or.inr (Nat.le_antisymm hle hge)
+    rcases eq_or_lt_of_le (Nat.le_of_dvd (by omega) hd) with rfl | hlt
+    · exact Or.inr rfl
+    · rcases hall d hlt with h2 | h2
+      · interval_cases d
+        · exact absurd (Nat.eq_zero_of_zero_dvd hd) (by omega)
+        · exact Or.inl rfl
+      · exact absurd (Nat.mod_eq_zero_of_dvd hd) h2
   · intro ⟨hn, hdiv⟩
     refine ⟨hn, fun d hd => ?_⟩
     by_cases h2 : d < 2
@@ -277,15 +268,12 @@ theorem decomposition_en_facteurs_premiers :
       obtain ⟨m, hm⟩ := hpd
       have hp2 : 2 ≤ p := hp.1
       have hm0 : 0 < m := by
-        rcases Nat.eq_zero_or_pos m with h | h
-        · subst h
-          rw [Nat.mul_zero] at hm
-          omega
+        rcases Nat.eq_zero_or_pos m with rfl | h
+        · omega
         · exact h
       have hmlt : m < n := by
         have h1 : 1 * m < p * m := (Nat.mul_lt_mul_right hm0).mpr (by omega)
-        rw [Nat.one_mul] at h1
-        exact hm ▸ h1
+        omega
       obtain ⟨l, hl, hprod⟩ := hi m hmlt hm0
       exact ⟨p :: l, by
         intro q hq

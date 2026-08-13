@@ -69,11 +69,8 @@ theorem un_tiers_n_est_pas_decimal : ¬ ∃ a n : ℕ, 10 ^ n = 3 * a := by
 /-! ## Arrondi, troncature, valeur approchée à `10⁻ⁿ` près, encadrement -/
 
 /-- La troncature à l'unité est le plancher : elle encadre le nombre à moins de un. -/
-theorem troncature (x : ℚ) : (⌊x⌋ : ℚ) ≤ x ∧ x - ⌊x⌋ < 1 := by
-  constructor
-  · exact Int.floor_le x
-  · have := Int.lt_floor_add_one x
-    linarith
+theorem troncature (x : ℚ) : (⌊x⌋ : ℚ) ≤ x ∧ x - ⌊x⌋ < 1 :=
+  ⟨Int.floor_le x, by linarith [Int.lt_floor_add_one x]⟩
 
 /-- L'arrondi à `10⁻ⁿ` près approche le nombre à `10⁻ⁿ / 2` près. -/
 theorem valeur_approchee (x : ℝ) (n : ℕ) :
@@ -118,7 +115,6 @@ theorem ecriture_scientifique_existence {x : ℝ} (hx : x ≠ 0) :
   · rw [abs_div, abs_of_pos hpos, div_lt_iff₀ hpos]
     calc |x| < (10 : ℝ) ^ (n + 1) := hlt
       _ = 10 * 10 ^ n := by rw [zpow_add₀ (by norm_num : (10:ℝ) ≠ 0)]; ring
-      _ = 10 * 10 ^ n := rfl
 
 /-- Unicité de l'exposant, donc de l'écriture. -/
 theorem ecriture_scientifique_unicite {a a' : ℝ} {n n' : ℤ}

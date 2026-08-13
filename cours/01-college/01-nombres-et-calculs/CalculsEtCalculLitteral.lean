@@ -121,12 +121,9 @@ theorem inegalite_et_multiplication_negative {a b c : ℚ} (h : a ≤ b) (hc : c
 /-- Une équation du premier degré à coefficient directeur non nul a une solution, et une
 seule : `x = -b/a`. -/
 theorem equation_du_premier_degre {a b : ℚ} (ha : a ≠ 0) : ∃! x : ℚ, a * x + b = 0 := by
-  refine ⟨-b / a, by field_simp; ring, ?_⟩
-  intro y hy
-  have hy' : a * y = -b := by linarith [hy]
-  have : a * y = a * (-b / a) := by
-    rw [hy', mul_div_cancel₀ _ ha]
-  exact mul_left_cancel₀ ha this
+  refine ⟨-b / a, by field_simp; ring, fun y hy => ?_⟩
+  field_simp
+  linarith
 
 /-! ## Équation produit `(ax + b)(cx + d) = 0` -/
 

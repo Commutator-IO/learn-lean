@@ -364,7 +364,7 @@ C'est l'équation produit appliquée aux deux facteurs $ax + b$ et $cx + d$ : le
 produit est nul exactement quand l'un des deux l'est. Résoudre l'équation revient donc à
 résoudre deux équations du premier degré.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L134}{CalculsEtCalculLitteral.lean\#L134}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L131}{CalculsEtCalculLitteral.lean\#L131}
 
 \subsection{Tester si un nombre est solution ; démontrer qu'une égalité est vraie pour tout \texttt{x}}
 
@@ -376,7 +376,7 @@ Tester une valeur : \texttt{2} est solution de \texttt{x² − 5x + 6 = 0}, \tex
 Les deux calculs sont menés : $2^2 - 5 \times 2 + 6 = 0$, donc $2$ est solution ;
 $1^2 - 5 \times 1 + 6 = 2 \ne 0$, donc $1$ ne l'est pas.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L140}{CalculsEtCalculLitteral.lean\#L140}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L137}{CalculsEtCalculLitteral.lean\#L137}
 
 \begin{theoreme}
 Démontrer une identité, c'est l'établir pour tout \texttt{x} à la fois \textemdash{} ce qu'aucun test de
@@ -388,7 +388,7 @@ Le développement du membre de gauche donne le membre de droite, quelle que soit
 valeur de $x$. C'est ce « quelle que soit » qui fait la démonstration, et qu'aucun test de
 valeurs particulières ne remplace.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L145}{CalculsEtCalculLitteral.lean\#L145}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L142}{CalculsEtCalculLitteral.lean\#L142}
 
 \subsection{Programme de calcul : deux programmes donnent le même résultat pour toute entrée}
 
@@ -401,7 +401,7 @@ de 2 \fg{} donnent toujours le même résultat.
 En développant : $(x+1)^2 - 1 = x^2 + 2x + 1 - 1 = x^2 + 2x = x(x+2)$. Les deux
 programmes coïncident donc pour toute entrée.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L151}{CalculsEtCalculLitteral.lean\#L151}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L148}{CalculsEtCalculLitteral.lean\#L148}
 
 \section{EcrituresDesNombres}
 
@@ -548,7 +548,7 @@ L'arrondi d'un nombre en est distant d'au plus $1/2$. En l'appliquant à
 $x \times 10^n$ puis en divisant par $10^n$, l'écart est divisé par $10^n$ : il vaut au plus
 $1/(2 \times 10^n)$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L79}{EcrituresDesNombres.lean\#L79}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L76}{EcrituresDesNombres.lean\#L76}
 
 \subsection{Ordre de grandeur d'un résultat ; contrôle de la vraisemblance d'un calcul}
 
@@ -566,7 +566,7 @@ les quatre nombres étant positifs :
 L'ordre de grandeur du produit est donc connu à un facteur cent près, ce qui suffit à
 contrôler un calcul à vue.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L93}{EcrituresDesNombres.lean\#L93}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L90}{EcrituresDesNombres.lean\#L90}
 
 \subsection{Écriture scientifique : existence et unicité de \texttt{a \(\times\) 10ⁿ} avec \texttt{1 \(\le\) |a| < 10}}
 
@@ -579,7 +579,7 @@ On prend pour exposant $n$ le logarithme entier de $|x|$ en base dix, c'est-à-d
 le plus grand entier tel que $10^n \le |x|$, et pour mantisse $a = x / 10^n$. L'encadrement
 $10^n \le |x| < 10^{n+1}$ donne alors $1 \le |a| < 10$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L108}{EcrituresDesNombres.lean\#L108}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L105}{EcrituresDesNombres.lean\#L105}
 
 \begin{theoreme}
 Unicité de l'exposant, donc de l'écriture.
@@ -591,7 +591,7 @@ Les deux mantisses étant dans $[1, 10[$, ce rapport est strictement compris ent
 et $10^{1}$, donc son exposant vérifie $-1 < n - n' < 1$ : il est nul. Les exposants étant
 égaux, la simplification par $10^n$ donne $a = a'$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L124}{EcrituresDesNombres.lean\#L124}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L120}{EcrituresDesNombres.lean\#L120}
 
 \subsection{Racine carrée : \texttt{(\(\sqrt{}\)a)² = a} et \texttt{\(\sqrt{}\)(a²) = a} pour \texttt{a \(\ge\) 0}}
 
@@ -603,7 +603,7 @@ et $10^{1}$, donc son exposant vérifie $-1 < n - n' < 1$ : il est nul. Les expo
 C'est la définition de la racine carrée d'un nombre positif : c'est l'unique
 nombre positif dont le carré vaut $a$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L167}{EcrituresDesNombres.lean\#L167}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L163}{EcrituresDesNombres.lean\#L163}
 
 \begin{theoreme}
 Et réciproquement, pour un nombre positif.
@@ -613,7 +613,7 @@ Et réciproquement, pour un nombre positif.
 Réciproquement, la racine du carré d'un nombre positif redonne ce nombre. Pour un
 nombre négatif, elle en donnerait la valeur absolue.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L171}{EcrituresDesNombres.lean\#L171}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L167}{EcrituresDesNombres.lean\#L167}
 
 \subsection{\texttt{\(\sqrt{}\)(ab) = \(\sqrt{}\)a \(\times\) \(\sqrt{}\)b} et \texttt{\(\sqrt{}\)(a/b) = \(\sqrt{}\)a / \(\sqrt{}\)b} (\texttt{a \(\ge\) 0}, \texttt{b > 0})}
 
@@ -625,7 +625,7 @@ La racine d'un produit est le produit des racines.
 La racine du produit et le produit des racines sont deux nombres positifs de même
 carré, à savoir $ab$ : ils sont donc égaux.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L177}{EcrituresDesNombres.lean\#L177}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L173}{EcrituresDesNombres.lean\#L173}
 
 \begin{theoreme}
 La racine d'un quotient est le quotient des racines.
@@ -634,7 +634,7 @@ La racine d'un quotient est le quotient des racines.
 \begin{proof}
 Même argument avec un quotient.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L181}{EcrituresDesNombres.lean\#L181}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L177}{EcrituresDesNombres.lean\#L177}
 
 \subsection{Contre-exemple : \texttt{\(\sqrt{}\)(a + b) \(\ne\) \(\sqrt{}\)a + \(\sqrt{}\)b} en général}
 
@@ -646,7 +646,7 @@ La racine d'une somme n'est pas la somme des racines : \texttt{\(\sqrt{}\)2 \(\n
 Si l'on avait $\sqrt{1+1} = \sqrt1 + \sqrt1 = 2$, alors en élevant au carré on
 obtiendrait $2 = 4$. La racine d'une somme n'est donc pas la somme des racines.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L187}{EcrituresDesNombres.lean\#L187}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L183}{EcrituresDesNombres.lean\#L183}
 
 \subsection{Rationnels et irrationnels : \texttt{\(\sqrt{}\)2} n'est pas rationnel}
 
@@ -658,7 +658,7 @@ obtiendrait $2 = 4$. La racine d'une somme n'est donc pas la somme des racines.
 Le résultat est classique et démontré dans la bibliothèque : aucune fraction
 d'entiers n'a $2$ pour carré. Au collège, il est mentionné sans démonstration.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L198}{EcrituresDesNombres.lean\#L198}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L194}{EcrituresDesNombres.lean\#L194}
 
 \section{EntiersDivisibilite}
 
@@ -1045,7 +1045,7 @@ le résultat à la liste annoncée. Le crible est donc exécuté, et pas seuleme
 c'est le théorème précédent qui garantit que ce que le test retient est bien la
 primalité.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L259}{EntiersDivisibilite.lean\#L259}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L250}{EntiersDivisibilite.lean\#L250}
 
 \subsection{Décomposition en produit de facteurs premiers}
 
@@ -1062,7 +1062,7 @@ $m = 1 \cdot m < p \cdot m = n$ puisque $p \ge 2$ et $m > 0$. L'hypothèse de r�
 donne une liste $l$ de premiers de produit $m$ ; la liste $p :: l$ convient alors pour
 $n$ : tous ses éléments sont premiers, et son produit vaut $p \cdot m = n$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L268}{EntiersDivisibilite.lean\#L268}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L259}{EntiersDivisibilite.lean\#L259}
 
 \begin{lemme}
 Lemme d'Euclide, sur lequel repose l'unicité.
@@ -1076,7 +1076,7 @@ valait $p$, alors $p$ diviserait $a$, ce qui est exclu. Donc $\gcd(p,a) = 1$ : $
 sont premiers entre eux, et de $p \mid ab$ on conclut $p \mid b$
 (le lemme de Gauss).
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L297}{EntiersDivisibilite.lean\#L297}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L285}{EntiersDivisibilite.lean\#L285}
 
 \begin{theoreme}
 Le prédicat \texttt{Premier} défini ici coïncide avec celui de la bibliothèque.
@@ -1087,7 +1087,7 @@ Les deux calculs sont menés à leur terme et comparés : $2 + 3 \times 4 = 14$ 
 $(2+3) \times 4 = 20$. La priorité de la multiplication est une convention d'écriture, pas
 un théorème ; ce qui se démontre, c'est que les deux résultats diffèrent.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L309}{EntiersDivisibilite.lean\#L309}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L297}{EntiersDivisibilite.lean\#L297}
 
 \begin{theoreme}
 Le produit défini par récursion est celui de la bibliothèque.
@@ -1097,7 +1097,7 @@ Le produit défini par récursion est celui de la bibliothèque.
 Par récurrence sur la liste : le produit de la liste vide vaut un dans les deux
 définitions, et l'étape de récurrence multiplie de part et d'autre par la tête de liste.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L312}{EntiersDivisibilite.lean\#L312}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L300}{EntiersDivisibilite.lean\#L300}
 
 \begin{theoreme}
 Unicité de la décomposition, à l'ordre des facteurs près : deux listes de nombres
@@ -1112,7 +1112,7 @@ l'autre, on conclut par transitivité.
 
 Au collège, cette unicité est admise sans même être énoncée.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L319}{EntiersDivisibilite.lean\#L319}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L307}{EntiersDivisibilite.lean\#L307}
 
 \subsection{PGCD, algorithme d'Euclide}
 
@@ -1125,7 +1125,7 @@ C'est l'équation de récursion de le pgcd : la définition de la fonction
 \emph{est} l'algorithme d'Euclide, et sa terminaison tient à la décroissance stricte de
 $b \bmod a$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L333}{EntiersDivisibilite.lean\#L333}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L321}{EntiersDivisibilite.lean\#L321}
 
 \begin{theoreme}
 Le PGCD est un diviseur commun.
@@ -1134,7 +1134,7 @@ Le PGCD est un diviseur commun.
 \begin{proof}
 Conjonction de « le pgcd divise le premier » et « le pgcd divise le second ».
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L337}{EntiersDivisibilite.lean\#L337}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L325}{EntiersDivisibilite.lean\#L325}
 
 \begin{theoreme}
 Tout diviseur commun divise le PGCD.
@@ -1145,7 +1145,7 @@ Tout diviseur commun divise le PGCD.
 par l'ordre : tout diviseur commun \emph{divise} le pgcd, ce qui est plus fort que de lui
 être inférieur.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L341}{EntiersDivisibilite.lean\#L341}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L329}{EntiersDivisibilite.lean\#L329}
 
 \subsection{Deux nombres sont premiers entre eux \(\iff\) \texttt{pgcd = 1}}
 
@@ -1157,7 +1157,7 @@ Nombres premiers entre eux \(\iff\) \texttt{pgcd = 1}.
 Vrai par définition : sur $\mathbb{N}$, « premiers entre eux » \emph{est} l'égalité du
 pgcd à $1$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L348}{EntiersDivisibilite.lean\#L348}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L336}{EntiersDivisibilite.lean\#L336}
 
 \begin{theoreme}
 Nombres premiers entre eux \(\iff\) seuls diviseurs communs égaux à 1.
@@ -1170,7 +1170,7 @@ donc $d = 1$.
 ($\Leftarrow$) Il suffit d'appliquer l'hypothèse au pgcd lui-même, qui est un diviseur
 commun de $a$ et $b$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L352}{EntiersDivisibilite.lean\#L352}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L340}{EntiersDivisibilite.lean\#L340}
 
 \subsection{Toute fraction admet une écriture irréductible}
 
@@ -1194,7 +1194,7 @@ la deuxième égalité n'étant que la commutativité et l'associativité du pro
 des fractions est écrite en produits croisés pour rester dans $\mathbb{N}$, où $n/d$ n'a
 pas de sens.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L365}{EntiersDivisibilite.lean\#L365}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L353}{EntiersDivisibilite.lean\#L353}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par
