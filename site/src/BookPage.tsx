@@ -1,127 +1,262 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Footer, Header } from './components/Frame.tsx'
-import type { Index } from './lib/types.ts'
+import type { Chapitre, Index } from './lib/types.ts'
 
 /**
- * Le livre : le cours complet, de la sixième à la terminale, en un seul PDF.
+ * Le livre, lu en ligne.
  *
- * Le PDF n'est pas versionné — il est compilé par le workflow et publié avec le
- * site. Le bouton de téléchargement ne s'affiche donc que si le fichier est
- * réellement là : une tuile qui promet un document absent apprend au lecteur à
- * se méfier de tous les autres liens de la page.
+ * C'est le même texte que le PDF : les ouvertures écrites pour le livre, puis
+ * les énoncés et leurs démonstrations. Le fichier Lean n'y est pas — on est ici
+ * pour lire un cours, pas pour vérifier une preuve, et c'est l'onglet « cours »
+ * qui met les deux en regard.
  */
+
+type Livre = {
+  livre: string
+  parties: Record<string, string>
+  chapitres: Record<string, string>
+}
+
+const ETIQUETTE: Record<string, string> = {
+  theorem: 'Théorème',
+  lemma: 'Lemme',
+  def: 'Définition',
+  abbrev: 'Définition',
+  instance: 'Instance',
+  example: 'Exemple',
+}
+
 export function BookPage() {
   const [index, setIndex] = useState<Index | null>(null)
-  const [pdf, setPdf] = useState<{ octets: number } | null>(null)
+  const [livre, setLivre] = useState<Livre | null>(null)
+  const [chapitre, setChapitre] = useState<Chapitre | null>(null)
+  const [pdf, setPdf] = useState<number | null>(null)
+  const [menu, setMenu] = useState(false)
 
   useEffect(() => {
     fetch('/index.json')
       .then((r) => r.json())
       .then(setIndex)
       .catch(() => setIndex({ programmes: [] }))
-
+    fetch('/book.json')
+      .then((r) => r.json())
+      .then(setLivre)
+      .catch(() => setLivre(null))
+    // Le PDF est compilé par le workflow : le bouton n'apparaît que s'il est là.
     fetch('/cours-complet.pdf', { method: 'HEAD' })
-      .then((r) => {
-        if (!r.ok) return
-        setPdf({ octets: Number(r.headers.get('content-length') ?? 0) })
-      })
+      .then((r) => r.ok && setPdf(Number(r.headers.get('content-length') ?? 0)))
       .catch(() => {})
   }, [])
+
+  const charger = useCallback(async (id: string) => {
+    const r = await fetch(`/chapters/${id.replace('/', '__')}.json`)
+    setChapitre(await r.json())
+    setMenu(false)
+    location.hash = id
+    scrollTo({ top: 0 })
+  }, [])
+
+  useEffect(() => {
+    const id = location.hash.slice(1)
+    if (id) void charger(id)
+  }, [charger])
+
+  const numero = (id: string) => {
+    for (const p of index?.programmes ?? []) {
+      const i = p.chapitres.findIndex((c) => c.id === id)
+      if (i >= 0) return i + 1
+    }
+    return null
+  }
+
+  let sectionCourante: string | null = null
 
   return (
     <div className="flex min-h-dvh flex-col">
       <Header path="/livre/" />
 
-      <main className="flex-1">
-        <section className="mx-auto max-w-3xl px-5 pt-14 pb-8">
-          <h1 className="font-serif text-3xl leading-tight text-ink-900">
-            Un cours complet, de la sixième à la terminale
-          </h1>
-          <p className="mt-5 text-[16px] leading-relaxed text-ink-600">
-            Les dix-sept chapitres réunis en un seul document : les définitions, les énoncés et
-            leurs démonstrations, dans l'ordre des programmes. Le texte de liaison — ce qui
-            introduit un chapitre, ce qui explique pourquoi la notion suivante arrive là — est
-            rédigé pour le livre ; les démonstrations, elles, sont celles du dépôt, sans
-            retouche.
-          </p>
+      <div className="flex flex-1 flex-col lg:flex-row">
+        {/* Sommaire du livre, étroit : la lecture occupe le reste. */}
+        <aside
+          className={[
+            'shrink-0 border-b border-ink-200 bg-ink-50/60 lg:w-56 lg:border-r lg:border-b-0',
+            menu ? '' : 'hidden lg:block',
+          ].join(' ')}
+        >
+          <div className="sticky top-12 max-h-[calc(100dvh-3rem)] overflow-auto p-2">
+            <button
+              onClick={() => {
+                setChapitre(null)
+                location.hash = ''
+                setMenu(false)
+              }}
+              className={[
+                'mb-2 flex w-full rounded px-1.5 py-1 text-left text-[12.5px]',
+                chapitre ? 'text-ink-600 hover:bg-ink-100' : 'bg-brand-50 text-ink-900',
+              ].join(' ')}
+            >
+              Avant-propos
+            </button>
+            {index?.programmes.map((p, i) => (
+              <div key={p.id} className="mb-3">
+                <div className="px-1.5 py-1 font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
+                  Partie {i + 1} · {p.titre}
+                </div>
+                {p.chapitres.map((c, j) => (
+                  <button
+                    key={c.id}
+                    onClick={() => void charger(c.id)}
+                    className={[
+                      'flex w-full items-baseline gap-1.5 rounded px-1.5 py-1 text-left text-[12.5px]',
+                      chapitre?.id === c.id
+                        ? 'bg-brand-50 text-ink-900'
+                        : 'text-ink-600 hover:bg-ink-100',
+                    ].join(' ')}
+                  >
+                    <span className="font-mono text-[10.5px] text-ink-400">{j + 1}</span>
+                    <span className="min-w-0 flex-1 truncate" title={c.titre}>
+                      {c.titre}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            ))}
+          </div>
+        </aside>
 
-          <div className="mt-7">
-            {pdf ? (
+        <main className="min-w-0 flex-1">
+          <div className="flex items-center gap-3 border-b border-ink-200 px-5 py-2">
+            <button
+              onClick={() => setMenu((v) => !v)}
+              className="rounded border border-ink-200 px-2 py-1 text-[12px] text-ink-600 lg:hidden"
+            >
+              Sommaire
+            </button>
+            <span className="min-w-0 truncate font-serif text-[15px] text-ink-900">
+              Mathématiques du secondaire
+            </span>
+            {pdf !== null && (
               <a
                 href="/cours-complet.pdf"
-                className="inline-flex items-center gap-2 rounded-lg bg-brand-700 px-4 py-2.5 text-[14px] font-medium text-white hover:bg-brand-800"
+                className="ml-auto shrink-0 rounded-md border border-ink-300 px-2.5 py-1 text-[12.5px] text-ink-700 hover:bg-ink-50"
               >
-                Télécharger le PDF
-                {pdf.octets > 0 && (
-                  <span className="font-mono text-[12px] opacity-80">
-                    {(pdf.octets / 1e6).toFixed(1)} Mo
-                  </span>
-                )}
+                PDF{pdf > 0 ? ` · ${(pdf / 1e6).toFixed(1)} Mo` : ''}
               </a>
-            ) : (
-              <p className="rounded-lg border border-ink-200 bg-ink-50 px-4 py-3 text-[13.5px] text-ink-500">
-                Le PDF est compilé par le workflow de publication ; il n'est pas encore présent sur
-                cette version du site. La source LaTeX, elle, est dans le dépôt sous{' '}
-                <code className="font-mono">book/</code>.
-              </p>
             )}
           </div>
-        </section>
 
-        <section className="border-t border-ink-200 bg-ink-50">
-          <div className="mx-auto max-w-3xl px-5 py-10">
-            <h2 className="font-serif text-xl text-ink-900">Table des matières</h2>
-            <div className="mt-5 space-y-6">
-              {index?.programmes.map((p, i) => (
-                <div key={p.id}>
-                  <div className="font-sans text-[12px] font-semibold tracking-wide text-ink-400 uppercase">
-                    Partie {i + 1} — {p.titre}
-                  </div>
-                  <ol className="mt-2 space-y-1">
-                    {p.chapitres.map((c, j) => (
-                      <li key={c.id} className="flex gap-3 text-[14px] text-ink-700">
-                        <span className="w-6 shrink-0 text-right font-mono text-ink-400">
-                          {j + 1}.
-                        </span>
-                        <a href={`/cours/#${c.id}`} className="hover:underline">
-                          {c.titre}
-                        </a>
-                        <span className="ml-auto font-mono text-[12px] text-ink-400">
-                          {c.statuts.demontres}/{c.statuts.total}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
+          <article className="mx-auto max-w-2xl px-6 py-8 font-serif text-[16px] leading-relaxed text-ink-800">
+            {!chapitre ? (
+              <>
+                <h1 className="font-serif text-3xl text-ink-900">Avant-propos</h1>
+                <div
+                  className="prose-cours mt-5"
+                  dangerouslySetInnerHTML={{ __html: livre?.livre ?? '' }}
+                />
+                <div className="mt-10 border-t border-ink-200 pt-6">
+                  <h2 className="font-serif text-xl text-ink-900">Table des matières</h2>
+                  {index?.programmes.map((p, i) => (
+                    <div key={p.id} className="mt-5">
+                      <div className="font-sans text-[12px] font-semibold tracking-wide text-ink-400 uppercase">
+                        Partie {i + 1} — {p.titre}
+                      </div>
+                      <ol className="mt-2 space-y-1 font-sans text-[14px]">
+                        {p.chapitres.map((c, j) => (
+                          <li key={c.id} className="flex gap-3">
+                            <span className="w-5 shrink-0 text-right font-mono text-ink-400">
+                              {j + 1}
+                            </span>
+                            <button
+                              onClick={() => void charger(c.id)}
+                              className="text-left text-ink-700 hover:underline"
+                            >
+                              {c.titre}
+                            </button>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
+              </>
+            ) : (
+              <>
+                <div className="font-sans text-[12px] font-semibold tracking-wide text-ink-400 uppercase">
+                  Chapitre {numero(chapitre.id)}
+                </div>
+                <h1 className="mt-1 font-serif text-3xl text-ink-900">{chapitre.titre}</h1>
 
-        <section className="mx-auto max-w-3xl px-5 py-12">
-          <h2 className="font-serif text-xl text-ink-900">Ce que le livre ajoute, et ce qu'il ne
-            touche pas</h2>
-          <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-ink-600">
-            <p>
-              Un chapitre du dépôt est une suite d'énoncés : il n'a ni introduction, ni fil. Le
-              livre ajoute ce fil — une entrée en matière par partie et par chapitre, une phrase de
-              passage entre deux sections, le rappel de ce qui sert plus loin.
-            </p>
-            <p>
-              <strong className="text-ink-800">Les démonstrations, elles, sont reprises telles
-              quelles.</strong> Elles transcrivent le script Lean étape par étape ; les réécrire
-              pour les rendre plus élégantes romprait le lien entre le livre et la preuve
-              vérifiée, qui est tout l'objet de l'exercice. Une démonstration qui paraît
-              laborieuse dans le livre l'est aussi dans le fichier.
-            </p>
-            <p>
-              Les énoncés que le dépôt ne démontre pas figurent au même endroit que dans les
-              programmes, avec la raison : c'est une information sur l'outil, pas un trou à
-              masquer.
-            </p>
-          </div>
-        </section>
-      </main>
+                {livre?.chapitres[chapitre.id] && (
+                  <div
+                    className="prose-cours mt-5 text-ink-700"
+                    dangerouslySetInnerHTML={{ __html: livre.chapitres[chapitre.id] }}
+                  />
+                )}
+
+                {chapitre.modules.map((m) => {
+                  sectionCourante = null
+                  return (
+                    <div key={m.nom}>
+                      {chapitre.modules.length > 1 && (
+                        <h2 className="mt-10 font-serif text-2xl text-ink-900">
+                          {m.declarations[0]?.section ?? m.nom}
+                        </h2>
+                      )}
+                      {m.declarations.map((d) => {
+                        const nouvelle = d.section && d.section !== sectionCourante
+                        if (nouvelle) sectionCourante = d.section
+                        return (
+                          <div key={`${m.nom}-${d.ligne}`}>
+                            {nouvelle && (
+                              <h3 className="mt-8 mb-2 font-serif text-[19px] text-ink-900">
+                                {d.section}
+                              </h3>
+                            )}
+                            {d.remarqueHtml && (
+                              <div
+                                className="prose-cours my-3 text-ink-600"
+                                dangerouslySetInnerHTML={{ __html: d.remarqueHtml }}
+                              />
+                            )}
+                            <div className="my-4">
+                              <span className="font-sans text-[12px] font-semibold tracking-wide text-brand-700 uppercase">
+                                {ETIQUETTE[d.sorte] ?? d.sorte}
+                              </span>
+                              <div
+                                className="prose-cours mt-1"
+                                dangerouslySetInnerHTML={{ __html: d.enonceHtml || `<p>${d.doc}</p>` }}
+                              />
+                              {d.preuveHtml && (
+                                <div className="mt-3 border-l-2 border-ink-200 pl-4">
+                                  <div className="font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
+                                    Démonstration
+                                  </div>
+                                  <div
+                                    className="prose-cours text-[15px] text-ink-700"
+                                    dangerouslySetInnerHTML={{ __html: d.preuveHtml }}
+                                  />
+                                </div>
+                              )}
+                              <div className="mt-1 text-right">
+                                <a
+                                  href={`/cours/#${chapitre.id}/${m.nom}/L${d.ligne}`}
+                                  className="font-mono text-[11px] text-ink-300 hover:text-brand-700"
+                                >
+                                  {m.nom}#L{d.ligne}
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )
+                })}
+              </>
+            )}
+          </article>
+        </main>
+      </div>
 
       <Footer />
     </div>

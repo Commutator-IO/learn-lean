@@ -227,9 +227,15 @@ exercice différent, et pas toujours plus facile.
 
 ## Le site
 
-Le dépôt publie [lean.commutator.io](https://lean.commutator.io/) : le cours lu à deux
-volets — le fichier Lean à gauche, sa transcription française à droite — et le livre
-complet en PDF.
+Le dépôt publie [lean.commutator.io](https://lean.commutator.io/), cinq onglets :
+
+| Onglet | Contenu |
+|---|---|
+| Apprendre Lean | le cours à deux volets — le fichier Lean à gauche, sa transcription française à droite, défilement lié |
+| Le livre | le même cours rédigé d'affilée, sans le code, et son PDF |
+| Méthode | comment on passe d'un énoncé de programme à un théorème vérifié, les outils, les deux skills |
+| En travaux | les annales de brevet et de baccalauréat, en consultation — le chantier suivant |
+| Dépôt | le code source |
 
 ```bash
 cd site && npm install && npm run dev

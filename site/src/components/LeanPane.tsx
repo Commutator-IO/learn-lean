@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { colorier } from '../lib/lean.ts'
+import { useSyncScroll, type Cible, type Pilote } from '../lib/sync.ts'
 import type { Declaration, Module } from '../lib/types.ts'
 
 /**
@@ -18,24 +19,25 @@ export function LeanPane({
   module,
   chapitre,
   courante,
+  cible,
+  lie,
+  pilote,
   onChoisir,
+  onDefile,
 }: {
   module: Module
   chapitre: string
   courante: Declaration | null
+  cible: Cible
+  lie: boolean
+  pilote: React.RefObject<Pilote>
   onChoisir: (d: Declaration) => void
+  onDefile: (ligne: number) => void
 }) {
   const lignes = colorier(module.source)
   const conteneur = useRef<HTMLDivElement>(null)
 
-  // Le volet suit la déclaration choisie dans l'autre volet. `block: 'center'`
-  // plutôt que 'start' : une preuve de dix lignes collée en haut de l'écran se
-  // lit mal, on veut la voir dans son voisinage.
-  useEffect(() => {
-    if (!courante || !conteneur.current) return
-    const cible = conteneur.current.querySelector(`[data-ligne="${courante.ligne}"]`)
-    cible?.scrollIntoView({ block: 'center', behavior: 'smooth' })
-  }, [courante])
+  useSyncScroll({ conteneur, moi: 'lean', cible, lie, pilote, onDefile })
 
   // Quelle déclaration couvre quelle ligne, pour surligner le bloc courant.
   const parLigne = new Map<number, Declaration>()
@@ -63,7 +65,7 @@ export function LeanPane({
           return (
             <div
               key={numero}
-              data-ligne={d?.ligne === numero ? numero : undefined}
+              data-decl={d?.ligne === numero ? numero : undefined}
               onClick={d ? () => onChoisir(d) : undefined}
               className={[
                 'flex gap-3 px-4',

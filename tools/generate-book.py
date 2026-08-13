@@ -155,6 +155,13 @@ def assembler():
                 manquants.append(identifiant)
             out += [corps(tex, sections), ""]
 
+    # La bibliographie ferme le livre : les deux logiciels dont il dépend
+    # demandent à être cités, et leurs entrées BibTeX sont reproduites pour
+    # qu'on puisse les reprendre.
+    biblio = os.path.join(LIVRE, "bibliographie.tex")
+    if os.path.exists(biblio):
+        out += [open(biblio, encoding="utf-8").read().strip(), ""]
+
     out += [r"\end{document}", ""]
 
     cible = os.path.join(LIVRE, "cours-complet.tex")

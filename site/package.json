@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "npm run manifest && vite",
-    "build": "npm run manifest && tsc -b && vite build",
+    "build": "npm run manifest && tsc -b && vite build && npm run sitemap",
     "lint": "oxlint --deny-warnings",
     "preview": "vite preview",
-    "manifest": "node scripts/manifest.mjs",
+    "manifest": "node scripts/manifest.mjs && node scripts/exams.mjs",
+    "sitemap": "node scripts/sitemap.mjs",
     "book": "node scripts/book.mjs"
   },
   "dependencies": {

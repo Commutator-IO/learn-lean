@@ -23,6 +23,7 @@ import { texToHtml } from './latex.mjs';
 const SITE = resolve(import.meta.dirname, '..');
 const DEPOT = resolve(SITE, '..');
 const COURS = resolve(DEPOT, 'courses');
+const LIVRE = resolve(DEPOT, 'book', 'textes');
 const SORTIE = resolve(SITE, 'public');
 
 const PROGRAMMES = [
@@ -194,6 +195,32 @@ async function chapitres(programme) {
 
 const chemin = (id) => join(SORTIE, 'chapters', `${id.replace('/', '__')}.json`);
 
+/**
+ * Les textes de liaison du livre, rendus en HTML.
+ *
+ * Ils n'existaient jusqu'ici que dans le PDF ; la version lisible en ligne les
+ * reprend, sans quoi elle ne serait pas le même livre. Un chapitre sans texte
+ * d'ouverture n'est pas une erreur : le fichier est simplement absent.
+ */
+async function livre() {
+  const out = { livre: '', parties: {}, chapitres: {} };
+  let fichiers = [];
+  try {
+    fichiers = await readdir(LIVRE);
+  } catch {
+    return out;
+  }
+  for (const f of fichiers) {
+    if (!f.endsWith('.tex')) continue;
+    const id = f.replace(/\.tex$/, '');
+    const html = texToHtml((await readFile(join(LIVRE, f), 'utf8')).trim());
+    if (id === 'livre') out.livre = html;
+    else if (id.includes('__')) out.chapitres[id.replace('__', '/')] = html;
+    else out.parties[id] = html;
+  }
+  return out;
+}
+
 async function main() {
   await rm(join(SORTIE, 'chapters'), { recursive: true, force: true });
   await mkdir(join(SORTIE, 'chapters'), { recursive: true });
@@ -216,6 +243,7 @@ async function main() {
   }
 
   await writeFile(join(SORTIE, 'index.json'), JSON.stringify(index, null, 2));
+  await writeFile(join(SORTIE, 'book.json'), JSON.stringify(await livre()));
 
   const n = index.programmes.reduce((a, p) => a + p.chapitres.length, 0);
   const d = index.programmes.reduce(

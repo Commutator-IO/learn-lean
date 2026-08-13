@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Footer, Header } from './components/Frame.tsx'
 import { LeanPane } from './components/LeanPane.tsx'
 import { TexPane } from './components/TexPane.tsx'
+import type { Cible, Pilote } from './lib/sync.ts'
 import type { Chapitre, Declaration, Index } from './lib/types.ts'
 
 /**
@@ -16,9 +17,10 @@ import type { Chapitre, Declaration, Index } from './lib/types.ts'
  * pour qu'un lien pointe sur un théorème et pas seulement sur un chapitre.
  */
 
-type Cible = { chapitre: string; module: string; ligne: number } | null
+/** Ce que désigne l'adresse : un chapitre, un module, une ligne. */
+type Adresse = { chapitre: string; module: string; ligne: number } | null
 
-function lireHash(): Cible {
+function lireHash(): Adresse {
   const m = /^#([\w-]+\/[\w-]+)\/([\w.]+)\/L(\d+)$/.exec(location.hash)
   return m ? { chapitre: m[1], module: m[2], ligne: Number(m[3]) } : null
 }
@@ -29,6 +31,20 @@ export function ReaderPage() {
   const [module, setModule] = useState<string | null>(null)
   const [courante, setCourante] = useState<Declaration | null>(null)
   const [menu, setMenu] = useState(false)
+
+  // Le défilement lié se retient d'une visite à l'autre : c'est une préférence
+  // de lecture, pas un état de la page.
+  const [lie, setLie] = useState(() => localStorage.getItem('defilement-lie') !== 'non')
+  useEffect(() => {
+    localStorage.setItem('defilement-lie', lie ? 'oui' : 'non')
+  }, [lie])
+
+  // Qui mène, et sur quelle déclaration s'aligner. Voir lib/sync.ts.
+  const pilote = useRef<Pilote>(null)
+  const [cible, setCible] = useState<Cible>(null)
+  const defile = useCallback((ligne: number) => {
+    setCible({ ligne, par: pilote.current === 'tex' ? 'tex' : 'lean' })
+  }, [])
 
   useEffect(() => {
     fetch('/index.json')
@@ -43,22 +59,28 @@ export function ReaderPage() {
     setChapitre(c)
     const m = c.modules.find((x) => x.nom === nomModule) ?? c.modules[0]
     setModule(m.nom)
-    setCourante(ligne ? (m.declarations.find((d) => d.ligne === ligne) ?? null) : null)
+    const d = ligne ? (m.declarations.find((x) => x.ligne === ligne) ?? null) : null
+    setCourante(d)
+    setCible(d ? { ligne: d.ligne, par: 'clic' } : null)
     setMenu(false)
   }, [])
 
   // Au chargement : ce que dit l'adresse, ou le premier chapitre.
   useEffect(() => {
     if (!index || chapitre) return
-    const cible = lireHash()
+    const adresse = lireHash()
     const premier = index.programmes[0]?.chapitres[0]?.id
-    const id = cible?.chapitre ?? premier
-    if (id) void charger(id, cible?.ligne, cible?.module)
+    const id = adresse?.chapitre ?? premier
+    if (id) void charger(id, adresse?.ligne, adresse?.module)
   }, [index, chapitre, charger])
 
   const choisir = useCallback(
     (d: Declaration) => {
       setCourante(d)
+      // Un clic est un déplacement voulu : les deux volets s'y rendent, quel
+      // que soit l'état du défilement lié.
+      pilote.current = 'clic'
+      setCible({ ligne: d.ligne, par: 'clic' })
       if (chapitre && module) location.hash = `${chapitre.id}/${module}/L${d.ligne}`
     },
     [chapitre, module],
@@ -75,14 +97,14 @@ export function ReaderPage() {
             déjà à l'étroit. */}
         <aside
           className={[
-            'shrink-0 border-b border-ink-200 bg-white lg:w-72 lg:border-r lg:border-b-0',
+            'shrink-0 border-b border-ink-200 bg-white lg:w-52 lg:border-r lg:border-b-0',
             menu ? '' : 'hidden lg:block',
           ].join(' ')}
         >
-          <div className="max-h-[70vh] overflow-auto p-3 lg:max-h-[calc(100dvh-3rem)]">
+          <div className="max-h-[70vh] overflow-auto p-2 lg:max-h-[calc(100dvh-3rem)]">
             {index?.programmes.map((p) => (
               <div key={p.id} className="mb-4">
-                <div className="px-2 py-1 font-sans text-[12px] font-semibold tracking-wide text-ink-400 uppercase">
+                <div className="px-1.5 py-1 font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
                   {p.titre}
                 </div>
                 {p.chapitres.map((c) => {
@@ -93,14 +115,16 @@ export function ReaderPage() {
                       key={c.id}
                       onClick={() => void charger(c.id)}
                       className={[
-                        'flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-[13px]',
+                        'flex w-full items-center gap-1.5 rounded px-1.5 py-1 text-left text-[12.5px]',
                         actif ? 'bg-brand-50 text-ink-900' : 'text-ink-600 hover:bg-ink-100',
                       ].join(' ')}
                     >
-                      <span className="min-w-0 flex-1 truncate">{c.titre}</span>
+                      <span className="min-w-0 flex-1 truncate" title={c.titre}>
+                        {c.titre}
+                      </span>
                       <span
                         className={[
-                          'shrink-0 rounded px-1.5 py-0.5 font-mono text-[10.5px]',
+                          'shrink-0 rounded px-1 py-0.5 font-mono text-[10px]',
                           complet
                             ? 'bg-prouve-50 text-prouve-700'
                             : 'bg-encours-50 text-encours-600',
@@ -127,14 +151,24 @@ export function ReaderPage() {
             <h1 className="min-w-0 truncate font-serif text-[15px] text-ink-900">
               {chapitre?.titre ?? '…'}
             </h1>
+            <label className="ml-auto flex shrink-0 items-center gap-1.5 text-[12px] text-ink-500">
+              <input
+                type="checkbox"
+                checked={lie}
+                onChange={(e) => setLie(e.target.checked)}
+                className="size-3.5 accent-brand-700"
+              />
+              défilement lié
+            </label>
             {chapitre && chapitre.modules.length > 1 && (
               <select
                 value={module ?? ''}
                 onChange={(e) => {
                   setModule(e.target.value)
                   setCourante(null)
+                  setCible(null)
                 }}
-                className="ml-auto rounded border border-ink-200 px-2 py-1 font-mono text-[12px] text-ink-600"
+                className="rounded border border-ink-200 px-2 py-1 font-mono text-[12px] text-ink-600"
               >
                 {chapitre.modules.map((x) => (
                   <option key={x.nom} value={x.nom}>
@@ -152,11 +186,23 @@ export function ReaderPage() {
                   module={m}
                   chapitre={chapitre.id}
                   courante={courante}
+                  cible={cible}
+                  lie={lie}
+                  pilote={pilote}
                   onChoisir={choisir}
+                  onDefile={defile}
                 />
               </div>
               <div className="h-[50dvh] lg:h-[calc(100dvh-6.5rem)]">
-                <TexPane module={m} courante={courante} onChoisir={choisir} />
+                <TexPane
+                  module={m}
+                  courante={courante}
+                  cible={cible}
+                  lie={lie}
+                  pilote={pilote}
+                  onChoisir={choisir}
+                  onDefile={defile}
+                />
               </div>
             </div>
           ) : (

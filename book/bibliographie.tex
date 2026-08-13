@@ -1,0 +1,58 @@
+% Références du livre, et leurs entrées BibTeX.
+%
+% Les deux logiciels dont dépend ce travail demandent à être cités : Lean pour
+% l'assistant de preuve, Mathlib pour la bibliothèque de mathématiques. Les
+% entrées sont reproduites telles quelles pour qu'on puisse les reprendre.
+\chapter*{Références}
+\addcontentsline{toc}{chapter}{Références}
+
+Ce livre repose sur deux logiciels libres, dont les auteurs demandent à être cités.
+
+\begin{thebibliography}{9}
+
+\bibitem{demoura2021lean}
+Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean 4 Theorem Prover and Programming Language},
+dans \emph{Automated Deduction --- CADE 28}, Lecture Notes in Computer Science 12699,
+Springer, 2021, p.~625--635.
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.
+
+\bibitem{mathlib2020}
+The mathlib Community,
+\emph{The Lean Mathematical Library},
+dans \emph{Proceedings of the 9th ACM SIGPLAN International Conference on Certified
+Programs and Proofs (CPP 2020)}, ACM, 2020, p.~367--381.
+\href{https://doi.org/10.1145/3372885.3373824}{doi:10.1145/3372885.3373824}.
+
+\end{thebibliography}
+
+\section*{Entrées BibTeX}
+
+\begin{verbatim}
+@inproceedings{demoura2021lean,
+  author    = {de Moura, Leonardo and Ullrich, Sebastian},
+  title     = {The {Lean} 4 Theorem Prover and Programming Language},
+  booktitle = {Automated Deduction -- CADE 28},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {12699},
+  pages     = {625--635},
+  publisher = {Springer},
+  year      = {2021},
+  doi       = {10.1007/978-3-030-79876-5_37},
+}
+
+@inproceedings{mathlib2020,
+  author    = {The mathlib Community},
+  title     = {The {Lean} Mathematical Library},
+  booktitle = {Proceedings of the 9th ACM SIGPLAN International Conference
+               on Certified Programs and Proofs (CPP 2020)},
+  pages     = {367--381},
+  publisher = {ACM},
+  year      = {2020},
+  doi       = {10.1145/3372885.3373824},
+}
+\end{verbatim}
+
+\medskip\noindent
+Les démonstrations de ce livre ont été vérifiées avec la version de Lean et de Mathlib
+fixées par le dépôt, dans les fichiers \texttt{lean-toolchain} et \texttt{lakefile.toml}.

@@ -55,13 +55,13 @@ export function HomePage() {
               href="/cours/"
               className="rounded-lg bg-brand-700 px-4 py-2.5 text-[14px] font-medium text-white hover:bg-brand-800"
             >
-              Lire le cours
+              Apprendre Lean
             </a>
             <a
               href="/livre/"
               className="rounded-lg border border-ink-300 px-4 py-2.5 text-[14px] font-medium text-ink-700 hover:bg-ink-50"
             >
-              Le livre en PDF
+              Lire le livre
             </a>
           </div>
         </section>

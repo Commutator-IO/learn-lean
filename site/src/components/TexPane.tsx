@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
+import { useSyncScroll, type Cible, type Pilote } from '../lib/sync.ts'
 import type { Declaration, Module } from '../lib/types.ts'
 
 /**
@@ -21,19 +22,23 @@ const ETIQUETTE: Record<string, string> = {
 export function TexPane({
   module,
   courante,
+  cible,
+  lie,
+  pilote,
   onChoisir,
+  onDefile,
 }: {
   module: Module
   courante: Declaration | null
+  cible: Cible
+  lie: boolean
+  pilote: React.RefObject<Pilote>
   onChoisir: (d: Declaration) => void
+  onDefile: (ligne: number) => void
 }) {
   const conteneur = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (!courante || !conteneur.current) return
-    const cible = conteneur.current.querySelector(`[data-decl="${courante.ligne}"]`)
-    cible?.scrollIntoView({ block: 'start', behavior: 'smooth' })
-  }, [courante])
+  useSyncScroll({ conteneur, moi: 'tex', cible, lie, pilote, onDefile })
 
   let sectionCourante: string | null = null
 
