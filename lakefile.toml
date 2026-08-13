@@ -72,7 +72,7 @@ globs = ["ExponentielleLogarithmeTrigonometrie"]
 [[lean_lib]]
 name = "LyceeIntegration"
 srcDir = "cours/02-lycee/06-integration"
-globs = []
+globs = ["Integration"]
 
 [[lean_lib]]
 name = "LyceeNombresComplexes"

@@ -131,17 +131,17 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Intégrale d'une fonction continue positive = aire sous la courbe | TS | oui | ☐ |
-| Toute fonction continue sur un intervalle admet des primitives | TS | oui | ☐ |
-| `x ↦ ∫ₐˣ f(t)dt` est la primitive de `f` qui s'annule en `a` | TS | | ☐ |
-| Deux primitives d'une même fonction diffèrent d'une constante | TS | | ☐ |
-| Théorème fondamental : `∫ₐᵇ f = F(b) − F(a)` | TS | | ☐ |
-| Linéarité de l'intégrale | TS | | ☐ |
-| Relation de Chasles | TS | | ☐ |
-| Positivité et croissance : `f ≥ 0 ⟹ ∫ f ≥ 0` ; `f ≤ g ⟹ ∫ f ≤ ∫ g` | TS | | ☐ |
-| Inégalité de la moyenne ; valeur moyenne `(1/(b−a))∫ₐᵇ f` | TS | | ☐ |
-| Intégration par parties | TS | | ☐ |
-| Aire entre deux courbes ; volume d'un solide de révolution (approche) | TS | oui | ☐ |
+| Intégrale d'une fonction continue positive = aire sous la courbe | TS | oui | ☑ |
+| Toute fonction continue sur un intervalle admet des primitives | TS | oui | ☑ |
+| `x ↦ ∫ₐˣ f(t)dt` est la primitive de `f` qui s'annule en `a` | TS | | ☑ |
+| Deux primitives d'une même fonction diffèrent d'une constante | TS | | ☑ |
+| Théorème fondamental : `∫ₐᵇ f = F(b) − F(a)` | TS | | ☑ |
+| Linéarité de l'intégrale | TS | | ☑ |
+| Relation de Chasles | TS | | ☑ |
+| Positivité et croissance : `f ≥ 0 ⟹ ∫ f ≥ 0` ; `f ≤ g ⟹ ∫ f ≤ ∫ g` | TS | | ☑ |
+| Inégalité de la moyenne ; valeur moyenne `(1/(b−a))∫ₐᵇ f` | TS | | ☑ |
+| Intégration par parties | TS | | ☑ |
+| Aire entre deux courbes ; volume d'un solide de révolution (approche) | TS | oui | ◐ |
 
 ---
 
