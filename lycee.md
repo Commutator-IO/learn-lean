@@ -192,20 +192,20 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Moyenne, médiane, quartiles, écart interquartile, écart-type | 2de / 1S | | ☐ |
-| Linéarité de la moyenne ; `écart-type(aX + b) = \|a\| × écart-type(X)` | 1S | | ☐ |
-| `P(A ∪ B) = P(A) + P(B) − P(A ∩ B)` ; `P(Ā) = 1 − P(A)` | 2de | | ☐ |
-| Variable aléatoire : loi, espérance, variance, écart-type | 1S | | ☐ |
-| `E(aX + b) = aE(X) + b` ; `V(aX + b) = a²V(X)` ; `V(X) = E(X²) − E(X)²` | 1S | | ☐ |
-| Épreuve et schéma de Bernoulli ; loi binomiale `P(X = k) = C(n,k)pᵏ(1−p)ⁿ⁻ᵏ` | 1S | | ☐ |
-| Espérance et variance d'une binomiale : `np` et `np(1−p)` | 1S | oui | ☐ |
-| Probabilité conditionnelle `P_A(B) = P(A ∩ B)/P(A)` ; formule des probabilités composées | TS | | ☐ |
-| Formule des probabilités totales ; arbre pondéré | TS | | ☐ |
-| Indépendance de deux événements ; indépendance et événements contraires | TS | | ☐ |
-| Loi uniforme sur `[a,b]` : densité, espérance `(a+b)/2` | TS | | ☐ |
-| Loi exponentielle : densité `λe^{−λt}`, `P(X > t) = e^{−λt}`, absence de mémoire, espérance `1/λ` | TS | | ☐ |
-| Loi normale centrée réduite ; théorème de Moivre–Laplace | TS | oui | ☐ |
-| Loi normale `N(μ, σ²)` ; intervalles `1σ`, `2σ`, `3σ` (68 %, 95 %, 99,7 %) | TS | oui | ☐ |
+| Moyenne, médiane, quartiles, écart interquartile, écart-type | 2de / 1S | | ◐ |
+| Linéarité de la moyenne ; `écart-type(aX + b) = \|a\| × écart-type(X)` | 1S | | ☑ |
+| `P(A ∪ B) = P(A) + P(B) − P(A ∩ B)` ; `P(Ā) = 1 − P(A)` | 2de | | ☑ |
+| Variable aléatoire : loi, espérance, variance, écart-type | 1S | | ☑ |
+| `E(aX + b) = aE(X) + b` ; `V(aX + b) = a²V(X)` ; `V(X) = E(X²) − E(X)²` | 1S | | ☑ |
+| Épreuve et schéma de Bernoulli ; loi binomiale `P(X = k) = C(n,k)pᵏ(1−p)ⁿ⁻ᵏ` | 1S | | ☑ |
+| Espérance et variance d'une binomiale : `np` et `np(1−p)` | 1S | oui | ◐ |
+| Probabilité conditionnelle `P_A(B) = P(A ∩ B)/P(A)` ; formule des probabilités composées | TS | | ☑ |
+| Formule des probabilités totales ; arbre pondéré | TS | | ☑ |
+| Indépendance de deux événements ; indépendance et événements contraires | TS | | ☑ |
+| Loi uniforme sur `[a,b]` : densité, espérance `(a+b)/2` | TS | | ☑ |
+| Loi exponentielle : densité `λe^{−λt}`, `P(X > t) = e^{−λt}`, absence de mémoire, espérance `1/λ` | TS | | ◐ |
+| Loi normale centrée réduite ; théorème de Moivre–Laplace | TS | oui | ◐ |
+| Loi normale `N(μ, σ²)` ; intervalles `1σ`, `2σ`, `3σ` (68 %, 95 %, 99,7 %) | TS | oui | ◐ |
 | Intervalle de fluctuation asymptotique au seuil 95 % : `[p ± 1,96√(p(1−p)/n)]` | TS | | ☐ |
 | Intervalle de confiance `[f ± 1/√n]` ; prise de décision | TS | oui | ☐ |
 

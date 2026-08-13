@@ -87,7 +87,7 @@ globs = ["GeometrieVecteursProduitScalaireEspace"]
 [[lean_lib]]
 name = "LyceeProbabilitesEtStatistiques"
 srcDir = "cours/02-lycee/09-probabilites-et-statistiques"
-globs = []
+globs = ["ProbabilitesEtStatistiques"]
 
 [[lean_lib]]
 name = "LyceeSpecialiteMathematiquesTerminaleS"
