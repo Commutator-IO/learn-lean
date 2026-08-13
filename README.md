@@ -11,15 +11,23 @@ ce dépôt cherche à mesurer, autant que les preuves elles-mêmes.
 
 ## Les deux programmes
 
-| Fichier | Contenu | Énoncés |
-|---|---|---|
-| [college.md](college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 93, dont 38 démontrés |
-| [lycee.md](lycee.md) | Seconde, première S, terminale S et spécialité | 137, aucun démontré |
+| Fichier | Contenu | Énoncés | Démontrés |
+|---|---|---|---|
+| [college.md](college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 93 | 90 |
+| [lycee.md](lycee.md) | Seconde, première S, terminale S et spécialité | 137 | 123 |
+
+Les dix-sept chapitres des deux programmes ont leurs fichiers `.lean`, leur transcription
+française et leur PDF. Les énoncés restants sont ceux qui résistent, et les raisons sont
+écrites au cas par cas dans les documents des chapitres concernés : aire du disque et
+volume de la boule au collège, volume d'un solide de révolution, théorème du toit,
+Moivre–Laplace et les intervalles de fluctuation au lycée.
 
 Chaque ligne y porte un statut. Le fichier lycée ajoute une colonne *Admis* qui signale
 les énoncés que le programme admet sans démonstration (théorème des valeurs
 intermédiaires, existence de primitives, Moivre–Laplace…) : c'est la frontière la plus
-intéressante, puisque Lean ne connaît pas cette convention.
+intéressante, puisque Lean ne connaît pas cette convention. Elle se déplace dans les deux
+sens : l'espérance d'une loi binomiale, admise au lycée, est ici démontrée — Mathlib ne la
+contenait pas ; et le théorème du toit, admis lui aussi, ne l'est pas.
 
 ## Statuts
 
@@ -42,7 +50,8 @@ lycee.md        idem pour le lycée, filière S
 cours/          un dossier par chapitre, avec l'index de ses énoncés (README.md)
   01-college/     7 chapitres
   02-lycee/      10 chapitres
-                les fichiers .lean s'y ajoutent au fur et à mesure
+                chaque chapitre contient ses .lean (les preuves) et son .tex
+                (les mêmes énoncés rédigés en français), et produit un PDF
 sujets/         annales du brevet (2000-2026) et script de téléchargement
 outils/         generer-cours.py (index), generer-lakefile.py (bibliothèques),
                 generer-tex.py (un document LaTeX par chapitre)
@@ -141,7 +150,8 @@ python3 outils/generer-cours.py
 
 Le script ne crée que les index `README.md` manquants — jamais de `.lean` — et ne réécrit
 aucun fichier existant. Pour reconstruire un index après modification d'une liste,
-supprimer cet index et relancer.
+supprimer cet index et relancer. Les index portent le décompte des énoncés démontrés, qui
+est donc à reconstruire après chaque changement de statut.
 
 ## Outillage indispensable
 

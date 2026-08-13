@@ -3,10 +3,10 @@
 Un dossier par chapitre des deux programmes. Chaque dossier contient un index
 des énoncés à démontrer et accueille les fichiers `.lean` au fur et à mesure.
 
-| Programme | Dossier | Source |
-|---|---|---|
-| Programme du collège | [`01-college/`](01-college/README.md) | [college.md](../college.md) |
-| Programme du lycée (filière S) | [`02-lycee/`](02-lycee/README.md) | [lycee.md](../lycee.md) |
+| Programme | Dossier | Source | Démontrés |
+|---|---|---|---|
+| Programme du collège | [`01-college/`](01-college/README.md) | [college.md](../college.md) | 90/93 |
+| Programme du lycée (filière S) | [`02-lycee/`](02-lycee/README.md) | [lycee.md](../lycee.md) | 123/137 |
 
 ## Écrire les preuves
 

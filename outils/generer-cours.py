@@ -77,8 +77,8 @@ racine = ["# Cours",
           "Un dossier par chapitre des deux programmes. Chaque dossier contient un index",
           "des énoncés à démontrer et accueille les fichiers `.lean` au fur et à mesure.",
           "",
-          "| Programme | Dossier | Source |",
-          "|---|---|---|"]
+          "| Programme | Dossier | Source | Démontrés |",
+          "|---|---|---|---|"]
 
 for source, dossier, intitule in SOURCES:
     chapitres = lire(f"{ROOT}/{source}")
@@ -89,8 +89,8 @@ for source, dossier, intitule in SOURCES:
              "",
              f"Index dérivé de [{source}](../../{source}) · retour à l'[index du cours](../README.md).",
              "",
-             "| Chapitre | Dossier | Énoncés |",
-             "|---|---|---|"]
+             "| Chapitre | Dossier | Énoncés | Démontrés |",
+             "|---|---|---|---|"]
 
     for num, titre, items in chapitres:
         sous_dossier = f"{num.zfill(2)}-{short_slug(titre)}"
@@ -125,14 +125,16 @@ for source, dossier, intitule in SOURCES:
             chap.append("")
 
         ecrire(f"{base}/{sous_dossier}/README.md", chap)
+        demontres = sum(1 for it in items if it[3] == "☑")
         index.append(f"| {num}. {titre} | [`{sous_dossier}/`]({sous_dossier}/README.md) | "
-                     f"{len(items)} |")
+                     f"{len(items)} | {demontres} |")
 
     total = sum(len(items) for _, _, items in chapitres)
-    index += ["", f"**{total} énoncés** au total.", ""]
+    total_dem = sum(1 for _, _, items in chapitres for it in items if it[3] == "☑")
+    index += ["", f"**{total} énoncés** au total, dont **{total_dem} démontrés**.", ""]
     ecrire(f"{base}/README.md", index)
     racine.append(f"| {intitule} | [`{dossier}/`]({dossier}/README.md) | "
-                  f"[{source}](../{source}) |")
+                  f"[{source}](../{source}) | {total_dem}/{total} |")
 
 racine += ["",
            "## Écrire les preuves",
