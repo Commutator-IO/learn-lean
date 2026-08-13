@@ -20,7 +20,7 @@ export default defineConfig({
         cours: resolve(import.meta.dirname, 'cours/index.html'),
         livre: resolve(import.meta.dirname, 'livre/index.html'),
         methode: resolve(import.meta.dirname, 'methode/index.html'),
-        travaux: resolve(import.meta.dirname, 'travaux/index.html'),
+        sujets: resolve(import.meta.dirname, 'sujets/index.html'),
       },
     },
   },

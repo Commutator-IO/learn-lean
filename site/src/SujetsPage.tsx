@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Footer, Header } from './components/Frame.tsx'
 
 /**
- * En travaux : les annales, en consultation seulement.
+ * Les sujets d'examens : les annales, en consultation seulement.
  *
  * Cette page annonce un chantier ouvert et n'affiche que ce qui existe : des
  * liens vers les sujets, hébergés par l'APMEP. Aucun n'est résolu en Lean pour
@@ -14,7 +14,7 @@ import { Footer, Header } from './components/Frame.tsx'
 type Session = { annee: number; session: string; sujet: string; corrige: string | null }
 type Examen = { id: string; titre: string; fichier: string; sessions: Session[] }
 
-export function TravauxPage() {
+export function SujetsPage() {
   const [examens, setExamens] = useState<Examen[] | null>(null)
   const [choisi, setChoisi] = useState('brevet')
   const [annee, setAnnee] = useState<number | 'toutes'>('toutes')
@@ -38,11 +38,11 @@ export function TravauxPage() {
 
   return (
     <div className="flex min-h-dvh flex-col">
-      <Header path="/travaux/" />
+      <Header path="/sujets/" />
 
       <main className="mx-auto w-full max-w-4xl flex-1 px-5 pb-16">
         <div className="mt-14 flex items-center gap-3">
-          <h1 className="font-serif text-4xl leading-tight text-ink-900">En travaux</h1>
+          <h1 className="font-serif text-4xl leading-tight text-ink-900">Sujets d'examens</h1>
           <span className="rounded-full bg-encours-50 px-2.5 py-1 font-sans text-[11px] font-semibold tracking-wide text-encours-600 uppercase">
             chantier ouvert
           </span>

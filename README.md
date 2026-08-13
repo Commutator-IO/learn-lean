@@ -234,7 +234,7 @@ Le dépôt publie [lean.commutator.io](https://lean.commutator.io/), cinq onglet
 | Apprendre Lean | le cours à deux volets — le fichier Lean à gauche, sa transcription française à droite, défilement lié |
 | Le livre | le même cours rédigé d'affilée, sans le code, et son PDF |
 | Méthode | comment on passe d'un énoncé de programme à un théorème vérifié, les outils, les deux skills |
-| En travaux | les annales de brevet et de baccalauréat, en consultation — le chantier suivant |
+| Sujets d'examens | les annales de brevet et de baccalauréat, en consultation — le chantier suivant |
 | Dépôt | le code source |
 
 ```bash

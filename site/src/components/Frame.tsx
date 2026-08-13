@@ -10,7 +10,7 @@ const PAGES = [
   { path: '/cours/', label: 'Apprendre Lean' },
   { path: '/livre/', label: 'Le livre' },
   { path: '/methode/', label: 'Méthode' },
-  { path: '/travaux/', label: 'En travaux' },
+  { path: '/sujets/', label: "Sujets d'examens" },
 ]
 
 function courant(path: string, ici: string) {
