@@ -149,16 +149,16 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Forme algébrique `a + ib` ; unicité de l'écriture, `i² = −1` | TS | | ☐ |
-| Conjugué : `conj(z + z') = conj z + conj z'`, `conj(zz') = conj z conj z'`, `z conj z = \|z\|²` | TS | | ☐ |
-| `z` réel ⟺ `z = conj z` ; `z` imaginaire pur ⟺ `z = −conj z` | TS | | ☐ |
-| Module : `\|zz'\| = \|z\|\|z'\|`, `\|z + z'\| ≤ \|z\| + \|z'\|` | TS | | ☐ |
-| Argument, forme trigonométrique ; `arg(zz') = arg z + arg z'` | TS | | ☐ |
-| Forme exponentielle `re^{iθ}` ; formules d'Euler et de Moivre | TS | | ☐ |
-| Équation du second degré à coefficients réels avec `Δ < 0` : deux racines conjuguées | TS | | ☐ |
-| Interprétation géométrique : affixe, `\|z_B − z_A\|` = distance, `arg((z_C − z_A)/(z_B − z_A))` = angle | TS | | ☐ |
-| Alignement et orthogonalité en termes d'affixes ; caractérisation d'un cercle | TS | | ☐ |
-| Écriture complexe d'une translation, d'une rotation, d'une homothétie | TS | | ☐ |
+| Forme algébrique `a + ib` ; unicité de l'écriture, `i² = −1` | TS | | ☑ |
+| Conjugué : `conj(z + z') = conj z + conj z'`, `conj(zz') = conj z conj z'`, `z conj z = \|z\|²` | TS | | ☑ |
+| `z` réel ⟺ `z = conj z` ; `z` imaginaire pur ⟺ `z = −conj z` | TS | | ☑ |
+| Module : `\|zz'\| = \|z\|\|z'\|`, `\|z + z'\| ≤ \|z\| + \|z'\|` | TS | | ☑ |
+| Argument, forme trigonométrique ; `arg(zz') = arg z + arg z'` | TS | | ☑ |
+| Forme exponentielle `re^{iθ}` ; formules d'Euler et de Moivre | TS | | ☑ |
+| Équation du second degré à coefficients réels avec `Δ < 0` : deux racines conjuguées | TS | | ☑ |
+| Interprétation géométrique : affixe, `\|z_B − z_A\|` = distance, `arg((z_C − z_A)/(z_B − z_A))` = angle | TS | | ☑ |
+| Alignement et orthogonalité en termes d'affixes ; caractérisation d'un cercle | TS | | ☑ |
+| Écriture complexe d'une translation, d'une rotation, d'une homothétie | TS | | ☑ |
 
 ---
 

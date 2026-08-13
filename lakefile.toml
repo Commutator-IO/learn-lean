@@ -77,12 +77,12 @@ globs = ["Integration"]
 [[lean_lib]]
 name = "LyceeNombresComplexes"
 srcDir = "cours/02-lycee/07-nombres-complexes"
-globs = []
+globs = ["NombresComplexes"]
 
 [[lean_lib]]
 name = "LyceeGeometrieVecteursProduitScalaireEspace"
 srcDir = "cours/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace"
-globs = []
+globs = ["GeometrieVecteursProduitScalaireEspace"]
 
 [[lean_lib]]
 name = "LyceeProbabilitesEtStatistiques"
