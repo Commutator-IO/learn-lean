@@ -91,19 +91,19 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Limite d'une fonction en un point, en `±∞` ; asymptotes horizontale, verticale, oblique | TS | | ☐ |
-| Opérations sur les limites ; limite d'une composée | TS | oui | ☐ |
-| Croissances comparées : `eˣ/xⁿ → +∞`, `ln x / x → 0`, `x ln x → 0` | TS | | ☐ |
-| Continuité en un point, sur un intervalle ; toute fonction dérivable est continue | TS | oui | ☐ |
-| Théorème des valeurs intermédiaires | TS | oui | ☐ |
-| Corollaire : `f` continue strictement monotone sur `[a,b]` ⟹ `f(x) = k` a une solution unique | TS | | ☐ |
-| Nombre dérivé comme limite du taux d'accroissement ; équation de la tangente | 1S | | ☐ |
-| Dérivées usuelles : `xⁿ`, `1/x`, `√x`, `sin`, `cos`, `exp`, `ln` | 1S / TS | | ☐ |
-| Opérations : `(u + v)'`, `(uv)'`, `(1/v)'`, `(u/v)'` | 1S | | ☐ |
-| Dérivée d'une composée `(v ∘ u)' = u' × (v' ∘ u)` ; cas `u(ax + b)` | 1S / TS | | ☐ |
-| Signe de `f'` et sens de variation de `f` | 1S | oui | ☐ |
-| Un extremum local en un point intérieur où `f` est dérivable annule `f'` ; la réciproque est fausse | 1S | | ☐ |
-| Dérivée seconde, convexité, point d'inflexion | TS | | ☐ |
+| Limite d'une fonction en un point, en `±∞` ; asymptotes horizontale, verticale, oblique | TS | | ☑ |
+| Opérations sur les limites ; limite d'une composée | TS | oui | ☑ |
+| Croissances comparées : `eˣ/xⁿ → +∞`, `ln x / x → 0`, `x ln x → 0` | TS | | ☑ |
+| Continuité en un point, sur un intervalle ; toute fonction dérivable est continue | TS | oui | ☑ |
+| Théorème des valeurs intermédiaires | TS | oui | ☑ |
+| Corollaire : `f` continue strictement monotone sur `[a,b]` ⟹ `f(x) = k` a une solution unique | TS | | ☑ |
+| Nombre dérivé comme limite du taux d'accroissement ; équation de la tangente | 1S | | ☑ |
+| Dérivées usuelles : `xⁿ`, `1/x`, `√x`, `sin`, `cos`, `exp`, `ln` | 1S / TS | | ☑ |
+| Opérations : `(u + v)'`, `(uv)'`, `(1/v)'`, `(u/v)'` | 1S | | ☑ |
+| Dérivée d'une composée `(v ∘ u)' = u' × (v' ∘ u)` ; cas `u(ax + b)` | 1S / TS | | ☑ |
+| Signe de `f'` et sens de variation de `f` | 1S | oui | ☑ |
+| Un extremum local en un point intérieur où `f` est dérivable annule `f'` ; la réciproque est fausse | 1S | | ☑ |
+| Dérivée seconde, convexité, point d'inflexion | TS | | ☑ |
 
 ---
 

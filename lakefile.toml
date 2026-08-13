@@ -62,7 +62,7 @@ globs = ["Suites"]
 [[lean_lib]]
 name = "LyceeLimitesContinuiteDerivation"
 srcDir = "cours/02-lycee/04-limites-continuite-derivation"
-globs = []
+globs = ["LimitesContinuiteDerivation"]
 
 [[lean_lib]]
 name = "LyceeExponentielleLogarithmeTrigonometrie"
