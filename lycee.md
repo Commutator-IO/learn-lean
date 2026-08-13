@@ -111,19 +111,19 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Existence et unicité de `f` dérivable telle que `f' = f` et `f(0) = 1` | TS | oui | ☐ |
-| `exp(a + b) = exp(a)exp(b)`, `exp(−a) = 1/exp(a)`, `exp(na) = exp(a)ⁿ` | TS | | ☐ |
-| `exp(x) > 0` pour tout `x` ; `exp` strictement croissante | TS | | ☐ |
-| Limites : `eˣ → +∞` en `+∞`, `eˣ → 0` en `−∞` | TS | | ☐ |
-| `ln` réciproque de `exp` : `ln(exp x) = x`, `exp(ln x) = x` pour `x > 0` | TS | | ☐ |
-| `ln(ab) = ln a + ln b`, `ln(a/b)`, `ln(aⁿ) = n ln a`, `ln √a = ½ ln a` | TS | | ☐ |
-| `ln` dérivable de dérivée `1/x` ; `ln` strictement croissante | TS | | ☐ |
-| Limites de `ln` en `0⁺` et en `+∞` | TS | | ☐ |
-| Cercle trigonométrique, radians ; `cos² + sin² = 1` | 1S | | ☐ |
-| Valeurs remarquables et angles associés (`−x`, `π − x`, `π/2 − x`…) | 1S | | ☐ |
-| Formules d'addition et de duplication de `cos` et `sin` | 1S | | ☐ |
-| Résolution de `cos x = a`, `sin x = a` ; périodicité | 1S | | ☐ |
-| `sin` et `cos` dérivables, `sin' = cos`, `cos' = −sin` ; `lim (sin x)/x = 1` en 0 | TS | | ☐ |
+| Existence et unicité de `f` dérivable telle que `f' = f` et `f(0) = 1` | TS | oui | ☑ |
+| `exp(a + b) = exp(a)exp(b)`, `exp(−a) = 1/exp(a)`, `exp(na) = exp(a)ⁿ` | TS | | ☑ |
+| `exp(x) > 0` pour tout `x` ; `exp` strictement croissante | TS | | ☑ |
+| Limites : `eˣ → +∞` en `+∞`, `eˣ → 0` en `−∞` | TS | | ☑ |
+| `ln` réciproque de `exp` : `ln(exp x) = x`, `exp(ln x) = x` pour `x > 0` | TS | | ☑ |
+| `ln(ab) = ln a + ln b`, `ln(a/b)`, `ln(aⁿ) = n ln a`, `ln √a = ½ ln a` | TS | | ☑ |
+| `ln` dérivable de dérivée `1/x` ; `ln` strictement croissante | TS | | ☑ |
+| Limites de `ln` en `0⁺` et en `+∞` | TS | | ☑ |
+| Cercle trigonométrique, radians ; `cos² + sin² = 1` | 1S | | ☑ |
+| Valeurs remarquables et angles associés (`−x`, `π − x`, `π/2 − x`…) | 1S | | ☑ |
+| Formules d'addition et de duplication de `cos` et `sin` | 1S | | ☑ |
+| Résolution de `cos x = a`, `sin x = a` ; périodicité | 1S | | ☑ |
+| `sin` et `cos` dérivables, `sin' = cos`, `cos' = −sin` ; `lim (sin x)/x = 1` en 0 | TS | | ☑ |
 
 ---
 

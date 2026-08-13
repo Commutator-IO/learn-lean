@@ -67,7 +67,7 @@ globs = ["LimitesContinuiteDerivation"]
 [[lean_lib]]
 name = "LyceeExponentielleLogarithmeTrigonometrie"
 srcDir = "cours/02-lycee/05-exponentielle-logarithme-trigonometrie"
-globs = []
+globs = ["ExponentielleLogarithmeTrigonometrie"]
 
 [[lean_lib]]
 name = "LyceeIntegration"
