@@ -51,7 +51,9 @@ export function TravauxPage() {
         <p className="mt-5 text-[17px] leading-relaxed text-ink-600">
           Le cours est démontré ; les épreuves ne le sont pas encore. Cette page rassemble les
           sujets de brevet et de baccalauréat de France métropolitaine — <strong>en consultation
-          seulement</strong>. Aucun exercice n'est aujourd'hui formalisé.
+          seulement</strong>. Aucun exercice n'est aujourd'hui formalisé. Les corrigés de l'APMEP
+          ne sont pas repris ici : l'objet du chantier est de démontrer les énoncés, pas de les
+          comparer à une correction rédigée.
         </p>
 
         <div className="mt-6 rounded-lg border border-ink-200 bg-ink-50 px-5 py-4 text-[15px] leading-relaxed text-ink-600">
@@ -116,7 +118,6 @@ export function TravauxPage() {
             <tr className="border-b border-ink-200 text-left text-[12px] tracking-wide text-ink-400 uppercase">
               <th className="py-2 pr-3 font-semibold">Session</th>
               <th className="py-2 pr-3 font-semibold">Sujet</th>
-              <th className="py-2 pr-3 font-semibold">Corrigé</th>
               <th className="py-2 font-semibold">Formalisé</th>
             </tr>
           </thead>
@@ -131,18 +132,6 @@ export function TravauxPage() {
                   >
                     PDF
                   </a>
-                </td>
-                <td className="py-2 pr-3">
-                  {s.corrige ? (
-                    <a
-                      href={s.corrige}
-                      className="text-brand-700 underline underline-offset-2 hover:text-brand-800"
-                    >
-                      corrigé
-                    </a>
-                  ) : (
-                    <span className="text-ink-300">—</span>
-                  )}
                 </td>
                 <td className="py-2 font-mono text-[12px] text-ink-300">☐</td>
               </tr>
