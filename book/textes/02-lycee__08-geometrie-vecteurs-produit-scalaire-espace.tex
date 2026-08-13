@@ -1,0 +1,20 @@
+Deux cadres se partagent ce chapitre. Les énoncés qui parlent de coordonnées vivent dans le
+plan ou l'espace repérés, où un point \emph{est} la donnée de ses coordonnées ; les autres —
+produit scalaire, Al-Kashi, théorème de la médiane — sont écrits sans repère, comme le fait le
+programme lorsqu'il raisonne sur des vecteurs.
+
+La plus jolie démonstration du chapitre est celle de l'aire d'un triangle. La bibliothèque
+donne l'identité $\langle u, v\rangle^2 + \det(u,v)^2 = \|u\|^2\|v\|^2$, forme algébrique de
+$\cos^2 + \sin^2 = 1$ pour deux vecteurs ; en y remplaçant le produit scalaire par
+$\|u\|\|v\|\cos\theta$, il reste $|\det(u,v)| = \|u\|\|v\|\sin\theta$, d'où la formule
+$\frac{1}{2}ab\sin C$.
+
+Une ligne du programme est une définition et non un théorème : \og{} $u \perp v$ si et
+seulement si $u \cdot v = 0$ \fg{}. En Lean, l'orthogonalité \emph{est} la nullité du produit
+scalaire ; le chapitre démontre donc la caractérisation qui a un contenu — le rectangle est le
+parallélogramme dont les diagonales sont égales.
+
+La géométrie de l'espace est la partie la moins complète du livre. La classification des
+positions relatives est une taxinomie plus qu'un théorème ; le théorème du toit et les
+intersections de plans reposent sur un calcul de dimensions — l'intersection de deux plans
+distincts de l'espace est une droite parce que $2 + 2 - 3 = 1$ — que le chapitre ne mène pas.

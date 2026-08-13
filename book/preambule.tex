@@ -1,0 +1,41 @@
+% Préambule du livre. Assemblé par tools/generate-book.py avec les documents de
+% chapitre et les textes de liaison de book/textes/.
+%
+% Il reprend, à la classe près, celui des documents de chapitre : mêmes
+% environnements, mêmes conventions typographiques. Un énoncé se compose donc
+% exactement de la même façon dans le livre et dans le document isolé — ce qui
+% est la moindre des choses puisque c'est le même texte.
+\documentclass[11pt,a4paper,openany]{book}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.6cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+% Numérotation par chapitre : « Théorème 4.3 » se retrouve dans un livre de
+% trois cents pages, « Théorème 137 » non.
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[chapter]
+\theoremstyle{plain}
+\newtheorem{theoreme}[definition]{Théorème}
+\newtheorem{lemme}[definition]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à
+% droite. C'est le seul lien entre le livre et le dépôt : il permet d'aller
+% vérifier, ligne par ligne, que la démonstration lue est bien celle que la
+% machine accepte.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{%
+  Mathématiques du secondaire\\
+  \large démontrées en Lean 4, de la sixième à la terminale}
+\author{learn-lean --- \texttt{lean.commutator.io}}
+\date{}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lean.commutator.io/sitemap.xml

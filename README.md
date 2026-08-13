@@ -224,3 +224,29 @@ pour mot (`Real.exp`, `Real.log`, `Complex.abs`, `Nat.Prime`, `intervalIntegral`
 `Matrix`). Pour ces énoncés, l'exercice n'est plus de démontrer mais de retrouver la
 formulation exacte et de vérifier qu'elle dit bien la même chose que l'énoncé français —
 exercice différent, et pas toujours plus facile.
+
+## Le site
+
+Le dépôt publie [lean.commutator.io](https://lean.commutator.io/) : le cours lu à deux
+volets — le fichier Lean à gauche, sa transcription française à droite — et le livre
+complet en PDF.
+
+```bash
+cd site && npm install && npm run dev
+```
+
+Le site ne stocke rien : `npm run manifest` relit `courses/`, apparie chaque déclaration
+Lean avec son bloc LaTeX par le renvoi `\source{…}{Fichier.lean#L42}`, et rend les
+formules par KaTeX à la construction. Une formule fautive fait donc échouer la
+construction plutôt que de s'afficher en rouge en production.
+
+Le livre s'assemble à part, des mêmes documents de chapitre :
+
+```bash
+python3 tools/generate-book.py && tectonic book/cours-complet.tex
+```
+
+Il n'ajoute aucune mathématique : seulement le texte de liaison de `book/textes/`, écrit
+selon la skill [`write-course-book`](.claude/skills/write-course-book/SKILL.md). Le
+workflow [`site.yml`](.github/workflows/site.yml) construit les deux et les déploie sur
+GitHub Pages.

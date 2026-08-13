@@ -1,0 +1,228 @@
+#!/usr/bin/env node
+/**
+ * Apparie chaque déclaration Lean de `courses/` avec sa transcription française,
+ * et écrit ce que le site lit : `public/index.json` et `public/chapters/*.json`.
+ *
+ * L'appariement ne repose sur aucune convention de nommage : chaque bloc du
+ * document LaTeX se termine par un renvoi `\source{…}{Fichier.lean#L42}`,
+ * engendré par `tools/generate-tex.py` à partir du fichier Lean lui-même. C'est
+ * cette ligne — fichier et numéro de ligne — qui sert de clé. Elle est donc
+ * exacte par construction, et `generate-tex.py --liens` la remet à jour quand
+ * une preuve change de longueur.
+ *
+ * Rien n'est versionné de ce que ce script produit : le site se reconstruit à
+ * partir des fichiers `.lean` et `.tex`, qui restent la seule source.
+ *
+ *   npm run manifest
+ */
+
+import { readdir, readFile, writeFile, mkdir, rm } from 'node:fs/promises';
+import { resolve, join, basename } from 'node:path';
+import { texToHtml } from './latex.mjs';
+
+const SITE = resolve(import.meta.dirname, '..');
+const DEPOT = resolve(SITE, '..');
+const COURS = resolve(DEPOT, 'courses');
+const SORTIE = resolve(SITE, 'public');
+
+const PROGRAMMES = [
+  { id: '01-college', titre: 'Collège', source: 'college.md' },
+  { id: '02-lycee', titre: 'Lycée (filière S)', source: 'lycee.md' },
+];
+
+/** Les modificateurs précèdent le mot-clé, comme dans generate-tex.py. */
+const DECLARATION =
+  /^(?:noncomputable |private |protected |partial |unsafe )*(theorem|lemma|def|abbrev|instance|example)\s+([^\s({[:]*)/;
+
+/**
+ * Découpe un fichier Lean en déclarations documentées.
+ *
+ * Même règle que le générateur LaTeX : une docstring `/-- … -/`, puis les
+ * lignes de la déclaration jusqu'à la première ligne vide. Les fichiers du
+ * dépôt respectent cette forme — c'est elle qui rend les deux vues jumelles.
+ */
+function declarations(source) {
+  const lignes = source.split('\n');
+  const out = [];
+  let section = null;
+
+  for (let i = 0; i < lignes.length; ) {
+    const ligne = lignes[i];
+
+    if (ligne.startsWith('/-!')) {
+      let texte = ligne.slice(3);
+      while (!texte.includes('-/')) texte += '\n' + lignes[++i];
+      section = texte.slice(0, texte.indexOf('-/')).replace(/#/g, '').trim();
+      i++;
+      continue;
+    }
+
+    if (ligne.startsWith('/--')) {
+      let doc = ligne.slice(3);
+      while (!doc.includes('-/')) doc += '\n' + lignes[++i];
+      doc = doc.slice(0, doc.indexOf('-/')).trim();
+      i++;
+      const corps = [];
+      while (i < lignes.length && lignes[i].trim() !== '') corps.push(lignes[i++]);
+      const m = DECLARATION.exec(corps[0] ?? '');
+      out.push({
+        sorte: m?.[1] ?? '',
+        nom: m?.[2] ?? '',
+        doc,
+        section,
+        ligne: i - corps.length + 1,
+        finLigne: i,
+        code: corps.join('\n'),
+      });
+      continue;
+    }
+    i++;
+  }
+  return out;
+}
+
+/**
+ * Découpe un document LaTeX en blocs, un par déclaration.
+ *
+ * Chaque bloc va de la fin du précédent jusqu'à son `\source`. On y lit
+ * l'énoncé (l'environnement `theoreme`, `lemme` ou `definition`) et, s'il y en
+ * a une, la démonstration.
+ */
+function blocsTex(source) {
+  // Le préambule n'est pas du texte : il décrit la mise en page. On part donc
+  // du corps, et l'on jette les commentaires LaTeX et les commandes de
+  // composition, qui n'ont rien à dire à un lecteur.
+  const corpsDoc = source.slice(source.indexOf('\\begin{document}'));
+  const tex = corpsDoc
+    .split('\n')
+    .filter((l) => !l.trimStart().startsWith('%'))
+    .join('\n')
+    .replace(/\\begin\{document\}|\\maketitle|\\sloppy|\\vfill/g, '');
+
+  const blocs = new Map();
+  const re = /\\source\{[^}]*\}\{([^}]*?)\\#L(\d+)\}/g;
+  let debut = 0;
+  let m;
+  while ((m = re.exec(tex)) !== null) {
+    const corps = tex.slice(debut, m.index);
+    debut = re.lastIndex;
+    const fichier = m[1].replace(/\\#.*$/, '');
+    const cle = `${fichier}#${m[2]}`;
+
+    const enonce = /\\begin\{(theoreme|lemme|definition)\}([\s\S]*?)\\end\{\1\}/.exec(corps);
+    const preuve = /\\begin\{proof\}([\s\S]*?)\\end\{proof\}/.exec(corps);
+    // Ce qui précède l'énoncé dans le bloc : les remarques libres du fichier
+    // Lean, qui appartiennent au fil du texte et non à un théorème.
+    const avant = enonce ? corps.slice(0, enonce.index) : corps;
+    const remarque = avant.replace(/\\(?:sub)*section\{[^}]*\}/g, '').trim();
+
+    blocs.set(cle, {
+      enonceHtml: enonce ? texToHtml(enonce[2].trim()) : '',
+      preuveHtml: preuve ? texToHtml(preuve[1].trim()) : '',
+      remarqueHtml: remarque ? texToHtml(remarque) : '',
+    });
+  }
+  return blocs;
+}
+
+/** Le titre d'un chapitre et l'état de ses énoncés, lus dans son index. */
+async function indexChapitre(dossier) {
+  const md = await readFile(join(dossier, 'README.md'), 'utf8');
+  const titre = /^# (.+)$/m.exec(md)?.[1] ?? basename(dossier);
+  const lignes = md.split('\n').filter((l) => l.startsWith('| ') && !l.startsWith('|---'));
+  const statuts = { total: 0, demontres: 0, encours: 0 };
+  for (const l of lignes) {
+    const cellules = l.split('|').map((c) => c.trim());
+    const statut = cellules[cellules.length - 2];
+    if (!'☑◐☐✗'.includes(statut)) continue;
+    statuts.total++;
+    if (statut === '☑') statuts.demontres++;
+    if (statut === '◐') statuts.encours++;
+  }
+  return { titre, statuts };
+}
+
+async function chapitres(programme) {
+  const base = join(COURS, programme.id);
+  const dossiers = (await readdir(base, { withFileTypes: true }))
+    .filter((d) => d.isDirectory())
+    .map((d) => d.name)
+    .sort();
+
+  const out = [];
+  for (const nom of dossiers) {
+    const dossier = join(base, nom);
+    const fichiers = (await readdir(dossier)).sort();
+    const leans = fichiers.filter((f) => f.endsWith('.lean'));
+    if (leans.length === 0) continue;
+
+    const { titre, statuts } = await indexChapitre(dossier);
+    const tex = fichiers.find((f) => f.endsWith('.tex'));
+    const blocs = tex ? blocsTex(await readFile(join(dossier, tex), 'utf8')) : new Map();
+
+    const modules = [];
+    for (const lean of leans) {
+      const source = await readFile(join(dossier, lean), 'utf8');
+      const decls = declarations(source).map((d) => ({
+        ...d,
+        ...(blocs.get(`${lean}#${d.ligne}`) ?? {
+          enonceHtml: '',
+          preuveHtml: '',
+          remarqueHtml: '',
+        }),
+      }));
+      modules.push({
+        nom: lean,
+        // Le fichier entier, pour le volet de gauche : on lit la preuve dans
+        // son contexte, imports et espace de noms compris.
+        source,
+        declarations: decls,
+      });
+    }
+
+    out.push({
+      id: `${programme.id}/${nom}`,
+      dossier: nom,
+      programme: programme.id,
+      titre,
+      statuts,
+      modules,
+    });
+  }
+  return out;
+}
+
+const chemin = (id) => join(SORTIE, 'chapters', `${id.replace('/', '__')}.json`);
+
+async function main() {
+  await rm(join(SORTIE, 'chapters'), { recursive: true, force: true });
+  await mkdir(join(SORTIE, 'chapters'), { recursive: true });
+
+  const index = { programmes: [], engendre: 'npm run manifest' };
+  for (const programme of PROGRAMMES) {
+    const liste = await chapitres(programme);
+    for (const c of liste) await writeFile(chemin(c.id), JSON.stringify(c));
+    index.programmes.push({
+      id: programme.id,
+      titre: programme.titre,
+      source: programme.source,
+      chapitres: liste.map((c) => ({
+        id: c.id,
+        titre: c.titre,
+        statuts: c.statuts,
+        modules: c.modules.map((m) => ({ nom: m.nom, declarations: m.declarations.length })),
+      })),
+    });
+  }
+
+  await writeFile(join(SORTIE, 'index.json'), JSON.stringify(index, null, 2));
+
+  const n = index.programmes.reduce((a, p) => a + p.chapitres.length, 0);
+  const d = index.programmes.reduce(
+    (a, p) => a + p.chapitres.reduce((b, c) => b + c.statuts.demontres, 0),
+    0,
+  );
+  console.log(`public/index.json : ${n} chapitres, ${d} énoncés démontrés`);
+}
+
+await main();

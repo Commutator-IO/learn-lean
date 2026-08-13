@@ -1,0 +1,17 @@
+Une différence de construction traverse ce chapitre, et il vaut mieux la connaître avant de
+le lire.
+
+Le programme \emph{définit} l'exponentielle comme l'unique fonction dérivable vérifiant
+$f' = f$ et $f(0) = 1$, et admet qu'elle existe. La bibliothèque procède autrement :
+l'exponentielle, le sinus et le cosinus y sont construits par leurs séries, et $\pi$ comme le
+double du premier zéro du cosinus. Le premier énoncé du chapitre rétablit le pont — la
+fonction de la bibliothèque est bien solution de l'équation différentielle — et le second
+démontre qu'elle en est la seule. Cette unicité, que le programme admet, est la démonstration
+substantielle du chapitre : on pose $g(t) = f(t)e^{-t}$, on montre que sa dérivée est nulle,
+donc qu'elle est constante.
+
+Deux limites de l'exercice sont signalées sur place. Le radian n'est pas formalisé comme
+longueur d'arc : le cercle trigonométrique est présent par son équation
+$\cos^2 + \sin^2 = 1$, pas par sa géométrie, car mesurer un arc demande une intégrale. Et la
+limite $\sin x / x \to 1$ est ici déduite de $\sin' = \cos$, l'inverse de l'ordre scolaire —
+sans cercle vicieux, puisque la bibliothèque établit la dérivée à partir des séries.

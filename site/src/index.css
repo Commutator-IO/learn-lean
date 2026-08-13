@@ -1,0 +1,100 @@
+@import 'tailwindcss';
+
+/* Rendues à la construction, les formules n'ont besoin que de la feuille de
+   style de KaTeX et de ses polices : Vite les reprend depuis node_modules et
+   les empaquette avec le reste, ce qui garde le site lisible hors ligne. */
+@import 'katex/dist/katex.min.css';
+
+@theme {
+  /* Le bleu de Lean, décliné en rampe complète : une nuance employée mais non
+     définie ne rend rien, et l'élément hériterait en silence. */
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #dbe3fe;
+  --color-brand-200: #bfcdfd;
+  --color-brand-300: #93a9fb;
+  --color-brand-400: #6b83f5;
+  --color-brand-500: #4a5eea;
+  --color-brand-600: #3743d0;
+  --color-brand-700: #2d36a8;
+  --color-brand-800: #283085;
+  --color-brand-900: #232a69;
+
+  /* Les gris du papier d'un manuel : un peu plus froids que ceux d'une
+     archive, parce qu'il s'agit ici de mathématiques imprimées, pas de
+     manuscrits. */
+  --color-ink-50: #f8f8f7;
+  --color-ink-100: #f0f0ee;
+  --color-ink-200: #e2e2de;
+  --color-ink-300: #c7c7c0;
+  --color-ink-400: #97968c;
+  --color-ink-500: #6e6d64;
+  --color-ink-600: #55544d;
+  --color-ink-700: #3f3e39;
+  --color-ink-800: #292824;
+  --color-ink-900: #131311;
+
+  /* Vert « démontré » : l'énoncé est clos, sans `sorry`. */
+  --color-prouve-50: #eef9f3;
+  --color-prouve-100: #d4f0e1;
+  --color-prouve-500: #1ba86f;
+  --color-prouve-600: #128557;
+  --color-prouve-700: #0e6744;
+
+  /* Ambre « en cours » : plus doux que l'alerte, pour qu'un œil qui balaie la
+     page ne prenne pas un chapitre en travaux pour un problème. */
+  --color-encours-50: #fdf8ec;
+  --color-encours-100: #f9eecc;
+  --color-encours-600: #9c6d06;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Le corps des énoncés reste en serif : c'est un cours de mathématiques, et
+     le PDF qu'il produit est composé de la même façon. Pile système, rien à
+     télécharger. */
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-white text-ink-800 font-sans antialiased;
+  }
+}
+
+/* Coloration Lean. Les classes viennent de src/lib/lean.ts ; les couleurs
+   restent sobres — le code est là pour être lu ligne à ligne, pas admiré. */
+.jeton-motcle {
+  @apply text-brand-700 font-medium;
+}
+.jeton-tactique {
+  @apply text-prouve-700;
+}
+.jeton-commentaire {
+  @apply text-ink-400 italic;
+}
+.jeton-chaine {
+  @apply text-encours-600;
+}
+.jeton-nombre {
+  @apply text-ink-600;
+}
+
+/* Prose des énoncés et des démonstrations : le HTML vient du LaTeX, il n'a
+   donc aucune classe. On le met en forme ici, une fois. */
+.prose-cours p {
+  @apply my-2 leading-relaxed;
+}
+.prose-cours ul {
+  @apply my-2 list-disc space-y-1 pl-5;
+}
+.prose-cours code {
+  @apply rounded bg-ink-100 px-1 py-0.5 font-mono text-[0.9em];
+}
+.prose-cours a {
+  @apply text-brand-700 underline underline-offset-2;
+}
+.prose-cours .katex-display {
+  @apply my-3 overflow-x-auto overflow-y-hidden py-1;
+}

@@ -33,6 +33,16 @@ lakefile.olean
 *.snm
 *.vrb
 
+# Site : dépendances, sortie de construction, et données engendrées depuis
+# courses/ par npm run manifest
+site/node_modules/
+site/dist/
+site/public/index.json
+site/public/chapters/
+
+# Livre : assemblé des documents de chapitre par tools/generate-book.py
+book/cours-complet.tex
+
 # Python
 __pycache__/
 *.pyc

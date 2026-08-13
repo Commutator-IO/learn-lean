@@ -1,0 +1,25 @@
+Ce livre rassemble les mathématiques enseignées en France de la sixième à la terminale, et
+donne de chaque théorème du programme une démonstration vérifiée par une machine.
+
+Chaque énoncé a été écrit dans \emph{Lean 4}, un assistant de preuve, puis démontré ; le
+noyau de Lean a contrôlé chaque pas. Ce que vous lisez ici est la transcription française de
+ces démonstrations : elle en suit les étapes une à une, sans les rendre plus élégantes.
+Sous chacune, un lien mène à la ligne exacte du fichier vérifié.
+
+Ce parti pris a une conséquence qu'il vaut mieux annoncer. Une démonstration formelle ne
+saute rien. Là où un manuel écrit \og{} on montre de même \fg{}, il faut écrire le second
+cas ; là où il écrit \og{} il est clair que \fg{}, il faut produire l'argument. Certaines
+démonstrations paraîtront donc plus longues que dans un cours ordinaire. Elles ne sont pas
+plus difficiles : elles sont complètes.
+
+Une seconde conséquence est plus intéressante. Un programme scolaire \emph{admet} beaucoup :
+le théorème des valeurs intermédiaires, l'existence des primitives, l'aire du disque. Un
+assistant de preuve ne connaît pas cette convention — il faut démontrer, ou emprunter à une
+bibliothèque qui a démontré. La frontière entre ce qui est admis et ce qui est établi se
+déplace donc, et pas toujours dans le sens attendu : l'espérance d'une loi binomiale, admise
+au lycée, est démontrée ici ; le théorème du toit, admis lui aussi, ne l'est pas. Chaque
+chapitre dit où il s'arrête et pourquoi. Ces limites font partie du sujet.
+
+Le lecteur n'a besoin de rien d'autre que du programme de sa classe. Aucune connaissance de
+Lean n'est supposée : le code n'apparaît pas dans ces pages, seulement les mathématiques
+qu'il contient.

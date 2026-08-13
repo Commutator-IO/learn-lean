@@ -1,0 +1,124 @@
+name: site
+
+on:
+  push:
+    branches: [main]
+  # Les vérifications tournent aussi sur les pull requests ; seul le
+  # déploiement est réservé à main.
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Jeton nécessaire au déploiement Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un déploiement à la fois, sans annuler celui qui est en vol.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - run: npm ci
+
+      # `--deny-warnings` est essentiel : sans lui oxlint signale les
+      # avertissements mais sort avec le code 0, et cette étape ne pourrait
+      # jamais échouer.
+      - name: Lint
+        run: npm run lint
+
+      # `npm run build` enchaîne le manifeste, `tsc -b` et `vite build`. Le
+      # manifeste lit courses/ : il apparie chaque déclaration Lean avec sa
+      # transcription et rend les formules par KaTeX. Une formule fautive fait
+      # donc échouer la construction plutôt que de s'afficher en rouge sur le
+      # site.
+      #
+      # Le site est servi depuis le domaine lean.commutator.io, donc depuis la
+      # racine : BASE_PATH reste vide et vite.config.ts retombe sur "/".
+      - name: Build
+        run: npm run build
+
+      # Tectonic plutôt que TeX Live : un seul binaire, qui ne télécharge que
+      # les paquets utilisés par le document. Quelques dizaines de mégaoctets
+      # au lieu de plusieurs gigaoctets.
+      - name: Install tectonic
+        run: |
+          curl -fsSL https://drop-sh.fullyjustified.net | sh
+          sudo mv tectonic /usr/local/bin/
+          tectonic --version
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/Tectonic
+          key: tectonic-${{ runner.os }}-v1
+
+      # Le livre est *construit*, pas stocké : il dérive des documents de
+      # chapitre, et le committer mettrait un binaire recompilé dans
+      # l'historique à chaque correction de virgule.
+      #
+      # Un échec de compilation ne doit pas emporter le déploiement : le site
+      # vaut d'être publié même sans son PDF, et la page du livre affiche alors
+      # l'absence plutôt qu'un lien mort.
+      - name: Compile the book
+        run: |
+          cd ..
+          python3 tools/generate-book.py
+          tectonic book/cours-complet.tex || true
+          if [ -f book/cours-complet.pdf ]; then
+            cp book/cours-complet.pdf site/dist/cours-complet.pdf
+            ls -la site/dist/cours-complet.pdf
+          else
+            echo "::warning::le livre n'a pas compilé, le site est publié sans son PDF"
+          fi
+
+      # GitHub Pages perd le domaine personnalisé au déploiement si un fichier
+      # CNAME ne se trouve pas à la racine de l'artefact. `public/CNAME` est
+      # copié tel quel par Vite ; cette étape ne garde que contre sa
+      # suppression accidentelle.
+      - name: Check the custom domain survived the build
+        run: |
+          test -f dist/CNAME || { echo "dist/CNAME manquant — le domaine serait perdu"; exit 1; }
+          cat dist/CNAME
+
+      # `enablement: true` provisionne Pages sur le dépôt s'il ne l'est pas
+      # encore ; sans cela l'étape échoue sur « Get Pages site failed » tant
+      # que personne n'a activé Pages à la main.
+      - uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request'
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          path: site/dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    # Une pull request ne déploie pas ; elle ne fait que passer les contrôles.
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
