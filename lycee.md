@@ -55,16 +55,16 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Ensemble de définition, image, antécédent ; sens de variation | 2de | | ☐ |
-| Fonctions de référence : affine, carré, inverse, racine, cube — variations et courbes | 2de | | ☐ |
-| Une fonction croissante conserve l'ordre ; composition avec une fonction décroissante l'inverse | 2de | | ☐ |
-| Forme canonique d'un trinôme `ax² + bx + c` | 1S | | ☐ |
-| Discriminant : nombre de racines réelles selon le signe de `Δ` | 1S | | ☐ |
-| Factorisation `a(x − x₁)(x − x₂)` et signe du trinôme (« du signe de `a` sauf entre les racines ») | 1S | | ☐ |
-| Somme et produit des racines : `x₁ + x₂ = −b/a`, `x₁x₂ = c/a` | 1S | | ☐ |
-| Sommet de la parabole, axe de symétrie | 1S | | ☐ |
-| Fonction homographique : ensemble de définition, variations, asymptotes | 1S | | ☐ |
-| Parité : symétrie de la courbe par rapport à l'axe des ordonnées ou à l'origine | 2de / 1S | | ☐ |
+| Ensemble de définition, image, antécédent ; sens de variation | 2de | | ☑ |
+| Fonctions de référence : affine, carré, inverse, racine, cube — variations et courbes | 2de | | ☑ |
+| Une fonction croissante conserve l'ordre ; composition avec une fonction décroissante l'inverse | 2de | | ☑ |
+| Forme canonique d'un trinôme `ax² + bx + c` | 1S | | ☑ |
+| Discriminant : nombre de racines réelles selon le signe de `Δ` | 1S | | ☑ |
+| Factorisation `a(x − x₁)(x − x₂)` et signe du trinôme (« du signe de `a` sauf entre les racines ») | 1S | | ☑ |
+| Somme et produit des racines : `x₁ + x₂ = −b/a`, `x₁x₂ = c/a` | 1S | | ☑ |
+| Sommet de la parabole, axe de symétrie | 1S | | ☑ |
+| Fonction homographique : ensemble de définition, variations, asymptotes | 1S | | ☑ |
+| Parité : symétrie de la courbe par rapport à l'axe des ordonnées ou à l'origine | 2de / 1S | | ☑ |
 
 ---
 

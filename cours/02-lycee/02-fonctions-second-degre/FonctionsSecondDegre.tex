@@ -1,0 +1,316 @@
+% Fichier engendré par outils/generer-tex.py à partir de 02-fonctions-second-degre.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Fonctions, second degré}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{FonctionsSecondDegre}
+
+\noindent
+Lycée \textemdash{} section \og{} Fonctions, second degré \fg{}.
+Énoncés et démonstrations en français : voir FonctionsSecondDegre.tex.
+
+\subsection{Définitions}
+
+\noindent
+Toutes les définitions du fichier sont posées ici, avant les démonstrations.
+
+\begin{definition}
+Le \emph{trinôme} de coefficients $a$, $b$, $c$ est la fonction
+$x \mapsto ax^2 + bx + c$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L16}{FonctionsSecondDegre.lean\#L16}
+
+\begin{definition}
+Le \emph{discriminant} du trinôme est $\Delta = b^2 - 4ac$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L19}{FonctionsSecondDegre.lean\#L19}
+
+\begin{definition}
+La \emph{fonction homographique} est $x \mapsto \dfrac{ax + b}{cx + d}$.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L22}{FonctionsSecondDegre.lean\#L22}
+
+\subsection{Image, antécédent, sens de variation}
+
+\begin{theoreme}
+Une fonction croissante conserve l'ordre : si $x \le y$ alors $f(x) \le f(y)$.
+\end{theoreme}
+
+\begin{proof}
+C'est la définition même de la croissance.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L27}{FonctionsSecondDegre.lean\#L27}
+
+\begin{theoreme}
+Composer une fonction croissante avec une fonction décroissante renverse l'ordre.
+\end{theoreme}
+
+\begin{proof}
+Si $x \le y$, la croissance de $f$ donne $f(x) \le f(y)$, puis la décroissance de $g$
+renverse : $g(f(y)) \le g(f(x))$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L31}{FonctionsSecondDegre.lean\#L31}
+
+\begin{theoreme}
+Composer deux fonctions décroissantes donne une fonction croissante.
+\end{theoreme}
+
+\begin{proof}
+L'ordre est renversé deux fois, donc rétabli.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L35}{FonctionsSecondDegre.lean\#L35}
+
+\subsection{Fonctions de référence}
+
+\begin{theoreme}
+La fonction carré est décroissante sur les négatifs et croissante sur les positifs.
+\end{theoreme}
+
+\begin{proof}
+Pour $x \le y \le 0$, on a $y^2 - x^2 = (y-x)(y+x) \le 0$ car le premier facteur est
+positif et le second négatif. Sur les positifs, les deux facteurs sont positifs.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L41}{FonctionsSecondDegre.lean\#L41}
+
+\begin{theoreme}
+La fonction inverse est décroissante sur les réels strictement positifs.
+\end{theoreme}
+
+\begin{proof}
+Pour $0 < x \le y$, comparer $1/x$ et $1/y$ revient, après multiplication par $xy > 0$,
+à comparer $y$ et $x$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L52}{FonctionsSecondDegre.lean\#L52}
+
+\begin{theoreme}
+La fonction racine carrée est croissante.
+\end{theoreme}
+
+\begin{proof}
+La racine carrée conserve l'ordre sur les positifs, deux nombres positifs étant rangés
+comme leurs carrés.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L59}{FonctionsSecondDegre.lean\#L59}
+
+\begin{theoreme}
+La fonction cube est strictement croissante sur tout $\mathbb{R}$, contrairement à la
+fonction carré.
+\end{theoreme}
+
+\begin{proof}
+Une puissance d'exposant impair est strictement croissante sur $\mathbb{R}$ tout entier :
+elle conserve le signe, là où le carré l'efface.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L63}{FonctionsSecondDegre.lean\#L63}
+
+\subsection{Forme canonique}
+
+\begin{theoreme}
+Forme canonique : pour $a \ne 0$,
+\[ ax^2 + bx + c = a\left(x + \frac{b}{2a}\right)^2 - \frac{\Delta}{4a} . \]
+\end{theoreme}
+
+\begin{proof}
+On met $a$ en facteur puis on complète le carré :
+\[ ax^2 + bx + c = a\left(x^2 + \frac{b}{a}x\right) + c
+   = a\left(x + \frac{b}{2a}\right)^2 - \frac{b^2}{4a} + c , \]
+et $-\dfrac{b^2}{4a} + c = -\dfrac{b^2 - 4ac}{4a} = -\dfrac{\Delta}{4a}$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L69}{FonctionsSecondDegre.lean\#L69}
+
+\subsection{Discriminant et racines}
+
+\begin{theoreme}
+Si $\Delta > 0$, le trinôme a deux racines distinctes,
+\[ x_{1,2} = \frac{-b \pm \sqrt{\Delta}}{2a} . \]
+\end{theoreme}
+
+\begin{proof}
+Posons $d = \sqrt{\Delta} > 0$, de sorte que $d^2 = \Delta$. Les deux nombres proposés
+sont distincts puisque $d \ne 0$, et en substituant dans le trinôme, le calcul se réduit à
+$d^2 - \Delta = 0$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L78}{FonctionsSecondDegre.lean\#L78}
+
+\begin{theoreme}
+Si $\Delta < 0$, le trinôme ne s'annule jamais : il garde le signe de $a$.
+\end{theoreme}
+
+\begin{proof}
+La forme canonique écrit le trinôme comme $a\,(\cdot)^2 - \Delta/(4a)$. Pour $a > 0$, le
+premier terme est positif et $-\Delta/(4a)$ est strictement positif : la somme ne peut pas
+être nulle. Pour $a < 0$, les deux termes sont négatifs, même conclusion.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L96}{FonctionsSecondDegre.lean\#L96}
+
+\begin{theoreme}
+Si $\Delta = 0$, le trinôme a une racine double en $-\dfrac{b}{2a}$, et s'écrit
+$a\left(x + \dfrac{b}{2a}\right)^2$.
+\end{theoreme}
+
+\begin{proof}
+La forme canonique perd son second terme, et le carré s'annule exactement en
+$-b/(2a)$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L111}{FonctionsSecondDegre.lean\#L111}
+
+\subsection{Factorisation et signe du trinôme}
+
+\begin{theoreme}
+Factorisation par les racines : si $x_1 + x_2 = -b/a$ et $x_1x_2 = c/a$, alors
+\[ ax^2 + bx + c = a(x - x_1)(x - x_2) . \]
+\end{theoreme}
+
+\begin{proof}
+Les deux hypothèses donnent $b = -a(x_1 + x_2)$ et $c = a\,x_1x_2$ ; en les reportant et
+en développant le membre de droite, les deux expressions coïncident.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L125}{FonctionsSecondDegre.lean\#L125}
+
+\begin{theoreme}
+Signe du trinôme : pour $a > 0$ et $x_1 < x_2$, il est négatif entre les racines et
+positif à l'extérieur.
+\end{theoreme}
+
+\begin{proof}
+Entre les racines, $x - x_1 > 0$ et $x - x_2 < 0$ : le produit est négatif, et
+multiplier par $a > 0$ ne change pas le signe. À l'extérieur, les deux facteurs sont de
+même signe, donc leur produit est positif. D'où la règle : « du signe de $a$ sauf entre les
+racines ».
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L140}{FonctionsSecondDegre.lean\#L140}
+
+\subsection{Somme et produit des racines}
+
+\begin{theoreme}
+Somme et produit des racines : si le trinôme se factorise en $a(x-x_1)(x-x_2)$, alors
+\[ x_1 + x_2 = -\frac{b}{a}, \qquad x_1 x_2 = \frac{c}{a} . \]
+\end{theoreme}
+
+\begin{proof}
+On évalue l'identité en trois points. En $0$ elle donne $c = a\,x_1x_2$, d'où le
+produit. En $1$ et en $-1$, la différence des deux égalités élimine $a$ et $c$ et laisse
+$2b = -2a(x_1 + x_2)$, d'où la somme.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L162}{FonctionsSecondDegre.lean\#L162}
+
+\subsection{Sommet de la parabole et axe de symétrie}
+
+\begin{theoreme}
+Le sommet de la parabole est atteint en $-\dfrac{b}{2a}$, et c'est un minimum lorsque
+$a > 0$.
+\end{theoreme}
+
+\begin{proof}
+Dans la forme canonique, le carré s'annule en $-b/(2a)$ et est positif ailleurs ;
+multiplié par $a > 0$, il ne peut qu'augmenter la valeur.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L179}{FonctionsSecondDegre.lean\#L179}
+
+\begin{theoreme}
+La parabole est symétrique par rapport à la droite verticale passant par le sommet :
+\[ f\left(-\frac{b}{2a} + t\right) = f\left(-\frac{b}{2a} - t\right) . \]
+\end{theoreme}
+
+\begin{proof}
+Dans la forme canonique, les deux abscisses donnent le même carré $t^2$, donc la même
+image.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L189}{FonctionsSecondDegre.lean\#L189}
+
+\subsection{Fonction homographique}
+
+\begin{theoreme}
+La fonction homographique n'est pas définie là où son dénominateur s'annule, c'est-à-dire
+en $x = -d/c$.
+\end{theoreme}
+
+\begin{proof}
+En cette valeur, $cx + d = 0$ : le quotient n'a pas de sens. C'est la valeur interdite,
+qui donne l'asymptote verticale.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L199}{FonctionsSecondDegre.lean\#L199}
+
+\begin{theoreme}
+Elle s'écrit comme la somme d'une constante et d'un terme qui tend vers zéro :
+\[ \frac{ax+b}{cx+d} = \frac{a}{c} + \frac{bc - ad}{c\,(cx+d)} , \]
+ce qui donne l'asymptote horizontale $y = a/c$.
+\end{theoreme}
+
+\begin{proof}
+On réduit le membre de droite au même dénominateur $c(cx+d)$ :
+\[ \frac{a(cx+d) + bc - ad}{c(cx+d)} = \frac{acx + bc}{c(cx+d)} = \frac{ax+b}{cx+d} . \]
+Le second terme tend vers zéro quand $x$ grandit, d'où l'asymptote.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L206}{FonctionsSecondDegre.lean\#L206}
+
+\subsection{Parité}
+
+\begin{theoreme}
+Une fonction paire a une courbe symétrique par rapport à l'axe des ordonnées.
+\end{theoreme}
+
+\begin{proof}
+C'est la traduction de $f(-x) = f(x)$ : deux abscisses opposées ont la même
+ordonnée.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L215}{FonctionsSecondDegre.lean\#L215}
+
+\begin{theoreme}
+Une fonction impaire a une courbe symétrique par rapport à l'origine.
+\end{theoreme}
+
+\begin{proof}
+C'est la traduction de $f(-x) = -f(x)$ : deux abscisses opposées ont des ordonnées
+opposées.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L219}{FonctionsSecondDegre.lean\#L219}
+
+\begin{theoreme}
+La fonction carré est paire, la fonction cube est impaire.
+\end{theoreme}
+
+\begin{proof}
+$(-x)^2 = x^2$ et $(-x)^3 = -x^3$, l'exposant pair effaçant le signe, l'exposant impair
+le conservant.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/cours/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L223}{FonctionsSecondDegre.lean\#L223}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

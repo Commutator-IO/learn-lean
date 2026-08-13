@@ -52,7 +52,7 @@ globs = ["NombresCalculAlgebrique"]
 [[lean_lib]]
 name = "LyceeFonctionsSecondDegre"
 srcDir = "cours/02-lycee/02-fonctions-second-degre"
-globs = []
+globs = ["FonctionsSecondDegre"]
 
 [[lean_lib]]
 name = "LyceeSuites"
