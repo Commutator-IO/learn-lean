@@ -92,4 +92,4 @@ globs = ["ProbabilitesEtStatistiques"]
 [[lean_lib]]
 name = "LyceeSpecialiteMathematiquesTerminaleS"
 srcDir = "cours/02-lycee/10-specialite-mathematiques-terminale-s"
-globs = []
+globs = ["Arithmetique", "MatricesEtGraphes"]

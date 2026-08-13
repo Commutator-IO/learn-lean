@@ -217,28 +217,28 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Divisibilité dans `ℤ` ; division euclidienne, existence et unicité | Spé | | ☐ |
-| Congruences modulo `n` : compatibilité avec somme et produit | Spé | | ☐ |
-| Critères de divisibilité revisités par les congruences | Spé | | ☐ |
-| PGCD, algorithme d'Euclide ; `pgcd(a,b) = pgcd(b, a mod b)` | Spé | | ☐ |
-| Théorème de Bézout : `pgcd(a,b) = 1 ⟺ ∃(u,v), au + bv = 1` | Spé | | ☐ |
-| Théorème de Gauss : `a ∣ bc` et `pgcd(a,b) = 1` ⟹ `a ∣ c` | Spé | | ☐ |
-| Équation diophantienne `ax + by = c` : condition d'existence, forme des solutions | Spé | | ☐ |
-| Infinité des nombres premiers | Spé | | ☐ |
-| Décomposition en facteurs premiers : existence et unicité | Spé | oui | ☐ |
-| Petit théorème de Fermat : `p` premier, `p ∤ a` ⟹ `a^{p−1} ≡ 1 [p]` | Spé | | ☐ |
-| Application au chiffrement (RSA, code affine) | Spé | | ☐ |
+| Divisibilité dans `ℤ` ; division euclidienne, existence et unicité | Spé | | ☑ |
+| Congruences modulo `n` : compatibilité avec somme et produit | Spé | | ☑ |
+| Critères de divisibilité revisités par les congruences | Spé | | ☑ |
+| PGCD, algorithme d'Euclide ; `pgcd(a,b) = pgcd(b, a mod b)` | Spé | | ☑ |
+| Théorème de Bézout : `pgcd(a,b) = 1 ⟺ ∃(u,v), au + bv = 1` | Spé | | ☑ |
+| Théorème de Gauss : `a ∣ bc` et `pgcd(a,b) = 1` ⟹ `a ∣ c` | Spé | | ☑ |
+| Équation diophantienne `ax + by = c` : condition d'existence, forme des solutions | Spé | | ☑ |
+| Infinité des nombres premiers | Spé | | ☑ |
+| Décomposition en facteurs premiers : existence et unicité | Spé | oui | ☑ |
+| Petit théorème de Fermat : `p` premier, `p ∤ a` ⟹ `a^{p−1} ≡ 1 [p]` | Spé | | ☑ |
+| Application au chiffrement (RSA, code affine) | Spé | | ◐ |
 
 ### Matrices et graphes
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Opérations sur les matrices ; le produit n'est pas commutatif | Spé | | ☐ |
-| Matrice inversible ; inverse d'une matrice `2×2` et condition `ad − bc ≠ 0` | Spé | | ☐ |
-| Écriture matricielle d'un système linéaire ; résolution par l'inverse | Spé | | ☐ |
-| Puissances `Aⁿ` ; calcul par diagonalisation dans les cas simples | Spé | | ☐ |
-| Suites `Uₙ₊₁ = AUₙ + B` ; forme explicite et état stable | Spé | | ☐ |
-| Graphe probabiliste, matrice de transition ; convergence vers l'état stable (cas `2×2`) | Spé | oui | ☐ |
+| Opérations sur les matrices ; le produit n'est pas commutatif | Spé | | ☑ |
+| Matrice inversible ; inverse d'une matrice `2×2` et condition `ad − bc ≠ 0` | Spé | | ☑ |
+| Écriture matricielle d'un système linéaire ; résolution par l'inverse | Spé | | ☑ |
+| Puissances `Aⁿ` ; calcul par diagonalisation dans les cas simples | Spé | | ☑ |
+| Suites `Uₙ₊₁ = AUₙ + B` ; forme explicite et état stable | Spé | | ☑ |
+| Graphe probabiliste, matrice de transition ; convergence vers l'état stable (cas `2×2`) | Spé | oui | ☑ |
 
 ---
 
