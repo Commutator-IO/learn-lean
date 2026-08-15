@@ -250,7 +250,13 @@ def index(corpus):
     corpus = re.sub(r"\\(?:sub)?section\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}",
                     sur_section, corpus)
 
-    lignes = [r"\begin{theindex}", r"\addcontentsline{toc}{chapter}{Index}"]
+    # L'index est composé sur deux colonnes étroites, où un terme un peu long se
+    # fait couper au milieu. On y descend d'un corps et l'on interdit la coupure :
+    # une entrée d'index se lit d'un coup d'œil ou ne se lit pas, et un mot tranché
+    # coûte plus à la lecture que le décalage qu'il évite.
+    lignes = [r"\begin{theindex}", r"\addcontentsline{toc}{chapter}{Index}",
+              r"\footnotesize\raggedright",
+              r"\hyphenpenalty=10000\exhyphenpenalty=10000"]
     for cle in sorted(entrees):
         terme, reperes = entrees[cle]
         pages = ", ".join(f"\\pageref{{idx:{n}}}" for n in reperes)
