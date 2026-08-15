@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Footer, Header } from './components/Frame.tsx'
+import { useEffect, useMemo, useState } from "react";
+import { Footer, Header } from "./components/Frame.tsx";
+import { donnees } from "./lib/donnees.ts";
 
 /**
  * Les sujets d'examens : les annales, en consultation seulement.
@@ -21,32 +22,46 @@ import { Footer, Header } from './components/Frame.tsx'
  * méfier de tous les autres chiffres du site.
  */
 
-type Session = { annee: number; session: string; sujet: string; corrige: string | null }
-type Examen = { id: string; titre: string; fichier: string; sessions: Session[] }
+type Session = {
+  annee: number;
+  session: string;
+  sujet: string;
+  corrige: string | null;
+};
+type Examen = {
+  id: string;
+  titre: string;
+  fichier: string;
+  sessions: Session[];
+};
 
 export function SujetsPage() {
-  const [examens, setExamens] = useState<Examen[] | null>(null)
-  const [choisi, setChoisi] = useState('brevet')
-  const [annee, setAnnee] = useState<number | 'toutes'>('toutes')
-  const [ouvert, setOuvert] = useState<Session | null>(null)
-  const [menu, setMenu] = useState(false)
+  const [examens, setExamens] = useState<Examen[] | null>(null);
+  const [choisi, setChoisi] = useState("brevet");
+  const [annee, setAnnee] = useState<number | "toutes">("toutes");
+  const [ouvert, setOuvert] = useState<Session | null>(null);
+  const [menu, setMenu] = useState(false);
 
   useEffect(() => {
-    fetch('/exams.json')
-      .then((r) => r.json())
+    donnees<{ examens: Examen[] }>("/exams.json")
       .then((d) => setExamens(d.examens))
-      .catch(() => setExamens([]))
-  }, [])
+      .catch(() => setExamens([]));
+  }, []);
 
-  const examen = examens?.find((e) => e.id === choisi) ?? null
+  const examen = examens?.find((e) => e.id === choisi) ?? null;
   const annees = useMemo(
-    () => [...new Set(examen?.sessions.map((s) => s.annee) ?? [])].sort((a, b) => b - a),
+    () =>
+      [...new Set(examen?.sessions.map((s) => s.annee) ?? [])].sort(
+        (a, b) => b - a,
+      ),
     [examen],
-  )
+  );
   const sessions = useMemo(
-    () => examen?.sessions.filter((s) => annee === 'toutes' || s.annee === annee) ?? [],
+    () =>
+      examen?.sessions.filter((s) => annee === "toutes" || s.annee === annee) ??
+      [],
     [examen, annee],
-  )
+  );
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -56,9 +71,9 @@ export function SujetsPage() {
         {/* Le choix du sujet : examen, année, session. */}
         <aside
           className={[
-            'shrink-0 border-b border-ink-200 bg-white lg:w-60 lg:border-r lg:border-b-0',
-            menu ? '' : 'hidden lg:block',
-          ].join(' ')}
+            "shrink-0 border-b border-ink-200 bg-white lg:w-60 lg:border-r lg:border-b-0",
+            menu ? "" : "hidden lg:block",
+          ].join(" ")}
         >
           <div className="max-h-[70vh] overflow-auto p-2 lg:max-h-[calc(100dvh-3rem)]">
             <div className="mb-2 flex rounded-lg border border-ink-200 p-0.5">
@@ -66,14 +81,16 @@ export function SujetsPage() {
                 <button
                   key={e.id}
                   onClick={() => {
-                    setChoisi(e.id)
-                    setAnnee('toutes')
-                    setOuvert(null)
+                    setChoisi(e.id);
+                    setAnnee("toutes");
+                    setOuvert(null);
                   }}
                   className={[
-                    'flex-1 rounded-md px-2 py-1 text-[12.5px]',
-                    choisi === e.id ? 'bg-brand-700 text-white' : 'text-ink-600 hover:bg-ink-100',
-                  ].join(' ')}
+                    "flex-1 rounded-md px-2 py-1 text-[12.5px]",
+                    choisi === e.id
+                      ? "bg-brand-700 text-white"
+                      : "text-ink-600 hover:bg-ink-100",
+                  ].join(" ")}
                 >
                   {e.titre}
                   <span className="ml-1 font-mono text-[10.5px] opacity-70">
@@ -86,11 +103,17 @@ export function SujetsPage() {
             <select
               value={annee}
               onChange={(e) =>
-                setAnnee(e.target.value === 'toutes' ? 'toutes' : Number(e.target.value))
+                setAnnee(
+                  e.target.value === "toutes"
+                    ? "toutes"
+                    : Number(e.target.value),
+                )
               }
               className="mb-2 w-full rounded-lg border border-ink-200 px-2 py-1 text-[12.5px] text-ink-600"
             >
-              <option value="toutes">Toutes les années ({examen?.sessions.length ?? 0})</option>
+              <option value="toutes">
+                Toutes les années ({examen?.sessions.length ?? 0})
+              </option>
               {annees.map((a) => (
                 <option key={a} value={a}>
                   {a}
@@ -102,15 +125,15 @@ export function SujetsPage() {
               <button
                 key={`${s.annee}-${i}`}
                 onClick={() => {
-                  setOuvert(s)
-                  setMenu(false)
+                  setOuvert(s);
+                  setMenu(false);
                 }}
                 className={[
-                  'flex w-full items-center gap-1.5 rounded px-1.5 py-1 text-left text-[12.5px]',
+                  "flex w-full items-center gap-1.5 rounded px-1.5 py-1 text-left text-[12.5px]",
                   ouvert?.sujet === s.sujet
-                    ? 'bg-brand-50 text-ink-900'
-                    : 'text-ink-600 hover:bg-ink-100',
-                ].join(' ')}
+                    ? "bg-brand-50 text-ink-900"
+                    : "text-ink-600 hover:bg-ink-100",
+                ].join(" ")}
                 title={s.session}
               >
                 <span className="min-w-0 flex-1 truncate">{s.session}</span>
@@ -161,25 +184,31 @@ export function SujetsPage() {
           ) : (
             <div className="mx-auto max-w-2xl px-6 py-10">
               <p className="text-[15.5px] leading-relaxed text-ink-600">
-                Le cours est démontré ; les épreuves ne le sont pas encore. Les sujets de brevet et
-                de baccalauréat de France métropolitaine sont ici{' '}
-                <strong>en consultation seulement</strong>. L'objectif est de les reprendre un à un
-                : écrire l'énoncé en Lean, le démontrer, puis transcrire la démonstration en
-                français, comme pour les chapitres du cours. Un exercice d'examen est un banc
-                d'essai plus exigeant qu'un théorème de manuel — il est concret, il mêle les
-                chapitres, et son énoncé s'adresse à un élève, pas à une machine.
+                Le cours est démontré ; les épreuves ne le sont pas encore. Les
+                sujets de brevet et de baccalauréat de France métropolitaine
+                sont ici <strong>en consultation seulement</strong>. L'objectif
+                est de les reprendre un à un : écrire l'énoncé en Lean, le
+                démontrer, puis transcrire la démonstration en français, comme
+                pour les chapitres du cours. Un exercice d'examen est un banc
+                d'essai plus exigeant qu'un théorème de manuel — il est concret,
+                il mêle les chapitres, et son énoncé s'adresse à un élève, pas à
+                une machine.
               </p>
               <p className="mt-4 text-[13px] leading-relaxed text-ink-500">
-                Choisissez une session à gauche pour l'afficher ici. Les sujets appartiennent à
-                leurs auteurs et sont diffusés par l'
-                <a className="underline underline-offset-2" href="https://www.apmep.fr/">
-                  APMEP
-                </a>
-                , qui archive les annales depuis 1941 ; ce dépôt n'en héberge aucune copie. Les
-                listes complètes, avec leurs notes de lecture, sont dans{' '}
+                Choisissez une session à gauche pour l'afficher ici. Les sujets
+                appartiennent à leurs auteurs et sont diffusés par l'
                 <a
                   className="underline underline-offset-2"
-                  href={`https://github.com/Commutator-IO/learn-lean/blob/main/exams/${examen?.fichier ?? ''}`}
+                  href="https://www.apmep.fr/"
+                >
+                  APMEP
+                </a>
+                , qui archive les annales depuis 1941 ; ce dépôt n'en héberge
+                aucune copie. Les listes complètes, avec leurs notes de lecture,
+                sont dans{" "}
+                <a
+                  className="underline underline-offset-2"
+                  href={`https://github.com/Commutator-IO/learn-lean/blob/main/exams/${examen?.fichier ?? ""}`}
                 >
                   {examen?.fichier}
                 </a>
@@ -192,5 +221,5 @@ export function SujetsPage() {
 
       <Footer />
     </div>
-  )
+  );
 }

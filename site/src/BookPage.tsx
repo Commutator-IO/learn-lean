@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
-import { Footer, Header } from './components/Frame.tsx'
-import type { Chapitre, Index } from './lib/types.ts'
+import { useCallback, useEffect, useState } from "react";
+import { Footer, Header } from "./components/Frame.tsx";
+import { donnees } from "./lib/donnees.ts";
+import type { Chapitre, Index } from "./lib/types.ts";
 
 /**
  * Le livre, lu en ligne.
@@ -12,69 +13,68 @@ import type { Chapitre, Index } from './lib/types.ts'
  */
 
 type Livre = {
-  livre: string
-  parties: Record<string, string>
-  chapitres: Record<string, string>
-}
+  livre: string;
+  parties: Record<string, string>;
+  chapitres: Record<string, string>;
+};
 
 const ETIQUETTE: Record<string, string> = {
-  theorem: 'Théorème',
-  lemma: 'Lemme',
-  def: 'Définition',
-  abbrev: 'Définition',
-  instance: 'Instance',
-  example: 'Exemple',
-}
+  theorem: "Théorème",
+  lemma: "Lemme",
+  def: "Définition",
+  abbrev: "Définition",
+  instance: "Instance",
+  example: "Exemple",
+};
 
 export function BookPage() {
-  const [index, setIndex] = useState<Index | null>(null)
-  const [livre, setLivre] = useState<Livre | null>(null)
-  const [chapitre, setChapitre] = useState<Chapitre | null>(null)
-  const [pdf, setPdf] = useState<number | null>(null)
-  const [menu, setMenu] = useState(false)
+  const [index, setIndex] = useState<Index | null>(null);
+  const [livre, setLivre] = useState<Livre | null>(null);
+  const [chapitre, setChapitre] = useState<Chapitre | null>(null);
+  const [pdf, setPdf] = useState<number | null>(null);
+  const [menu, setMenu] = useState(false);
 
   useEffect(() => {
-    fetch('/index.json')
-      .then((r) => r.json())
+    donnees<Index>("/index.json")
       .then(setIndex)
-      .catch(() => setIndex({ themes: [] }))
-    fetch('/book.json')
-      .then((r) => r.json())
+      .catch(() => setIndex({ themes: [] }));
+    donnees<Livre>("/book.json")
       .then(setLivre)
-      .catch(() => setLivre(null))
+      .catch(() => setLivre(null));
     // Le PDF est compilé par le workflow : le bouton n'apparaît que s'il est là.
-    fetch('/cours-complet.pdf', { method: 'HEAD' })
-      .then((r) => r.ok && setPdf(Number(r.headers.get('content-length') ?? 0)))
-      .catch(() => {})
-  }, [])
+    fetch("/cours-complet.pdf", { method: "HEAD" })
+      .then((r) => r.ok && setPdf(Number(r.headers.get("content-length") ?? 0)))
+      .catch(() => {});
+  }, []);
 
   const charger = useCallback(async (id: string) => {
-    const r = await fetch(`/chapters/${id.replace('/', '__')}.json`)
-    setChapitre(await r.json())
-    setMenu(false)
-    location.hash = id
-    scrollTo({ top: 0 })
-  }, [])
+    setChapitre(
+      await donnees<Chapitre>(`/chapters/${id.replace("/", "__")}.json`),
+    );
+    setMenu(false);
+    location.hash = id;
+    scrollTo({ top: 0 });
+  }, []);
 
   useEffect(() => {
-    const id = location.hash.slice(1)
-    if (id) void charger(id)
-  }, [charger])
+    const id = location.hash.slice(1);
+    if (id) void charger(id);
+  }, [charger]);
 
   // Le livre est numéroté d'un bout à l'autre : les chapitres se suivent d'un
   // thème au suivant, sans repartir de 1.
   const numero = (id: string) => {
-    let n = 0
+    let n = 0;
     for (const t of index?.themes ?? []) {
       for (const c of t.chapitres) {
-        n++
-        if (c.id === id) return n
+        n++;
+        if (c.id === id) return n;
       }
     }
-    return null
-  }
+    return null;
+  };
 
-  let sectionCourante: string | null = null
+  let sectionCourante: string | null = null;
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -84,21 +84,23 @@ export function BookPage() {
         {/* Sommaire du livre, étroit : la lecture occupe le reste. */}
         <aside
           className={[
-            'shrink-0 border-b border-ink-200 bg-ink-50/60 lg:w-56 lg:border-r lg:border-b-0',
-            menu ? '' : 'hidden lg:block',
-          ].join(' ')}
+            "shrink-0 border-b border-ink-200 bg-ink-50/60 lg:w-56 lg:border-r lg:border-b-0",
+            menu ? "" : "hidden lg:block",
+          ].join(" ")}
         >
           <div className="sticky top-12 max-h-[calc(100dvh-3rem)] overflow-auto p-2">
             <button
               onClick={() => {
-                setChapitre(null)
-                location.hash = ''
-                setMenu(false)
+                setChapitre(null);
+                location.hash = "";
+                setMenu(false);
               }}
               className={[
-                'mb-2 flex w-full rounded px-1.5 py-1 text-left text-[12.5px]',
-                chapitre ? 'text-ink-600 hover:bg-ink-100' : 'bg-brand-50 text-ink-900',
-              ].join(' ')}
+                "mb-2 flex w-full rounded px-1.5 py-1 text-left text-[12.5px]",
+                chapitre
+                  ? "text-ink-600 hover:bg-ink-100"
+                  : "bg-brand-50 text-ink-900",
+              ].join(" ")}
             >
               Avant-propos
             </button>
@@ -115,14 +117,19 @@ export function BookPage() {
                     key={c.id}
                     onClick={() => void charger(c.id)}
                     className={[
-                      'flex w-full items-baseline gap-1.5 rounded px-1.5 py-1 text-left text-[12.5px]',
+                      "flex w-full items-baseline gap-1.5 rounded px-1.5 py-1 text-left text-[12.5px]",
                       chapitre?.id === c.id
-                        ? 'bg-brand-50 text-ink-900'
-                        : 'text-ink-600 hover:bg-ink-100',
-                    ].join(' ')}
+                        ? "bg-brand-50 text-ink-900"
+                        : "text-ink-600 hover:bg-ink-100",
+                    ].join(" ")}
                   >
-                    <span className="font-mono text-[10.5px] text-ink-400">{numero(c.id)}</span>
-                    <span className="min-w-0 flex-1 truncate" title={`${c.titre} — ${c.niveau}`}>
+                    <span className="font-mono text-[10.5px] text-ink-400">
+                      {numero(c.id)}
+                    </span>
+                    <span
+                      className="min-w-0 flex-1 truncate"
+                      title={`${c.titre} — ${c.niveau}`}
+                    >
                       {c.titre}
                     </span>
                   </button>
@@ -148,7 +155,7 @@ export function BookPage() {
                 href="/cours-complet.pdf"
                 className="ml-auto shrink-0 rounded-md border border-ink-300 px-2.5 py-1 text-[12.5px] text-ink-700 hover:bg-ink-50"
               >
-                PDF{pdf > 0 ? ` · ${(pdf / 1e6).toFixed(1)} Mo` : ''}
+                PDF{pdf > 0 ? ` · ${(pdf / 1e6).toFixed(1)} Mo` : ""}
               </a>
             )}
           </div>
@@ -156,19 +163,25 @@ export function BookPage() {
           <article className="mx-auto max-w-2xl px-6 py-8 font-serif text-[16px] leading-relaxed text-ink-800">
             {!chapitre ? (
               <>
-                <h1 className="font-serif text-3xl text-ink-900">Avant-propos</h1>
+                <h1 className="font-serif text-3xl text-ink-900">
+                  Avant-propos
+                </h1>
                 <div
                   className="prose-cours mt-5"
-                  dangerouslySetInnerHTML={{ __html: livre?.livre ?? '' }}
+                  dangerouslySetInnerHTML={{ __html: livre?.livre ?? "" }}
                 />
                 <div className="mt-10 border-t border-ink-200 pt-6">
-                  <h2 className="font-serif text-xl text-ink-900">Table des matières</h2>
+                  <h2 className="font-serif text-xl text-ink-900">
+                    Table des matières
+                  </h2>
                   {index?.themes.map((t, i) => (
                     <div key={t.id} className="mt-5">
                       <div className="font-sans text-[12px] font-semibold tracking-wide text-ink-400 uppercase">
                         Partie {i + 1} — {t.titre}
                       </div>
-                      <div className="font-sans text-[13px] text-ink-400">{t.sousTitre}</div>
+                      <div className="font-sans text-[13px] text-ink-400">
+                        {t.sousTitre}
+                      </div>
                       <ol className="mt-2 space-y-1 font-sans text-[14px]">
                         {t.chapitres.map((c) => (
                           <li key={c.id} className="flex gap-3">
@@ -196,21 +209,29 @@ export function BookPage() {
                 <div className="font-sans text-[12px] font-semibold tracking-wide text-ink-400 uppercase">
                   Chapitre {numero(chapitre.id)} · {chapitre.niveau}
                 </div>
-                <h1 className="mt-1 font-serif text-3xl text-ink-900">{chapitre.titre}</h1>
+                <h1 className="mt-1 font-serif text-3xl text-ink-900">
+                  {chapitre.titre}
+                </h1>
 
                 {livre?.chapitres[chapitre.id] && (
                   <div
                     className="prose-cours mt-5 text-ink-700"
-                    dangerouslySetInnerHTML={{ __html: livre.chapitres[chapitre.id] }}
+                    dangerouslySetInnerHTML={{
+                      __html: livre.chapitres[chapitre.id],
+                    }}
                   />
                 )}
 
                 {chapitre.modules.length === 0 && (
                   <p className="mt-6 border-l-2 border-encours-500 pl-4 text-[15px] text-ink-600">
-                    Ce chapitre reste à écrire : ses {chapitre.statuts.total} énoncés sont posés,
-                    aucun n'est encore démontré. Il figure au sommaire parce que la progression le
-                    demande — la liste des énoncés est dans l'onglet{' '}
-                    <a className="underline underline-offset-2" href={`/cours/#${chapitre.id}`}>
+                    Ce chapitre reste à écrire : ses {chapitre.statuts.total}{" "}
+                    énoncés sont posés, aucun n'est encore démontré. Il figure
+                    au sommaire parce que la progression le demande — la liste
+                    des énoncés est dans l'onglet{" "}
+                    <a
+                      className="underline underline-offset-2"
+                      href={`/cours/#${chapitre.id}`}
+                    >
                       Apprendre Lean
                     </a>
                     . Le livre en PDF, lui, n'imprime que ce qui est démontré.
@@ -218,7 +239,7 @@ export function BookPage() {
                 )}
 
                 {chapitre.modules.map((m) => {
-                  sectionCourante = null
+                  sectionCourante = null;
                   return (
                     <div key={m.nom}>
                       {chapitre.modules.length > 1 && (
@@ -227,8 +248,9 @@ export function BookPage() {
                         </h2>
                       )}
                       {m.declarations.map((d) => {
-                        const nouvelle = d.section && d.section !== sectionCourante
-                        if (nouvelle) sectionCourante = d.section
+                        const nouvelle =
+                          d.section && d.section !== sectionCourante;
+                        if (nouvelle) sectionCourante = d.section;
                         return (
                           <div key={`${m.nom}-${d.ligne}`}>
                             {nouvelle && (
@@ -239,7 +261,9 @@ export function BookPage() {
                             {d.remarqueHtml && (
                               <div
                                 className="prose-cours my-3 text-ink-600"
-                                dangerouslySetInnerHTML={{ __html: d.remarqueHtml }}
+                                dangerouslySetInnerHTML={{
+                                  __html: d.remarqueHtml,
+                                }}
                               />
                             )}
                             <div className="my-4">
@@ -248,7 +272,9 @@ export function BookPage() {
                               </span>
                               <div
                                 className="prose-cours mt-1"
-                                dangerouslySetInnerHTML={{ __html: d.enonceHtml || `<p>${d.doc}</p>` }}
+                                dangerouslySetInnerHTML={{
+                                  __html: d.enonceHtml || `<p>${d.doc}</p>`,
+                                }}
                               />
                               {d.preuveHtml && (
                                 <div className="mt-3 border-l-2 border-ink-200 pl-4">
@@ -257,7 +283,9 @@ export function BookPage() {
                                   </div>
                                   <div
                                     className="prose-cours text-[15px] text-ink-700"
-                                    dangerouslySetInnerHTML={{ __html: d.preuveHtml }}
+                                    dangerouslySetInnerHTML={{
+                                      __html: d.preuveHtml,
+                                    }}
                                   />
                                 </div>
                               )}
@@ -271,10 +299,10 @@ export function BookPage() {
                               </div>
                             </div>
                           </div>
-                        )
+                        );
                       })}
                     </div>
-                  )
+                  );
                 })}
               </>
             )}
@@ -284,5 +312,5 @@ export function BookPage() {
 
       <Footer />
     </div>
-  )
+  );
 }
