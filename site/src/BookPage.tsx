@@ -154,7 +154,7 @@ export function BookPage() {
           </div>
         </aside>
 
-        <main className="min-w-0 flex-1">
+        <main className="filigrane min-w-0 flex-1">
           <div className="flex items-center gap-3 border-b border-ink-200 px-5 py-2">
             <button
               onClick={() => setMenu((v) => !v)}
@@ -266,11 +266,10 @@ export function BookPage() {
                   sectionCourante = null;
                   return (
                     <div key={m.nom}>
-                      {chapitre.modules.length > 1 && (
-                        <h2 className="mt-10 font-serif text-2xl text-ink-900">
-                          {avecCode(m.declarations[0]?.section ?? m.nom)}
-                        </h2>
-                      )}
+                      {/* Le titre du fichier Lean n'est pas montré : il
+                          répéterait le premier titre de section qui suit, et le
+                          lecteur du livre n'a que faire du découpage en
+                          fichiers. Les sections, elles, portent le sens. */}
                       {m.declarations.map((d) => {
                         const nouvelle =
                           d.section && d.section !== sectionCourante;

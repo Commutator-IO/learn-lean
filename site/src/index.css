@@ -121,3 +121,11 @@
 .prose-cours .katex-display > .katex {
   @apply text-[0.94em];
 }
+
+/* Filigrane du livre en ligne : le même avertissement que sur le PDF. Ce livre
+   est une expérimentation de formalisation, pas un manuel ; une page lue seule
+   doit le dire aussi. Le motif est un SVG en ligne, répété en fond. */
+.filigrane {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='200'%3E%3Ctext x='170' y='100' fill='%23000' fill-opacity='0.045' font-family='sans-serif' font-size='15' text-anchor='middle' transform='rotate(-30 170 100)'%3EExp%C3%A9rimentation %E2%80%94 ne pas utiliser en classe%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+}

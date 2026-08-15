@@ -37,6 +37,15 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 
+% Un filigrane sur chaque page : ce livre est une expérimentation de
+% formalisation, pas un manuel. Le dire une fois dans l'avant-propos ne suffit
+% pas — une page imprimée circule seule.
+\usepackage{draftwatermark}
+\SetWatermarkText{Expérimentation \textemdash{} ne pas utiliser en classe}
+\SetWatermarkScale{0.24}
+\SetWatermarkColor[gray]{0.9}
+\SetWatermarkAngle{45}
+
 \usepackage[hidelinks]{hyperref}
 
 % Les identifiants Lean en machine à écrire ne se coupent pas : mieux vaut des

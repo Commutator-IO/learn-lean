@@ -6,7 +6,9 @@
          .l { font-size: 9.5px; }</style>
   <circle cx="110" cy="100" r="64" />
   <path d="M46,100 L174,100 M46,100 L137,42 L174,100" />
-  <path d="M131,51 l7,6 l-6,7" />
+  <!-- L'équerre de l'angle droit : ses deux côtés sont parallèles à [ba] et à
+       [bc], donc son coin est droit exactement quand l'angle en b l'est. -->
+  <path d="M126,49 L133,60 L144,53" />
   <circle cx="110" cy="100" r="2.5" fill="currentColor" />
   <text x="32" y="105">a</text>
   <text x="180" y="105">c</text>
