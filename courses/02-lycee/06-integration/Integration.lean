@@ -142,10 +142,12 @@ theorem aire_entre_deux_courbes {f g : ℝ → ℝ} {a b : ℝ} (hf : Continuous
 disque : un appareillage sans commune mesure avec l'approche du programme, qui se contente
 d'empiler des cylindres. -/
 
-/-! ## Énoncés admis
+/-! ## Énoncés admis -/
 
+/-
 Ce que le programme demande et que ce dépôt ne démontre pas. L'énoncé est écrit, sa
-démonstration est admise. -/
+démonstration est admise.
+-/
 
 /-- Volume d'un solide de révolution : en tournant autour de l'axe des abscisses, la partie
 sous la courbe d'une fonction continue positive engendre un solide de volume

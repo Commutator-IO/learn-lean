@@ -379,10 +379,12 @@ theorem distance_a_un_plan {E : Type*} [NormedAddCommGroup E] [InnerProductSpace
       abs_of_nonneg (by positivity : (0 : ℝ) ≤ ‖n‖ ^ 2)]
     field_simp
 
-/-! ## Énoncés admis
+/-! ## Énoncés admis -/
 
+/-
 Ce que le programme demande dans l'espace et que ce dépôt ne démontre pas. Les énoncés sont
-écrits, leur démonstration est admise. -/
+écrits, leur démonstration est admise.
+-/
 
 /-- Positions relatives de deux plans distincts de l'espace : ou bien ils sont parallèles et
 ne se rencontrent pas, ou bien ils se coupent selon une droite. -/

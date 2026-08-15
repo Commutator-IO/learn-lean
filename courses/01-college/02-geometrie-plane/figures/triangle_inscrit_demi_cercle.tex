@@ -1,0 +1,17 @@
+% Construction : cercle de centre o = (0, 0) et de rayon 2.
+% Le diamètre [ac] est horizontal, et b est sur le cercle, à 65 degrés.
+\begin{tikzpicture}[scale=0.85]
+  \coordinate (o) at (0, 0);
+  \coordinate (a) at (-2, 0);
+  \coordinate (c) at (2, 0);
+  \coordinate (b) at (0.845, 1.813);
+  \draw (o) circle (2);
+  \draw (a) -- (c);
+  \draw (a) -- (b) -- (c);
+  \draw ($(b)!0.3cm!(a)$) -- ($($(b)!0.3cm!(a)$)+($(b)!0.3cm!(c)$)-(b)$) -- ($(b)!0.3cm!(c)$);
+  \foreach \p in {a, b, c, o} \fill (\p) circle (1.4pt);
+  \node[left] at (a) {$a$};
+  \node[right] at (c) {$c$};
+  \node[above right] at (b) {$b$};
+  \node[below] at (o) {$o$};
+\end{tikzpicture}

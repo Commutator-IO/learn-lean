@@ -140,12 +140,14 @@ theorem agrandissement_volume_boule (k r : ℝ) :
   simp only [volumeBoule]
   ring
 
-/-! ## Énoncés admis
+/-! ## Énoncés admis -/
 
+/-
 Les formules d'aire et de volume sont posées plus haut, comme au collège. Les démontrer,
 c'est calculer la mesure de Lebesgue d'une partie du plan ou de l'espace : le programme ne
 le demande pas et ce dépôt ne le fait pas. Les énoncés sont écrits ici pour que le manque
-se voie, et leur preuve est admise. -/
+se voie, et leur preuve est admise.
+-/
 
 /-- Le disque de rayon `r` a pour aire `π r²`, au sens de la mesure du plan. -/
 theorem aire_disque_est_sa_mesure (r : ℝ) (hr : 0 ≤ r) :

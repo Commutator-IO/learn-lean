@@ -111,7 +111,11 @@ def code_latex(texte):
     return racines("".join(sortie))
 
 def prose_latex(texte):
-    """Rend un commentaire français : `code` en machine à écrire, symboles en math."""
+    """Rend un commentaire français : `code` en machine à écrire, symboles en math.
+
+    Le gras markdown des commentaires Lean (`**ainsi**`) devient du gras LaTeX :
+    imprimé tel quel, il se lisait comme une coquille.
+    """
     morceaux = re.split(r"`([^`]*)`", texte)
     sortie = []
     for i, m in enumerate(morceaux):
@@ -126,7 +130,9 @@ def prose_latex(texte):
             for c, r in TEXTE.items():
                 m = m.replace(c, r)
             sortie.append(m)
-    return racines("".join(sortie))
+    # Le gras est rendu en dernier : appliqué plus tôt, ses accolades seraient
+    # échappées avec le reste du texte.
+    return re.sub(r"\*\*([^*]+)\*\*", r"\\textbf{\1}", racines("".join(sortie)))
 
 # --- lien vers la source ----------------------------------------------------
 
@@ -217,6 +223,11 @@ ENTETE = r"""%% Fichier engendré par tools/generate-tex.py à partir de %(sourc
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=2.5cm]{geometry}
+%% Les figures : TikZ, pour que leurs étiquettes soient composées dans les
+%% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \usepackage[hidelinks]{hyperref}
 
 \theoremstyle{definition}

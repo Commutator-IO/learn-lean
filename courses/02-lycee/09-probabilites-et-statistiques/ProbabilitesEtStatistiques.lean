@@ -253,22 +253,24 @@ theorem loi_normale (m : ℝ) (v : NNReal) :
     (∫ x, x ∂(gaussianReal m v) = m) ∧ Var[id; gaussianReal m v] = v :=
   ⟨integral_id_gaussianReal, variance_id_gaussianReal⟩
 
-/-! ## Énoncés admis
+/-! ## Énoncés admis -/
 
+/-
 Ce que le programme demande et que ce dépôt ne démontre pas. Les énoncés sont écrits pour
 que le manque se voie et se compte ; leur démonstration est admise.
 
-Un mot sur chacun. La **variance d'une binomiale** et l'**espérance d'une exponentielle**
+Un mot sur chacun. La variance d'une binomiale et l'espérance d'une exponentielle
 sont à portée, mais demandent un calcul de somme et une intégration par parties que ce
-fichier n'a pas menés. Le **théorème de Moivre–Laplace** est un cas particulier du théorème
+fichier n'a pas menés. Le théorème de Moivre–Laplace est un cas particulier du théorème
 central limite : Mathlib le possède, mais l'écart entre son énoncé et la forme scolaire,
 qui parle d'intervalles et de valeurs numériques, est un travail de traduction à part
-entière. Les **intervalles `1σ`, `2σ`, `3σ`** réclament un encadrement de la fonction
-d'erreur que Mathlib ne fournit pas à cette précision. L'**intervalle de fluctuation** et
-l'**intervalle de confiance** reposent sur Moivre–Laplace, et tombent avec lui.
+entière. Les intervalles `1σ`, `2σ`, `3σ` réclament un encadrement de la fonction
+d'erreur que Mathlib ne fournit pas à cette précision. L'intervalle de fluctuation et
+l'intervalle de confiance reposent sur Moivre–Laplace, et tombent avec lui.
 
 Les quartiles et l'écart interquartile manquent aussi, mais il leur manque une définition,
-pas une démonstration : rien à admettre tant qu'ils ne sont pas définis. -/
+pas une démonstration : rien à admettre tant qu'ils ne sont pas définis.
+-/
 
 /-- Variance d'une loi binomiale : `V(X) = np(1 − p)`. -/
 theorem variance_binomiale (n : ℕ) (p : unitInterval) :

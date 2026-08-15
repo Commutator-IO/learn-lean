@@ -137,10 +137,12 @@ de Fermat modulo `p` puis modulo `q`, et en recollant par le théorème des rest
 Chacune de ces trois pièces existe dans Mathlib ; c'est leur assemblage, et la gestion des
 cas où `p` ou `q` divise `m`, qui demandent un travail à part entière. -/
 
-/-! ## Énoncés admis
+/-! ## Énoncés admis -/
 
+/-
 Ce que le programme demande et que ce dépôt ne démontre pas. L'énoncé est écrit, sa
-démonstration est admise. -/
+démonstration est admise.
+-/
 
 /-- Le chiffrement RSA rend bien le message : si `e d ≡ 1` modulo `(p−1)(q−1)`, alors
 élever à la puissance `e` puis à la puissance `d` ramène au message de départ. -/

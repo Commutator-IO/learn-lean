@@ -228,10 +228,12 @@ theorem limite_point_fixe {f : ℝ → ℝ} {u : ℕ → ℝ} {l : ℝ} (hf : Co
     simpa [hrec] using h2
   exact unicite_de_la_limite h3 h1
 
-/-! ## Énoncés admis
+/-! ## Énoncés admis -/
 
+/-
 Ce que le programme demande et que ce dépôt ne démontre pas. L'énoncé est écrit, sa
-démonstration est admise. -/
+démonstration est admise.
+-/
 
 /-- Deux suites adjacentes convergent vers une même limite. -/
 theorem suites_adjacentes (u v : ℕ → ℝ) (hu : Monotone u) (hv : Antitone v)

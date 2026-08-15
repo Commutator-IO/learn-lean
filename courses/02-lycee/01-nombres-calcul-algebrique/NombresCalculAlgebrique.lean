@@ -162,10 +162,12 @@ theorem inegalite_de_bernoulli {a : ℝ} (ha : -1 ≤ a) (n : ℕ) : 1 + n * a �
       mul_le_mul_of_nonneg_right hn hpos
     nlinarith [hprod, sq_nonneg a, Nat.cast_nonneg (α := ℝ) n]
 
-/-! ## Énoncés admis
+/-! ## Énoncés admis -/
 
+/-
 Ce que le programme demande et que ce dépôt ne démontre pas. L'énoncé est écrit, sa
-démonstration est admise. -/
+démonstration est admise.
+-/
 
 /-- Le développement décimal d'un rationnel est périodique à partir d'un certain rang : le
 chiffre de rang `n` se répète de période `p`. -/

@@ -13,6 +13,11 @@
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=2.5cm]{geometry}
+% Les figures : TikZ, pour que leurs étiquettes soient composées dans les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \usepackage[hidelinks]{hyperref}
 
 \theoremstyle{definition}
@@ -271,6 +276,12 @@ minimale pour $t = 0$, c'est-à-dire au pied de la perpendiculaire.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L137}{GeometriePlane.lean\#L137}
 
+\begin{figure}[h]
+\centering
+\input{figures/distance_minimale_au_pied}
+\caption{Le pied de la perpendiculaire est le point de la droite le plus proche de $p$.}
+\end{figure}
+
 \subsection{Angles opposés par le sommet, adjacents, supplémentaires}
 
 \begin{theoreme}
@@ -397,6 +408,12 @@ sa réciproque.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L215}{GeometriePlane.lean\#L215}
 
+\begin{figure}[h]
+\centering
+\input{figures/pythagore}
+\caption{Le triangle rectangle en $b$ : le carré de l'hypoténuse $[ac]$ est la somme des carrés des deux autres côtés.}
+\end{figure}
+
 \begin{theoreme}
 Contraposée : si l'égalité des carrés est en défaut, le triangle n'est pas rectangle.
 \end{theoreme}
@@ -421,6 +438,12 @@ On calcule directement :
 Le vecteur obtenu est colinéaire à $c - b$ : les deux droites sont parallèles.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L227}{GeometriePlane.lean\#L227}
+
+\begin{figure}[h]
+\centering
+\input{figures/theoreme_des_milieux}
+\caption{Le segment qui joint les milieux de deux côtés est parallèle au troisième et en mesure la moitié.}
+\end{figure}
 
 \begin{theoreme}
 Conséquence sur les longueurs : le segment des milieux mesure la moitié du troisième
@@ -469,6 +492,12 @@ Conséquence sur les longueurs : les trois rapports sont égaux,
 On prend la norme de l'égalité précédente, le facteur $t \ge 0$ sortant tel quel.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L262}{GeometriePlane.lean\#L262}
+
+\begin{figure}[h]
+\centering
+\input{figures/thales_rapports}
+\caption{Deux droites sécantes en $a$, coupées par deux parallèles : les longueurs sont multipliées par le même rapport $t$.}
+\end{figure}
 
 \begin{theoreme}
 Réciproque de Thalès : si $mn$ est parallèle à $bc$ avec le rapport $t$, alors $n$
@@ -532,6 +561,12 @@ donne les deux sens à la fois : le triangle inscrit dans un demi-cercle est rec
 l'hypoténuse d'un triangle rectangle est un diamètre de son cercle circonscrit.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L301}{GeometriePlane.lean\#L301}
+
+\begin{figure}[h]
+\centering
+\input{figures/triangle_inscrit_demi_cercle}
+\caption{Un triangle dont un côté est un diamètre est rectangle au troisième sommet.}
+\end{figure}
 
 \begin{theoreme}
 Réciproque : l'hypoténuse d'un triangle rectangle est un diamètre du cercle qui passe

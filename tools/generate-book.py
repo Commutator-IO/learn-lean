@@ -158,10 +158,21 @@ def corps(chemin, sections):
             morceaux[courant].append(bloc)
 
     out = ["".join(entete).strip()]
+    repris = 0
     for module, titre in sections:
         if module not in morceaux:
             continue
+        repris += 1
         out += ["", r"\section{" + titre + "}", "".join(morceaux[module]).strip()]
+
+    # Aucun des fichiers annoncés par l'index ne correspond à ce que contient le
+    # document : l'index a vieilli, ou le chapitre a été écrit autrement. Reprendre
+    # le document tel quel plutôt que de rendre un chapitre vide — un chapitre qui
+    # disparaît sans un mot est le pire des deux maux.
+    if repris == 0:
+        print(f"index à revoir : {os.path.basename(os.path.dirname(chemin))} annonce "
+              f"{[m for m, _ in sections]}, le document contient {sorted(morceaux)}")
+        return corps.strip()
     return "\n".join(x for x in out if x).strip()
 
 

@@ -1,0 +1,15 @@
+% Construction : la droite passant par h = (0, 0) et dirigée par u = (1, 0),
+% le point p = (0, 2,2) au-dessus de son pied h, et un point h + tu avec t = 2,6.
+\begin{tikzpicture}[scale=0.85]
+  \coordinate (h) at (0, 0);
+  \coordinate (p) at (0, 2.2);
+  \coordinate (m) at (2.6, 0);
+  \draw (-1.6, 0) -- (4, 0) node[right] {$h + t u$};
+  \draw (p) -- (h);
+  \draw[dashed] (p) -- (m);
+  \draw (0.28, 0) -- (0.28, 0.28) -- (0, 0.28);
+  \foreach \q in {h, p, m} \fill (\q) circle (1.4pt);
+  \node[above] at (p) {$p$};
+  \node[below left] at (h) {$h$};
+  \node[below] at (m) {$h + t u$};
+\end{tikzpicture}

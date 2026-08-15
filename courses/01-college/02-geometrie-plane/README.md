@@ -9,7 +9,7 @@ colonne *Théorème* donne le nom suggéré, à ajuster librement.
 
 ## Droites, angles, parallèles
 
-Fichier : `DroitesAnglesParalleles.lean`
+Fichier : `GeometriePlane.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
@@ -27,7 +27,7 @@ Fichier : `DroitesAnglesParalleles.lean`
 
 ## Triangles
 
-Fichier : `Triangles.lean`
+Fichier : `GeometriePlane.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
@@ -47,7 +47,7 @@ Fichier : `Triangles.lean`
 
 ## Cercle et quadrilatères
 
-Fichier : `CercleEtQuadrilateres.lean`
+Fichier : `GeometriePlane.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
@@ -60,7 +60,7 @@ Fichier : `CercleEtQuadrilateres.lean`
 
 ## Repérage et espace
 
-Fichier : `ReperageEtEspace.lean`
+Fichier : `GeometriePlane.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
