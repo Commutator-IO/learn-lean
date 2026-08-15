@@ -90,6 +90,12 @@
 .jeton-lien-interne {
   @apply text-brand-700;
 }
+/* Les mots du langage portent une explication : un soulignement pointillé
+   permanent, mais très pâle, pour qu'on sache où la chercher sans que le code
+   en soit constellé. */
+.jeton-aide {
+  @apply cursor-help underline decoration-ink-300 decoration-dotted underline-offset-[3px];
+}
 
 /* Prose des énoncés et des démonstrations : le HTML vient du LaTeX, il n'a
    donc aucune classe. On le met en forme ici, une fois. */

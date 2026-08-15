@@ -9,6 +9,8 @@
  * suivre une démonstration de l'œil.
  */
 
+import { GLOSSAIRE } from './glossaire.ts'
+
 const MOTS = new Set([
   'theorem', 'lemma', 'def', 'abbrev', 'instance', 'example', 'structure', 'class',
   'namespace', 'end', 'section', 'variable', 'open', 'import', 'noncomputable',
@@ -33,6 +35,8 @@ export type Jeton = {
   lien?: string
   /** Vrai si le lien reste dans le site : une déclaration de ce chapitre. */
   interne?: boolean
+  /** Clé du glossaire, pour les mots du langage et les tactiques. */
+  aide?: string
 }
 
 /** Une déclaration du chapitre courant : où la trouver dans le site. */
@@ -71,12 +75,19 @@ function lien(mot: string, declares: Map<string, Declare>): Pick<Jeton, 'lien' |
 export function jetons(ligne: string, declares: Map<string, Declare> = new Map()): Jeton[] {
   const out: Jeton[] = []
   let i = 0
-  const pousser = (texte: string, classe: string, extra?: Pick<Jeton, 'lien' | 'interne'>) => {
+  const pousser = (texte: string, classe: string, extra?: Omit<Jeton, 'texte' | 'classe'>) => {
     if (!texte) return
     const dernier = out[out.length - 1]
-    // Deux jetons ne se recollent que s'ils sont de même nature *et* sans lien :
-    // un identifiant cliquable doit rester un élément à lui seul.
-    if (dernier && dernier.classe === classe && !dernier.lien && !extra?.lien) {
+    // Deux jetons ne se recollent que s'ils sont de même nature *et* muets :
+    // un mot cliquable ou expliqué doit rester un élément à lui seul.
+    if (
+      dernier &&
+      dernier.classe === classe &&
+      !dernier.lien &&
+      !dernier.aide &&
+      !extra?.lien &&
+      !extra?.aide
+    ) {
       dernier.texte += texte
     } else {
       out.push({ texte, classe, ...extra })
@@ -117,8 +128,10 @@ export function jetons(ligne: string, declares: Map<string, Declare> = new Map()
     if (mot) {
       const m = mot[0]
       const nu = m.split('.').pop() ?? m
-      if (MOTS.has(m)) pousser(m, 'motcle')
-      else if (TACTIQUES.has(nu)) pousser(m, 'tactique')
+      // Un mot du langage ou une tactique porte son explication ; les autres
+      // identifiants, un lien vers leur déclaration.
+      if (MOTS.has(m)) pousser(m, 'motcle', { aide: GLOSSAIRE[m] ? m : undefined })
+      else if (TACTIQUES.has(nu)) pousser(m, 'tactique', { aide: GLOSSAIRE[nu] ? nu : undefined })
       else pousser(m, 'texte', lien(m, declares))
       i += m.length
       continue

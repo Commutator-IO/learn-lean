@@ -1,7 +1,69 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
+import { GLOSSAIRE } from '../lib/glossaire.ts'
 import { colorier, type Declare } from '../lib/lean.ts'
 import { useSyncScroll, type Cible, type Pilote } from '../lib/sync.ts'
 import type { Declaration, Module } from '../lib/types.ts'
+
+/** Le mot survolé et l'endroit où poser son infobulle. */
+type Bulle = { mot: string; x: number; y: number }
+
+/**
+ * L'infobulle d'un mot du langage.
+ *
+ * Elle est posée en `fixed` : le volet défile et rogne ce qui le déborde, or
+ * l'explication d'un mot de la dernière ligne visible doit rester lisible. Elle
+ * reste ouverte tant que la souris est dessus, pour qu'on puisse aller cliquer
+ * le lien.
+ */
+function Infobulle({
+  bulle,
+  onGarder,
+  onFermer,
+}: {
+  bulle: Bulle
+  onGarder: () => void
+  onFermer: () => void
+}) {
+  const aide = GLOSSAIRE[bulle.mot]
+  if (!aide) return null
+  return (
+    <div
+      onMouseEnter={onGarder}
+      onMouseLeave={onFermer}
+      style={{
+        left: Math.max(8, Math.min(bulle.x, window.innerWidth - 340)),
+        top: Math.min(bulle.y + 6, window.innerHeight - 160),
+      }}
+      className="fixed z-50 w-80 rounded-lg border border-ink-200 bg-white p-3 shadow-lg"
+    >
+      <div className="font-mono text-[12px] font-semibold text-ink-900">{bulle.mot}</div>
+      <p className="mt-1 font-sans text-[12.5px] leading-relaxed text-ink-600">
+        {/* Les explications citent du code entre accents graves, comme partout
+            ailleurs dans le dépôt. */}
+        {aide.quoi.split('`').map((part, i) =>
+          i % 2 ? (
+            <code key={i} className="rounded bg-ink-100 px-1 font-mono text-[11.5px]">
+              {part}
+            </code>
+          ) : (
+            part
+          ),
+        )}
+      </p>
+      {aide.doc && (
+        <a
+          href={aide.doc}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="mt-2 inline-block font-sans text-[12px] text-brand-700 underline underline-offset-2"
+        >
+          documentation ↗
+        </a>
+      )}
+    </div>
+  )
+}
 
 /**
  * Le volet de gauche : le fichier Lean, entier.
@@ -41,6 +103,23 @@ export function LeanPane({
 }) {
   const lignes = colorier(module.source, declares)
   const conteneur = useRef<HTMLDivElement>(null)
+
+  // L'infobulle survit à un bref passage de la souris entre le mot et elle :
+  // sans ce délai, on ne pourrait jamais atteindre son lien.
+  const [bulle, setBulle] = useState<Bulle | null>(null)
+  const minuterie = useRef<number | null>(null)
+  const garder = () => {
+    if (minuterie.current !== null) clearTimeout(minuterie.current)
+  }
+  const fermer = () => {
+    garder()
+    minuterie.current = window.setTimeout(() => setBulle(null), 120)
+  }
+  const montrer = (mot: string, el: HTMLElement) => {
+    garder()
+    const r = el.getBoundingClientRect()
+    setBulle({ mot, x: r.left, y: r.bottom })
+  }
 
   useSyncScroll({ conteneur, moi: 'lean', cible, lie, pilote, onDefile })
 
@@ -85,6 +164,20 @@ export function LeanPane({
               <span className="whitespace-pre-wrap break-words">
                 {jetons.map((j, k) => {
                   const classe = j.classe === 'texte' ? undefined : `jeton-${j.classe}`
+                  // Un mot du langage s'explique au survol : le glossaire est en
+                  // français, la documentation qu'il cite ne l'est pas.
+                  if (j.aide) {
+                    return (
+                      <span
+                        key={k}
+                        className={`${classe} jeton-aide`}
+                        onMouseEnter={(e) => montrer(j.aide!, e.currentTarget)}
+                        onMouseLeave={fermer}
+                      >
+                        {j.texte}
+                      </span>
+                    )
+                  }
                   if (!j.lien) {
                     return (
                       <span key={k} className={classe}>
@@ -127,6 +220,8 @@ export function LeanPane({
           )
         })}
       </pre>
+
+      {bulle && <Infobulle bulle={bulle} onGarder={garder} onFermer={fermer} />}
     </div>
   )
 }
