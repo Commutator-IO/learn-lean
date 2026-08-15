@@ -1,0 +1,22 @@
+<svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Le point d'affixe z dans le plan complexe : son module est la longueur OM, son argument l'angle avec l'axe des réels</title>
+  <g stroke-width="1.1">
+    <path d="M18,130 L190,130 M186,126 l6,4 l-6,4" />
+    <path d="M40,152 L40,24 M36,28 l4,-6 l4,6" />
+    <path d="M40,130 L145.6,59.6" stroke-width="1.4" />
+    <path d="M75.2,130 A35.2,35.2 0 0,0 69.3,110.5" />
+  </g>
+  <g stroke-width="0.9" stroke-dasharray="2 3">
+    <path d="M145.6,59.6 L145.6,130 M145.6,59.6 L40,59.6" />
+  </g>
+  <circle cx="145.6" cy="59.6" r="2.6" fill="currentColor" stroke="none" />
+  <g fill="currentColor" stroke="none" font-size="12" font-style="italic">
+    <text x="152" y="54">M(z)</text>
+    <text x="142" y="145" text-anchor="middle">a</text>
+    <text x="32" y="63" text-anchor="end">b</text>
+    <text x="80" y="120">θ</text>
+    <text x="78" y="88">|z|</text>
+    <text x="194" y="134" font-style="normal" font-size="11">Re</text>
+    <text x="40" y="18" text-anchor="middle" font-style="normal" font-size="11">Im</text>
+  </g>
+</svg>

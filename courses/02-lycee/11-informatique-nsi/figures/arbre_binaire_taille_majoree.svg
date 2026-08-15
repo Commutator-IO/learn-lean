@@ -1,0 +1,15 @@
+<svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Arbre binaire complet de hauteur trois : les niveaux comptent un, deux puis quatre nœuds, soit sept en tout</title>
+  <g stroke-width="1.2">
+    <path d="M186,30 L122,70 M186,30 L250,70 M122,70 L90,110 M122,70 L154,110 M250,70 L218,110 M250,70 L282,110" />
+    <circle cx="186" cy="30" r="7" />
+    <circle cx="122" cy="70" r="7" /><circle cx="250" cy="70" r="7" />
+    <circle cx="90" cy="110" r="7" /><circle cx="154" cy="110" r="7" />
+    <circle cx="218" cy="110" r="7" /><circle cx="282" cy="110" r="7" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="12" text-anchor="end">
+    <text x="60" y="34">2⁰ = 1</text>
+    <text x="60" y="74">2¹ = 2</text>
+    <text x="60" y="114">2² = 4</text>
+  </g>
+</svg>

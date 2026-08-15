@@ -1,0 +1,20 @@
+<svg viewBox="0 0 300 165" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Une file simulée par deux piles : les arrivées s'empilent à l'entrée, et basculent retournées dans la pile de sortie</title>
+  <g stroke-width="1.3">
+    <path d="M41,122 L96,122 L96,47 M41,122 L41,47" />
+    <path d="M177,122 L232,122 L232,47 M177,122 L177,47" />
+    <rect x="44" y="102.6" width="47.6" height="18.7" />
+    <rect x="44" y="82.2" width="47.6" height="18.7" />
+    <rect x="44" y="61.8" width="47.6" height="18.7" />
+  </g>
+  <g stroke-width="1.1">
+    <path d="M102,57 Q139,40 170,57" />
+    <path d="M170,57 l-8,-3 m8,3 l-6,6" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="12" text-anchor="middle">
+    <text x="68" y="116">d</text><text x="68" y="96">c</text><text x="68" y="75">b</text>
+    <text x="136" y="34" font-size="11">bascule, retournée</text>
+    <text x="68" y="140" font-style="italic">entrée</text>
+    <text x="204" y="140" font-style="italic">sortie</text>
+  </g>
+</svg>

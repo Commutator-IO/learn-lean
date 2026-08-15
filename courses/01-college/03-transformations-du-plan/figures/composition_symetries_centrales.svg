@@ -1,0 +1,24 @@
+<svg viewBox="0 0 230 180" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Deux demi-tours successifs ramènent une translation : le vecteur du départ à l'arrivée vaut le double du vecteur joignant les deux centres</title>
+  <g stroke-width="1.1">
+    <path d="M37.6,63.2 L143.2,151.2 M143.2,151.2 L196,19.2" />
+    <path d="M90.4,107.2 L169.6,85.2" />
+    <path d="M169.6,85.2 l-8,-1 m8,1 l-6,4.5" />
+  </g>
+  <g stroke-width="1.7">
+    <path d="M37.6,63.2 L196,19.2" />
+    <path d="M196,19.2 l-8,0.5 m8,-0.5 l-6.5,4.5" />
+  </g>
+  <g fill="currentColor" stroke="none">
+    <circle cx="37.6" cy="63.2" r="2.6" /><circle cx="143.2" cy="151.2" r="2.6" />
+    <circle cx="196" cy="19.2" r="2.6" />
+    <circle cx="90.4" cy="107.2" r="2.6" /><circle cx="169.6" cy="85.2" r="2.6" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="12" font-style="italic">
+    <text x="30" y="56" text-anchor="end">M</text>
+    <text x="143" y="168" text-anchor="middle">M₁</text>
+    <text x="192" y="14" text-anchor="end">M₂</text>
+    <text x="96" y="121">O₁</text>
+    <text x="175" y="99">O₂</text>
+  </g>
+</svg>

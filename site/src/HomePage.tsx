@@ -26,6 +26,16 @@ export function HomePage() {
       { total: 0, demontres: 0 },
     );
 
+  // Le compte d'ensemble, pour que la page ne promette pas plus qu'elle ne
+  // tient. Écrit à la main, il serait faux au chapitre suivant.
+  const tout = (index?.themes ?? []).reduce(
+    (a, t) => {
+      const c = compte(t);
+      return { total: a.total + c.total, demontres: a.demontres + c.demontres };
+    },
+    { total: 0, demontres: 0 },
+  );
+
   return (
     <div className="flex min-h-dvh flex-col">
       <Header path="/" />
@@ -36,26 +46,44 @@ export function HomePage() {
             Les mathématiques du secondaire français, démontrées en Lean
           </h1>
           <p className="mt-5 text-[17px] leading-relaxed text-ink-600">
-            De la sixième à la terminale, chaque théorème du programme est écrit
-            et vérifié en{" "}
+            De la sixième à la terminale, les théorèmes du programme sont écrits
+            en{" "}
             <a
               className="text-brand-700 underline underline-offset-2"
               href="https://lean-lang.org/"
             >
               Lean 4
             </a>
-            , puis transcrit en français. Le site montre les deux textes côte à
-            côte : à gauche la preuve que la machine accepte, à droite celle
-            qu'un élève peut lire. Les chapitres se suivent par notion et non
-            par cycle : la divisibilité de sixième et l'arithmétique de
-            terminale sont le même sujet, et se lisent à la suite.
+            , vérifiés par la machine, puis transcrits en français. Le site
+            montre les deux textes côte à côte : à gauche la preuve que le
+            compilateur accepte, à droite celle qu'un élève peut lire. Les
+            chapitres se suivent par notion et non par cycle : la divisibilité
+            de sixième et l'arithmétique de terminale sont le même sujet, et se
+            lisent à la suite.
           </p>
           <p className="mt-4 text-[15px] leading-relaxed text-ink-500">
-            Le corpus est pris tel quel, sans écarter ce qui résiste. Les
-            énoncés qu'on ne sait pas formaliser honnêtement — l'aire du disque,
-            le théorème du toit, Moivre–Laplace — restent dans la liste, avec la
-            raison. C'est là que se lisent les limites de l'outil, et c'est une
-            des choses que ce travail cherche à mesurer.
+            Le corpus est pris tel quel, sans écarter ce qui résiste
+            {tout.total > 0 && (
+              <>
+                {" "}
+                :{" "}
+                <strong className="font-medium text-ink-700">
+                  {tout.demontres} des {tout.total} énoncés
+                </strong>{" "}
+                du programme sont démontrés
+              </>
+            )}
+            . Les autres y figurent quand même : l'aire du disque, le théorème
+            du toit, Moivre–Laplace sont écrits en Lean, mais leur démonstration
+            est admise, et ils portent cette mention sur le site comme dans le
+            livre. Les écrire sans les démontrer permet de compter ce qui
+            manque, plutôt que de le passer sous silence — c'est une des choses
+            que ce travail cherche à mesurer.
+          </p>
+          <p className="mt-4 text-[15px] leading-relaxed text-ink-500">
+            C'est une expérimentation, pas un manuel : rien ici n'a été relu par
+            un enseignant, et le livre le rappelle en filigrane sur chacune de
+            ses pages.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -137,13 +165,15 @@ export function HomePage() {
               en l'état.
             </p>
             <p>
-              <strong className="text-ink-800">La preuve ensuite.</strong> Un
-              fichier Lean par section de chapitre, vérifié par{" "}
-              <code className="font-mono text-[13.5px]">
-                lake build --wfail
-              </code>{" "}
-              à chaque changement : un simple avertissement fait échouer la
-              construction.
+              <strong className="text-ink-800">La preuve ensuite.</strong> Un ou
+              plusieurs fichiers Lean par chapitre, recompilés par{" "}
+              <code className="font-mono text-[13.5px]">lake build</code> à
+              chaque changement. Un énoncé écrit mais non démontré s'écrit{" "}
+              <code className="font-mono text-[13.5px]">sorry</code>, ce que
+              Lean signale par un avertissement ; la construction ne s'en trouve
+              pas cassée, mais chaque intégration en publie la liste, de sorte
+              qu'un <code className="font-mono text-[13.5px]">sorry</code>{" "}
+              ajouté sans qu'on le veuille se voit dans le journal.
             </p>
             <p>
               <strong className="text-ink-800">La rédaction enfin.</strong> Le

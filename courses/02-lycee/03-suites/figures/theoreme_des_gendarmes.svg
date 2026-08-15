@@ -1,0 +1,35 @@
+<svg viewBox="0 0 330 165" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Une suite prise entre deux suites qui convergent vers la même limite : elle n'a plus la place d'aller ailleurs</title>
+  <path d="M30,130 L300,130 M296,126 l6,4 l-6,4" stroke-width="1.1" />
+  <path d="M43,70 L308,70" stroke-width="1" stroke-dasharray="6 4" />
+  <g stroke-width="0.9" opacity="0.45">
+    <polyline points="62,110 94,96 126,86 158,80 190,76.4 222,74 254,72.4 286,71.2" />
+    <polyline points="62,30 94,44 126,54 158,60 190,63.6 222,66 254,67.6 286,68.8" />
+    <polyline points="62,84 94,52 126,82 158,62 190,74 222,68 254,71.2 286,69.6" />
+  </g>
+  <g fill="currentColor" stroke="none">
+    <circle cx="62" cy="110" r="2.2" /><circle cx="94" cy="96" r="2.2" />
+    <circle cx="126" cy="86" r="2.2" /><circle cx="158" cy="80" r="2.2" />
+    <circle cx="190" cy="76.4" r="2.2" /><circle cx="222" cy="74" r="2.2" />
+    <circle cx="254" cy="72.4" r="2.2" /><circle cx="286" cy="71.2" r="2.2" />
+    <circle cx="62" cy="30" r="2.2" /><circle cx="94" cy="44" r="2.2" />
+    <circle cx="126" cy="54" r="2.2" /><circle cx="158" cy="60" r="2.2" />
+    <circle cx="190" cy="63.6" r="2.2" /><circle cx="222" cy="66" r="2.2" />
+    <circle cx="254" cy="67.6" r="2.2" /><circle cx="286" cy="68.8" r="2.2" />
+  </g>
+  <g stroke-width="1.2" fill="#fff">
+    <circle cx="62" cy="84" r="3" /><circle cx="94" cy="52" r="3" />
+    <circle cx="126" cy="82" r="3" /><circle cx="158" cy="62" r="3" />
+    <circle cx="190" cy="74" r="3" /><circle cx="222" cy="68" r="3" />
+    <circle cx="254" cy="71.2" r="3" /><circle cx="286" cy="69.6" r="3" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="11" font-style="italic" text-anchor="end">
+    <text x="54" y="34">wₙ</text>
+    <text x="54" y="88">uₙ</text>
+    <text x="54" y="114">vₙ</text>
+  </g>
+  <g fill="currentColor" stroke="none" font-size="11" font-style="italic">
+    <text x="312" y="74">ℓ</text>
+    <text x="304" y="146">n</text>
+  </g>
+</svg>

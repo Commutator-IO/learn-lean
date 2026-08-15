@@ -1,0 +1,20 @@
+<svg viewBox="0 0 280 190" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Un arbre binaire de recherche et son parcours infixe, qui lit les clés dans l'ordre croissant de gauche à droite</title>
+  <g stroke-width="1.2">
+    <path d="M128.4,35.8 L75.6,62.2 M151.6,35.8 L204.4,62.2 M54.8,77.2 L35.2,96.8 M73.2,77.2 L92.8,96.8 M225.2,77.2 L244.8,96.8" />
+    <circle cx="140" cy="30" r="13" /><circle cx="64" cy="68" r="13" /><circle cx="216" cy="68" r="13" />
+    <circle cx="26" cy="106" r="13" /><circle cx="102" cy="106" r="13" /><circle cx="254" cy="106" r="13" />
+    <path d="M10,152 L270,152" stroke-width="1" />
+  </g>
+  <g stroke-width="0.9" stroke-dasharray="2 3">
+    <path d="M26,119 L26,152 M64,81 L64,152 M102,119 L102,152 M140,43 L140,152 M216,81 L216,152 M254,119 L254,152" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="13" text-anchor="middle">
+    <text x="140" y="35">8</text><text x="64" y="73">3</text><text x="216" y="73">10</text>
+    <text x="26" y="111">1</text><text x="102" y="111">6</text><text x="254" y="111">14</text>
+  </g>
+  <g fill="currentColor" stroke="none" font-size="12" text-anchor="middle" font-style="italic">
+    <text x="26" y="170">1</text><text x="64" y="170">3</text><text x="102" y="170">6</text>
+    <text x="140" y="170">8</text><text x="216" y="170">10</text><text x="254" y="170">14</text>
+  </g>
+</svg>

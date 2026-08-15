@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \theoremstyle{plain}
@@ -181,6 +186,12 @@ distance. Les deux définitions ne sont pas seulement équivalentes, elles sont 
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L91}{Suites.lean\#L91}
 
+\begin{figure}[h]
+\centering
+\input{figures/limite_definition_epsilon}
+\caption{La définition de la limite. Une fois la bande d'amplitude $\varepsilon$ choisie autour de $\ell$, il existe un rang $N$ au-delà duquel tous les termes y sont \textemdash{} et cela pour tout $\varepsilon$, si petit soit-il.}
+\end{figure}
+
 \begin{theoreme}
 Et la divergence vers $+\infty$ est la définition avec $A$ :
 \[ u_n \to +\infty \iff \forall A,\ \exists N,\ \forall n \ge N,\ A \le u_n . \]
@@ -294,6 +305,12 @@ au-delà d'un certain rang les deux encadrants sont dans l'intervalle
 $]\ell - \varepsilon ; \ell + \varepsilon[$, donc $u_n$ aussi.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L160}{Suites.lean\#L160}
+
+\begin{figure}[h]
+\centering
+\input{figures/theoreme_des_gendarmes}
+\caption{Le théorème des gendarmes. La suite $u_n$, prise entre $v_n$ et $w_n$ qui convergent toutes deux vers $\ell$, n'a plus la place d'aller ailleurs.}
+\end{figure}
 
 \begin{theoreme}
 Comparaison : une suite minorée par une suite qui tend vers $+\infty$ tend vers

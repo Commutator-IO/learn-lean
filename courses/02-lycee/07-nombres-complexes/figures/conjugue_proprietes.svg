@@ -1,0 +1,17 @@
+<svg viewBox="0 0 220 180" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Un complexe et son conjugué, symétriques par rapport à l'axe des réels</title>
+  <g stroke-width="1.1">
+    <path d="M18,88 L180,88 M176,84 l6,4 l-6,4" />
+    <path d="M40,176 L40,12 M36,16 l4,-6 l4,6" />
+    <path d="M40,88 L136.8,26.4 M40,88 L136.8,149.6" stroke-width="1.4" />
+  </g>
+  <path d="M136.8,26.4 L136.8,149.6" stroke-width="0.9" stroke-dasharray="2 3" />
+  <circle cx="136.8" cy="26.4" r="2.6" fill="currentColor" stroke="none" />
+  <circle cx="136.8" cy="149.6" r="2.6" fill="currentColor" stroke="none" />
+  <g fill="currentColor" stroke="none" font-size="12" font-style="italic">
+    <text x="144" y="22">M(z)</text>
+    <text x="144" y="160">M′(z̄)</text>
+    <text x="184" y="92" font-style="normal" font-size="11">Re</text>
+    <text x="40" y="8" text-anchor="middle" font-style="normal" font-size="11">Im</text>
+  </g>
+</svg>

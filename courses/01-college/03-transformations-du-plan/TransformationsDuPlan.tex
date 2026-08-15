@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \theoremstyle{plain}
@@ -165,6 +170,12 @@ translation, de vecteur le double de celui qui joint les deux centres.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L87}{TransformationsDuPlan.lean\#L87}
 
+\begin{figure}[h]
+\centering
+\input{figures/composition_symetries_centrales}
+\caption{Deux demi-tours successifs. Le point revient à l'endroit, et le trajet total $\vec{MM_2}$ vaut le double de $\vec{O_1O_2}$ : la composée est une translation, quel que soit le point de départ.}
+\end{figure}
+
 \begin{theoreme}
 Deux demi-tours de même centre se compensent : $s_c\bigl(s_c(x)\bigr) = x$.
 \end{theoreme}
@@ -188,6 +199,12 @@ La différence des images se factorise :
 et la norme d'un vecteur multiplié par $k$ est celle du vecteur multipliée par $|k|$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/03-transformations-du-plan/TransformationsDuPlan.lean\#L101}{TransformationsDuPlan.lean\#L101}
+
+\begin{figure}[h]
+\centering
+\input{figures/homothetie_multiplie_distances}
+\caption{Une homothétie de centre $O$ et de rapport $1{,}8$. Les trois sommets s'éloignent de $O$ dans le même rapport, et toutes les distances de la figure sont multipliées par $1{,}8$.}
+\end{figure}
 
 \begin{theoreme}
 Une homothétie de rapport $k > 0$ conserve les angles :

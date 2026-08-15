@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \newtheorem{exemple}{Exemple}
@@ -1259,6 +1264,12 @@ tronquée des entiers naturels, où \(0 - 1\) vaudrait \(0\).
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L191}{RecursiviteEtDiviserPourRegner.lean\#L191}
 
+\begin{figure}[h]
+\centering
+\input{figures/tours_de_hanoi}
+\caption{Les tours de Hanoï. Déplacer la pile entière demande d'abord de dégager les disques du dessus, puis de les remettre : d'où le doublement à chaque disque, et les $2^n - 1$ déplacements.}
+\end{figure}
+
 \begin{theoreme}
 Aucune solution ne fait mieux.
 
@@ -1441,6 +1452,12 @@ deux piles ne se comporte comme une file, et pourtant leur composition, oui.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L88}{StructuresDeDonnees.lean\#L88}
 
+\begin{figure}[h]
+\centering
+\input{figures/file_par_deux_piles}
+\caption{La file simulée par deux piles. Les arrivées s'empilent à l'entrée ; quand la pile de sortie se vide, on y bascule l'entrée, ce qui la retourne \textemdash{} et rend au premier arrivé sa place de premier servi.}
+\end{figure}
+
 \subsection{Listes chaînées}
 
 \begin{definition}
@@ -1517,6 +1534,12 @@ un nœud la hauteur \(1\). Avec la convention qui compte les arêtes, la majorat
 s'écrit \(2^{h+1} - 1\).
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L157}{StructuresDeDonnees.lean\#L157}
+
+\begin{figure}[h]
+\centering
+\input{figures/arbre_binaire_taille_majoree}
+\caption{Un arbre complet de hauteur $3$ : chaque niveau double le nombre de nœuds du précédent, et le total $1 + 2 + 4$ vaut $2^3 - 1$. Aucun arbre de cette hauteur n'en a davantage.}
+\end{figure}
 
 \begin{theoreme}
 Conséquence directe : la hauteur d'un arbre à \texttt{n} nœuds vaut au moins
@@ -1644,6 +1667,12 @@ C'est ce qui justifie la structure : on obtient le tri sans trier, par le seul f
 d'avoir rangé les clés selon la règle.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L257}{StructuresDeDonnees.lean\#L257}
+
+\begin{figure}[h]
+\centering
+\input{figures/abr_parcours_infixe_trie}
+\caption{Un arbre binaire de recherche. Les clés y sont rangées de sorte que le parcours infixe \textemdash{} gauche, racine, droite \textemdash{} les lise de gauche à droite, donc dans l'ordre croissant.}
+\end{figure}
 
 \begin{definition}
 La recherche dans un arbre binaire de recherche : on compare à la racine et l'on

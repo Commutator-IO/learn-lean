@@ -1,0 +1,18 @@
+<svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>L'ensemble des points à distance au plus r de a est le segment de a moins r à a plus r</title>
+  <g stroke-width="1.1">
+    <path d="M14,74 L300,74 M296,70 l6,4 l-6,4" />
+    <path d="M92.4,67 L92.4,81 M238,67 L238,81" />
+  </g>
+  <path d="M92.4,74 L238,74" stroke-width="3.2" />
+  <circle cx="165.2" cy="74" r="3" fill="currentColor" stroke="none" />
+  <g stroke-width="1">
+    <path d="M92.4,44 L165.2,44 M96,40.5 l-4,3.5 l4,3.5 M161.6,40.5 l4,3.5 l-4,3.5" />
+    <path d="M165.2,44 L238,44 M168.8,40.5 l-4,3.5 l4,3.5 M234.4,40.5 l4,3.5 l-4,3.5" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="11" text-anchor="middle" font-style="italic">
+    <text x="128" y="36">r</text><text x="201" y="36">r</text>
+    <text x="165.2" y="95">a</text><text x="92.4" y="95">a − r</text><text x="238" y="95">a + r</text>
+    <text x="308" y="78">x</text>
+  </g>
+</svg>

@@ -1,0 +1,16 @@
+% Construction : O en (0, 0), M d'affixe z en (2.4, 1.6).
+%   a = 2.4 (partie réelle), b = 1.6 (partie imaginaire), |z| = 2.88, θ ≈ 33,7°.
+%   Arc de l'angle de rayon 0.8.
+% SVG : x = 40 + 44x, y = 130 - 44y.
+\begin{tikzpicture}[scale=1, >=stealth, every node/.style={font=\small}]
+  \draw[->] (-0.5, 0) -- (3.4, 0) node[right] {$\mathrm{Re}$};
+  \draw[->] (0, -0.5) -- (0, 2.4) node[above] {$\mathrm{Im}$};
+  \draw (0, 0) -- (2.4, 1.6);
+  \fill (2.4, 1.6) circle (1.6pt);
+  \node[above right] at (2.4, 1.6) {$M(z)$};
+  \draw[dotted] (2.4, 1.6) -- (2.4, 0) node[below] {$a$};
+  \draw[dotted] (2.4, 1.6) -- (0, 1.6) node[left] {$b$};
+  \draw (0.8, 0) arc (0:33.7:0.8);
+  \node[right] at (0.85, 0.28) {$\theta$};
+  \node[above left] at (1.2, 0.8) {$|z|$};
+\end{tikzpicture}

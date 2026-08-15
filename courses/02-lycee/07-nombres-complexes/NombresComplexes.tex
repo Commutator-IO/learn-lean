@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \theoremstyle{plain}
@@ -97,6 +102,12 @@ qu'affirme un autre résultat de la bibliothèque, et à voir l'égalité de ré
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/07-nombres-complexes/NombresComplexes.lean\#L30}{NombresComplexes.lean\#L30}
 
+\begin{figure}[h]
+\centering
+\input{figures/conjugue_proprietes}
+\caption{Un complexe et son conjugué sont symétriques par rapport à l'axe des réels. Un complexe égal à son conjugué est donc sur cet axe : c'est un réel.}
+\end{figure}
+
 \begin{theoreme}
 Un complexe est réel si et seulement s'il est égal à son conjugué, imaginaire pur si et
 seulement s'il est l'opposé de son conjugué :
@@ -164,6 +175,12 @@ l'égalité voulue en multipliant par $|z|$. Le résultat y est marqué comme si
 automatique, si bien que la transcription formelle se réduit à l'invoquer.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/07-nombres-complexes/NombresComplexes.lean\#L65}{NombresComplexes.lean\#L65}
+
+\begin{figure}[h]
+\centering
+\input{figures/forme_trigonometrique}
+\caption{Le point d'affixe $z$ : son module est la longueur $OM$, son argument l'angle que $[OM)$ fait avec l'axe des réels. Les projections donnent la forme algébrique, l'angle et la longueur la forme trigonométrique.}
+\end{figure}
 
 \begin{theoreme}
 Pour $z$ et $z'$ non nuls, l'argument d'un produit est la somme des arguments,
