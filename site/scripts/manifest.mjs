@@ -42,7 +42,7 @@ async function themes() {
 
 /** Les modificateurs précèdent le mot-clé, comme dans generate-tex.py. */
 const DECLARATION =
-  /^(?:noncomputable |private |protected |partial |unsafe )*(theorem|lemma|def|abbrev|instance|example)\s+([^\s({[:]*)/;
+  /^(?:noncomputable |private |protected |partial |unsafe )*(theorem|lemma|def|abbrev|instance|structure|inductive|example)\s+([^\s({[:]*)/;
 
 /**
  * Découpe un fichier Lean en déclarations documentées.
@@ -129,6 +129,18 @@ function sansTitres(tex) {
 }
 
 /**
+ * Retire les environnements `figure`, corps et légende compris.
+ *
+ * Le site n'a pas à les rendre : il insère le SVG lui-même, à partir du champ
+ * `figure` de la déclaration. Le `\input{figures/…}` du LaTeX ne désignant
+ * qu'un fichier TikZ, le laisser passer affichait la source de la figure au
+ * lieu de la figure — ce que le lecteur voyait.
+ */
+function sansFigures(tex) {
+  return tex.replace(/\\begin\{figure\}[\s\S]*?\\end\{figure\}/g, '');
+}
+
+/**
  * Découpe un document LaTeX en blocs, un par déclaration.
  *
  * Chaque bloc va de la fin du précédent jusqu'à son `\source`. On y lit
@@ -140,11 +152,13 @@ function blocsTex(source) {
   // du corps, et l'on jette les commentaires LaTeX et les commandes de
   // composition, qui n'ont rien à dire à un lecteur.
   const corpsDoc = source.slice(source.indexOf('\\begin{document}'));
-  const tex = corpsDoc
-    .split('\n')
-    .filter((l) => !l.trimStart().startsWith('%'))
-    .join('\n')
-    .replace(/\\begin\{document\}|\\maketitle|\\sloppy|\\vfill/g, '');
+  const tex = sansFigures(
+    corpsDoc
+      .split('\n')
+      .filter((l) => !l.trimStart().startsWith('%'))
+      .join('\n')
+      .replace(/\\begin\{document\}|\\maketitle|\\sloppy|\\vfill/g, ''),
+  );
 
   const blocs = new Map();
   const re = /\\source\{[^}]*\}\{([^}]*?)\\#L(\d+)\}/g;

@@ -162,7 +162,7 @@ def base_github(racine):
 # les modificateurs (noncomputable, private…) précèdent le mot-clé
 DECLARATION = re.compile(
     r"^(?:noncomputable |private |protected |partial |unsafe )*"
-    r"(theorem|lemma|def|abbrev|instance|example)\s+([^\s({\[:]*)")
+    r"(theorem|lemma|def|abbrev|instance|structure|inductive|example)\s+([^\s({\[:]*)")
 
 def lire(chemin):
     """Découpe le fichier en blocs : intro, sections, remarques, déclarations."""
@@ -276,7 +276,7 @@ def environnement(sorte, nom):
     """
     if sorte == "example":
         return "exemple"
-    if sorte in ("def", "abbrev", "instance"):
+    if sorte in ("def", "abbrev", "instance", "structure", "inductive"):
         return "definition"
     return "lemme" if nom.startswith("lemme") else "theoreme"
 
@@ -302,8 +302,24 @@ def document_du_chapitre(dossier):
         return os.path.join(dossier, presents[0])
     return os.path.join(dossier, camel(titre_chapitre(dossier)) + ".tex")
 
+def section_du_fichier(dossier, fichier, racine, base):
+    """Les lignes LaTeX d'une section : un fichier Lean, énoncés et renvois."""
+    intro, blocs = lire(os.path.join(dossier, fichier))
+    relatif = os.path.relpath(os.path.abspath(os.path.join(dossier, fichier)), racine)
+    out = [r"\section{" + code_latex(os.path.splitext(fichier)[0]) + "}", ""]
+    if intro:
+        out += [r"\noindent", prose_latex(intro), ""]
+    return out, ecrire_blocs(out, blocs, base, relatif, fichier)
+
 def convertir(dossier):
-    """Un document par chapitre : une section par fichier Lean du dossier."""
+    """Un document par chapitre : une section par fichier Lean du dossier.
+
+    Un document déjà écrit n'est jamais réécrit — il porte les transcriptions
+    françaises, que rien ne saurait engendrer. Mais un chapitre peut recevoir un
+    nouveau fichier Lean après coup ; sa section est alors ajoutée à la fin, avant
+    la citation. Sans cela le fichier existerait sans que le livre en sache rien,
+    et le manque ne se verrait nulle part.
+    """
     fichiers = sorted(f for f in os.listdir(dossier) if f.endswith(".lean"))
     if not fichiers:
         return None, 0
@@ -311,18 +327,30 @@ def convertir(dossier):
     base = base_github(racine)
     titre = titre_chapitre(dossier)
     chemin_tex = document_du_chapitre(dossier)
+
     if os.path.exists(chemin_tex):
-        return chemin_tex, None
+        texte = open(chemin_tex, encoding="utf-8").read()
+        manquants = [f for f in fichiers
+                     if r"\section{" + code_latex(os.path.splitext(f)[0]) + "}" not in texte]
+        if not manquants:
+            return chemin_tex, None
+        ajout, total = [], 0
+        for fichier in manquants:
+            lignes, n = section_du_fichier(dossier, fichier, racine, base)
+            ajout += lignes
+            total += n
+        # La citation ferme le document : les nouvelles sections passent devant.
+        coupe = texte.rindex(CITATION)
+        open(chemin_tex, "w", encoding="utf-8").write(
+            texte[:coupe] + "\n".join(ajout) + "\n" + texte[coupe:])
+        return chemin_tex, total
 
     out = [ENTETE % {"source": os.path.basename(dossier), "titre": prose_latex(titre)}]
     total = 0
     for fichier in fichiers:
-        intro, blocs = lire(os.path.join(dossier, fichier))
-        relatif = os.path.relpath(os.path.abspath(os.path.join(dossier, fichier)), racine)
-        out += [r"\section{" + code_latex(os.path.splitext(fichier)[0]) + "}", ""]
-        if intro:
-            out += [r"\noindent", prose_latex(intro), ""]
-        total += ecrire_blocs(out, blocs, base, relatif, fichier)
+        lignes, n = section_du_fichier(dossier, fichier, racine, base)
+        out += lignes
+        total += n
     out += [CITATION, r"\end{document}", ""]
     open(chemin_tex, "w", encoding="utf-8").write("\n".join(out))
     return chemin_tex, total
@@ -353,24 +381,44 @@ def ecrire_blocs(out, blocs, base, relatif, source):
             total += 1
     return total
 
-def renvois(dossier):
-    """Les renvois attendus, dans l'ordre des déclarations du chapitre."""
+def renvois(dossier, fichier):
+    """Les renvois attendus pour un fichier Lean, dans l'ordre de ses déclarations."""
     racine = racine_depot(dossier)
     base = base_github(racine)
+    _, blocs = lire(os.path.join(dossier, fichier))
+    relatif = os.path.relpath(os.path.abspath(os.path.join(dossier, fichier)), racine)
     attendus = []
-    for fichier in sorted(f for f in os.listdir(dossier) if f.endswith(".lean")):
-        _, blocs = lire(os.path.join(dossier, fichier))
-        relatif = os.path.relpath(os.path.abspath(os.path.join(dossier, fichier)), racine)
-        for sorte, contenu in blocs:
-            if sorte == "declaration":
-                debut = contenu[3]
-                lien = f"{base}/{relatif}#L{debut}".replace("#", r"\#") if base else ""
-                attendus.append(r"\source{" + lien + "}{"
-                                + code_latex(f"{fichier}#L{debut}") + "}")
+    for sorte, contenu in blocs:
+        if sorte == "declaration":
+            debut = contenu[3]
+            lien = f"{base}/{relatif}#L{debut}".replace("#", r"\#") if base else ""
+            attendus.append(r"\source{" + lien + "}{"
+                            + code_latex(f"{fichier}#L{debut}") + "}")
     return attendus
+
+def ordre_des_sections(lignes, dossier):
+    """Les fichiers Lean dans l'ordre où le document les présente.
+
+    Le document ne suit pas forcément l'ordre alphabétique : une section ajoutée
+    après coup se pose à la fin. Réattribuer les renvois dans l'ordre des noms de
+    fichiers décalerait alors tout le chapitre — chaque énoncé recevrait le lien de
+    son voisin, et rien ne le signalerait, puisque le compte total reste juste.
+    """
+    connus = {os.path.splitext(f)[0]: f
+              for f in os.listdir(dossier) if f.endswith(".lean")}
+    out = []
+    for i, ligne in enumerate(lignes):
+        m = re.match(r"\\section\{(.+)\}$", ligne)
+        if m and m.group(1) in connus:
+            out.append((i, connus[m.group(1)]))
+    return out
 
 def rafraichir_liens(dossier):
     """Réécrit les `\\source` d'un `.tex` existant d'après les lignes actuelles du Lean.
+
+    Chaque section est rafraîchie contre son propre fichier Lean : un décalage ne
+    peut donc pas traverser une frontière de section, et une section dont le compte
+    ne correspond plus fait échouer tout le chapitre plutôt que de le corrompre.
 
     Renvoie (chemin, nombre de renvois modifiés) ou (chemin, None) si le nombre de
     déclarations ne correspond plus."""
@@ -378,15 +426,21 @@ def rafraichir_liens(dossier):
     if not os.path.exists(chemin_tex):
         return None, 0
     lignes = open(chemin_tex, encoding="utf-8").read().split("\n")
-    positions = [i for i, l in enumerate(lignes) if l.startswith(r"\source{")]
-    attendus = renvois(dossier)
-    if len(positions) != len(attendus):
+    sections = ordre_des_sections(lignes, dossier)
+    if not sections:
         return chemin_tex, None
+    bornes = [i for i, _ in sections] + [len(lignes)]
     modifies = 0
-    for i, nouveau in zip(positions, attendus):
-        if lignes[i] != nouveau:
-            lignes[i] = nouveau
-            modifies += 1
+    for k, (_, fichier) in enumerate(sections):
+        positions = [i for i in range(bornes[k], bornes[k + 1])
+                     if lignes[i].startswith(r"\source{")]
+        attendus = renvois(dossier, fichier)
+        if len(positions) != len(attendus):
+            return chemin_tex, None
+        for i, nouveau in zip(positions, attendus):
+            if lignes[i] != nouveau:
+                lignes[i] = nouveau
+                modifies += 1
     if modifies:
         open(chemin_tex, "w", encoding="utf-8").write("\n".join(lignes))
     return chemin_tex, modifies

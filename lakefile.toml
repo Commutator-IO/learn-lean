@@ -97,4 +97,4 @@ globs = ["Arithmetique", "MatricesEtGraphes"]
 [[lean_lib]]
 name = "LyceeInformatiqueNsi"
 srcDir = "courses/02-lycee/11-informatique-nsi"
-globs = ["RepresentationDesDonnees"]
+globs = ["AlgorithmesSurLesTableaux", "CorrectionEtTerminaisonDesProgrammes", "RecursiviteEtDiviserPourRegner", "RepresentationDesDonnees", "StructuresDeDonnees"]

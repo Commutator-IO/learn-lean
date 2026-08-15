@@ -26,6 +26,8 @@ const ETIQUETTE: Record<string, string> = {
   def: "Définition",
   abbrev: "Définition",
   instance: "Instance",
+  structure: "Définition",
+  inductive: "Définition",
   example: "Exemple",
 };
 

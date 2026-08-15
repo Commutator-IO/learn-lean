@@ -280,54 +280,55 @@ routage — appartient à un autre projet que celui-ci.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Recherche séquentielle : le résultat est un indice de la valeur cherchée, ou l'absence de la valeur | 1NSI | | ☐ |
-| Coût de la recherche séquentielle : `n` comparaisons au pire, et ce pire est atteint | 1NSI | | ☐ |
-| Maximum d'un tableau non vide : le résultat appartient au tableau et majore tous ses éléments | 1NSI | | ☐ |
-| Recherche dichotomique dans un tableau trié : correction | 1NSI | | ☐ |
-| Coût de la recherche dichotomique : `⌊log₂ n⌋ + 1` comparaisons au pire | 1NSI | oui | ☐ |
-| Tri par insertion : le résultat est trié et c'est une permutation de l'entrée | 1NSI | | ☐ |
-| Tri par sélection : même énoncé de correction | 1NSI | | ☐ |
-| Coût quadratique des tris par insertion et par sélection ; `n(n−1)/2` comparaisons au pire | 1NSI | | ☐ |
-| Tri fusion : correction, et coût en `n log n` | TNSI | oui | ☐ |
-| Un tri par comparaisons demande au moins `log₂(n!)` comparaisons | TNSI | oui | ☐ |
+| Recherche séquentielle : le résultat est un indice de la valeur cherchée, ou l'absence de la valeur | 1NSI | |☑ |
+| Coût de la recherche séquentielle : `n` comparaisons au pire, et ce pire est atteint | 1NSI | |☑ |
+| Maximum d'un tableau non vide : le résultat appartient au tableau et majore tous ses éléments | 1NSI | |☑ |
+| Recherche dichotomique dans un tableau trié : correction | 1NSI | |☑ |
+| Coût de la recherche dichotomique : `⌊log₂ n⌋ + 1` comparaisons au pire | 1NSI | oui |☑ |
+| Tri par insertion : le résultat est trié et c'est une permutation de l'entrée | 1NSI | |☑ |
+| Tri par sélection : même énoncé de correction | 1NSI | |☑ |
+| Coût quadratique des tris par insertion et par sélection ; `n(n−1)/2` comparaisons au pire | 1NSI | |☑ |
+| Tri fusion : correction, et coût en `n log n` | TNSI | oui |☑ |
+| Un tri par comparaisons demande au moins `log₂(n!)` comparaisons | TNSI | oui |☑ |
 
 ### Récursivité et diviser pour régner
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Factorielle récursive : la fonction calcule bien `n!` et termine | TNSI | | ☐ |
-| Suite de Fibonacci : les versions récursive et itérative calculent la même valeur | TNSI | | ☐ |
-| Coût exponentiel de Fibonacci récursif naïf, linéaire de la version itérative | TNSI | | ☐ |
-| Exponentiation rapide : `aⁿ` en `⌊log₂ n⌋ + 1` élévations au carré au plus | TNSI | | ☐ |
-| Tours de Hanoï : `2ⁿ − 1` déplacements, et aucune solution n'en demande moins | TNSI | oui | ☐ |
-| Diviser pour régner : le coût `T(n) = 2T(n/2) + n` vaut `n log₂ n` | TNSI | oui | ☐ |
+| Factorielle récursive : la fonction calcule bien `n!` et termine | TNSI | |☑ |
+| Suite de Fibonacci : les versions récursive et itérative calculent la même valeur | TNSI | |☑ |
+| Coût exponentiel de Fibonacci récursif naïf, linéaire de la version itérative | TNSI | |☑ |
+| Exponentiation rapide : `aⁿ` en `⌊log₂ n⌋ + 1` élévations au carré au plus | TNSI | |☑ |
+| Tours de Hanoï : `2ⁿ − 1` déplacements, et aucune solution n'en demande moins | TNSI | oui |☑ |
+| Diviser pour régner : le coût `T(n) = 2T(n/2) + n` vaut `n log₂ n` | TNSI | oui |☑ |
 
 ### Structures de données
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Pile : dépiler après avoir empilé rend l'état initial (dernier entré, premier sorti) | TNSI | | ☐ |
-| File : le premier entré est le premier sorti | TNSI | | ☐ |
-| File par deux piles : le comportement est celui d'une file | TNSI | | ☐ |
-| Liste chaînée : longueur d'une concaténation, parcours complet | TNSI | | ☐ |
-| Arbre binaire de hauteur `h` : au plus `2ʰ⁺¹ − 1` nœuds, donc hauteur `≥ log₂(n+1)` | TNSI | | ☐ |
-| Arbre binaire strict : le nombre de feuilles vaut le nombre de nœuds internes plus un | TNSI | | ☐ |
-| Arbre binaire de recherche : le parcours infixe donne les clés triées | TNSI | | ☐ |
-| Recherche dans un arbre binaire de recherche : coût majoré par la hauteur | TNSI | | ☐ |
-| Graphe : un parcours en profondeur atteint exactement les sommets accessibles depuis l'origine | TNSI | | ☐ |
-| Un arbre est un graphe connexe sans cycle ; il a `n − 1` arêtes | TNSI | oui | ☐ |
-| Algorithme de Dijkstra : correction pour des poids positifs | TNSI | oui | ☐ |
+| Pile : dépiler après avoir empilé rend l'état initial (dernier entré, premier sorti) | TNSI | |☑ |
+| File : le premier entré est le premier sorti | TNSI | |☑ |
+| File par deux piles : le comportement est celui d'une file | TNSI | |☑ |
+| Liste chaînée : longueur d'une concaténation, parcours complet | TNSI | |☑ |
+| Arbre binaire de hauteur `h` : au plus `2ʰ − 1` nœuds, donc hauteur `≥ log₂(n+1)` | TNSI | |☑ |
+| Arbre binaire strict : le nombre de feuilles vaut le nombre de nœuds internes plus un | TNSI | |☑ |
+| Arbre binaire de recherche : le parcours infixe donne les clés triées | TNSI | |☑ |
+| Recherche dans un arbre binaire de recherche : coût majoré par la hauteur | TNSI | |☑ |
+| Graphe : un parcours en profondeur ne visite que des sommets accessibles | TNSI | | ☑ |
+| Graphe : un parcours en profondeur atteint tous les sommets accessibles | TNSI | oui | ◐ |
+| Un arbre enraciné à `n` nœuds a `n − 1` arêtes | TNSI | | ☑ |
+| Algorithme de Dijkstra : correction pour des poids positifs | TNSI | oui |☑ |
 
 ### Correction et terminaison des programmes
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Invariant de boucle : une propriété vraie avant et conservée par le corps est vraie à la sortie | 1NSI | | ☐ |
-| Variant de boucle : un entier naturel strictement décroissant force l'arrêt | 1NSI | | ☐ |
-| Somme des `n` premiers entiers par accumulation : le programme calcule `n(n+1)/2` | 1NSI | | ☐ |
-| Division euclidienne par soustractions successives : le programme rend quotient et reste | 1NSI | | ☐ |
-| Deux programmes de structures différentes calculent la même fonction | 1NSI | | ☐ |
-| Indécidabilité du problème de l'arrêt | TNSI | oui | ☐ |
+| Invariant de boucle : une propriété vraie avant et conservée par le corps est vraie à la sortie | 1NSI | |☑ |
+| Variant de boucle : un entier naturel strictement décroissant force l'arrêt | 1NSI | |☑ |
+| Somme des `n` premiers entiers par accumulation : le programme calcule `n(n+1)/2` | 1NSI | |☑ |
+| Division euclidienne par soustractions successives : le programme rend quotient et reste | 1NSI | |☑ |
+| Deux programmes de structures différentes calculent la même fonction | 1NSI | |☑ |
+| Indécidabilité du problème de l'arrêt | TNSI | oui |☑ |
 
 ---
 

@@ -197,6 +197,1599 @@ $1$ de chaque côté.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L108}{RepresentationDesDonnees.lean\#L108}
 
+\section{AlgorithmesSurLesTableaux}
+
+\noindent
+Lycée \textemdash{} spécialité NSI, section \og{} Algorithmes sur les tableaux \fg{}.
+Ce fichier écrit les algorithmes du programme \textemdash{} recherche séquentielle, recherche
+dichotomique, tris par insertion, par sélection et par fusion \textemdash{} puis démontre pour
+chacun les deux choses qu'on lui demande : qu'il rende le bon résultat, et combien il
+coûte. Les coûts sont comptés par une fonction écrite à côté de l'algorithme, qui
+compte les comparaisons ; c'est ce qui permet d'en parler sans arrondir.
+Énoncés et démonstrations en français : voir Informatique.tex.
+
+\subsection{Recherche séquentielle}
+
+\begin{definition}
+La recherche séquentielle : on parcourt le tableau du début à la fin et l'on rend
+l'indice de la première case qui contient la valeur cherchée, ou rien.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L20}{AlgorithmesSurLesTableaux.lean\#L20}
+
+\begin{theoreme}
+La recherche séquentielle est correcte : quand elle rend un indice, la case
+correspondante contient bien la valeur cherchée ; quand elle ne rend rien, la valeur
+n'est pas dans le tableau. Les deux moitiés sont nécessaires \textemdash{} un programme qui
+répond toujours \og{} absent \fg{} satisfait la première seule.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur le tableau.
+
+S'il est vide, la recherche ne rend rien, et aucune valeur ne s'y trouve : les deux
+moitiés sont vraies.
+
+Sinon le tableau s'écrit \(a :: r\). Si \(a = x\), la recherche rend l'indice \(0\), et
+la case \(0\) contient bien \(a\), c'est-à-dire \(x\).
+
+Si \(a \ne x\), la recherche se poursuit sur \(r\) et ajoute \(1\) à ce qu'elle y
+trouve. Si elle rend l'indice \(j+1\), c'est que la recherche dans \(r\) a rendu \(j\) ;
+par hypothèse de récurrence la case \(j\) de \(r\) contient \(x\), et la case \(j+1\) de
+\(a :: r\) est précisément la case \(j\) de \(r\). Si elle ne rend rien, c'est que la
+recherche dans \(r\) n'a rien rendu ; par hypothèse de récurrence \(x\) n'est pas dans
+\(r\), et comme \(a \ne x\), il n'est pas non plus dans \(a :: r\).
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L28}{AlgorithmesSurLesTableaux.lean\#L28}
+
+\begin{definition}
+Le nombre de comparaisons que fait la recherche séquentielle : une par case
+examinée, et l'on s'arrête dès qu'on a trouvé.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L53}{AlgorithmesSurLesTableaux.lean\#L53}
+
+\begin{theoreme}
+Le coût de la recherche séquentielle est d'au plus \texttt{n} comparaisons, et ce pire
+cas est atteint : quand la valeur est absente, il faut examiner toutes les cases pour
+pouvoir l'affirmer.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur le tableau. Sur le tableau vide, le coût et la longueur valent
+\(0\).
+
+Sur \(a :: r\), si \(a = x\), la recherche s'arrête après une comparaison, et la valeur
+étant présente, la seconde moitié n'a rien à dire.
+
+Si \(a \ne x\), le coût vaut \(1 + c(r)\), majoré par hypothèse de récurrence par
+\(1 + \mathrm{longueur}(r)\), qui est la longueur de \(a :: r\). Si de plus \(x\) est
+absent de \(a :: r\), il est absent de \(r\), donc \(c(r)\) vaut exactement la longueur
+de \(r\) et le coût vaut celle du tableau.
+
+Le pire cas est donc atteint, et il l'est précisément quand la valeur manque : c'est
+l'absence qui coûte cher, puisqu'il faut avoir tout regardé pour l'affirmer.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L60}{AlgorithmesSurLesTableaux.lean\#L60}
+
+\subsection{Maximum d'un tableau}
+
+\begin{definition}
+Le maximum, calculé en un parcours : on garde le plus grand élément vu jusque-là.
+Le premier élément sert d'initialisation, ce qui impose que le tableau soit non vide
+\textemdash{} un tableau vide n'a pas de maximum, et la signature le dit.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L78}{AlgorithmesSurLesTableaux.lean\#L78}
+
+\begin{theoreme}
+Le maximum d'un tableau non vide est bien un élément du tableau, et il majore
+tous les autres. Là encore les deux moitiés sont nécessaires : sans la première, une
+fonction qui rend un nombre très grand conviendrait.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la queue du tableau, l'élément gardé restant libre — c'est
+nécessaire, puisqu'il change à chaque tour.
+
+Si la queue est vide, le maximum est l'élément gardé, seul élément du tableau.
+
+Sinon le tableau s'écrit \(a :: b :: s\), et le calcul se poursuit avec \(\max(a, b)\)
+gardé et \(s\) pour queue. L'hypothèse de récurrence donne alors deux choses : le
+résultat \(M\) appartient à \(\max(a,b) :: s\), et il majore les éléments de cette
+liste.
+
+Or \(\max(a,b)\) vaut \(a\) ou \(b\) : dans les deux cas \(M\) appartient à
+\(a :: b :: s\). Pour la majoration, \(a \le \max(a,b) \le M\) et
+\(b \le \max(a,b) \le M\), et les éléments de \(s\) sont majorés par l'hypothèse de
+récurrence.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L85}{AlgorithmesSurLesTableaux.lean\#L85}
+
+\subsection{Recherche dichotomique}
+
+\begin{definition}
+La recherche dichotomique dans un tableau trié. Le tableau est ici donné par la
+fonction \texttt{t} qui à un indice associe sa valeur, et l'on cherche dans la tranche
+d'indices \texttt{[lo, hi[} : c'est exactement ce qu'on écrit en machine, où les deux bornes
+sont deux variables qui se rapprochent.
+
+On compare la valeur du milieu à celle qu'on cherche, et l'on ne garde que la moitié
+où elle peut encore se trouver. La terminaison tient à ce que \texttt{hi − lo} diminue
+strictement à chaque appel : c'est le variant de la boucle.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L116}{AlgorithmesSurLesTableaux.lean\#L116}
+
+\begin{theoreme}
+Quand la recherche dichotomique rend un indice, cette case contient bien la
+valeur cherchée. Cette moitié-là ne demande pas que le tableau soit trié : on ne rend
+un indice qu'après avoir comparé, et vu l'égalité.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur le carburant, c'est-à-dire sur un entier qui majore l'écart
+\(hi - lo\) : c'est ainsi qu'on écrit une récurrence sur un variant qui n'est pas un
+sous-terme.
+
+Si \(lo \ge hi\), la tranche est vide et la recherche ne rend rien : il n'y a rien à
+démontrer. Sinon on pose \(m = \lfloor (lo+hi)/2 \rfloor\). Si \(t(m) = x\), la
+recherche rend \(m\), et la conclusion est exactement l'égalité qu'on vient de tester.
+Sinon elle se poursuit sur l'une des deux moitiés, dont l'écart est strictement plus
+petit, et l'hypothèse de récurrence s'applique.
+
+Remarquons qu'à aucun moment on n'a utilisé que le tableau était trié.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L128}{AlgorithmesSurLesTableaux.lean\#L128}
+
+\begin{theoreme}
+Quand la recherche dichotomique ne rend rien, la valeur est absente de la tranche
+examinée. C'est ici que le tri sert, et c'est tout ce qu'il sert : si la valeur du
+milieu est trop petite, celles qui la précèdent le sont aussi et l'on peut jeter
+toute la moitié gauche sans la regarder. Sur un tableau non trié, l'algorithme
+répondrait \og{} absent \fg{} à tort.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur le carburant. Si \(lo \ge hi\), la tranche est vide : aucun indice
+à considérer.
+
+Sinon \(m = \lfloor (lo+hi)/2 \rfloor\) vérifie \(lo \le m < hi\). Comme la recherche
+n'a rien rendu, elle n'a pas trouvé au milieu : \(t(m) \ne x\). Deux cas.
+
+Si \(t(m) < x\), la recherche s'est poursuivie sur \([m+1, hi[\) sans rien rendre, et
+l'hypothèse de récurrence en exclut \(x\). Reste la moitié gauche : pour
+\(lo \le i \le m\), le tri donne \(t(i) \le t(m) < x\), donc \(t(i) \ne x\).
+
+Si \(x < t(m)\), la recherche s'est poursuivie sur \([lo, m[\) ; l'hypothèse de
+récurrence en exclut \(x\), et pour \(m \le i < hi\), le tri donne
+\(x < t(m) \le t(i)\).
+
+C'est le seul endroit de la démonstration où le tri intervient, et c'est bien pour cela
+que la dichotomie ne s'applique qu'à un tableau trié : sur un tableau quelconque,
+l'algorithme répondrait « absent » à tort.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L159}{AlgorithmesSurLesTableaux.lean\#L159}
+
+\begin{definition}
+Le nombre de comparaisons que fait la recherche dichotomique dans le pire des
+cas : une par appel, et l'on continue dans la moitié la plus coûteuse.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L195}{AlgorithmesSurLesTableaux.lean\#L195}
+
+\begin{theoreme}
+La recherche dichotomique fait au plus \texttt{⌊log₂ n⌋ + 1} comparaisons sur une
+tranche de \texttt{n} cases : chaque comparaison divise par deux le nombre de cases encore
+possibles, et l'on ne peut diviser par deux qu'un nombre logarithmique de fois. C'est
+tout l'intérêt du tri préalable : \texttt{20} comparaisons suffisent pour un million de
+cases, contre un million pour la recherche séquentielle.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur le carburant. Sur une tranche vide, la recherche ne compare rien.
+
+Sinon, posons \(n = hi - lo\) et \(m = \lfloor (lo+hi)/2 \rfloor\). Chacune des deux
+moitiés compte au plus \(\lfloor n/2 \rfloor\) cases : à gauche
+\(m - lo = \lfloor n/2 \rfloor\), à droite \(hi - m - 1 \le \lfloor n/2 \rfloor\).
+
+Si \(n = 1\), le milieu est \(lo\), les deux moitiés sont vides, et le coût vaut \(1\),
+qui est bien \(\log_2 1 + 1\).
+
+Si \(n \ge 2\), l'hypothèse de récurrence majore le coût de chaque moitié par
+\(\log_2 \lfloor n/2 \rfloor + 1\), et la croissance du logarithme donne
+\(\log_2 \lfloor n/2 \rfloor \le \log_2 n - 1\). En ajoutant la comparaison du tour
+courant :
+\[ 1 + \bigl(\log_2 n - 1 + 1\bigr) = \log_2 n + 1 . \]
+
+C'est tout l'intérêt du tri préalable : vingt comparaisons suffisent pour un million de
+cases, là où la recherche séquentielle en demanderait un million.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L207}{AlgorithmesSurLesTableaux.lean\#L207}
+
+\subsection{Tri par insertion}
+
+\begin{definition}
+L'insertion d'un élément dans une liste déjà triée : on descend jusqu'à la
+première place où il n'est pas trop grand, et on l'y pose.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L248}{AlgorithmesSurLesTableaux.lean\#L248}
+
+\begin{definition}
+Le tri par insertion : on trie la fin du tableau, puis on insère le premier
+élément à sa place.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L254}{AlgorithmesSurLesTableaux.lean\#L254}
+
+\begin{theoreme}
+L'insertion ne perd ni n'invente d'élément : la liste obtenue est une permutation
+de la liste de départ augmentée de l'élément inséré.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la liste. Insérer dans la liste vide donne \([x]\).
+
+Sur \(a :: r\), si \(x \le a\), l'insertion pose \(x\) en tête et ne touche à rien
+d'autre. Sinon elle rend \(a :: \mathrm{insere}(x, r)\), qui par hypothèse de
+récurrence est une permutation de \(a :: x :: r\) ; échanger les deux premiers éléments
+donne \(x :: a :: r\).
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L260}{AlgorithmesSurLesTableaux.lean\#L260}
+
+\begin{theoreme}
+Les éléments de la liste après insertion sont ceux d'avant, plus l'inséré.
+\end{theoreme}
+\begin{proof}
+Deux listes permutées ont les mêmes éléments : c'est l'énoncé précédent, lu au niveau
+des appartenances.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L271}{AlgorithmesSurLesTableaux.lean\#L271}
+
+\begin{theoreme}
+L'insertion dans une liste triée rend une liste triée : c'est l'unique chose à
+vérifier, puisque le tri se contente de l'appliquer élément par élément.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la liste. Dans la liste vide, \([x]\) est trié.
+
+Sinon la liste s'écrit \(a :: r\), où \(a\) minore les éléments de \(r\) et où \(r\) est
+triée.
+
+Si \(x \le a\), le résultat est \(x :: a :: r\), qui est trié : \(x \le a\), et pour
+tout \(y\) de \(r\), \(x \le a \le y\).
+
+Sinon \(a < x\), et le résultat est \(a :: \mathrm{insere}(x, r)\). Par hypothèse de
+récurrence \(\mathrm{insere}(x, r)\) est triée, et ses éléments sont ceux de \(r\)
+augmentés de \(x\) : tous sont supérieurs à \(a\) — ceux de \(r\) parce que la liste de
+départ était triée, et \(x\) parce que \(a < x\).
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L278}{AlgorithmesSurLesTableaux.lean\#L278}
+
+\begin{theoreme}
+Le tri par insertion est correct : son résultat est trié, et c'est une
+permutation de l'entrée. Les deux moitiés sont nécessaires \textemdash{} la liste vide est triée,
+et la liste de départ est une permutation d'elle-même.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la liste. La liste vide est triée et se permute en elle-même.
+
+Sinon le tri de \(a :: r\) est l'insertion de \(a\) dans le tri de \(r\). Par hypothèse
+de récurrence ce dernier est trié, et l'insertion dans une liste triée rend une liste
+triée. Enfin l'insertion rend une permutation de \(a :: \mathrm{triInsertion}(r)\),
+elle-même permutation de \(a :: r\) puisque le tri de \(r\) permute \(r\).
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L302}{AlgorithmesSurLesTableaux.lean\#L302}
+
+\subsection{Tri par sélection}
+
+\begin{definition}
+L'extraction du minimum : on parcourt la liste en gardant le plus petit élément
+vu, et l'on rend ce minimum accompagné de tous les autres éléments.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L316}{AlgorithmesSurLesTableaux.lean\#L316}
+
+\begin{theoreme}
+L'extraction rend autant d'éléments qu'elle en a reçu, moins le minimum : c'est
+ce qui fait que le tri par sélection termine.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la liste, l'élément gardé restant libre. Sur la liste vide, le reste
+est vide.
+
+Sur \(a :: r\), quelle que soit la branche prise, le reste rendu est un élément suivi du
+reste extrait de \(r\) : sa longueur vaut \(1 + \mathrm{longueur}(r)\), c'est-à-dire la
+longueur de \(a :: r\).
+
+C'est cette égalité qui justifie la terminaison du tri par sélection : sans elle, rien
+ne dirait que la liste sur laquelle on recommence est plus courte.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L324}{AlgorithmesSurLesTableaux.lean\#L324}
+
+\begin{definition}
+Le tri par sélection : on extrait le minimum, on le pose en tête, et l'on
+recommence sur le reste. La récursion ne porte pas sur un sous-terme mais sur une
+liste de longueur strictement plus petite : il faut le dire à Lean.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L334}{AlgorithmesSurLesTableaux.lean\#L334}
+
+\begin{theoreme}
+L'extraction ne perd ni n'invente d'élément.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la liste, l'élément gardé restant libre. Sur la liste vide, il n'y a
+rien à faire.
+
+Sur \(a :: r\), deux cas. Si \(a < m\), l'extraction se poursuit avec \(a\) gardé et
+rend le minimum \(p\) accompagné de \(m\) suivi du reste \(s\). Par hypothèse de
+récurrence \(p :: s\) permute \(a :: r\), donc
+\[ p :: m :: s \sim m :: p :: s \sim m :: a :: r , \]
+la première étape échangeant les deux premiers éléments.
+
+Si \(m \le a\), l'extraction se poursuit avec \(m\) gardé et rend \(p\) accompagné de
+\(a\) suivi du reste ; le même raisonnement s'applique, avec un échange de plus pour
+remettre \(m\) en tête.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L341}{AlgorithmesSurLesTableaux.lean\#L341}
+
+\begin{theoreme}
+Le minimum extrait minore effectivement tous les éléments reçus.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la liste, l'élément gardé restant libre. Sur la liste vide, le
+minimum est l'élément gardé, qui se minore lui-même.
+
+Sur \(a :: r\), deux cas. Si \(a < m\), le minimum rendu est celui extrait de \(a\) et
+\(r\) : par hypothèse de récurrence il minore \(a\) et les éléments de \(r\). Il minore
+aussi \(m\), puisqu'il est inférieur à \(a\), lui-même inférieur à \(m\).
+
+Si \(m \le a\), le minimum rendu est celui extrait de \(m\) et \(r\) : il minore \(m\)
+et les éléments de \(r\), donc aussi \(a\), qui majore \(m\).
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L353}{AlgorithmesSurLesTableaux.lean\#L353}
+
+\begin{theoreme}
+Le tri par sélection est correct : même énoncé que pour le tri par insertion, et
+c'est le point de l'exercice \textemdash{} deux programmes de structures très différentes
+satisfont la même spécification.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la longueur de la liste — la récursion du tri par sélection ne porte
+pas sur un sous-terme, mais sur une liste plus courte.
+
+La liste vide est triée et se permute en elle-même. Sinon on extrait le minimum \(p\) et
+le reste \(s\), et le résultat est \(p :: \mathrm{triSelection}(s)\). Par hypothèse de
+récurrence, \(\mathrm{triSelection}(s)\) est triée et permute \(s\).
+
+Reste à voir que \(p\) minore ses éléments. Un élément de \(\mathrm{triSelection}(s)\)
+est un élément de \(s\), donc de \(p :: s\), qui permute la liste de départ ; or \(p\)
+minore tous les éléments de celle-ci.
+
+Enfin \(p :: \mathrm{triSelection}(s) \sim p :: s \sim a :: r\).
+
+C'est le point de l'exercice : deux programmes de structures très différentes — l'un
+insère, l'autre sélectionne — satisfont la même spécification.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L377}{AlgorithmesSurLesTableaux.lean\#L377}
+
+\subsection{Coût des tris quadratiques}
+
+\begin{definition}
+Le nombre de comparaisons que fait une insertion.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L394}{AlgorithmesSurLesTableaux.lean\#L394}
+
+\begin{definition}
+Le nombre de comparaisons que fait le tri par insertion.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L399}{AlgorithmesSurLesTableaux.lean\#L399}
+
+\begin{theoreme}
+Une insertion coûte au plus la longueur de la liste où l'on insère.
+\end{theoreme}
+\begin{proof}
+Par récurrence : une comparaison par élément traversé, et l'insertion s'arrête au plus
+tard à la fin de la liste.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L404}{AlgorithmesSurLesTableaux.lean\#L404}
+
+\begin{theoreme}
+Le tri par insertion fait au plus \texttt{n(n−1)/2} comparaisons. L'inégalité est écrite
+sous la forme \texttt{2c + n \(\le\) n²} pour éviter à la fois la division et la soustraction
+tronquée des entiers naturels.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la liste. Sur la liste vide, tout est nul.
+
+Sur \(a :: r\), notons \(k\) la longueur de \(r\). Le coût est celui du tri de \(r\),
+augmenté de celui de l'insertion de \(a\) dans \(\mathrm{triInsertion}(r)\). Cette liste
+a \(k\) éléments — trier n'en change pas le nombre —, donc l'insertion coûte au plus
+\(k\). En notant \(c\) le coût du tri de \(r\), l'hypothèse de récurrence donne
+\(2c + k \le k^2\), d'où
+\[ 2\,c(a :: r) + (k+1) \le 2c + 2k + k + 1 \le k^2 + 2k + 1 = (k+1)^2 . \]
+
+L'inégalité est écrite sous la forme \(2c + n \le n^2\) pour éviter à la fois la
+division et la soustraction tronquée des entiers naturels ; elle dit exactement
+\(c \le n(n-1)/2\).
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L417}{AlgorithmesSurLesTableaux.lean\#L417}
+
+\begin{definition}
+Une liste strictement décroissante : \texttt{n, n−1, \(\dots\), 1}. C'est le pire cas du tri par
+insertion, puisque chaque élément inséré est plus grand que tous ceux déjà triés et
+doit donc les traverser tous.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L434}{AlgorithmesSurLesTableaux.lean\#L434}
+
+\begin{theoreme}
+Une insertion parcourt toute la liste quand l'élément inséré est plus grand que
+tous les autres.
+\end{theoreme}
+\begin{proof}
+Par récurrence. Si l'élément inséré est strictement plus grand que tous ceux de la
+liste, aucune comparaison ne réussit, et l'insertion traverse la liste entière.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L440}{AlgorithmesSurLesTableaux.lean\#L440}
+
+\begin{theoreme}
+Les éléments de \texttt{listeDecroissante n} sont les entiers de \texttt{1} à \texttt{n}.
+\end{theoreme}
+\begin{proof}
+Par récurrence : la liste de rang \(k+1\) ajoute l'élément \(k+1\) à celle de rang
+\(k\), dont les éléments sont compris entre \(1\) et \(k\).
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L450}{AlgorithmesSurLesTableaux.lean\#L450}
+
+\begin{theoreme}
+La longueur de \texttt{listeDecroissante n} est \texttt{n}.
+\end{theoreme}
+\begin{proof}
+Par récurrence : un élément de plus à chaque rang.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L459}{AlgorithmesSurLesTableaux.lean\#L459}
+
+\begin{theoreme}
+Le pire cas quadratique est atteint : sur une liste strictement décroissante, le
+tri par insertion fait exactement \texttt{n(n−1)/2} comparaisons. La majoration précédente
+n'est donc pas améliorable.
+\end{theoreme}
+\begin{proof}
+Par récurrence. Au rang \(0\), tout est nul.
+
+Au rang \(k+1\), la liste est \((k+1) :: \mathrm{listeDecroissante}(k)\). Le tri de la
+queue a \(k\) éléments, tous compris entre \(1\) et \(k\), donc tous strictement
+inférieurs à \(k+1\) : l'insertion de \(k+1\) les traverse tous et coûte exactement
+\(k\). D'où, en notant \(c\) le coût au rang \(k\) :
+\[ 2\,c(k+1) + (k+1) = 2c + 2k + k + 1 = k^2 + 2k + 1 = (k+1)^2 . \]
+
+La majoration précédente n'est donc pas améliorable : le pire cas quadratique est
+atteint, et il l'est sur un tableau rangé à l'envers.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L467}{AlgorithmesSurLesTableaux.lean\#L467}
+
+\subsection{Tri fusion}
+
+\begin{definition}
+La fusion de deux listes triées : on compare les deux têtes et l'on prend la plus
+petite. La récursion porte sur la somme des deux longueurs, qui diminue à chaque
+appel.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L490}{AlgorithmesSurLesTableaux.lean\#L490}
+
+\begin{theoreme}
+La fusion ne perd ni n'invente d'élément.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la somme des deux longueurs, qui diminue à chaque appel.
+
+Si l'une des deux listes est vide, la fusion rend l'autre. Sinon elle prend la plus
+petite des deux têtes. Si c'est \(a\), le reste de la fusion permute, par hypothèse de
+récurrence, la concaténation de \(r\) et de \(b :: s\), et il suffit de remettre \(a\)
+devant. Si c'est \(b\), le reste permute la concaténation de \(a :: r\) et de \(s\), et
+remettre \(b\) devant demande de le faire traverser la première liste — ce qui est bien
+une permutation.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L497}{AlgorithmesSurLesTableaux.lean\#L497}
+
+\begin{theoreme}
+La fusion de deux listes triées est triée.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la somme des deux longueurs. Si l'une est vide, le résultat est
+l'autre, triée par hypothèse.
+
+Sinon, disons \(a \le b\) : le résultat est \(a :: \mathrm{fusion}(r, b :: s)\), trié
+par hypothèse de récurrence. Reste à voir que \(a\) minore ses éléments. Ce sont ceux de
+\(r\) et ceux de \(b :: s\), puisque la fusion ne perd ni n'invente rien : ceux de \(r\)
+sont majorés par \(a\) parce que \(a :: r\) est triée, et ceux de \(b :: s\) sont
+supérieurs à \(b\), lui-même supérieur à \(a\).
+
+Le cas \(b < a\) est symétrique.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L511}{AlgorithmesSurLesTableaux.lean\#L511}
+
+\begin{definition}
+Le tri fusion : on coupe la liste en deux moitiés, on trie chacune, on fusionne.
+La récursion porte sur la longueur ; couper au milieu ne suffit pas à la faire
+diminuer si la liste a moins de deux éléments, d'où les deux cas de base.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L543}{AlgorithmesSurLesTableaux.lean\#L543}
+
+\begin{theoreme}
+Le tri fusion est correct : son résultat est trié, et c'est une permutation de
+l'entrée. La démonstration se ramène aux deux propriétés de la fusion, et à ce que
+recoller les deux moitiés redonne la liste de départ.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la longueur. Les listes de zéro ou un élément sont déjà triées.
+
+Sinon on coupe la liste en deux moitiés, chacune strictement plus courte que la liste
+entière — c'est ce qui fait terminer l'algorithme, et c'est pourquoi il faut deux cas de
+base : couper au milieu une liste d'un seul élément ne la raccourcirait pas. Par
+hypothèse de récurrence, le tri de chaque moitié est trié et la permute.
+
+La fusion de deux listes triées est triée, et elle permute leur concaténation. Or
+recoller les deux moitiés d'une liste redonne la liste.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L557}{AlgorithmesSurLesTableaux.lean\#L557}
+
+\begin{theoreme}
+Trier ne change pas le nombre d'éléments.
+\end{theoreme}
+\begin{proof}
+Deux listes permutées ont même longueur.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L572}{AlgorithmesSurLesTableaux.lean\#L572}
+
+\begin{definition}
+Le nombre de comparaisons que fait la fusion : une par tour, et l'on s'arrête dès
+qu'une des deux listes est épuisée \textemdash{} la fin de l'autre est recopiée sans comparaison.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L578}{AlgorithmesSurLesTableaux.lean\#L578}
+
+\begin{theoreme}
+La fusion est linéaire : elle fait au plus autant de comparaisons que la somme des
+longueurs. C'est ce qui rend le tri fusion intéressant \textemdash{} le recollement ne coûte pas
+plus cher qu'un parcours.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la somme des deux longueurs. Si l'une est vide, la fusion ne compare
+rien : la fin de l'autre est recopiée telle quelle. Sinon chaque tour consomme une
+comparaison et une tête, quelle que soit la branche prise.
+
+C'est ce qui rend le tri fusion intéressant : le recollement ne coûte pas plus cher
+qu'un parcours.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L587}{AlgorithmesSurLesTableaux.lean\#L587}
+
+\begin{definition}
+Le nombre de comparaisons que fait le tri fusion : celles des deux moitiés, plus
+celles du recollement.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L600}{AlgorithmesSurLesTableaux.lean\#L600}
+
+\begin{theoreme}
+Le tri fusion coûte \texttt{n log₂ n} comparaisons : au plus \texttt{n ⌈log₂ n⌉}.
+
+C'est la résolution de \texttt{T(n) = 2T(n/2) + n} faite sur le programme lui-même, et non
+sur la seule récurrence : il y a \texttt{⌈log₂ n⌉} étages de découpe, et les recollements
+d'un même étage portent ensemble sur les \texttt{n} éléments, d'où \texttt{n} par étage.
+
+Le logarithme est ici arrondi par excès, ce qui est nécessaire : pour \texttt{n = 3}, on
+découpe en \texttt{1} et \texttt{2}, et il faut bien deux étages.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur la longueur. Les listes de zéro ou un élément ne coûtent rien.
+
+Soit \(n \ge 2\) la longueur. Les deux moitiés comptent \(\lfloor n/2 \rfloor\) et
+\(\lceil n/2 \rceil\) éléments, et le recollement coûte au plus \(n\) comparaisons
+puisque la fusion est linéaire. Posons \(c = \lceil \log_2 n \rceil\) ; alors
+\(c \ge 1\), et
+\[ \bigl\lceil \log_2 \lceil n/2 \rceil \bigr\rceil = c - 1 , \qquad
+   \bigl\lceil \log_2 \lfloor n/2 \rfloor \bigr\rceil \le c - 1 , \]
+la seconde inégalité par croissance du logarithme. L'hypothèse de récurrence donne
+alors
+\[ \lfloor n/2 \rfloor (c-1) + \lceil n/2 \rceil (c-1) + n = n(c-1) + n = nc . \]
+
+Le logarithme est ici arrondi par excès, et il le faut : pour \(n = 3\), on découpe en
+\(1\) et \(2\), ce qui demande bien deux étages.
+
+C'est la récurrence \(T(n) = 2T(n/2) + n\) résolue sur le programme lui-même, et non
+sur la seule formule : il y a \(\lceil \log_2 n \rceil\) étages de découpe, et les
+recollements d'un même étage portent ensemble sur les \(n\) éléments.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L621}{AlgorithmesSurLesTableaux.lean\#L621}
+
+\subsection{Borne inférieure des tris par comparaisons}
+
+\begin{definition}
+L'arbre des comparaisons d'un algorithme de tri : chaque nœud est une comparaison
+et ses deux enfants sont les deux réponses possibles ; chaque feuille est une sortie
+de l'algorithme, donc une permutation qu'il peut produire.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L681}{AlgorithmesSurLesTableaux.lean\#L681}
+
+\begin{definition}
+La hauteur de l'arbre, c'est-à-dire le nombre de comparaisons du pire cas.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L686}{AlgorithmesSurLesTableaux.lean\#L686}
+
+\begin{definition}
+Le nombre de feuilles, c'est-à-dire le nombre de résultats distincts possibles.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L691}{AlgorithmesSurLesTableaux.lean\#L691}
+
+\begin{theoreme}
+Un arbre de hauteur \texttt{h} a au plus \texttt{2ʰ} feuilles : chaque comparaison ne fait au
+mieux que doubler le nombre de cas qu'on sait distinguer.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur l'arbre. Une feuille a une feuille et la hauteur \(0\), et
+\(1 \le 2^0\).
+
+Un nœud de sous-arbres \(g\) et \(d\) a \(f(g) + f(d)\) feuilles et la hauteur
+\(1 + \max(h(g), h(d))\). Par hypothèse de récurrence,
+\[ f(g) + f(d) \le 2^{h(g)} + 2^{h(d)} \le 2 \times 2^{\max(h(g),\, h(d))}
+   = 2^{1 + \max(h(g),\, h(d))} . \]
+
+C'est la traduction du fait qu'une comparaison ne fait, au mieux, que doubler le nombre
+de cas qu'on sait distinguer.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L697}{AlgorithmesSurLesTableaux.lean\#L697}
+
+\begin{theoreme}
+Un tri par comparaisons demande au moins \texttt{log₂(n!)} comparaisons.
+
+L'hypothèse \texttt{hsorties} est ce qu'on demande à l'algorithme : pour trier
+correctement \texttt{n} éléments, il doit pouvoir produire chacune des \texttt{n!} permutations,
+donc son arbre a au moins \texttt{n!} feuilles. Comme un arbre de hauteur \texttt{h} n'a jamais
+plus de \texttt{2ʰ} feuilles, il vient \texttt{n! \(\le\) 2ʰ}, puis la minoration par le logarithme.
+
+Ce que cet énoncé ne formalise pas : que tout algorithme de tri par comparaisons
+s'écrive bien sous la forme d'un tel arbre. C'est une modélisation, et elle est ici
+portée par l'hypothèse plutôt que passée sous silence.
+\end{theoreme}
+\begin{proof}
+L'arbre de l'algorithme a au moins \(n!\) feuilles par hypothèse, et au plus \(2^h\) par
+ce qui précède, où \(h\) est sa hauteur. Donc \(n! \le 2^h\), et la croissance du
+logarithme donne
+\[ \log_2(n!) \le \log_2\bigl(2^h\bigr) = h . \]
+
+C'est une minoration du pire cas, non du cas moyen : elle dit qu'aucun tri par
+comparaisons ne peut faire mieux que \(\log_2(n!)\) comparaisons sur la plus mauvaise de
+ses entrées. Comme \(\log_2(n!)\) vaut de l'ordre de \(n \log_2 n\), le tri fusion est
+optimal à une constante près.
+
+Ce que cet énoncé ne formalise pas : que tout algorithme de tri par comparaisons
+s'écrive sous la forme d'un tel arbre. C'est une modélisation, portée ici par
+l'hypothèse plutôt que passée sous silence.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/AlgorithmesSurLesTableaux.lean\#L718}{AlgorithmesSurLesTableaux.lean\#L718}
+
+\section{CorrectionEtTerminaisonDesProgrammes}
+
+\noindent
+Lycée \textemdash{} spécialité NSI, section \og{} Correction et terminaison des programmes \fg{}.
+Un programme n'est pas correct parce qu'il donne le bon résultat sur les exemples
+essayés : il l'est parce qu'on sait dire ce qu'il conserve à chaque tour de boucle,
+et pourquoi il s'arrête. Ce fichier démontre les deux outils de ce raisonnement \textemdash{}
+l'invariant et le variant \textemdash{} puis s'en sert sur deux programmes du programme de
+première, avant de montrer que ce raisonnement a une limite : aucun programme ne
+peut décider si un autre s'arrête.
+Énoncés et démonstrations en français : voir Informatique.tex.
+
+\subsection{Invariant de boucle}
+
+\begin{theoreme}
+Une boucle est modélisée par le corps qu'elle répète : \texttt{corps\textasciicircum{}[n] e} est l'état
+obtenu après \texttt{n} tours à partir de l'état \texttt{e}.
+
+Invariant de boucle : une propriété vraie avant la boucle et conservée par le corps
+est vraie après un nombre quelconque de tours, donc en particulier à la sortie.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur le nombre de tours. Au tour \(0\), l'état est celui de départ, et la
+propriété y est vraie par hypothèse. Si elle est vraie après \(k\) tours, elle l'est
+après \(k+1\) puisque le corps la conserve.
+
+C'est le raisonnement qu'on mène à la main sur un programme, écrit une fois pour
+toutes : il n'y a rien de plus dans un invariant de boucle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/CorrectionEtTerminaisonDesProgrammes.lean\#L22}{CorrectionEtTerminaisonDesProgrammes.lean\#L22}
+
+\subsection{Variant de boucle}
+
+\begin{theoreme}
+Variant de boucle : si l'on sait associer à l'état un entier naturel qui décroît
+strictement à chaque tour tant que la condition est vraie, alors la condition finit
+par devenir fausse \textemdash{} la boucle s'arrête.
+
+C'est le seul endroit où l'on se sert de ce que \(\mathbb{N}\) n'a pas de suite infinie
+strictement décroissante : un entier naturel qui diminue à chaque tour ne peut pas
+diminuer indéfiniment.
+\end{theoreme}
+\begin{proof}
+Par récurrence forte sur la valeur du variant à l'entrée.
+
+Si la condition est déjà fausse, on s'arrête au tour \(0\). Sinon on fait un tour : le
+variant a strictement diminué, donc l'hypothèse de récurrence s'applique à l'état
+obtenu et fournit un nombre de tours après lequel la condition est fausse ; il suffit
+d'en ajouter un.
+
+Tout repose sur ce que les entiers naturels n'admettent pas de suite infinie
+strictement décroissante. Un variant à valeurs réelles, ou entières relatives, ne
+prouverait rien : on peut décroître indéfiniment.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/CorrectionEtTerminaisonDesProgrammes.lean\#L40}{CorrectionEtTerminaisonDesProgrammes.lean\#L40}
+
+\subsection{Somme des premiers entiers par accumulation}
+
+\begin{definition}
+Le corps de la boucle qui somme les entiers un à un. L'état est le couple
+\texttt{(i, s)} : \texttt{i} compte les tours, \texttt{s} accumule la somme. Un tour ajoute \texttt{i + 1} à
+l'accumulateur et avance le compteur.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/CorrectionEtTerminaisonDesProgrammes.lean\#L57}{CorrectionEtTerminaisonDesProgrammes.lean\#L57}
+
+\begin{theoreme}
+Après \texttt{n} tours à partir de \texttt{(0, 0)}, le compteur vaut \texttt{n} et l'accumulateur vaut
+\texttt{n(n+1)/2} : le programme calcule bien la somme des \texttt{n} premiers entiers.
+
+L'invariant est l'égalité \texttt{2s = i(i+1)}, qui évite la division ; la forme
+\texttt{n(n+1)/2} s'en déduit à la fin.
+\end{theoreme}
+\begin{proof}
+On démontre d'abord, par récurrence, un invariant plus fort que l'énoncé et sans
+division : après \(m\) tours, le compteur vaut \(m\) et l'accumulateur \(s\) vérifie
+\(2s = m(m+1)\).
+
+Au tour \(0\), compteur et accumulateur sont nuls. Si l'invariant vaut après \(k\)
+tours, un tour de plus porte le compteur à \(k+1\) et l'accumulateur à \(s + k + 1\), et
+\[ 2(s + k + 1) = 2s + 2k + 2 = k(k+1) + 2k + 2 = (k+1)(k+2) . \]
+
+L'énoncé s'en déduit : le produit \(n(n+1)\) étant pair, l'accumulateur en est la
+moitié, c'est-à-dire \(n(n+1)/2\).
+
+Écrire l'invariant sans division n'est pas une coquetterie. Sur les entiers, la division
+est tronquée ; une récurrence menée directement sur \(n(n+1)/2\) obligerait à justifier
+à chaque pas que la troncature ne fait rien.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/CorrectionEtTerminaisonDesProgrammes.lean\#L64}{CorrectionEtTerminaisonDesProgrammes.lean\#L64}
+
+\subsection{Division euclidienne par soustractions successives}
+
+\begin{definition}
+La division par soustractions successives : tant que le dividende est au moins
+égal au diviseur, on retranche le diviseur et l'on compte un quotient de plus.
+
+La récursion termine parce que \texttt{a - b < a} dès que \texttt{0 < b \(\le\) a} : la valeur du
+dividende est le variant de la boucle.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/CorrectionEtTerminaisonDesProgrammes.lean\#L98}{CorrectionEtTerminaisonDesProgrammes.lean\#L98}
+
+\begin{theoreme}
+Le programme rend bien le quotient et le reste : le quotient multiplié par le
+diviseur, plus le reste, redonne le dividende, et le reste est strictement plus petit
+que le diviseur.
+\end{theoreme}
+\begin{proof}
+Par récurrence forte sur le dividende \(a\).
+
+Si \(b > a\), la boucle ne s'exécute pas : le quotient est \(0\) et le reste \(a\), qui
+est bien inférieur à \(b\), et \(0 \times b + a = a\).
+
+Sinon \(b \le a\), et l'appel se fait sur \(a - b\), strictement plus petit que \(a\)
+puisque \(b > 0\) : c'est le variant de la boucle. Par hypothèse de récurrence il rend
+un quotient \(q\) et un reste \(r < b\) avec \(qb + r = a - b\). Le programme rend alors
+\(q + 1\) et \(r\), et
+\[ (q+1)b + r = (qb + r) + b = (a - b) + b = a . \]
+
+L'hypothèse \(b > 0\) est indispensable : sans elle la boucle ne terminerait pas, et
+l'énoncé n'aurait pas de sens.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/CorrectionEtTerminaisonDesProgrammes.lean\#L109}{CorrectionEtTerminaisonDesProgrammes.lean\#L109}
+
+\subsection{Deux programmes pour une même fonction}
+
+\begin{definition}
+La même somme, écrite récursivement : la structure du programme n'a rien à voir
+avec la précédente \textemdash{} pas de boucle, pas d'accumulateur.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/CorrectionEtTerminaisonDesProgrammes.lean\#L134}{CorrectionEtTerminaisonDesProgrammes.lean\#L134}
+
+\begin{theoreme}
+Deux programmes de structures différentes calculent la même fonction : la boucle
+avec accumulateur et la définition récursive rendent la même valeur pour toute
+entrée. C'est le sens qu'on donne à \og{} ces deux programmes sont corrects \fg{} : ils ne
+se ressemblent pas, ils calculent la même chose.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur \(n\). En \(0\), les deux programmes rendent \(0\).
+
+Au rang \(k+1\), la version récursive ajoute \(k+1\) à ce qu'elle a calculé au rang
+\(k\), tandis que la boucle ajoute à son accumulateur la valeur de son compteur
+augmentée de \(1\). Or le compteur vaut \(k\) après \(k\) tours, comme l'établit
+l'invariant du programme précédent : les deux ajouts coïncident, et l'hypothèse de
+récurrence donne l'égalité des accumulateurs.
+
+C'est ce qu'on entend en disant que deux programmes sont corrects : ils ne se
+ressemblent pas — l'un boucle, l'autre s'appelle lui-même — et pourtant ils calculent
+la même fonction.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/CorrectionEtTerminaisonDesProgrammes.lean\#L142}{CorrectionEtTerminaisonDesProgrammes.lean\#L142}
+
+\subsection{Indécidabilité du problème de l'arrêt}
+
+\begin{theoreme}
+Le problème de l'arrêt est indécidable.
+
+On se donne un langage de programmation abstrait : \texttt{arrete p e} signifie que le
+programme \texttt{p} s'arrête sur l'entrée \texttt{e}, et tout programme peut être donné en entrée
+à un autre \textemdash{} c'est le cas dans un vrai langage, où un programme est un fichier
+texte.
+
+L'hypothèse \texttt{hdiagonal} est l'unique chose qu'on demande au langage : supposer qu'un
+programme décide l'arrêt permet d'en écrire un autre, le programme diagonal, qui
+s'arrête sur \texttt{p} exactement quand \texttt{p} ne s'arrête pas sur lui-même \textemdash{} il suffit
+d'appeler le décideur et de boucler exprès quand il répond \og{} oui \fg{}. La contradiction
+est alors immédiate, en appliquant le programme diagonal à lui-même.
+
+Ce que cet énoncé ne formalise pas : que ce programme diagonal soit effectivement
+écrivable. C'est la partie qui demande un modèle de calcul \textemdash{} machines de Turing,
+fonctions récursives \textemdash{} et qui dépasse le programme de terminale ; elle est ici
+portée par l'hypothèse, énoncée en toutes lettres plutôt que passée sous silence.
+\end{theoreme}
+\begin{proof}
+Il suffit d'appliquer le programme diagonal à lui-même. Par hypothèse, il s'arrête sur
+un programme \(p\) exactement quand \(p\) ne s'arrête pas sur lui-même ; pour \(p\) égal
+au programme diagonal, cela donne
+\[ \text{le diagonal s'arrête sur lui-même} \iff
+   \text{le diagonal ne s'arrête pas sur lui-même} , \]
+ce qui est contradictoire.
+
+Toute la difficulté du théorème est dans l'hypothèse, non dans cette contradiction. Ce
+qu'il faudrait établir, et qui n'est pas fait ici, c'est qu'un programme décidant
+l'arrêt permettrait d'écrire effectivement ce programme diagonal — il suffirait de
+l'appeler et de boucler exprès quand il répond « oui ». Le rendre rigoureux demande un
+modèle de calcul, machines de Turing ou fonctions récursives, que le programme de
+terminale n'introduit pas. L'hypothèse le dit en toutes lettres plutôt que de le passer
+sous silence.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/CorrectionEtTerminaisonDesProgrammes.lean\#L174}{CorrectionEtTerminaisonDesProgrammes.lean\#L174}
+
+\section{RecursiviteEtDiviserPourRegner}
+
+\noindent
+Lycée \textemdash{} spécialité NSI, section \og{} Récursivité et diviser pour régner \fg{}.
+Une fonction récursive s'appelle elle-même : rien ne garantit a priori qu'elle
+s'arrête, ni qu'elle calcule ce qu'on croit. Ce fichier démontre les deux pour la
+factorielle, Fibonacci et l'exponentiation rapide, puis compare les coûts \textemdash{} la
+différence entre le Fibonacci récursif naïf et sa version itérative est
+exponentielle, et couper un problème en deux moitiés donne le coût \texttt{n log₂ n}.
+Énoncés et démonstrations en français : voir Informatique.tex.
+
+\subsection{Factorielle récursive}
+
+\begin{definition}
+La factorielle, écrite récursivement. La récursion porte sur le constructeur de
+l'entier : chaque appel se fait sur \texttt{n}, prédécesseur de \texttt{n + 1}. C'est ce qui fait
+que la fonction termine, et Lean l'accepte sans qu'on ait à le justifier.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L19}{RecursiviteEtDiviserPourRegner.lean\#L19}
+
+\begin{theoreme}
+La fonction récursive calcule bien la factorielle : son résultat est le produit
+des entiers de \texttt{1} à \texttt{n}. Elle ne rend jamais \texttt{0}, ce qui autorise à diviser par
+elle.
+\end{theoreme}
+\begin{proof}
+Par récurrence. En \(0\), la fonction rend \(1\), qui est le produit vide.
+
+Au rang \(k+1\), elle rend \((k+1) \times \mathrm{factorielle}(k)\) ; l'hypothèse de
+récurrence identifie le second facteur au produit des entiers de \(1\) à \(k\), et
+ajouter le facteur \(k+1\) donne le produit jusqu'à \(k+1\). La positivité suit de même,
+un produit de facteurs non nuls étant non nul.
+
+La terminaison ne demande rien : l'appel se fait sur \(k\), prédécesseur immédiat de
+\(k+1\). C'est le cas le plus simple, et Lean l'accepte sans qu'on ait à écrire quoi que
+ce soit.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L26}{RecursiviteEtDiviserPourRegner.lean\#L26}
+
+\subsection{Suite de Fibonacci}
+
+\begin{definition}
+Fibonacci, écrit récursivement comme la définition mathématique le dit : chaque
+terme est la somme des deux précédents. Deux appels par terme.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L40}{RecursiviteEtDiviserPourRegner.lean\#L40}
+
+\begin{definition}
+Fibonacci, écrit itérativement : on garde deux termes consécutifs et l'on avance
+d'un cran à chaque tour. Un seul parcours.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L47}{RecursiviteEtDiviserPourRegner.lean\#L47}
+
+\begin{theoreme}
+Les deux versions calculent la même valeur.
+
+La récurrence porte sur l'invariant de la boucle, plus fort que l'énoncé : le couple
+gardé en mémoire est exactement \texttt{(F(n), F(n+1))}. C'est un cas typique où l'on ne
+peut pas démontrer l'énoncé tel quel, et où il faut d'abord dire ce que le programme
+conserve.
+\end{theoreme}
+\begin{proof}
+Par récurrence, mais pas sur l'énoncé : on démontre l'invariant de la boucle, qui est
+plus fort — le couple gardé en mémoire après \(n\) tours est exactement
+\(\bigl(F(n),\, F(n+1)\bigr)\).
+
+Au tour \(0\), ce couple est \((0, 1)\), qui est bien \(\bigl(F(0), F(1)\bigr)\). Si
+l'invariant vaut au tour \(k\), un tour de plus rend
+\(\bigl(F(k+1),\, F(k) + F(k+1)\bigr)\), c'est-à-dire \(\bigl(F(k+1), F(k+2)\bigr)\) par
+définition de la suite.
+
+L'énoncé s'obtient en ne gardant que la première composante. C'est un cas typique où
+l'énoncé qu'on veut ne se démontre pas tel quel : il faut d'abord dire ce que le
+programme conserve.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L57}{RecursiviteEtDiviserPourRegner.lean\#L57}
+
+\subsection{Coût des deux versions}
+
+\begin{definition}
+Le nombre d'appels que fait le Fibonacci récursif naïf : un pour lui-même, plus
+ceux de ses deux appels.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L69}{RecursiviteEtDiviserPourRegner.lean\#L69}
+
+\begin{definition}
+Le nombre de tours de la version itérative : un par cran.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L75}{RecursiviteEtDiviserPourRegner.lean\#L75}
+
+\begin{theoreme}
+Le nombre d'appels croît avec \texttt{n} : chaque appel supplémentaire ne peut
+qu'ajouter du travail. C'est l'étape qu'il faut avoir démontrée avant de minorer le
+coût.
+\end{theoreme}
+\begin{proof}
+Par récurrence forte, en distinguant les trois formes que peut prendre \(n\).
+
+Pour \(n = 0\) et \(n = 1\), le nombre d'appels vaut \(1\), contre \(1\) et \(3\)
+respectivement.
+
+Pour \(n = k+2\), le nombre d'appels vaut \(1 + a(k) + a(k+1)\), et celui de \(k+3\)
+vaut \(1 + a(k+1) + a(k+2)\) ; l'hypothèse de récurrence appliquée à \(k\) donne
+\(a(k) \le a(k+1)\), ce qui conclut.
+
+Cette croissance est ce qu'il faut avoir en main avant de minorer le coût.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L82}{RecursiviteEtDiviserPourRegner.lean\#L82}
+
+\begin{theoreme}
+Le coût du Fibonacci récursif naïf est exponentiel, celui de la version
+itérative est linéaire.
+
+La minoration \texttt{2\textasciicircum{}(n/2) \(\le\) appels(n)} suffit à conclure : le nombre d'appels double au
+moins tous les deux crans, alors que la boucle n'en fait que \texttt{n}. Pour \texttt{n = 40}, cela
+sépare le million de la quarantaine.
+\end{theoreme}
+\begin{proof}
+Deux démonstrations séparées.
+
+Pour la version récursive, récurrence forte sur \(n\). Pour \(n = 0\) et \(n = 1\), le
+nombre d'appels vaut \(1\), et \(2^0 = 1\). Pour \(n = k+2\),
+\[ a(k+2) = 1 + a(k) + a(k+1) \ge 2\,a(k)
+   \ge 2 \times 2^{\lfloor k/2 \rfloor} = 2^{\lfloor (k+2)/2 \rfloor} , \]
+en utilisant d'abord la croissance établie plus haut, puis l'hypothèse de récurrence.
+
+Pour la version itérative, récurrence immédiate : un tour par cran.
+
+L'écart est celui du million à la quarantaine pour \(n = 40\). Il ne vient pas d'une
+différence d'idée mais d'une différence d'écriture : la version naïve recalcule
+indéfiniment les mêmes termes.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L100}{RecursiviteEtDiviserPourRegner.lean\#L100}
+
+\subsection{Exponentiation rapide}
+
+\begin{definition}
+L'exponentiation rapide : au lieu de multiplier \texttt{n} fois par \texttt{a}, on élève au
+carré la puissance de l'exposant moitié. La récursion se fait sur \texttt{n / 2}, qui est
+strictement plus petit que \texttt{n} dès que \texttt{n} n'est pas nul : c'est le variant qui
+justifie la terminaison, et Lean le réclame explicitement.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L125}{RecursiviteEtDiviserPourRegner.lean\#L125}
+
+\begin{definition}
+Le nombre d'élévations au carré que fait l'exponentiation rapide : une par
+appel.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L134}{RecursiviteEtDiviserPourRegner.lean\#L134}
+
+\begin{theoreme}
+L'exponentiation rapide calcule bien \texttt{aⁿ}.
+
+Tout repose sur l'écriture \texttt{n = 2⌊n/2⌋ + (n mod 2)}, donc
+\texttt{aⁿ = (a\textasciicircum{}⌊n/2⌋)² \(\times\) a\textasciicircum{}(n mod 2)} : c'est le carré qui fait tout le travail, et le
+facteur \texttt{a} supplémentaire ne sert que pour un exposant impair.
+\end{theoreme}
+\begin{proof}
+Par récurrence forte sur l'exposant. Si \(n = 0\), la fonction rend \(1\).
+
+Sinon elle calcule \(r = a^{\lfloor n/2 \rfloor}\), par hypothèse de récurrence :
+l'appel se fait sur \(\lfloor n/2 \rfloor\), strictement plus petit que \(n\). Tout
+tient alors à l'écriture
+\[ n = 2\left\lfloor n/2 \right\rfloor + (n \bmod 2) . \]
+Si \(n\) est pair, \(a^n = r^2\) ; s'il est impair, \(a^n = a \times r^2\). C'est
+exactement ce que rend la fonction dans chacun des deux cas.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L144}{RecursiviteEtDiviserPourRegner.lean\#L144}
+
+\begin{theoreme}
+L'exponentiation rapide fait au plus \texttt{⌊log₂ n⌋ + 1} élévations au carré : chaque
+appel divise l'exposant par deux, et l'on ne peut diviser par deux qu'un nombre
+logarithmique de fois avant d'atteindre zéro.
+\end{theoreme}
+\begin{proof}
+Par récurrence forte. Pour \(n = 1\), un seul appel, et \(\log_2 1 + 1 = 1\).
+
+Pour \(n \ge 2\), l'exposant moitié est encore non nul, et
+\(\log_2 \lfloor n/2 \rfloor = \log_2 n - 1\). L'hypothèse de récurrence majore le coût
+de l'appel par \(\log_2 n - 1 + 1\), et il reste à compter l'élévation au carré du tour
+courant, d'où \(\log_2 n + 1\).
+
+Chaque appel divise l'exposant par deux, et l'on ne peut diviser par deux qu'un nombre
+logarithmique de fois avant d'atteindre zéro : calculer \(a^{1000}\) demande dix
+élévations au carré, non mille multiplications.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L163}{RecursiviteEtDiviserPourRegner.lean\#L163}
+
+\subsection{Tours de Hanoï}
+
+\begin{definition}
+Le nombre de déplacements de la solution récursive : pour déplacer \texttt{n + 1}
+disques, on déplace les \texttt{n} plus petits sur le piquet libre, on déplace le grand, on
+remet les \texttt{n} petits dessus.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L184}{RecursiviteEtDiviserPourRegner.lean\#L184}
+
+\begin{theoreme}
+La solution récursive demande \texttt{2ⁿ − 1} déplacements. L'égalité est écrite sous la
+forme \texttt{hanoi n + 1 = 2ⁿ} pour éviter la soustraction tronquée des entiers naturels,
+où \texttt{0 − 1} vaudrait \texttt{0}.
+\end{theoreme}
+\begin{proof}
+Par récurrence. En \(0\), aucun déplacement, et \(0 + 1 = 2^0\).
+
+Au rang \(k+1\), la solution récursive déplace les \(k\) plus petits disques sur le
+piquet libre, puis le grand, puis à nouveau les \(k\) petits : cela fait
+\(2h(k) + 1\) déplacements. L'hypothèse de récurrence donne \(h(k) + 1 = 2^k\), d'où
+\[ h(k+1) + 1 = 2h(k) + 2 = 2\bigl(h(k) + 1\bigr) = 2 \times 2^k = 2^{k+1} . \]
+
+L'égalité est écrite sous la forme \(h(n) + 1 = 2^n\) pour éviter la soustraction
+tronquée des entiers naturels, où \(0 - 1\) vaudrait \(0\).
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L191}{RecursiviteEtDiviserPourRegner.lean\#L191}
+
+\begin{theoreme}
+Aucune solution ne fait mieux.
+
+L'hypothèse \texttt{hgrand} est la seule observation qu'on demande sur les déplacements :
+pour déplacer \texttt{n + 1} disques, il faut bien à un moment déplacer le plus grand, et à
+cet instant les \texttt{n} autres sont tous sur le piquet restant \textemdash{} il a donc fallu les y
+amener, puis les ramener ensuite, d'où au moins \texttt{2f(n) + 1} déplacements. La
+récurrence en tire la minoration pour tout \texttt{n}.
+
+Ce que cet énoncé ne formalise pas : cette observation elle-même, qui demanderait de
+modéliser les configurations et les déplacements licites. Elle est portée par
+l'hypothèse, écrite en toutes lettres.
+\end{theoreme}
+\begin{proof}
+Par récurrence. En \(0\), la solution récursive ne fait aucun déplacement.
+
+Au rang \(k+1\), l'hypothèse de récurrence donne \(h(k) \le f(k)\), et l'hypothèse sur
+\(f\) donne \(2f(k) + 1 \le f(k+1)\), d'où
+\[ h(k+1) = 2h(k) + 1 \le 2f(k) + 1 \le f(k+1) . \]
+
+L'hypothèse \(2f(n) + 1 \le f(n+1)\) est l'observation qui fait tout le travail : pour
+déplacer \(n+1\) disques il faut bien, à un moment, déplacer le plus grand, et à cet
+instant les \(n\) autres sont tous sur le piquet restant — il a donc fallu les y
+amener, puis les ramener.
+
+Ce que cette démonstration ne formalise pas, c'est cette observation elle-même, qui
+demanderait de modéliser les configurations et les déplacements licites. Elle est portée
+par l'hypothèse, écrite en toutes lettres.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L209}{RecursiviteEtDiviserPourRegner.lean\#L209}
+
+\subsection{Diviser pour régner}
+
+\begin{definition}
+Le coût d'un algorithme qui coupe le problème en deux moitiés, les traite, puis
+recolle en temps linéaire \textemdash{} c'est le schéma du tri fusion. La variable est ici le
+nombre d'étages \texttt{k}, c'est-à-dire la taille \texttt{n = 2ᵏ}.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L223}{RecursiviteEtDiviserPourRegner.lean\#L223}
+
+\begin{theoreme}
+Le coût vaut \texttt{n log₂ n} : pour \texttt{n = 2ᵏ}, il vaut \texttt{k \(\cdot\) 2ᵏ}.
+
+C'est l'énoncé \texttt{T(n) = 2T(n/2) + n} résolu. On le lit ainsi : il y a \texttt{k = log₂ n}
+étages de découpe, et chaque étage coûte \texttt{n} au total, puisque les recollements d'un
+même étage portent ensemble sur les \texttt{n} éléments.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur le nombre d'étages. À zéro étage, il n'y a rien à faire.
+
+À \(m+1\) étages, le coût vaut \(2T(m) + 2^{m+1}\), et l'hypothèse de récurrence donne
+\(T(m) = m\,2^m\), d'où
+\[ T(m+1) = 2m\,2^m + 2^{m+1} = m\,2^{m+1} + 2^{m+1} = (m+1)\,2^{m+1} . \]
+
+C'est la récurrence \(T(n) = 2T(n/2) + n\) résolue, pour \(n = 2^k\) : il y a
+\(k = \log_2 n\) étages de découpe, et chaque étage coûte \(n\) au total, puisque les
+recollements d'un même étage portent ensemble sur les \(n\) éléments.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RecursiviteEtDiviserPourRegner.lean\#L232}{RecursiviteEtDiviserPourRegner.lean\#L232}
+
+\section{StructuresDeDonnees}
+
+\noindent
+Lycée \textemdash{} spécialité NSI, section \og{} Structures de données \fg{}.
+Une structure de données n'est pas un rangement : c'est un contrat. La pile promet que
+le dernier entré sort le premier, la file que c'est le premier, l'arbre binaire de
+recherche que le parcours infixe rend les clés triées. Ce fichier écrit ces structures
+et démontre leurs contrats \textemdash{} y compris celui, moins évident, de la file simulée par
+deux piles.
+Énoncés et démonstrations en français : voir Informatique.tex.
+
+\subsection{Piles}
+
+\begin{definition}
+Empiler : le nouvel élément est posé au sommet.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L19}{StructuresDeDonnees.lean\#L19}
+
+\begin{definition}
+Dépiler : on rend le sommet et la pile privée de ce sommet, ou rien si la pile est
+vide.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L23}{StructuresDeDonnees.lean\#L23}
+
+\begin{theoreme}
+Le contrat de la pile : dernier entré, premier sorti. Dépiler juste après avoir
+empilé rend l'élément qu'on vient de poser et l'état d'avant ; et si l'on empile deux
+éléments, c'est le second qui ressort d'abord.
+\end{theoreme}
+\begin{proof}
+Les deux égalités sont vraies par définition : empiler pose l'élément en tête, dépiler
+la retire. Il n'y a rien à calculer — et c'est bien le propos : le contrat de la pile
+est exactement sa définition.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L30}{StructuresDeDonnees.lean\#L30}
+
+\subsection{Files}
+
+\begin{definition}
+Enfiler : le nouvel élément est mis à la fin.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L38}{StructuresDeDonnees.lean\#L38}
+
+\begin{definition}
+Défiler : on rend la tête, c'est-à-dire l'élément qui attend depuis le plus
+longtemps.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L42}{StructuresDeDonnees.lean\#L42}
+
+\begin{theoreme}
+Le contrat de la file : premier entré, premier sorti. Enfiler dans une file vide
+puis défiler rend l'élément ; enfiler dans une file non vide ne change pas qui sort en
+premier \textemdash{} le nouveau venu prend la queue.
+\end{theoreme}
+\begin{proof}
+La première égalité est vraie par définition : enfiler dans la file vide donne \([x]\),
+dont la tête est \(x\).
+
+La seconde demande un calcul. Enfiler \(x\) dans \(y :: f\) donne la concaténation de
+\(y :: f\) et de \([x]\), c'est-à-dire \(y\) suivi de la concaténation de \(f\) et de
+\([x]\). Défiler rend donc \(y\) — le nouveau venu n'a pas doublé la file — et laisse
+\(f\) augmentée de \(x\) en queue.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L49}{StructuresDeDonnees.lean\#L49}
+
+\subsection{File par deux piles}
+
+\begin{definition}
+Une file simulée par deux piles : on empile les arrivées sur la pile d'entrée, et
+l'on sert depuis la pile de sortie ; quand celle-ci se vide, on y bascule l'entrée
+retournée. C'est la construction classique, et elle n'a rien d'évident : la file
+apparaît alors que ni l'une ni l'autre des deux piles ne se comporte comme une file.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L62}{StructuresDeDonnees.lean\#L62}
+
+\begin{definition}
+Enfiler dans la structure : on empile sur la pile d'entrée.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L67}{StructuresDeDonnees.lean\#L67}
+
+\begin{definition}
+Défiler dans la structure : on sert la pile de sortie ; si elle est vide, on y
+bascule d'abord la pile d'entrée retournée.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L72}{StructuresDeDonnees.lean\#L72}
+
+\begin{definition}
+Le contenu de la structure, vu comme une file ordinaire : ce qui attend dans la
+pile de sortie, puis ce qui attend dans la pile d'entrée, retourné. C'est la fonction
+d'abstraction \textemdash{} c'est elle qui donne un sens à \og{} se comporter comme une file \fg{}.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L83}{StructuresDeDonnees.lean\#L83}
+
+\begin{theoreme}
+La file par deux piles se comporte bien comme une file : ses deux opérations
+correspondent, à travers la fonction d'abstraction, à celles de la file ordinaire.
+C'est ce qu'il faut démontrer pour avoir le droit de remplacer l'une par l'autre.
+\end{theoreme}
+\begin{proof}
+On distingue les cas selon l'état des deux piles. Notons \(\overline{\ell}\) le
+retournement de \(\ell\).
+
+Pour l'enfilement, le contenu de la structure obtenue est
+\[ \mathrm{sortie} \mathbin{+\!\!+} \overline{x :: \mathrm{entree}}
+   = \mathrm{sortie} \mathbin{+\!\!+}
+     \bigl(\overline{\mathrm{entree}} \mathbin{+\!\!+} [x]\bigr)
+   = \bigl(\mathrm{sortie} \mathbin{+\!\!+} \overline{\mathrm{entree}}\bigr)
+     \mathbin{+\!\!+} [x] , \]
+c'est-à-dire le contenu d'avant, augmenté de \(x\) en queue.
+
+Pour le défilement, deux cas. Si la pile de sortie n'est pas vide, sa tête est aussi la
+tête du contenu, et les deux opérations la retirent. Si elle est vide, le contenu est
+l'entrée retournée : ou bien celle-ci est vide aussi, et les deux côtés rendent
+« rien » ; ou bien elle s'écrit \(z :: t\), et la structure bascule \(t\) dans la pile de
+sortie, dont le contenu est alors \(t\) — exactement ce que rend le défilement de la
+file ordinaire.
+
+C'est ce basculement qui rend la construction intéressante : ni l'une ni l'autre des
+deux piles ne se comporte comme une file, et pourtant leur composition, oui.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L88}{StructuresDeDonnees.lean\#L88}
+
+\subsection{Listes chaînées}
+
+\begin{definition}
+La longueur d'une liste chaînée, comptée maillon par maillon.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L104}{StructuresDeDonnees.lean\#L104}
+
+\begin{definition}
+La concaténation de deux listes chaînées : on recopie la première devant la
+seconde.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L110}{StructuresDeDonnees.lean\#L110}
+
+\begin{definition}
+Le parcours d'une liste chaînée : on visite les maillons du premier au dernier.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L115}{StructuresDeDonnees.lean\#L115}
+
+\begin{theoreme}
+Les deux propriétés qu'on attend d'une liste chaînée : la longueur d'une
+concaténation est la somme des longueurs, et le parcours voit exactement les éléments
+de la liste \textemdash{} il n'en oublie aucun et n'en invente aucun.
+\end{theoreme}
+\begin{proof}
+Deux récurrences sur la première liste.
+
+Pour la longueur : concaténer la liste vide devant \(l_2\) rend \(l_2\), et la somme des
+longueurs vaut celle de \(l_2\). Sinon la concaténation ajoute un maillon devant, et les
+deux membres augmentent de \(1\).
+
+Pour le parcours : la liste vide se parcourt en la liste vide ; sinon le parcours visite
+la tête puis parcourt la queue, et l'hypothèse de récurrence donne le reste. Le parcours
+n'oublie aucun maillon et n'en invente aucun.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L122}{StructuresDeDonnees.lean\#L122}
+
+\subsection{Arbres binaires}
+
+\begin{definition}
+Un arbre binaire : soit vide, soit un nœud portant une valeur et deux
+sous-arbres.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L138}{StructuresDeDonnees.lean\#L138}
+
+\begin{definition}
+Le nombre de nœuds.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L143}{StructuresDeDonnees.lean\#L143}
+
+\begin{definition}
+La hauteur, comptée en nombre de niveaux : l'arbre vide a la hauteur \texttt{0}, un arbre
+réduit à un nœud la hauteur \texttt{1}. C'est la convention des tableaux du programme ; avec
+celle qui compte les arêtes, tous les énoncés se décalent de un.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L150}{StructuresDeDonnees.lean\#L150}
+
+\begin{theoreme}
+Un arbre de hauteur \texttt{h} a au plus \texttt{2ʰ − 1} nœuds : chaque niveau ne peut au mieux
+que doubler le nombre de nœuds du précédent. L'inégalité est écrite \texttt{n + 1 \(\le\) 2ʰ} pour
+éviter la soustraction tronquée des entiers naturels.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur l'arbre. L'arbre vide a zéro nœud et la hauteur \(0\), et
+\(0 + 1 \le 2^0\).
+
+Un nœud de sous-arbres \(g\) et \(d\) a \(t(g) + 1 + t(d)\) nœuds et la hauteur
+\(1 + \max(h(g), h(d))\). Par hypothèse de récurrence, \(t(g) + 1 \le 2^{h(g)}\) et
+\(t(d) + 1 \le 2^{h(d)}\), tous deux majorés par \(2^{\max(h(g),\, h(d))}\). D'où
+\[ \bigl(t(g) + 1 + t(d)\bigr) + 1 \le 2 \times 2^{\max(h(g),\, h(d))}
+   = 2^{1 + \max(h(g),\, h(d))} . \]
+
+La hauteur est comptée en niveaux : l'arbre vide a la hauteur \(0\), un arbre réduit à
+un nœud la hauteur \(1\). Avec la convention qui compte les arêtes, la majoration
+s'écrit \(2^{h+1} - 1\).
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L157}{StructuresDeDonnees.lean\#L157}
+
+\begin{theoreme}
+Conséquence directe : la hauteur d'un arbre à \texttt{n} nœuds vaut au moins
+\texttt{log₂(n + 1)}. C'est la raison pour laquelle on cherche à équilibrer les arbres \textemdash{} on
+ne peut pas descendre en dessous de cette hauteur, mais on peut s'en approcher.
+\end{theoreme}
+\begin{proof}
+Il suffit d'appliquer le logarithme à la majoration précédente : de \(n + 1 \le 2^h\) on
+tire \(\log_2(n+1) \le \log_2(2^h) = h\) par croissance.
+
+C'est la raison pour laquelle on cherche à équilibrer les arbres. On ne peut pas
+descendre en dessous de cette hauteur ; un arbre équilibré s'en approche, tandis qu'un
+arbre dégénéré en peigne atteint l'autre extrême, avec une hauteur égale au nombre de
+nœuds.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L171}{StructuresDeDonnees.lean\#L171}
+
+\begin{definition}
+Un sous-arbre compte pour une arête s'il n'est pas vide.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L178}{StructuresDeDonnees.lean\#L178}
+
+\begin{definition}
+Le nombre d'arêtes : une par sous-arbre non vide accroché à un nœud.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L183}{StructuresDeDonnees.lean\#L183}
+
+\begin{theoreme}
+Un arbre non vide à \texttt{n} nœuds a \texttt{n − 1} arêtes : chaque nœud sauf la racine est
+relié à son père par exactement une arête, et il n'y en a pas d'autre. C'est la
+version enracinée de l'énoncé \og{} un arbre est un graphe connexe sans cycle, et il a
+\texttt{n − 1} arêtes \fg{} ; la caractérisation par la connexité et l'absence de cycle demande
+une théorie des graphes que ce fichier ne construit pas.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur l'arbre, en distinguant quatre cas selon que chaque sous-arbre est
+vide ou non.
+
+Si les deux le sont, l'arbre est réduit à un nœud : aucune arête, un nœud. Si un seul
+l'est, disons le gauche, l'arbre a une arête vers le sous-arbre droit, plus les arêtes
+de celui-ci, et l'hypothèse de récurrence appliquée à ce sous-arbre — non vide —
+conclut. Si aucun ne l'est, on ajoute les deux arêtes et les deux hypothèses de
+récurrence.
+
+On peut le lire ainsi : chaque nœud sauf la racine est relié à son père par exactement
+une arête, et il n'y en a pas d'autre.
+
+L'énoncé est démontré pour les arbres enracinés, qui sont ceux que manipulent les
+programmes. La caractérisation « un arbre est un graphe connexe sans cycle » demande une
+théorie des graphes que ce chapitre ne construit pas.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L192}{StructuresDeDonnees.lean\#L192}
+
+\subsection{Arbres binaires stricts}
+
+\begin{definition}
+Un arbre binaire strict : chaque nœud interne a exactement deux enfants. On le
+décrit par un type à part, ce qui rend la contrainte impossible à violer plutôt que
+seulement vérifiée.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L214}{StructuresDeDonnees.lean\#L214}
+
+\begin{definition}
+Le nombre de feuilles.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L219}{StructuresDeDonnees.lean\#L219}
+
+\begin{definition}
+Le nombre de nœuds internes.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L224}{StructuresDeDonnees.lean\#L224}
+
+\begin{theoreme}
+Dans un arbre binaire strict, il y a exactement une feuille de plus que de nœuds
+internes. On peut le lire ainsi : chaque nœud interne créé remplace une feuille par
+deux, donc ajoute une feuille et un interne ; le compte part de une feuille et zéro
+interne.
+\end{theoreme}
+\begin{proof}
+Par récurrence. Une feuille compte une feuille et zéro nœud interne.
+
+Un nœud de sous-arbres \(g\) et \(d\) compte \(f(g) + f(d)\) feuilles et
+\(1 + i(g) + i(d)\) internes ; l'hypothèse de récurrence donne \(f(g) = i(g) + 1\) et
+\(f(d) = i(d) + 1\), d'où
+\[ f = i(g) + i(d) + 2 = \bigl(1 + i(g) + i(d)\bigr) + 1 = i + 1 . \]
+
+On peut le lire ainsi : chaque nœud interne créé remplace une feuille par deux, donc
+ajoute une feuille et un interne ; le compte part d'une feuille et zéro interne, et
+l'écart de un ne bouge plus.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L232}{StructuresDeDonnees.lean\#L232}
+
+\subsection{Arbres binaires de recherche}
+
+\begin{definition}
+Le parcours infixe : le sous-arbre gauche, la racine, le sous-arbre droit.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L242}{StructuresDeDonnees.lean\#L242}
+
+\begin{definition}
+La propriété d'arbre binaire de recherche : à chaque nœud, tout ce qui est à
+gauche est plus petit que la racine, tout ce qui est à droite est plus grand, et les
+deux sous-arbres sont eux-mêmes des arbres binaires de recherche.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L249}{StructuresDeDonnees.lean\#L249}
+
+\begin{theoreme}
+Le parcours infixe d'un arbre binaire de recherche rend les clés triées. C'est ce
+qui justifie la structure : on obtient le tri sans trier, par le seul fait d'avoir
+rangé les clés selon la règle.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur l'arbre. Le parcours de l'arbre vide est la liste vide.
+
+Pour un nœud de racine \(x\), le parcours est la concaténation du parcours gauche, de
+\(x\), et du parcours droit. Or une concaténation est triée dès que chaque morceau
+l'est et que tout élément du premier est inférieur à tout élément du second.
+
+Les deux parcours sont triés par hypothèse de récurrence. La liste formée de \(x\) suivi
+du parcours droit est triée, puisque \(x\) minore ce parcours par définition de l'arbre
+binaire de recherche. Enfin, pour \(u\) dans le parcours gauche et \(v\) dans le
+parcours droit, \(u \le x \le v\).
+
+C'est ce qui justifie la structure : on obtient le tri sans trier, par le seul fait
+d'avoir rangé les clés selon la règle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L257}{StructuresDeDonnees.lean\#L257}
+
+\begin{definition}
+La recherche dans un arbre binaire de recherche : on compare à la racine et l'on
+descend d'un seul côté.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L274}{StructuresDeDonnees.lean\#L274}
+
+\begin{definition}
+Le nombre de comparaisons que fait cette recherche.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L279}{StructuresDeDonnees.lean\#L279}
+
+\begin{theoreme}
+La recherche dans un arbre binaire de recherche coûte au plus la hauteur de
+l'arbre : on ne descend que d'un niveau par comparaison, et l'on ne remonte jamais.
+D'où l'intérêt d'un arbre équilibré, dont la hauteur est logarithmique.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur l'arbre. Dans l'arbre vide, aucune comparaison.
+
+Sur un nœud, la recherche compare une fois, puis ou bien s'arrête, ou bien descend dans
+un seul des deux sous-arbres. Le coût vaut donc \(1\), ou \(1\) plus le coût dans un
+sous-arbre — majoré par hypothèse de récurrence par la hauteur de celui-ci, elle-même
+majorée par le maximum des deux hauteurs. Dans tous les cas, le total est au plus
+\(1 + \max(h(g), h(d))\), qui est la hauteur de l'arbre.
+
+On ne descend que d'un niveau par comparaison, et l'on ne remonte jamais. D'où l'intérêt
+d'un arbre équilibré, dont la hauteur est logarithmique en le nombre de clés.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L287}{StructuresDeDonnees.lean\#L287}
+
+\subsection{Parcours en profondeur d'un graphe}
+
+\begin{definition}
+Un graphe est donné par la liste des voisins de chaque sommet. Un sommet \texttt{v} est
+accessible depuis \texttt{u} s'il existe une suite d'arêtes qui y mène \textemdash{} y compris la suite
+vide, qui rend tout sommet accessible depuis lui-même.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L304}{StructuresDeDonnees.lean\#L304}
+
+\begin{definition}
+Le parcours en profondeur, avec une pile explicite et la liste des sommets déjà
+vus. Le premier argument est un carburant : il borne le nombre de tours, ce qui évite
+d'avoir à démontrer la terminaison avant d'avoir démontré quoi que ce soit d'autre.
+Un vrai programme s'arrête parce que la liste des vus ne fait que croître.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L311}{StructuresDeDonnees.lean\#L311}
+
+\begin{theoreme}
+Le parcours en profondeur ne visite que des sommets accessibles : il n'invente
+rien. La démonstration est une récurrence sur le carburant, avec pour invariant que
+tout ce qui est dans la pile et tout ce qui est déjà vu est accessible.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur le carburant, avec pour invariant que tout ce qui est dans la pile et
+tout ce qui est déjà vu est accessible depuis le départ.
+
+À carburant nul, le parcours rend la liste des vus, dont l'invariant dit qu'ils sont
+accessibles ; si la pile est vide, de même.
+
+Sinon on examine le sommet \(s\) de la pile. S'il est déjà vu, on passe au suivant sans
+rien changer. Sinon on le marque vu et l'on empile ses voisins : \(s\) est accessible par
+l'invariant, donc ses voisins le sont aussi, d'un pas de plus. L'invariant est conservé,
+et l'hypothèse de récurrence conclut.
+
+Le parcours n'invente rien. C'est la moitié facile du théorème.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L322}{StructuresDeDonnees.lean\#L322}
+
+\begin{theoreme}
+Réciproquement, tout sommet accessible finit par être visité, pourvu qu'on laisse
+au parcours assez de carburant.
+
+Énoncé admis. Sa démonstration demande un invariant nettement plus fin que celui de
+la moitié précédente : il faut suivre, à chaque tour, l'ensemble des sommets qui sont
+soit déjà vus, soit encore dans la pile, et montrer qu'aucun sommet accessible ne peut
+sortir de cet ensemble \textemdash{} puis borner le carburant nécessaire. C'est la moitié
+difficile du théorème, et elle n'est pas faite ici.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L359}{StructuresDeDonnees.lean\#L359}
+
+\subsection{Plus courts chemins et algorithme de Dijkstra}
+
+\begin{definition}
+Le poids d'un chemin, parcouru depuis un sommet de départ : la somme des poids des
+arêtes empruntées. Le chemin est donné par la liste des sommets qu'on visite après le
+départ.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L369}{StructuresDeDonnees.lean\#L369}
+
+\begin{theoreme}
+Avec des poids positifs, allonger un chemin ne le raccourcit jamais.
+
+C'est exactement ce qui autorise l'algorithme de Dijkstra à fixer définitivement la
+distance du sommet le plus proche sans regarder la suite du graphe : aucun détour ne
+pourra faire mieux. Avec des poids négatifs, l'énoncé tombe, et l'algorithme aussi.
+\end{theoreme}
+\begin{proof}
+Par récurrence sur le chemin, le sommet de départ restant libre.
+
+Un chemin vide ne coûte rien. Sinon le chemin s'écrit \(v :: r\) et son prolongement
+commence par la même arête \(u \to v\) ; l'hypothèse de récurrence compare alors les
+restes depuis \(v\).
+
+C'est exactement ce qui autorise l'algorithme de Dijkstra à fixer définitivement la
+distance du sommet le plus proche sans regarder la suite du graphe : aucun détour ne
+pourra faire mieux. Avec des poids négatifs, l'énoncé tombe, et l'algorithme aussi.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L378}{StructuresDeDonnees.lean\#L378}
+
+\begin{theoreme}
+Correction de l'algorithme de Dijkstra pour des poids positifs.
+
+L'algorithme fixe, pour chaque sommet, une distance \texttt{fixe v}. Les deux hypothèses sont
+ce qu'il garantit à la fin : la distance de la source est nulle, et aucune arête ne
+permet d'améliorer une distance fixée \textemdash{} c'est ce que signifie \og{} l'algorithme a
+relâché toutes les arêtes \fg{}. On en tire ce qui est demandé : la distance fixée est
+bien la plus petite possible, quel que soit le chemin qu'on considère.
+
+La démonstration remonte le chemin arête par arête depuis la source. Ce que cet
+énoncé ne formalise pas : que l'algorithme, avec sa file de priorité, établisse bien
+ces deux garanties \textemdash{} c'est la partie programmation, et elle est ici portée par les
+hypothèses plutôt que passée sous silence.
+\end{theoreme}
+\begin{proof}
+On démontre d'abord, par récurrence sur le chemin, une inégalité plus générale : pour
+tout chemin allant d'un sommet \(u\) à un sommet \(w\),
+\[ \mathrm{fixe}(w) \le \mathrm{fixe}(u) + \text{poids du chemin depuis } u . \]
+
+Un chemin vide n'aboutit nulle part : il n'y a rien à démontrer. Si le chemin est réduit
+à une arête \(u \to z\), alors \(w = z\) et l'inégalité est exactement l'hypothèse de
+relâchement. Sinon le chemin commence par l'arête \(u \to z\) et se poursuit ;
+l'hypothèse de récurrence donne \(\mathrm{fixe}(w) \le \mathrm{fixe}(z) + p\), où \(p\)
+est le poids du reste, et le relâchement donne
+\(\mathrm{fixe}(z) \le \mathrm{fixe}(u) + \mathrm{poids}(u, z)\) ; on additionne.
+
+L'énoncé s'obtient en prenant pour \(u\) la source, dont la distance fixée est nulle.
+
+Les deux hypothèses sont ce que l'algorithme garantit à la fin de son exécution : la
+source est à distance nulle, et aucune arête ne permet plus d'améliorer une distance.
+Ce que cette démonstration ne formalise pas, c'est que l'algorithme, avec sa file de
+priorité, les établisse effectivement.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/StructuresDeDonnees.lean\#L398}{StructuresDeDonnees.lean\#L398}
+
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par
 \noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
