@@ -52,7 +52,7 @@ theorem ecriture_binaire_unicite {L : List ℕ} (hL : ∀ c ∈ L, c < 2)
 /-- Le nombre de bits d'un entier non nul est `⌊log₂ n⌋ + 1`. -/
 theorem nombre_de_bits {n : ℕ} (hn : n ≠ 0) :
     (Nat.digits 2 n).length = Nat.log 2 n + 1 :=
-  Nat.digits_len 2 n (by norm_num) hn
+  Nat.length_digits 2 n (by norm_num) hn
 
 /-! ## Complément à deux -/
 
