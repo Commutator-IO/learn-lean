@@ -28,14 +28,13 @@ theorem distributivite_et_double_negation (a b c : Bool) :
 
 /-! ## Écriture binaire -/
 
-/-- Tout entier naturel a une écriture binaire : la suite de ses chiffres, lue de
-droite à gauche, ne contient que des `0` et des `1`, et le dernier chiffre — celui de
-poids fort — n'est pas nul. -/
+/-- Tout entier naturel a une écriture binaire : la suite de ses chiffres ne contient
+que des `0` et des `1`, et le dernier — celui de poids fort — n'est pas nul. -/
 theorem ecriture_binaire_existence {n : ℕ} (hn : n ≠ 0) :
-    (∀ c ∈ Nat.digits 2 n, c < 2) ∧ (Nat.digits 2 n).getLast? ≠ some 0 := by
-  refine ⟨fun c hc => Nat.digits_lt_base (by norm_num) hc, ?_⟩
-  intro h
-  exact absurd (Nat.getLast_digit_ne_zero 2 hn) (by simpa using h)
+    (∀ c ∈ Nat.digits 2 n, c < 2) ∧
+      ∀ h : Nat.digits 2 n ≠ [], (Nat.digits 2 n).getLast h ≠ 0 :=
+  ⟨fun _ hc => Nat.digits_lt_base (by norm_num) hc,
+    fun _ => Nat.getLast_digit_ne_zero 2 hn⟩
 
 /-- La valeur d'une écriture binaire est la somme des `bᵢ 2ⁱ` : relire les chiffres
 rend le nombre de départ. -/
@@ -46,22 +45,31 @@ theorem valeur_d_une_ecriture_binaire (n : ℕ) :
 /-- L'écriture binaire est unique : deux suites de chiffres valides qui ont la même
 valeur sont la même suite. -/
 theorem ecriture_binaire_unicite {L : List ℕ} (hL : ∀ c ∈ L, c < 2)
-    (hlast : L ≠ [] → L.getLast? ≠ some 0) :
+    (hlast : ∀ h : L ≠ [], L.getLast h ≠ 0) :
     Nat.digits 2 (Nat.ofDigits 2 L) = L :=
-  Nat.digits_ofDigits 2 (by norm_num) L hL fun h => by
-    have := hlast (by rintro rfl; simp at h)
-    have hne : L.getLast? = some (L.getLast (by rintro rfl; simp at h)) :=
-      List.getLast?_eq_getLast _ _
-    omega_nat <;> skip
-    all_goals
-      rcases Nat.eq_zero_or_pos (L.getLast (by rintro rfl; simp at h)) with h0 | h0
-      · exact absurd (hne.trans (by rw [h0])) this
-      · exact h0
+  Nat.digits_ofDigits 2 (by norm_num) L hL hlast
 
 /-- Le nombre de bits d'un entier non nul est `⌊log₂ n⌋ + 1`. -/
 theorem nombre_de_bits {n : ℕ} (hn : n ≠ 0) :
     (Nat.digits 2 n).length = Nat.log 2 n + 1 :=
   Nat.digits_len 2 n (by norm_num) hn
+
+/-! ## Complément à deux -/
+
+/-- Complément à deux sur `n` bits : tout entier relatif a un codage unique parmi les
+`2ⁿ` codes disponibles — celui qui lui est congru modulo `2ⁿ` — et l'addition des codes
+se fait modulo `2ⁿ`, ce qui explique le passage brutal du plus grand entier positif au
+plus petit négatif. -/
+theorem complement_a_deux (n : ℕ) (a b : ℤ) :
+    (∃! c : ℤ, (0 ≤ c ∧ c < 2 ^ n) ∧ c ≡ a [ZMOD 2 ^ n]) ∧
+      (a + b) % 2 ^ n = (a % 2 ^ n + b % 2 ^ n) % 2 ^ n := by
+  have hpos : (0 : ℤ) < 2 ^ n := by positivity
+  refine ⟨⟨a % 2 ^ n, ⟨⟨Int.emod_nonneg a hpos.ne', Int.emod_lt_of_pos a hpos⟩, ?_⟩, ?_⟩,
+    Int.add_emod a b _⟩
+  · simp [Int.ModEq, Int.emod_emod_of_dvd]
+  · rintro c ⟨⟨hc0, hc1⟩, hc⟩
+    rw [Int.ModEq] at hc
+    rwa [Int.emod_eq_of_lt hc0 hc1] at hc
 
 /-! ## Hexadécimal -/
 
@@ -99,6 +107,6 @@ theorem un_dixieme_n_est_pas_binaire : ¬ ∃ a : ℤ, ∃ n : ℕ, (1 : ℚ) / 
 /-- La concaténation est associative, et sa longueur est la somme des longueurs. -/
 theorem concatenation (u v w : List Char) :
     (u ++ v) ++ w = u ++ (v ++ w) ∧ (u ++ v).length = u.length + v.length :=
-  ⟨List.append_assoc u v w, List.length_append u v⟩
+  ⟨List.append_assoc u v w, List.length_append⟩
 
 end Lycee.Nsi

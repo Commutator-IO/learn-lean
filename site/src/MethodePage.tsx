@@ -42,6 +42,155 @@ function Titre({ children, id }: { children: string; id: string }) {
   );
 }
 
+/**
+ * La chaîne de production, d'un fichier Lean au livre imprimé.
+ *
+ * Un dessin plutôt qu'une liste : ce qui compte est l'ordre — rien n'est écrit à
+ * la main en aval d'un générateur — et l'outil qui fait chaque pas. La colonne
+ * du milieu porte ce qui s'écrit, les côtés ce qui s'en déduit. Le SVG suit la
+ * couleur du texte, donc le thème.
+ */
+function Chaine() {
+  const boite = (
+    x: number,
+    y: number,
+    l: number,
+    titre: string,
+    sous: string,
+    mono = true,
+  ) => (
+    <g key={titre}>
+      <rect
+        x={x}
+        y={y}
+        width={l}
+        height={44}
+        rx={6}
+        className="fill-white stroke-ink-300"
+      />
+      <text
+        x={x + l / 2}
+        y={y + 19}
+        textAnchor="middle"
+        className={
+          mono
+            ? "fill-ink-900 font-mono text-[11px]"
+            : "fill-ink-900 text-[12px]"
+        }
+      >
+        {titre}
+      </text>
+      <text
+        x={x + l / 2}
+        y={y + 34}
+        textAnchor="middle"
+        className="fill-ink-500 text-[10px]"
+      >
+        {sous}
+      </text>
+    </g>
+  );
+
+  /** Flèche verticale, l'outil écrit à sa droite. */
+  const bas = (x: number, y1: number, y2: number, outil: string) => (
+    <g key={`${x}-${y1}-bas`}>
+      <line
+        x1={x}
+        y1={y1}
+        x2={x}
+        y2={y2}
+        className="stroke-ink-400"
+        markerEnd="url(#pointe)"
+      />
+      <text
+        x={x + 10}
+        y={(y1 + y2) / 2 + 4}
+        className="fill-brand-700 font-mono text-[10px]"
+      >
+        {outil}
+      </text>
+    </g>
+  );
+
+  /** Flèche horizontale : l'outil est écrit dans la boîte d'arrivée. */
+  const cote = (x1: number, x2: number, y: number) => (
+    <line
+      key={`${x1}-${y}-cote`}
+      x1={x1}
+      y1={y}
+      x2={x2}
+      y2={y}
+      className="stroke-ink-400"
+      markerEnd="url(#pointe)"
+    />
+  );
+
+  return (
+    <figure className="my-6 overflow-x-auto rounded-lg border border-ink-200 bg-ink-50/50 p-4">
+      <svg viewBox="0 0 640 330" className="w-full min-w-[560px]" fill="none">
+        <title>
+          De la preuve Lean au livre : ordre de production et outils employés
+        </title>
+        <defs>
+          <marker
+            id="pointe"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="6"
+            markerHeight="6"
+            orient="auto"
+          >
+            <path d="M0,0 L10,5 L0,10 z" className="fill-ink-400" />
+          </marker>
+        </defs>
+
+        {/* Colonne du milieu : ce qui s'écrit. */}
+        {boite(225, 15, 190, "courses/**/*.lean", "les preuves, à la main")}
+        {bas(320, 59, 89, "generate-tex.py")}
+        {boite(225, 93, 190, "courses/**/*.tex", "squelette + ancres #Lnn")}
+        {bas(320, 137, 167, "à la main : la transcription")}
+        {boite(225, 171, 190, "+ démonstrations", "en français, appariées")}
+        {bas(320, 215, 245, "generate-book.py")}
+        {boite(225, 249, 190, "book/cours-complet.tex", "+ book/textes")}
+
+        {/* À droite : ce que Lean et LaTeX en font. */}
+        {cote(415, 436, 37)}
+        {boite(
+          440,
+          15,
+          185,
+          "vérifié par le noyau",
+          "lake build + Mathlib",
+          false,
+        )}
+        {cote(415, 436, 193)}
+        {boite(440, 171, 185, "PDF du chapitre", "tectonic", false)}
+        {cote(415, 436, 271)}
+        {boite(440, 249, 185, "cours-complet.pdf", "tectonic", false)}
+
+        {/* À gauche : ce que le site en fait. */}
+        {cote(225, 204, 193)}
+        {boite(15, 171, 185, "site/public/*.json", "manifest.mjs", false)}
+        {bas(107, 215, 245, "vite build")}
+        {boite(
+          15,
+          249,
+          185,
+          "lean.commutator.io",
+          "site + livre en ligne",
+          false,
+        )}
+      </svg>
+      <figcaption className="mt-3 text-[13px] leading-relaxed text-ink-500">
+        Deux choses seulement s'écrivent à la main : la preuve Lean, et sa
+        transcription française. Tout le reste est engendré et se régénère —
+        c'est ce qui permet de vérifier que les deux disent la même chose.
+      </figcaption>
+    </figure>
+  );
+}
+
 export function MethodePage() {
   return (
     <div className="flex min-h-dvh flex-col">
@@ -71,23 +220,28 @@ export function MethodePage() {
               </a>
             </li>
             <li>
+              <a className="hover:underline" href="#chaine">
+                3. De la preuve au livre : la chaîne
+              </a>
+            </li>
+            <li>
               <a className="hover:underline" href="#enonce">
-                3. Le plus dur reste d'écrire l'énoncé
+                4. Le plus dur reste d'écrire l'énoncé
               </a>
             </li>
             <li>
               <a className="hover:underline" href="#chercher">
-                4. Chercher avant d'écrire
+                5. Chercher avant d'écrire
               </a>
             </li>
             <li>
               <a className="hover:underline" href="#skills">
-                5. Les deux skills du dépôt
+                6. Les skills du dépôt
               </a>
             </li>
             <li>
               <a className="hover:underline" href="#lecons">
-                6. Ce que la formalisation révèle
+                7. Ce que la formalisation révèle
               </a>
             </li>
           </ol>
@@ -249,7 +403,25 @@ export function MethodePage() {
             et coûte une construction entière.
           </p>
 
-          <Titre id="enonce">3. Le plus dur reste d'écrire l'énoncé</Titre>
+          <Titre id="chaine">3. De la preuve au livre : la chaîne</Titre>
+          <p>
+            Rien de ce qui suit la preuve n'est écrit deux fois. Le document
+            français est engendré à partir du fichier Lean — sections, énoncés,
+            et surtout les renvois <code>#Lnn</code> qui relient chaque bloc à
+            sa déclaration — puis complété à la main de ses démonstrations. Le
+            reste en découle : les PDF de chapitre, le livre, les données du
+            site.
+          </p>
+          <Chaine />
+          <p>
+            Deux conséquences pratiques. Un fichier Lean dont les lignes bougent
+            désengage tous ses renvois en aval, et le site n'apparie plus rien :
+            c'est arrivé, et une vérification d'intégration le rattrape
+            désormais. Et le livre n'imprime que ce que les chapitres
+            contiennent — il ne peut pas être en avance sur eux.
+          </p>
+
+          <Titre id="enonce">4. Le plus dur reste d'écrire l'énoncé</Titre>
           <p>
             Un énoncé de programme scolaire s'adresse à un lecteur qui comble
             les vides tout seul. « Dans un parallélogramme, les diagonales se
@@ -299,7 +471,7 @@ export function MethodePage() {
             au tableau.
           </p>
 
-          <Titre id="chercher">4. Chercher avant d'écrire</Titre>
+          <Titre id="chercher">5. Chercher avant d'écrire</Titre>
           <p>
             Une bonne moitié du programme de lycée figure déjà dans Mathlib,
             sous un autre nom et dans une généralité plus grande. Se lancer sans
@@ -337,11 +509,11 @@ export function MethodePage() {
             lycée escamote.
           </p>
 
-          <Titre id="skills">5. Les deux skills du dépôt</Titre>
+          <Titre id="skills">6. Les skills du dépôt</Titre>
           <p>
             Une skill est un mode d'emploi que l'agent charge quand la tâche s'y
-            prête. Le dépôt en compte deux, qui encadrent les deux moments où
-            l'on écrit du français.
+            prête. Le dépôt en compte trois : deux encadrent les moments où l'on
+            écrit du français, la troisième les figures.
           </p>
 
           <div className="mt-5 rounded-lg border border-ink-200 p-5">
@@ -423,7 +595,38 @@ export function MethodePage() {
             </ul>
           </div>
 
-          <Titre id="lecons">6. Ce que la formalisation révèle</Titre>
+          <div className="mt-5 rounded-lg border border-ink-200 p-5">
+            <h3 className="font-mono text-[13px] font-semibold text-brand-700">
+              illustrate-theorem
+            </h3>
+            <p className="mt-2 text-[15px]">
+              Dessiner la figure d'un énoncé, en deux versions : TikZ pour le
+              livre, où les étiquettes se composent dans les polices du
+              document, et SVG pour le site, où la figure suit le thème. Sa
+              règle première tient en une phrase :{" "}
+              <strong>une figure illustre, elle ne démontre pas</strong>. Un
+              lecteur qui la couvre de la main doit pouvoir suivre la
+              démonstration sans elle.
+            </p>
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-[14.5px] text-ink-600">
+              <li>
+                Les coordonnées s'écrivent une fois, en tête du fichier TikZ, et
+                se recopient dans le SVG : deux versions qui divergent sont un
+                défaut au même titre qu'une preuve fausse.
+              </li>
+              <li>
+                On n'illustre pas tout : un calcul algébrique ou une
+                divisibilité n'ont pas de figure, et en dessiner une est du
+                bruit.
+              </li>
+              <li>
+                Ni un cas particulier présenté comme le cas général, ni un
+                énoncé admis illustré comme s'il était acquis.
+              </li>
+            </ul>
+          </div>
+
+          <Titre id="lecons">7. Ce que la formalisation révèle</Titre>
           <p>
             Le résultat le plus intéressant n'est pas la liste des théorèmes
             démontrés, mais le déplacement de la frontière entre ce qu'on admet

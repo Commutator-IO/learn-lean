@@ -7,15 +7,15 @@
  */
 
 const PAGES = [
-  { path: '/cours/', label: 'Apprendre Lean' },
-  { path: '/livre/', label: 'Le livre' },
-  { path: '/methode/', label: 'Méthode' },
-  { path: '/sujets/', label: "Sujets d'examens" },
-]
+  { path: "/cours/", label: "Apprendre Lean" },
+  { path: "/livre/", label: "Le livre" },
+  { path: "/methode/", label: "Méthode" },
+  { path: "/sujets/", label: "Sujets d'examens" },
+];
 
 function courant(path: string, ici: string) {
-  const h = ici.endsWith('/') ? ici : `${ici}/`
-  return path === h
+  const h = ici.endsWith("/") ? ici : `${ici}/`;
+  return path === h;
 }
 
 export function Header({ path }: { path: string }) {
@@ -39,26 +39,20 @@ export function Header({ path }: { path: string }) {
             <a
               key={p.path}
               href={p.path}
-              aria-current={courant(p.path, path) ? 'page' : undefined}
+              aria-current={courant(p.path, path) ? "page" : undefined}
               className={
                 courant(p.path, path)
-                  ? 'rounded px-2.5 py-1 font-medium text-ink-900'
-                  : 'rounded px-2.5 py-1 text-ink-500 hover:bg-ink-100 hover:text-ink-800'
+                  ? "rounded px-2.5 py-1 font-medium text-ink-900"
+                  : "rounded px-2.5 py-1 text-ink-500 hover:bg-ink-100 hover:text-ink-800"
               }
             >
               {p.label}
             </a>
           ))}
-          <a
-            href="https://github.com/Commutator-IO/learn-lean"
-            className="ml-1 rounded px-2.5 py-1 text-ink-500 hover:bg-ink-100 hover:text-ink-800"
-          >
-            Dépôt
-          </a>
         </nav>
       </div>
     </header>
-  )
+  );
 }
 
 export function Footer() {
@@ -66,19 +60,25 @@ export function Footer() {
     <footer className="border-t border-ink-200 bg-ink-50">
       <div className="mx-auto max-w-7xl px-5 py-8 text-[13px] leading-relaxed text-ink-500">
         <p>
-          Les démonstrations sont écrites en Lean 4 et vérifiées par son noyau ; leur version
-          française est transcrite à la main, pas engendrée. Les deux vues de ce site sont donc
-          bien les deux faces d'un même texte.
+          Les démonstrations sont écrites en Lean 4 et vérifiées par son noyau ;
+          leur version française est transcrite à la main, pas engendrée. Les
+          deux vues de ce site sont donc bien les deux faces d'un même texte.
         </p>
         <p className="mt-2">
-          <a className="underline underline-offset-2" href="https://lean-lang.org/">
+          <a
+            className="underline underline-offset-2"
+            href="https://lean-lang.org/"
+          >
             Lean
-          </a>{' '}
-          ·{' '}
-          <a className="underline underline-offset-2" href="https://leanprover-community.github.io/">
+          </a>{" "}
+          ·{" "}
+          <a
+            className="underline underline-offset-2"
+            href="https://leanprover-community.github.io/"
+          >
             Mathlib
-          </a>{' '}
-          ·{' '}
+          </a>{" "}
+          ·{" "}
           <a
             className="underline underline-offset-2"
             href="https://github.com/Commutator-IO/learn-lean"
@@ -88,5 +88,5 @@ export function Footer() {
         </p>
       </div>
     </footer>
-  )
+  );
 }
