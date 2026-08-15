@@ -1,0 +1,21 @@
+<svg viewBox="0 0 320 175" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Un arbre pondéré : la probabilité d'une branche est le produit des probabilités rencontrées le long du chemin</title>
+  <g stroke-width="1.1">
+    <path d="M20,87 L116,40.8 M20,87 L116,133.2" />
+    <path d="M116,40.8 L231.2,15.6" stroke-width="2.2" />
+    <path d="M116,40.8 L231.2,66" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="10">
+    <text x="62" y="56">0,3</text>
+    <text x="62" y="122">0,7</text>
+    <text x="168" y="19">0,8</text>
+    <text x="168" y="63">0,2</text>
+  </g>
+  <g fill="currentColor" stroke="none" font-size="12" font-style="italic">
+    <text x="110" y="36" text-anchor="end">A</text>
+    <text x="110" y="140" text-anchor="end">Ā</text>
+    <text x="238" y="19">B</text>
+    <text x="238" y="70">B̄</text>
+  </g>
+  <text x="238" y="34" fill="currentColor" stroke="none" font-size="10">0,3 × 0,8 = 0,24</text>
+</svg>

@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \newtheorem{exemple}{Exemple}
@@ -214,6 +219,12 @@ On calcule le numérateur :
 puis on divise par $x_2 - x_1$, non nul puisque les deux abscisses diffèrent.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L105}{ProportionnaliteEtFonctions.lean\#L105}
+
+\begin{figure}[h]
+\centering
+\input{figures/coefficient_directeur}
+\caption{Le coefficient directeur se lit sur deux points quelconques de la droite : c'est le rapport de l'accroissement vertical à l'accroissement horizontal, et il ne dépend pas du couple choisi.}
+\end{figure}
 
 \begin{theoreme}
 Deux points d'abscisses distinctes déterminent une fonction affine et une seule : il

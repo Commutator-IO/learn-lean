@@ -1,0 +1,12 @@
+% Construction : diagramme en bâtons de la loi binomiale n = 8, p = 0,4.
+%   Probabilités (arrondies) : 0,017 0,090 0,209 0,279 0,232 0,124 0,041 0,008 0,001
+%   Bâton k à l'abscisse k, hauteur 8 × p(k) pour la lisibilité.
+% SVG : x = 34 + 28k, y = 130 - 340 p(k).
+\begin{tikzpicture}[scale=1, >=stealth, every node/.style={font=\small}]
+  \draw[->] (-0.4, 0) -- (8.8, 0) node[right] {$k$};
+  \draw[->] (-0.4, 0) -- (-0.4, 2.6);
+  \foreach \k/\p in {0/0.017, 1/0.090, 2/0.209, 3/0.279, 4/0.232, 5/0.124, 6/0.041, 7/0.008, 8/0.001}
+    { \draw[very thick] (\k, 0) -- (\k, 8*\p); \node[below, font=\footnotesize] at (\k, 0) {$\k$}; }
+  \node[above, font=\footnotesize] at (3, 2.25) {$np = 3{,}2$};
+  \draw[dotted] (3.2, 0) -- (3.2, 2.4);
+\end{tikzpicture}

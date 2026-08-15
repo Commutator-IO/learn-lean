@@ -1,0 +1,16 @@
+<svg viewBox="0 0 240 155" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Un triangle quelconque : le théorème d'Al-Kashi corrige Pythagore d'un terme qui dépend de l'angle en A</title>
+  <g stroke-width="1.2">
+    <path d="M24,130 L217.6,130 L90,15.6 Z" />
+    <path d="M57,130 A33,33 0 0,0 40.5,101.4" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="12" font-style="italic">
+    <text x="56" y="115">Â</text>
+    <text x="120" y="146" text-anchor="middle">c</text>
+    <text x="48" y="72" text-anchor="end">b</text>
+    <text x="162" y="66">a</text>
+    <text x="18" y="144" text-anchor="end">A</text>
+    <text x="222" y="144">B</text>
+    <text x="90" y="10" text-anchor="middle">C</text>
+  </g>
+</svg>

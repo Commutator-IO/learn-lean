@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \newtheorem{exemple}{Exemple}
@@ -460,6 +465,12 @@ $x$ : elle vérifie donc $\lfloor x \rfloor \le x$, et $x < \lfloor x \rfloor + 
 l'entier suivant est strictement plus grand que $x$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L30}{EcrituresDesNombres.lean\#L30}
+
+\begin{figure}[h]
+\centering
+\input{figures/encadrement}
+\caption{Tout nombre est encadré par son plancher et l'entier suivant : il tombe dans l'un des intervalles $[n\,;n+1[$, et dans un seul.}
+\end{figure}
 
 \subsection{Ordre sur les relatifs ; opposé, distance à zéro}
 

@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \theoremstyle{plain}
@@ -108,6 +113,12 @@ L'inégalité $|y| \le r$ équivaut à l'encadrement $-r \le y \le r$ ; en l'app
 $y = x - a$ et en ajoutant $a$ aux trois membres, on obtient l'encadrement annoncé.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L42}{NombresCalculAlgebrique.lean\#L42}
+
+\begin{figure}[h]
+\centering
+\input{figures/valeur_absolue_encadrement}
+\caption{La valeur absolue mesure une distance : les points à distance au plus $r$ de $a$ forment le segment $[a - r\,;a + r]$.}
+\end{figure}
 
 \begin{theoreme}
 Inégalité triangulaire : $|x + y| \le |x| + |y|$.

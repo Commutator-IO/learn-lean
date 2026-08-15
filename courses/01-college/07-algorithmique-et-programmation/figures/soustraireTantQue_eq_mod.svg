@@ -1,0 +1,25 @@
+<svg viewBox="0 0 320 145" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Retrancher b tant que c'est possible : les sauts s'arrêtent dès qu'on passe sous b, et ce qui reste est le reste de la division</title>
+  <g stroke-width="1.1">
+    <path d="M10,100 L306,100 M302,96 l6,4 l-6,4" />
+    <path d="M20,94 L20,106 M100,94 L100,106 M180,94 L180,106 M260,94 L260,106" />
+  </g>
+  <g stroke-width="1.1">
+    <path d="M292,92 Q252,52 212,92 M212,92 l1,-9 m-1,9 l7,-5" />
+    <path d="M212,92 Q172,52 132,92 M132,92 l1,-9 m-1,9 l7,-5" />
+    <path d="M132,92 Q92,52 52,92 M52,92 l1,-9 m-1,9 l7,-5" />
+  </g>
+  <g fill="currentColor" stroke="none">
+    <circle cx="292" cy="100" r="3.2" /><circle cx="212" cy="100" r="3.2" />
+    <circle cx="132" cy="100" r="3.2" /><circle cx="52" cy="100" r="3.2" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="11" text-anchor="middle">
+    <text x="20" y="118">0</text><text x="100" y="118">5</text>
+    <text x="180" y="118">10</text><text x="260" y="118">15</text>
+    <text x="252" y="60" font-style="italic">−b</text>
+    <text x="172" y="60" font-style="italic">−b</text>
+    <text x="92" y="60" font-style="italic">−b</text>
+    <text x="52" y="136" font-style="italic">reste</text>
+    <text x="292" y="136" font-style="italic">a</text>
+  </g>
+</svg>

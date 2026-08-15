@@ -1,0 +1,16 @@
+% Construction : droite graduée de 0 à 17, a = 17, b = 5.
+%   Trois soustractions de b : 17 → 12 → 7 → 2. On s'arrête à 2 < 5, le reste.
+%   Les arcs marquent les sauts de longueur b.
+% SVG : x = 20 + 16x, y = 100 (axe).
+\begin{tikzpicture}[scale=0.55, >=stealth, every node/.style={font=\small}]
+  \draw[->] (-0.6, 0) -- (18.4, 0);
+  \foreach \n in {0,5,10,15} { \draw (\n, 0.3) -- (\n, -0.3); \node[below] at (\n, -0.4) {$\n$}; }
+  \foreach \d/\a in {17/12, 12/7, 7/2}
+    \draw[->] (\d, 0.4) to[bend right=38] (\a, 0.4);
+  \foreach \p in {17,12,7,2} \fill (\p, 0) circle (2.6pt);
+  \node[above] at (14.5, 1.9) {$-b$};
+  \node[above] at (9.5, 1.9) {$-b$};
+  \node[above] at (4.5, 1.9) {$-b$};
+  \node[below] at (2, -1.1) {reste};
+  \node[below] at (17, -1.1) {$a$};
+\end{tikzpicture}

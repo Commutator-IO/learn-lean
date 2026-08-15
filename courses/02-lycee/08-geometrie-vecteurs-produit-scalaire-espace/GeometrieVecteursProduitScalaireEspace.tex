@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \theoremstyle{plain}
@@ -306,6 +311,12 @@ $\widehat{ABC} = \pi/2$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L177}{GeometrieVecteursProduitScalaireEspace.lean\#L177}
 
+\begin{figure}[h]
+\centering
+\input{figures/produit_scalaire_definitions}
+\caption{Le produit scalaire vu comme une projection : $\vec u \cdot \vec v$ vaut la longueur de $\vec u$ multipliée par celle du projeté de $\vec v$ sur la droite qui la porte, c'est-à-dire $\|\vec u\|\,\|\vec v\| \cos\theta$.}
+\end{figure}
+
 \begin{theoreme}
 Formule des trois normes (identité du parallélogramme) et théorème de la médiane :
 \[ \|u + v\|^{2} + \|u - v\|^{2} = 2\bigl(\|u\|^{2} + \|v\|^{2}\bigr) , \]
@@ -364,6 +375,12 @@ droite un produit de normes par un sinus, positif parce que l'angle non orienté
 entre $0$ et $\pi$. Deux réels positifs de même carré étant égaux, on conclut.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L207}{GeometrieVecteursProduitScalaireEspace.lean\#L207}
+
+\begin{figure}[h]
+\centering
+\input{figures/al_kashi}
+\caption{Le théorème d'Al-Kashi généralise Pythagore : le terme $-2bc\cos \hat A$ corrige l'égalité selon l'ouverture de l'angle, et s'annule quand celui-ci est droit.}
+\end{figure}
 
 \subsection{Cercle}
 

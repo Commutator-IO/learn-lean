@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \theoremstyle{plain}
@@ -155,6 +160,12 @@ C'est la décroissance stricte de $x$ à chaque tour qui fait la terminaison : u
 entière positive ne peut pas décroître indéfiniment.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/07-algorithmique-et-programmation/AlgorithmiqueEtProgrammation.lean\#L78}{AlgorithmiqueEtProgrammation.lean\#L78}
+
+\begin{figure}[h]
+\centering
+\input{figures/soustraireTantQue_eq_mod}
+\caption{Retrancher $b$ tant que c'est possible, ici $b = 5$ à partir de $a = 17$. Les sauts s'arrêtent dès qu'on passe sous $b$, et ce qui reste est le reste de la division euclidienne.}
+\end{figure}
 
 \begin{theoreme}
 Pour $b = 0$, la condition d'entrée est fausse et la boucle rend $x$ sans rien

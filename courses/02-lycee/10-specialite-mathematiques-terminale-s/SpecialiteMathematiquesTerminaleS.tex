@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \newtheorem{exemple}{Exemple}
@@ -526,6 +531,12 @@ par la constante $u_0 - \pi_0$, la limite reste nulle. L'écart à l'état stabl
 vers zéro, quel que soit l'état initial : c'est la convergence que le programme admet.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L104}{MatricesEtGraphes.lean\#L104}
+
+\begin{figure}[h]
+\centering
+\input{figures/graphe_probabiliste}
+\caption{Un graphe probabiliste à deux états. Chaque flèche porte la probabilité de la transition, et les deux flèches issues d'un même état ont pour somme $1$.}
+\end{figure}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

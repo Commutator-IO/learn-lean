@@ -1,0 +1,21 @@
+<svg viewBox="0 0 300 165" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Le coefficient directeur d'une droite se lit sur deux points quelconques : c'est le rapport de l'accroissement vertical à l'accroissement horizontal</title>
+  <g stroke-width="1.1">
+    <path d="M30,140 L280,140 M276,136 l6,4 l-6,4" />
+    <path d="M30,150 L30,18 M26,22 l4,-6 l4,6" />
+    <path d="M20.4,119.6 L270,26" stroke-width="1.3" />
+  </g>
+  <g stroke-width="0.9" stroke-dasharray="2 3">
+    <path d="M68.4,101.6 L222,101.6 L222,44" />
+  </g>
+  <circle cx="68.4" cy="101.6" r="3" fill="currentColor" stroke="none" />
+  <circle cx="222" cy="44" r="3" fill="currentColor" stroke="none" />
+  <g fill="currentColor" stroke="none" font-size="11" font-style="italic">
+    <text x="145" y="117" text-anchor="middle">x_B − x_A</text>
+    <text x="228" y="76">y_B − y_A</text>
+    <text x="62" y="96" text-anchor="end">A</text>
+    <text x="216" y="38" text-anchor="end">B</text>
+    <text x="288" y="144">x</text>
+    <text x="30" y="12" text-anchor="middle">y</text>
+  </g>
+</svg>

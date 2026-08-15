@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \theoremstyle{plain}
@@ -242,6 +247,12 @@ du programme. La formule des coefficients binomiaux en découle par dénombremen
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L132}{ProbabilitesEtStatistiques.lean\#L132}
 
+\begin{figure}[h]
+\centering
+\input{figures/loi_binomiale}
+\caption{La loi binomiale de paramètres $n = 8$ et $p = 0{,}4$. Les bâtons se massent autour de l'espérance $np$.}
+\end{figure}
+
 \begin{theoreme}
 Identité combinatoire : pour tous réels $p$ et $q$,
 \[ \sum_{k=0}^{n} k \binom{n}{k} p^{k} q^{n-k} = n\,p\,(p + q)^{n-1} . \]
@@ -395,6 +406,12 @@ sur $[0, +\infty[$, donc impropre, et son calcul demande une intégration par pa
 intervalle non borné que ce fichier n'établit pas.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L240}{ProbabilitesEtStatistiques.lean\#L240}
+
+\begin{figure}[h]
+\centering
+\input{figures/loi_normale}
+\caption{La courbe en cloche d'une loi normale : elle est centrée sur son espérance $\mu$, et l'écart type $\sigma$ mesure la distance du centre au point d'inflexion.}
+\end{figure}
 
 \subsection{Loi normale}
 

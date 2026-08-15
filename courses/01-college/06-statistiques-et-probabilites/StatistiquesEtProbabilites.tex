@@ -15,6 +15,11 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
+% Les figures sont dessinées en TikZ : elles reprennent ainsi les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
 \newtheorem{exemple}{Exemple}
@@ -247,6 +252,12 @@ soit une loi : la somme de tous les produits vaut
    = \sum_a p(a) \times 1 = 1 . \]
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L156}{StatistiquesEtProbabilites.lean\#L156}
+
+\begin{figure}[h]
+\centering
+\input{figures/proba_branche}
+\caption{Un arbre pondéré. La probabilité d'une branche est le produit des probabilités rencontrées le long du chemin.}
+\end{figure}
 
 \subsection{Fréquence observée et probabilité : stabilisation quand \texttt{n} grandit}
 

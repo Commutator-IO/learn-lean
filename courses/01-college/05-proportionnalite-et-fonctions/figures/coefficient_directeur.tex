@@ -1,0 +1,14 @@
+% Construction : droite affine y = 0.6x + 0.8, deux points A(0.8, 1.28) et B(4, 3.2).
+%   Le triangle des accroissements : horizontale de A à (4, 1.28), verticale jusqu'à B.
+%   Le coefficient directeur est le rapport des deux : (3.2 - 1.28)/(4 - 0.8) = 0.6.
+% SVG : x = 30 + 48x, y = 140 - 30y.
+\begin{tikzpicture}[scale=1, >=stealth, every node/.style={font=\small}]
+  \draw[->] (0, 0) -- (5.2, 0) node[right] {$x$};
+  \draw[->] (0, 0) -- (0, 4.2) node[above] {$y$};
+  \draw (-0.2, 0.68) -- (5, 3.8);
+  \fill (0.8, 1.28) circle (1.8pt); \fill (4, 3.2) circle (1.8pt);
+  \draw[dotted] (0.8, 1.28) -- (4, 1.28) -- (4, 3.2);
+  \node[below] at (2.4, 1.28) {$x_B - x_A$};
+  \node[right] at (4.05, 2.24) {$y_B - y_A$};
+  \node[above left] at (0.8, 1.28) {$A$}; \node[above left] at (4, 3.2) {$B$};
+\end{tikzpicture}

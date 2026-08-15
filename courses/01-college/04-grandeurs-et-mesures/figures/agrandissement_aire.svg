@@ -1,0 +1,16 @@
+<svg viewBox="0 0 300 175" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Un agrandissement de rapport trois multiplie les longueurs par trois et les aires par neuf</title>
+  <g stroke-width="0.9" opacity="0.45">
+    <path d="M70,20 L70,140 M110,20 L110,140 M30,100 L150,100 M30,60 L150,60" />
+  </g>
+  <rect x="30" y="20" width="120" height="120" stroke-width="1.2" />
+  <rect x="30" y="100" width="40" height="40" stroke-width="2.2" />
+  <g stroke-width="1">
+    <path d="M30,155 L150,155 M30,150 L30,160 M150,150 L150,160" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="12" font-style="italic">
+    <text x="50" y="134" text-anchor="middle">1</text>
+    <text x="90" y="171" text-anchor="middle">k = 3</text>
+    <text x="162" y="84">k² = 9 copies</text>
+  </g>
+</svg>

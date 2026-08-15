@@ -1,0 +1,19 @@
+<svg viewBox="0 0 290 145" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Une diagonale coupe le parallélogramme en deux triangles superposables : le triangle a donc la moitié de son aire</title>
+  <path d="M20,120 L196,120 L248.8,23.2 L72.8,23.2 Z" stroke-width="1.1" />
+  <path d="M20,120 L196,120 L248.8,23.2 Z" stroke-width="2.1" />
+  <g stroke-width="0.9" stroke-dasharray="2 3">
+    <path d="M248.8,23.2 L248.8,120 M196,120 L248.8,120" />
+  </g>
+  <g stroke-width="1">
+    <path d="M264,120 L264,23.2 M260.5,116 l3.5,4 l3.5,-4 M260.5,27 l3.5,-4 l3.5,4" />
+  </g>
+  <g fill="currentColor" stroke="none" font-size="12" font-style="italic">
+    <text x="108" y="136" text-anchor="middle">b</text>
+    <text x="270" y="76">h</text>
+    <text x="14" y="134" text-anchor="end">A</text>
+    <text x="200" y="136">B</text>
+    <text x="254" y="20">C</text>
+    <text x="66" y="20" text-anchor="end">D</text>
+  </g>
+</svg>

@@ -1,0 +1,20 @@
+<svg viewBox="0 0 260 165" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Le produit scalaire vu comme une projection : c'est la longueur de u multipliée par celle du projeté de v sur la droite qui porte u</title>
+  <g stroke-width="1.7">
+    <path d="M24,130 L217.2,130 M209,125 l8,5 l-8,5" />
+    <path d="M24,130 L134.4,33.4 M129,40 l5.4,-6.6 l1,8.5" />
+  </g>
+  <g stroke-width="1">
+    <path d="M134.4,33.4 L134.4,130" stroke-dasharray="2 3" />
+    <path d="M134.4,117 L121.4,117 L121.4,130" />
+    <path d="M56.2,130 A32.2,32.2 0 0,0 48.3,109" />
+  </g>
+  <path d="M24,144 L134.4,144" stroke-width="2.6" />
+  <g fill="currentColor" stroke="none" font-size="12" font-style="italic">
+    <text x="224" y="134">u⃗</text>
+    <text x="140" y="30">v⃗</text>
+    <text x="60" y="120">θ</text>
+    <text x="142" y="128" font-size="11">H</text>
+    <text x="79" y="160" text-anchor="middle" font-size="11">projeté de v⃗</text>
+  </g>
+</svg>
