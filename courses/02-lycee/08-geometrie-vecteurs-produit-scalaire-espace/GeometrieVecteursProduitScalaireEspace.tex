@@ -471,8 +471,16 @@ combinaison linéaire,
 \end{theoreme}
 
 \begin{proof}
-C'est la description de l'espace engendré par deux vecteurs, citée à la bibliothèque, à
-l'ordre près de l'égalité.
+L'espace engendré par deux vecteurs est, par définition, l'ensemble des combinaisons
+linéaires $s u + t v$ : la bibliothèque le démontre pour une partie à deux éléments, où
+l'espace engendré se décrit ainsi explicitement.
+
+Il ne reste qu'un détail d'écriture : la bibliothèque énonce l'égalité dans le sens
+$su + tv = w$, l'énoncé dans le sens $w = su + tv$. Chaque implication se démontre en
+reprenant le couple $(s, t)$ fourni par l'autre et en retournant l'égalité.
+
+Dire que trois vecteurs sont coplanaires, c'est dire que l'un est dans l'espace engendré par
+les deux autres — c'est-à-dire, exactement, qu'il s'écrit comme combinaison linéaire.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L306}{GeometrieVecteursProduitScalaireEspace.lean\#L306}
 

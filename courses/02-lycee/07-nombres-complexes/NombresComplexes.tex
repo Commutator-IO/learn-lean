@@ -124,8 +124,16 @@ vérifiée.
 \end{theoreme}
 
 \begin{proof}
-Ce sont la multiplicativité de la norme et l'inégalité triangulaire, citées à la
-bibliothèque : $\mathbb{C}$ y est un corps normé, et son module en est la norme.
+Les deux propriétés viennent de ce que $\mathbb{C}$ est un corps normé dans la bibliothèque,
+et que le module en est la norme. Voici ce qui les démontre.
+
+Pour la multiplicativité, on passe par le carré et le conjugué :
+\[ |zz'|^2 = zz'\overline{zz'} = z\bar z\, z'\overline{z'} = |z|^2 |z'|^2 , \]
+et les deux membres étant positifs, on prend la racine.
+
+L'inégalité triangulaire se ramène, en élevant au carré, à
+$\mathrm{Re}(z\overline{z'}) \le |z|\,|z'|$, qui est l'inégalité de Cauchy--Schwarz dans le
+plan : la partie réelle d'un produit ne dépasse pas le produit des modules.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/07-nombres-complexes/NombresComplexes.lean\#L58}{NombresComplexes.lean\#L58}
 

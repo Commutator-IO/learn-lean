@@ -377,8 +377,19 @@ simple réassociation des facteurs.
 \end{theoreme}
 
 \begin{proof}
-Deux résultats de la bibliothèque, qui les obtient en dérivant terme à terme les séries de
-$\sin$ et $\cos$.
+Les deux dérivées s'obtiennent en dérivant terme à terme les séries entières qui définissent
+$\sin$ et $\cos$ dans la bibliothèque — ce qui est licite à l'intérieur du disque de
+convergence, ici le plan tout entier.
+
+En dérivant
+\[ \sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots \]
+on obtient
+\[ 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \cdots = \cos x , \]
+et la même opération sur la série du cosinus rend $-\sin$, le premier terme constant
+disparaissant et les signes se décalant.
+
+C'est un ordre de présentation inverse de celui du lycée, qui pose $\sin$ et $\cos$
+géométriquement et admet leurs dérivées.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L187}{ExponentielleLogarithmeTrigonometrie.lean\#L187}
 

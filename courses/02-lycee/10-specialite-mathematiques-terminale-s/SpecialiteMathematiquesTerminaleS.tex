@@ -84,9 +84,20 @@ Les congruences sont compatibles avec la somme et le produit :
 \end{theoreme}
 
 \begin{proof}
-Les deux règles sont celles de la bibliothèque, citées. Elles font des congruences une
-relation compatible avec la structure d'anneau de $\mathbb{Z}$, ce qui est toute la raison
-d'être du calcul modulaire.
+Dire que $a \equiv b \ [n]$, c'est dire que $n$ divise $b - a$. Les deux règles sont alors
+des calculs de divisibilité.
+
+Pour la somme :
+\[ (b + d) - (a + c) = (b - a) + (d - c) , \]
+somme de deux multiples de $n$, donc multiple de $n$.
+
+Pour le produit, on fait apparaître les deux différences en insérant un terme :
+\[ bd - ac = b\,(d - c) + c\,(b - a) , \]
+et chacun des deux termes est un multiple de $n$.
+
+C'est toute la raison d'être du calcul modulaire : les congruences sont compatibles avec la
+structure d'anneau de $\mathbb{Z}$, donc on peut remplacer un nombre par son reste avant de
+calculer plutôt qu'après.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/Arithmetique.lean\#L31}{Arithmetique.lean\#L31}
 
@@ -312,7 +323,20 @@ Le produit matriciel est associatif et distributif sur l'addition :
 \end{theoreme}
 
 \begin{proof}
-Les deux règles sont celles de la bibliothèque, où les matrices carrées forment un anneau.
+Les deux règles se lisent coefficient par coefficient. Le coefficient d'indice $(i, j)$ d'un
+produit $AB$ est $\sum_k A_{ik} B_{kj}$.
+
+Pour l'associativité, les deux membres donnent la même somme double :
+\[ \bigl(A(BC)\bigr)_{ij} = \sum_k A_{ik} \sum_\ell B_{k\ell} C_{\ell j}
+   = \sum_{k, \ell} A_{ik} B_{k\ell} C_{\ell j}
+   = \sum_\ell \Bigl(\sum_k A_{ik} B_{k\ell}\Bigr) C_{\ell j} = \bigl((AB)C\bigr)_{ij} , \]
+l'échange des deux sommes étant licite puisqu'elles sont finies.
+
+Pour la distributivité, c'est celle des réels, sortie du signe somme :
+\[ \sum_k A_{ik}\,(B_{kj} + C_{kj}) = \sum_k A_{ik} B_{kj} + \sum_k A_{ik} C_{kj} . \]
+
+C'est ce qui fait des matrices carrées un anneau — non commutatif, l'associativité et la
+distributivité ne donnant pas la commutativité.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L17}{MatricesEtGraphes.lean\#L17}
 
@@ -391,8 +415,17 @@ Puissances d'une matrice diagonale :
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque : le produit de deux matrices diagonales est diagonal, de
-coefficients les produits, et la récurrence sur $k$ suit.
+Le produit de deux matrices diagonales se calcule d'un coup : dans
+$\sum_k A_{ik} B_{kj}$, le facteur $A_{ik}$ est nul sauf pour $k = i$, et $B_{kj}$ est nul
+sauf pour $k = j$. La somme est donc nulle si $i \ne j$, et vaut $a_i b_i$ sinon :
+\[ \mathrm{diag}(a) \times \mathrm{diag}(b) = \mathrm{diag}(a_1b_1, \dots, a_nb_n) . \]
+
+La récurrence sur $k$ suit : $\mathrm{diag}(d)^{k+1} = \mathrm{diag}(d)^{k} \times
+\mathrm{diag}(d) = \mathrm{diag}(d^{k}) \times \mathrm{diag}(d) = \mathrm{diag}(d^{k+1})$,
+les puissances de la famille $d$ étant prises coefficient par coefficient.
+
+C'est ce qui rend les matrices diagonalisables commodes : élever à la puissance $k$ coûte
+$n$ puissances de réels au lieu de $k$ produits de matrices.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L62}{MatricesEtGraphes.lean\#L62}
 

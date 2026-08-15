@@ -81,9 +81,18 @@ $\sqrt2$ n'est pas rationnel : aucune fraction d'entiers n'a $2$ pour carré.
 \end{theoreme}
 
 \begin{proof}
-Le résultat est classique : si $\sqrt2 = p/q$ avec la fraction irréductible, alors
-$p^2 = 2q^2$, donc $p$ est pair, donc $q$ l'est aussi — contredisant l'irréductibilité.
-C'est la démonstration que la bibliothèque formalise.
+Le raisonnement scolaire est celui de la parité : si $\sqrt2 = p/q$ avec la fraction
+irréductible, alors $p^2 = 2q^2$, donc $p$ est pair, donc $q$ l'est aussi, ce qui contredit
+l'irréductibilité.
+
+Ce n'est pas celui que la bibliothèque formalise. Elle emploie une forme du théorème des
+racines rationnelles : de $p^2 = 2q^2$ on tire que $q^2$ divise $p^2$ ; or, pour des
+entiers, $q^n \mid p^n$ entraîne $q \mid p$, et l'irréductibilité force alors $q = 1$. Ainsi
+$\sqrt2$ serait un entier, ce qu'il n'est pas puisque $1^2 = 1$ et $2^2 = 4$.
+
+Les deux chemins concluent ; le second a l'avantage de valoir tel quel pour toute racine
+$n$-ième d'un entier qui n'est pas une puissance $n$-ième exacte, sans qu'on ait à parler de
+parité.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L36}{NombresCalculAlgebrique.lean\#L36}
 

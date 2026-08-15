@@ -428,9 +428,20 @@ dérivé $v'$ en $u(x)$, alors
 \end{theoreme}
 
 \begin{proof}
-C'est la règle de dérivation en chaîne de la bibliothèque, citée telle quelle : le facteur
-$u'$ mesure la vitesse à laquelle $u$ parcourt son image, et $v'$ la sensibilité de $v$ au
-point atteint.
+La bibliothèque démontre la règle de dérivation en chaîne sous sa forme générale, celle des
+différentielles : dériver, c'est approcher la fonction par une application linéaire au
+voisinage du point, et composer deux fonctions revient à composer leurs approximations.
+
+Écrivons-la à une variable. Au voisinage de $x$,
+\[ u(x + h) = u(x) + u'h + o(h) , \]
+et au voisinage de $u(x)$,
+\[ v\bigl(u(x) + k\bigr) = v\bigl(u(x)\bigr) + v'k + o(k) . \]
+En posant $k = u'h + o(h)$, qui tend vers $0$ avec $h$ :
+\[ v\bigl(u(x + h)\bigr) = v\bigl(u(x)\bigr) + v'u'h + o(h) , \]
+ce qui est exactement dire que $v \circ u$ est dérivable en $x$, de nombre dérivé $v'u'$.
+
+Le produit se lit ainsi : $u'$ mesure la vitesse à laquelle $u$ parcourt son image, et $v'$
+la sensibilité de $v$ au point atteint.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L199}{LimitesContinuiteDerivation.lean\#L199}
 
