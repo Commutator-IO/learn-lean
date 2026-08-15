@@ -313,8 +313,18 @@ seulement s'il appartient à la médiatrice de $[ab]$.
 \end{theoreme}
 
 \begin{proof}
-C'est la définition de la médiatrice dans la bibliothèque, à l'ordre des arguments de
-la distance près.
+Mathlib ne définit pas la médiatrice comme l'ensemble des points équidistants, mais comme la
+droite passant par le milieu de $[ab]$ et orthogonale à $\vec{ab}$. L'énoncé est donc
+l'équivalence entre les deux descriptions : celle du collège et celle de la bibliothèque.
+
+Elle tient à une seule identité du produit scalaire. En posant $u = \vec{ma}$ et
+$v = \vec{mb}$,
+\[ \langle u + v,\ u - v \rangle = \|u\|^2 - \|v\|^2 , \]
+de sorte que $\|u\| = \|v\|$ équivaut à l'orthogonalité de $u + v$ et $u - v$. Or $u - v$
+est le vecteur $\vec{ba}$, et $u + v$ est le double du vecteur qui joint $m$ au milieu de
+$[ab]$ : cette orthogonalité est exactement l'appartenance à la médiatrice.
+
+Reste l'ordre des arguments de la distance, que la symétrie $d(m, a) = d(a, m)$ échange.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L165}{GeometriePlane.lean\#L165}
 
@@ -326,9 +336,22 @@ La somme des angles d'un triangle vaut l'angle plat :
 \end{theoreme}
 
 \begin{proof}
-C'est le théorème de la bibliothèque, valable dès que deux des sommets sont distincts.
-Sa démonstration passe par la trigonométrie du produit scalaire, là où le collège trace
-une parallèle et utilise les angles alternes-internes.
+La démonstration ramène d'abord l'énoncé aux vecteurs. En posant $x = \vec{ba}$ et
+$y = \vec{bc}$, les trois angles du triangle sont les angles de vecteurs $(x, y)$,
+$(x, x - y)$ et $(y, y - x)$, et il s'agit de voir que leur somme vaut $\pi$.
+
+Le point d'appui est l'additivité de l'angle non orienté : lorsqu'un vecteur appartient au
+secteur délimité par deux autres, l'angle des deux extrêmes est la somme des deux angles
+partiels. Appliquée au vecteur $x - y$, qui pointe de $c$ vers $a$, elle découpe l'angle
+plat en les trois angles du triangle ; l'angle entre $y$ et $-y$ valant $\pi$, la somme
+suit.
+
+C'est un tout autre chemin que celui du collège, qui trace la parallèle à $(bc)$ passant par
+$a$ et lit les angles alternes-internes. Les deux disent la même chose ; le second demande
+le postulat des parallèles, le premier le produit scalaire.
+
+L'hypothèse $b \ne a$ est nécessaire : entre deux points confondus, l'angle n'est pas
+défini.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L173}{GeometriePlane.lean\#L173}
 
@@ -350,8 +373,24 @@ Réciproque : si les angles à la base sont égaux, le triangle est isocèle.
 \end{theoreme}
 
 \begin{proof}
-C'est le résultat réciproque de la bibliothèque, valable dès que le triangle n'est pas
-aplati — d'où l'hypothèse que l'angle au sommet n'est pas l'angle plat.
+Un angle non orienté est défini dans Mathlib par
+\[ \widehat{(u, v)} = \arccos \frac{\langle u, v\rangle}{\|u\|\,\|v\|} , \]
+et $\arccos$ est injective sur $[-1, 1]$ : l'égalité des deux angles donne donc l'égalité
+des deux quotients.
+
+En posant $x = \vec{ab}$ et $y = \vec{ac}$, l'hypothèse s'écrit
+\[ \frac{\langle x,\ x - y\rangle}{\|x\|\,\|x-y\|}
+   = \frac{\langle y,\ y - x\rangle}{\|y\|\,\|y-x\|} . \]
+Les deux dénominateurs partagent le facteur $\|x - y\|$, qu'on simplifie — il n'est nul que
+si $b = c$, cas où il n'y a rien à démontrer. En développant les deux produits scalaires et
+en réduisant, on aboutit à une alternative : ou bien $\|x\| = \|y\|$, ce qui est la
+conclusion cherchée, ou bien
+\[ \frac{\langle x, y\rangle}{\|x\|\,\|y\|} = -1 , \]
+c'est-à-dire l'angle en $a$ est plat.
+
+C'est ce second cas que l'hypothèse écarte, et il faut l'écarter : trois points alignés
+donnent bien deux angles égaux sans que le triangle soit isocèle — il n'y a alors pas de
+triangle du tout.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L184}{GeometriePlane.lean\#L184}
 
@@ -540,10 +579,21 @@ trois sommets, centre du cercle circonscrit.
 \end{theoreme}
 
 \begin{proof}
-On prend le centre du cercle circonscrit au triangle, dont la bibliothèque garantit
-l'existence dès que les trois points ne sont pas alignés. Il est à égale distance des trois
-sommets — cette distance étant le rayon —, donc situé sur chacune des trois médiatrices,
-qui sont ainsi concourantes.
+Mathlib ne construit pas le centre du cercle circonscrit en coupant deux médiatrices, comme
+le fait le collège, mais pour un simplexe de dimension quelconque — ici un triangle non
+aplati.
+
+L'idée reste la même. Chercher un point équidistant des trois sommets, c'est chercher un
+point appartenant aux trois médiatrices ; chacune est un sous-espace affine, et
+l'indépendance affine des sommets garantit que leur intersection avec le plan du triangle se
+réduit à un point. Ce point est le \emph{circoncentre}, sa distance commune aux sommets est
+le \emph{circonrayon}, et c'est cette égalité, sommet par sommet, que la bibliothèque
+établit.
+
+La démonstration ci-dessus ne fait plus que l'appliquer aux trois sommets, en échangeant
+l'ordre des arguments de la distance. L'hypothèse d'indépendance affine traduit « les trois
+points ne sont pas alignés » : sans elle les médiatrices sont parallèles, et il n'y a pas de
+cercle circonscrit.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L288}{GeometriePlane.lean\#L288}
 
@@ -556,9 +606,20 @@ réciproquement :
 \end{theoreme}
 
 \begin{proof}
-C'est le théorème de Thalès sur le cercle, tel que la bibliothèque l'établit. L'énoncé
-donne les deux sens à la fois : le triangle inscrit dans un demi-cercle est rectangle, et
-l'hypoténuse d'un triangle rectangle est un diamètre de son cercle circonscrit.
+Notons $o$ le centre du cercle et $r$ son rayon. Comme $[ac]$ est un diamètre, $o$ est le
+milieu de $[ac]$. L'angle en $b$ est droit si et seulement si le produit scalaire
+$\langle \vec{ba},\ \vec{bc}\rangle$ est nul.
+
+On décompose les deux vecteurs en passant par le centre :
+\[ \vec{ba} = \vec{bo} + \vec{oa} , \qquad \vec{bc} = \vec{bo} + \vec{oc} . \]
+Le point $o$ étant le milieu de $[ac]$, on a $\vec{oa} = -\vec{oc}$. En développant, les
+deux termes croisés s'annulent et il reste
+\[ \langle \vec{ba},\ \vec{bc}\rangle = \|\vec{bo}\|^2 - \|\vec{oa}\|^2 = ob^2 - r^2 . \]
+
+Le produit scalaire est donc nul exactement quand $ob = r$, c'est-à-dire quand $b$ est sur
+le cercle. Un seul calcul donne les deux sens de l'équivalence : le triangle inscrit dans un
+demi-cercle est rectangle, et l'hypoténuse d'un triangle rectangle est un diamètre de son
+cercle circonscrit.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L301}{GeometriePlane.lean\#L301}
 
@@ -732,9 +793,20 @@ d'elles.
 \end{theoreme}
 
 \begin{proof}
-C'est le résultat de la bibliothèque : l'orthocentre, défini comme point de Monge du
-triangle, appartient à chacune des trois hauteurs. Les trois hauteurs se coupent donc en
-un même point.
+Mathlib ne définit pas l'orthocentre comme l'intersection des hauteurs — ce serait supposer
+ce qu'on veut démontrer. Il le définit comme le \emph{point de Monge} du triangle, une
+construction qui vaut en toute dimension.
+
+Et ce point de Monge n'est pas davantage défini par une intersection : il est posé sur la
+droite d'Euler, à une position fixée à partir du centre du cercle circonscrit $O$ et du
+centre de gravité $G$ — ces trois points sont alignés dans cet ordre, avec
+$OG : GM = (n-1) : 2$. La bibliothèque démontre \emph{ensuite} que le point ainsi construit
+appartient à chacun des plans de Monge, et qu'il est leur unique point commun. En dimension
+$2$, ces plans sont les hauteurs.
+
+Le concours en découle : un même point appartient aux trois hauteurs. C'est l'inverse de la
+démarche du collège, qui montre d'abord que deux hauteurs se coupent, puis que la troisième
+passe par leur point d'intersection.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L488}{GeometriePlane.lean\#L488}
 
@@ -744,10 +816,18 @@ des trois côtés, cette distance commune étant le rayon du cercle inscrit.
 \end{theoreme}
 
 \begin{proof}
-La bibliothèque construit le centre du cercle inscrit et établit que sa distance à
-chacun des trois côtés vaut le rayon de ce cercle. Être à égale distance de deux côtés,
-c'est être sur leur bissectrice : ce point est donc sur les trois bissectrices, qui sont
-ainsi concourantes.
+Mathlib construit le centre du cercle inscrit d'un simplexe et son rayon, puis démontre que
+la distance de ce centre à chacune des faces vaut ce rayon. Pour un triangle, les faces sont
+les côtés, et le point de contact est le pied de la perpendiculaire abaissée du centre.
+
+Le concours des bissectrices s'en déduit par la caractérisation qu'en donne le collège :
+être à égale distance de deux côtés, c'est être sur leur bissectrice intérieure. Un point à
+égale distance des trois côtés est donc sur les trois bissectrices, qui se coupent en ce
+point.
+
+L'énoncé formalisé porte sur la distance, non sur les bissectrices : c'est la distance que
+la bibliothèque sait nommer, et l'équivalence entre les deux formulations reste ici du côté
+du texte.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/02-geometrie-plane/GeometriePlane.lean\#L493}{GeometriePlane.lean\#L493}
 

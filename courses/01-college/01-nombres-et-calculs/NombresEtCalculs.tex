@@ -285,20 +285,18 @@ Par définition de l'exposant négatif : $a^{-n}$ est l'inverse de $a^n$.
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L96}{CalculsEtCalculLitteral.lean\#L96}
 
 \begin{theoreme}
-Exposant nul.
+Exposant nul : $a^0 = 1$, que l'exposant soit un entier naturel ou un entier relatif.
 \end{theoreme}
 
 \begin{proof}
-Même convention, pour un exposant entier relatif.
-\end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L100}{CalculsEtCalculLitteral.lean\#L100}
+C'est une convention, et non un théorème : on pose $a^0 = 1$ pour que la règle
+$a^m \times a^n = a^{m+n}$ vaille encore lorsque l'un des exposants est nul.
 
-\begin{theoreme}
-Exposant nul.
-\end{theoreme}
-
-\begin{proof}
-Même convention, pour un exposant entier relatif.
+Si l'énoncé formel porte deux égalités et non une, c'est que Lean distingue deux
+opérations là où l'écriture n'en montre qu'une. La puissance d'exposant entier naturel est
+une multiplication répétée ; celle d'exposant entier relatif passe par l'inverse et se
+définit à part. La convention doit donc être posée pour chacune. La distinction est celle
+de la bibliothèque, pas celle des mathématiques.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L103}{CalculsEtCalculLitteral.lean\#L103}
 
@@ -314,7 +312,7 @@ Ajouter $c$ aux deux membres ne change pas leur différence :
 (b + c) - (a + c) = b - a \ge 0 .
 \]
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L108}{CalculsEtCalculLitteral.lean\#L108}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L109}{CalculsEtCalculLitteral.lean\#L109}
 
 \begin{theoreme}
 Multiplier par un nombre strictement positif conserve l'inégalité.
@@ -326,7 +324,7 @@ Multiplier par $c$ multiplie la différence par $c$ :
 bc - ac = (b - a)c \ge 0 \quad\text{car } b - a \ge 0 \text{ et } c > 0 .
 \]
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L112}{CalculsEtCalculLitteral.lean\#L112}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L113}{CalculsEtCalculLitteral.lean\#L113}
 
 \begin{theoreme}
 Multiplier par un nombre strictement négatif renverse l'inégalité.
@@ -339,7 +337,7 @@ ac - bc = (b - a)(-c) \ge 0 \quad\text{car } b - a \ge 0 \text{ et } -c > 0 ,
 \]
 d'où $bc \le ac$ : l'inégalité se renverse.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L116}{CalculsEtCalculLitteral.lean\#L116}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L117}{CalculsEtCalculLitteral.lean\#L117}
 
 \subsection{Équation du premier degré \texttt{ax + b = 0} : solution unique si \texttt{a \(\ne\) 0}}
 
@@ -355,7 +353,7 @@ seule : \texttt{x = -b/a}.
 \emph{Unicité.} Si $y$ est solution, alors $ay = -b = a \times (-b/a)$, et comme $a \ne 0$
 on peut simplifier par $a$, d'où $y = -b/a$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L123}{CalculsEtCalculLitteral.lean\#L123}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L124}{CalculsEtCalculLitteral.lean\#L124}
 
 \subsection{Équation produit \texttt{(ax + b)(cx + d) = 0}}
 
@@ -368,7 +366,7 @@ C'est l'équation produit appliquée aux deux facteurs $ax + b$ et $cx + d$ : le
 produit est nul exactement quand l'un des deux l'est. Résoudre l'équation revient donc à
 résoudre deux équations du premier degré.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L131}{CalculsEtCalculLitteral.lean\#L131}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L132}{CalculsEtCalculLitteral.lean\#L132}
 
 \subsection{Tester si un nombre est solution ; démontrer qu'une égalité est vraie pour tout \texttt{x}}
 
@@ -380,7 +378,7 @@ Tester une valeur : \texttt{2} est solution de \texttt{x² − 5x + 6 = 0}, \tex
 Les deux calculs sont menés : $2^2 - 5 \times 2 + 6 = 0$, donc $2$ est solution ;
 $1^2 - 5 \times 1 + 6 = 2 \ne 0$, donc $1$ ne l'est pas.
 \end{explication}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L137}{CalculsEtCalculLitteral.lean\#L137}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L138}{CalculsEtCalculLitteral.lean\#L138}
 
 \begin{theoreme}
 Démontrer une identité, c'est l'établir pour tout \texttt{x} à la fois \textemdash{} ce qu'aucun test de
@@ -392,7 +390,7 @@ Le développement du membre de gauche donne le membre de droite, quelle que soit
 valeur de $x$. C'est ce « quelle que soit » qui fait la démonstration, et qu'aucun test de
 valeurs particulières ne remplace.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L142}{CalculsEtCalculLitteral.lean\#L142}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L143}{CalculsEtCalculLitteral.lean\#L143}
 
 \subsection{Programme de calcul : deux programmes donnent le même résultat pour toute entrée}
 
@@ -405,7 +403,7 @@ de 2 \fg{} donnent toujours le même résultat.
 En développant : $(x+1)^2 - 1 = x^2 + 2x + 1 - 1 = x^2 + 2x = x(x+2)$. Les deux
 programmes coïncident donc pour toute entrée.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L148}{CalculsEtCalculLitteral.lean\#L148}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L149}{CalculsEtCalculLitteral.lean\#L149}
 
 \section{EcrituresDesNombres}
 
@@ -659,8 +657,19 @@ obtiendrait $2 = 4$. La racine d'une somme n'est donc pas la somme des racines.
 \end{theoreme}
 
 \begin{proof}
-Le résultat est classique et démontré dans la bibliothèque : aucune fraction
-d'entiers n'a $2$ pour carré. Au collège, il est mentionné sans démonstration.
+Mathlib ne procède pas par la parité, comme le fait le raisonnement scolaire, mais par une
+forme du théorème des racines rationnelles.
+
+Supposons $\sqrt 2 = N/D$, la fraction étant écrite sous forme réduite. En élevant au carré,
+$N^2 = 2D^2$, donc $D^2$ divise $N^2$. Or, pour des entiers, $D^n \mid N^n$ entraîne
+$D \mid N$ ; et comme $N$ et $D$ sont premiers entre eux, il vient $D = 1$. Ainsi $\sqrt 2$
+serait un entier — or aucun entier n'a $2$ pour carré, puisque $1^2 = 1$ et $2^2 = 4$.
+
+L'argument ne dépend pas de $2$ : il vaut pour $\sqrt p$ avec $p$ premier, et plus
+généralement pour toute racine $n$-ième d'un entier qui n'est pas une puissance $n$-ième
+exacte (\texttt{irrational\_nrt\_of\_notint\_nrt}).
+
+Au collège, l'irrationalité de $\sqrt 2$ est mentionnée sans démonstration.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L194}{EcrituresDesNombres.lean\#L194}
 
@@ -1109,10 +1118,21 @@ premiers de même produit sont permutées l'une de l'autre.
 \end{theoreme}
 
 \begin{proof}
-Chacune des deux listes est, à l'ordre près, la liste des facteurs premiers de leur
-produit commun : c'est le résultat d'unicité de la bibliothèque, dont le lemme d'Euclide
-démontré plus haut est la clé. Deux permutations d'une même liste étant permutées l'une de
-l'autre, on conclut par transitivité.
+Les deux listes ne sont pas comparées l'une à l'autre, mais chacune à une même troisième :
+celle des facteurs premiers de leur produit commun. Il suffit donc de savoir que toute liste
+de nombres premiers de produit $n$ est une permutation de celle-là — c'est le théorème
+fondamental de l'arithmétique, et sa démonstration est une récurrence sur la longueur de la
+liste.
+
+Soient $a :: l_1$ et $l_2$ deux listes de nombres premiers de même produit. Le nombre $a$
+est premier et divise le produit de $l_2$ ; par le lemme d'Euclide, démontré plus haut, il
+divise l'un de ses facteurs, lequel est premier : $a$ est donc l'un des éléments de $l_2$.
+On le retire des deux listes. Les produits restants sont encore égaux, puisqu'on a simplifié
+par $a$, qui n'est pas nul. L'hypothèse de récurrence s'applique aux deux restes, et
+remettre $a$ en tête conclut.
+
+Les deux cas de base disent qu'une liste vide ne saurait avoir le même produit qu'une liste
+non vide de nombres premiers : $1$ n'est divisible par aucun nombre premier.
 
 Au collège, cette unicité est admise sans même être énoncée.
 \end{proof}

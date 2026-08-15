@@ -96,11 +96,12 @@ theorem puissance_d_un_produit (a b : ℚ) (n : ℕ) : (a * b) ^ n = a ^ n * b ^
 theorem exposant_negatif (a : ℚ) (n : ℤ) : a ^ (-n) = 1 / a ^ n := by
   rw [zpow_neg, one_div]
 
-/-- Exposant nul. -/
-theorem exposant_nul' (a : ℚ) : a ^ (0 : ℤ) = 1 := zpow_zero a
-
-/-- Exposant nul. -/
-theorem exposant_nul (a : ℚ) : a ^ (0 : ℕ) = 1 := pow_zero a
+/-- Exposant nul : `a⁰ = 1`, que l'exposant soit un entier naturel ou un entier relatif.
+Les deux égalités sont distinctes en Lean, et c'est une affaire de bibliothèque et non de
+mathématiques : `a ^ n` pour `n` naturel est une multiplication répétée, tandis que
+`a ^ n` pour `n` relatif passe par l'inverse. Deux opérations, une même notation. -/
+theorem exposant_nul (a : ℚ) : a ^ (0 : ℕ) = 1 ∧ a ^ (0 : ℤ) = 1 :=
+  ⟨pow_zero a, zpow_zero a⟩
 
 /-! ## Conservation des inégalités -/
 
