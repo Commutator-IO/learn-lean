@@ -1,0 +1,25 @@
+Ce chapitre est le seul du livre à ne pas parler de mathématiques, et le seul à n'être
+qu'entamé. Il prolonge l'algorithmique du collège dans la spécialité \emph{numérique et
+sciences informatiques} du lycée, dont les quarante et un énoncés sont posés dans l'index
+du dépôt ; huit sont démontrés ici, ceux qui portent sur la représentation des données.
+
+Le choix de commencer par là n'est pas un hasard. Un ordinateur ne manipule que des suites
+de bits : tout le reste \textemdash{} les entiers, les nombres à virgule, les caractères
+\textemdash{} est convention. Ces conventions se démontrent, et c'est même la partie de la
+spécialité qui se formalise le plus directement, parce qu'elle ne parle que d'entiers.
+L'écriture binaire d'un entier existe, elle est unique, elle se relit comme une somme de
+puissances de deux : trois énoncés qu'un cours présente comme évidents et qui demandent
+chacun une démonstration.
+
+Deux résultats méritent qu'on s'y arrête. Le complément à deux explique pourquoi ajouter
+$1$ au plus grand entier positif d'un mot machine rend le plus petit négatif, sans erreur
+ni avertissement : le calcul est juste modulo $2^n$, et faux dans $\mathbb{Z}$. Et
+l'absence d'écriture binaire finie pour un dixième, démontrée ici comme on démontre
+l'irrationalité de $\sqrt2$, est la raison pour laquelle $0{,}1 + 0{,}2$ ne rend pas
+exactement $0{,}3$ \textemdash{} la première surprise de qui commence à programmer.
+
+Ce qui manque est d'une autre nature que dans les chapitres de mathématiques. Les tris, la
+recherche dichotomique, les arbres, les graphes ne demandent pas une théorie hors de
+portée : ils demandent d'écrire les algorithmes eux-mêmes, puis un modèle de coût pour
+énoncer ce qu'ils coûtent. C'est un travail de programmation avant d'être un travail de
+démonstration, et il reste à faire.

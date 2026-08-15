@@ -1,0 +1,207 @@
+% Fichier engendré par tools/generate-tex.py à partir de 11-informatique-nsi.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\newtheorem{exemple}{Exemple}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Informatique}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{RepresentationDesDonnees}
+
+\noindent
+Lycée \textemdash{} spécialité NSI, section \og{} Représentation des données \fg{}.
+Un ordinateur ne manipule que des suites de bits ; tout le reste est convention.
+Ce fichier démontre ces conventions : l'écriture binaire d'un entier existe et est
+unique, elle se relit comme une somme de puissances de deux, un chiffre hexadécimal
+vaut quatre bits, et un dixième n'a pas d'écriture binaire finie \textemdash{} d'où les surprises
+du calcul flottant.
+
+\subsection{Algèbre de Boole}
+
+\begin{theoreme}
+Pour deux booléens $a$ et $b$, la négation échange \og{} et \fg{} et \og{} ou \fg{} :
+\[ \overline{a \wedge b} = \bar a \vee \bar b, \qquad \overline{a \vee b} = \bar a \wedge \bar b . \]
+\end{theoreme}
+\begin{proof}
+Un booléen ne prend que deux valeurs : il y a donc quatre couples $(a, b)$ à examiner,
+et chacun se vérifie par le calcul des deux membres. Pour $a$ vrai et $b$ faux, par
+exemple, $a \wedge b$ est faux donc $\overline{a \wedge b}$ est vrai, tandis que
+$\bar a$ est faux et $\bar b$ vrai, donc $\bar a \vee \bar b$ est vrai également.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L19}{RepresentationDesDonnees.lean\#L19}
+
+\begin{theoreme}
+Chaque opération se distribue sur l'autre, et la négation appliquée deux fois rend le
+booléen de départ :
+\[ a \wedge (b \vee c) = (a \wedge b) \vee (a \wedge c), \qquad
+   a \vee (b \wedge c) = (a \vee b) \wedge (a \vee c), \qquad
+   \bar{\bar a} = a . \]
+\end{theoreme}
+\begin{proof}
+Même méthode : les trois booléens $a$, $b$, $c$ donnent huit cas, et chacun se vérifie
+en calculant les deux membres. La seconde égalité mérite d'être remarquée : elle n'a pas
+d'équivalent sur les nombres, où l'addition ne se distribue pas sur la multiplication.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L24}{RepresentationDesDonnees.lean\#L24}
+
+\subsection{Écriture binaire}
+
+\begin{theoreme}
+Soit $n$ un entier naturel non nul. Sa suite de chiffres en base $2$ ne contient que
+des $0$ et des $1$, et son dernier terme \textemdash{} le chiffre de poids fort \textemdash{}
+n'est pas nul.
+\end{theoreme}
+\begin{proof}
+Les deux points viennent de la construction des chiffres en base $b$ : chaque chiffre
+est un reste de division par $b$, donc reste inférieur à $b$, ici à $2$ ; et le chiffre de
+poids fort est non nul, faute de quoi le nombre s'écrirait avec un chiffre de moins.
+C'est ce qui rend l'écriture canonique : on n'ajoute pas de zéros inutiles à gauche.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L33}{RepresentationDesDonnees.lean\#L33}
+
+\begin{theoreme}
+Relire une écriture binaire rend le nombre de départ :
+\[ \sum_{i} b_i\, 2^i = n \quad \text{où } (b_i) \text{ est la suite des chiffres de } n . \]
+\end{theoreme}
+\begin{proof}
+C'est la propriété qui justifie le mot \emph{écriture} : passer de $n$ à ses chiffres,
+puis des chiffres à leur valeur, ramène à $n$. La démonstration est une récurrence sur le
+nombre de chiffres, où le pas se lit sur la division euclidienne par $2$ : le dernier
+chiffre est le reste, et les autres sont ceux du quotient.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L41}{RepresentationDesDonnees.lean\#L41}
+
+\begin{theoreme}
+L'écriture binaire est unique : si une suite $L$ ne contient que des $0$ et des $1$ et
+ne se termine pas par un $0$, alors les chiffres de sa valeur sont exactement $L$.
+\end{theoreme}
+\begin{proof}
+C'est la réciproque de l'énoncé précédent, et les deux hypothèses sont nécessaires. Sans
+la première, une \og{} suite de chiffres \fg{} pourrait contenir un $2$ et désigner la
+même valeur qu'une autre suite. Sans la seconde, $L$ et $L$ suivie d'un $0$ auraient la
+même valeur : c'est le zéro inutile à gauche. Avec les deux, la division euclidienne par
+$2$ redonne les chiffres un à un, dans l'ordre.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L47}{RepresentationDesDonnees.lean\#L47}
+
+\begin{theoreme}
+Un entier naturel non nul $n$ s'écrit avec $\lfloor \log_2 n \rfloor + 1$ bits.
+\end{theoreme}
+\begin{proof}
+L'écriture de $n$ compte un chiffre par puissance de $2$ inférieure ou égale à $n$ :
+elle en a $k+1$ exactement lorsque $2^k \le n < 2^{k+1}$, c'est-à-dire lorsque
+$k = \lfloor \log_2 n \rfloor$. Un octet code donc les entiers de $0$ à $255$, et pas un
+de plus.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L53}{RepresentationDesDonnees.lean\#L53}
+
+\subsection{Complément à deux}
+
+\begin{theoreme}
+Sur $n$ bits, chaque entier relatif $a$ a un code et un seul parmi les $2^n$ codes
+disponibles : l'unique entier $c$ tel que
+\[ 0 \le c < 2^n \quad \text{et} \quad c \equiv a \pmod{2^n} , \]
+et l'addition des codes se fait modulo $2^n$ :
+\[ (a + b) \bmod 2^n = \bigl((a \bmod 2^n) + (b \bmod 2^n)\bigr) \bmod 2^n . \]
+\end{theoreme}
+\begin{proof}
+Pour l'existence, $c = a \bmod 2^n$ convient : un reste de division par $2^n$ est compris
+entre $0$ et $2^n - 1$, et il est congru à $a$ par définition. Pour l'unicité, si $c$
+vérifie les deux conditions, alors $c$ étant déjà compris entre $0$ et $2^n$, son reste
+modulo $2^n$ est lui-même ; la congruence donne donc $c = a \bmod 2^n$.
+
+L'égalité sur l'addition est celle du reste d'une somme. C'est elle qui explique le
+comportement des entiers machine : ajouter $1$ au plus grand entier positif d'un mot de
+$n$ bits ne provoque pas d'erreur, mais rend le plus petit négatif \textemdash{} le calcul
+est juste modulo $2^n$, et faux dans $\mathbb{Z}$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L63}{RepresentationDesDonnees.lean\#L63}
+
+\subsection{Hexadécimal}
+
+\begin{theoreme}
+Un chiffre hexadécimal vaut quatre bits : pour tous entiers $n$ et $k$,
+\[ n < 16^k \iff n < 2^{4k} . \]
+\end{theoreme}
+\begin{proof}
+Il suffit de remarquer que $16 = 2^4$, donc $16^k = (2^4)^k = 2^{4k}$ : les deux
+inégalités portent sur le même nombre. C'est la raison pour laquelle l'hexadécimal sert à
+noter les octets : deux chiffres hexadécimaux valent exactement huit bits.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L78}{RepresentationDesDonnees.lean\#L78}
+
+\subsection{Nombres à virgule flottante}
+
+\begin{theoreme}
+Un dixième n'a pas d'écriture binaire finie : il n'existe pas d'entier relatif $a$ ni
+d'entier naturel $n$ tels que
+\[ \frac{1}{10} = \frac{a}{2^n} . \]
+\end{theoreme}
+\begin{proof}
+Supposons une telle écriture. En multipliant les deux membres par $10 \times 2^n$, elle
+donne $2^n = 10\,a$, donc $5$ divise $2^n$. Or $5$ est premier : s'il divise une puissance
+de $2$, il divise $2$, ce qui est faux. L'hypothèse est donc absurde.
+
+C'est l'origine des surprises du calcul flottant. La machine ne peut pas représenter
+$0{,}1$ exactement ; elle en garde la valeur binaire la plus proche, et la somme
+$0{,}1 + 0{,}2$ ne rend pas exactement $0{,}3$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L89}{RepresentationDesDonnees.lean\#L89}
+
+\subsection{Chaînes de caractères}
+
+\begin{theoreme}
+La concaténation des chaînes est associative, et la longueur d'une concaténation est la
+somme des longueurs :
+\[ (u + v) + w = u + (v + w), \qquad |u + v| = |u| + |v| . \]
+\end{theoreme}
+\begin{proof}
+Les deux se démontrent par récurrence sur la première chaîne. Pour l'associativité, une
+chaîne vide se retire des deux côtés, et le pas consiste à sortir le premier caractère,
+qui se place en tête dans les deux membres. Pour la longueur, le même découpage ajoute
+$1$ de chaque côté.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/11-informatique-nsi/RepresentationDesDonnees.lean\#L108}{RepresentationDesDonnees.lean\#L108}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

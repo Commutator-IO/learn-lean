@@ -13,14 +13,14 @@ Fichier : `RepresentationDesDonnees.lean`
 
 | Énoncé | Niveau | Théorème | Statut |
 |---|---|---|---|
-| Algèbre de Boole : lois de De Morgan, distributivité, `¬¬a = a` | 1NSI | `algebre_de_boole_lois_de_de_morgan_distributivite` | ☐ |
-| Écriture binaire d'un entier naturel : existence et unicité | 1NSI | `ecriture_binaire_d_un_entier_naturel_existence_et` | ☐ |
-| Valeur d'une écriture binaire : `∑ bᵢ 2ⁱ` ; passage binaire ↔ décimal | 1NSI | `valeur_d_une_ecriture_binaire_passage_binaire_decimal` | ☐ |
-| Nombre de bits d'un entier `n > 0` : `⌊log₂ n⌋ + 1` | 1NSI | `nombre_de_bits_d_un_entier` | ☐ |
-| Complément à deux sur `n` bits : les entiers de `−2ⁿ⁻¹` à `2ⁿ⁻¹ − 1`, et l'addition modulo `2ⁿ` | 1NSI | `complement_a_deux_sur_bits_les_entiers_de` | ☐ |
-| Écriture hexadécimale ; un chiffre hexadécimal vaut quatre bits | 1NSI | `ecriture_hexadecimale_un_chiffre_hexadecimal_vaut_quatre_bits` | ☐ |
-| Nombres à virgule flottante : `1/10` n'a pas d'écriture binaire finie, d'où `0,1 + 0,2 ≠ 0,3` | 1NSI | `nombres_a_virgule_flottante_n_a_pas_d` | ☐ |
-| Chaînes de caractères : la concaténation est associative, sa longueur est la somme des longueurs | 1NSI | `chaines_de_caracteres_la_concatenation_est_associative_sa` | ☐ |
+| Algèbre de Boole : lois de De Morgan, distributivité, `¬¬a = a` | 1NSI | `algebre_de_boole_lois_de_de_morgan_distributivite` | ☑ |
+| Écriture binaire d'un entier naturel : existence et unicité | 1NSI | `ecriture_binaire_d_un_entier_naturel_existence_et` | ☑ |
+| Valeur d'une écriture binaire : `∑ bᵢ 2ⁱ` ; passage binaire ↔ décimal | 1NSI | `valeur_d_une_ecriture_binaire_passage_binaire_decimal` | ☑ |
+| Nombre de bits d'un entier `n > 0` : `⌊log₂ n⌋ + 1` | 1NSI | `nombre_de_bits_d_un_entier` | ☑ |
+| Complément à deux sur `n` bits : les entiers de `−2ⁿ⁻¹` à `2ⁿ⁻¹ − 1`, et l'addition modulo `2ⁿ` | 1NSI | `complement_a_deux_sur_bits_les_entiers_de` | ☑ |
+| Écriture hexadécimale ; un chiffre hexadécimal vaut quatre bits | 1NSI | `ecriture_hexadecimale_un_chiffre_hexadecimal_vaut_quatre_bits` | ☑ |
+| Nombres à virgule flottante : `1/10` n'a pas d'écriture binaire finie, d'où `0,1 + 0,2 ≠ 0,3` | 1NSI | `nombres_a_virgule_flottante_n_a_pas_d` | ☑ |
+| Chaînes de caractères : la concaténation est associative, sa longueur est la somme des longueurs | 1NSI | `chaines_de_caracteres_la_concatenation_est_associative_sa` | ☑ |
 
 ## Algorithmes sur les tableaux
 

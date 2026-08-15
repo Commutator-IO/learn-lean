@@ -5,7 +5,7 @@ Ce fichier démontre ces conventions : l'écriture binaire d'un entier existe et
 unique, elle se relit comme une somme de puissances de deux, un chiffre hexadécimal
 vaut quatre bits, et un dixième n'a pas d'écriture binaire finie — d'où les surprises
 du calcul flottant.
-Énoncés et démonstrations en français : voir InformatiqueNsi.tex.
+Énoncés et démonstrations en français : voir Informatique.tex.
 -/
 import Mathlib
 

@@ -242,6 +242,19 @@ def titre_chapitre(dossier):
                 return ligne[2:].strip()
     return os.path.basename(dossier)
 
+def document_du_chapitre(dossier):
+    """Le chemin du document du chapitre : celui qui existe, sinon celui du titre.
+
+    Le nom vient du titre de l'index — mais un chapitre peut être renommé, et le
+    document déjà écrit ne suit pas. Reprendre alors le fichier présent plutôt
+    que d'en créer un second : deux documents pour un chapitre, c'est la
+    transcription perdue d'un côté et un doublon vide de l'autre.
+    """
+    presents = [f for f in sorted(os.listdir(dossier)) if f.endswith(".tex")]
+    if len(presents) == 1:
+        return os.path.join(dossier, presents[0])
+    return os.path.join(dossier, camel(titre_chapitre(dossier)) + ".tex")
+
 def convertir(dossier):
     """Un document par chapitre : une section par fichier Lean du dossier."""
     fichiers = sorted(f for f in os.listdir(dossier) if f.endswith(".lean"))
@@ -250,7 +263,7 @@ def convertir(dossier):
     racine = racine_depot(dossier)
     base = base_github(racine)
     titre = titre_chapitre(dossier)
-    chemin_tex = os.path.join(dossier, camel(titre) + ".tex")
+    chemin_tex = document_du_chapitre(dossier)
     if os.path.exists(chemin_tex):
         return chemin_tex, None
 
@@ -314,7 +327,7 @@ def rafraichir_liens(dossier):
 
     Renvoie (chemin, nombre de renvois modifiés) ou (chemin, None) si le nombre de
     déclarations ne correspond plus."""
-    chemin_tex = os.path.join(dossier, camel(titre_chapitre(dossier)) + ".tex")
+    chemin_tex = document_du_chapitre(dossier)
     if not os.path.exists(chemin_tex):
         return None, 0
     lignes = open(chemin_tex, encoding="utf-8").read().split("\n")

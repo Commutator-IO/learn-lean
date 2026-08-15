@@ -267,14 +267,14 @@ routage — appartient à un autre projet que celui-ci.
 
 | Énoncé | Niveau | Admis | Démontré |
 |---|---|---|---|
-| Algèbre de Boole : lois de De Morgan, distributivité, `¬¬a = a` | 1NSI | | ☐ |
-| Écriture binaire d'un entier naturel : existence et unicité | 1NSI | oui | ☐ |
-| Valeur d'une écriture binaire : `∑ bᵢ 2ⁱ` ; passage binaire ↔ décimal | 1NSI | | ☐ |
-| Nombre de bits d'un entier `n > 0` : `⌊log₂ n⌋ + 1` | 1NSI | | ☐ |
-| Complément à deux sur `n` bits : les entiers de `−2ⁿ⁻¹` à `2ⁿ⁻¹ − 1`, et l'addition modulo `2ⁿ` | 1NSI | | ☐ |
-| Écriture hexadécimale ; un chiffre hexadécimal vaut quatre bits | 1NSI | | ☐ |
-| Nombres à virgule flottante : `1/10` n'a pas d'écriture binaire finie, d'où `0,1 + 0,2 ≠ 0,3` | 1NSI | | ☐ |
-| Chaînes de caractères : la concaténation est associative, sa longueur est la somme des longueurs | 1NSI | | ☐ |
+| Algèbre de Boole : lois de De Morgan, distributivité, `¬¬a = a` | 1NSI | | ☑ |
+| Écriture binaire d'un entier naturel : existence et unicité | 1NSI | oui | ☑ |
+| Valeur d'une écriture binaire : `∑ bᵢ 2ⁱ` ; passage binaire ↔ décimal | 1NSI | | ☑ |
+| Nombre de bits d'un entier `n > 0` : `⌊log₂ n⌋ + 1` | 1NSI | | ☑ |
+| Complément à deux sur `n` bits : les entiers de `−2ⁿ⁻¹` à `2ⁿ⁻¹ − 1`, et l'addition modulo `2ⁿ` | 1NSI | | ☑ |
+| Écriture hexadécimale ; un chiffre hexadécimal vaut quatre bits | 1NSI | | ☑ |
+| Nombres à virgule flottante : `1/10` n'a pas d'écriture binaire finie, d'où `0,1 + 0,2 ≠ 0,3` | 1NSI | | ☑ |
+| Chaînes de caractères : la concaténation est associative, sa longueur est la somme des longueurs | 1NSI | | ☑ |
 
 ### Algorithmes sur les tableaux
 
