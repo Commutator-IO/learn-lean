@@ -26,10 +26,19 @@ const COURS = resolve(DEPOT, 'courses');
 const LIVRE = resolve(DEPOT, 'book', 'textes');
 const SORTIE = resolve(SITE, 'public');
 
-const PROGRAMMES = [
-  { id: '01-college', titre: 'Collège', source: 'college.md' },
-  { id: '02-lycee', titre: 'Lycée (filière S)', source: 'lycee.md' },
-];
+const NIVEAUX = { '01-college': 'collège', '02-lycee': 'lycée' };
+
+/**
+ * Les thèmes, lus dans `courses/themes.json`.
+ *
+ * Le dépôt range ses chapitres par cycle, parce que les programmes le sont ;
+ * le site les présente par notion, parce qu'on ne lit pas un cycle mais un
+ * sujet. Le même fichier sert au livre : l'ordre est le même des deux côtés.
+ */
+async function themes() {
+  const src = JSON.parse(await readFile(join(COURS, 'themes.json'), 'utf8'));
+  return src.themes;
+}
 
 /** Les modificateurs précèdent le mot-clé, comme dans generate-tex.py. */
 const DECLARATION =
@@ -59,6 +68,7 @@ function declarations(source) {
     }
 
     if (ligne.startsWith('/--')) {
+      const debutDoc = i + 1;
       let doc = ligne.slice(3);
       while (!doc.includes('-/')) doc += '\n' + lignes[++i];
       doc = doc.slice(0, doc.indexOf('-/')).trim();
@@ -71,6 +81,7 @@ function declarations(source) {
         nom: m?.[2] ?? '',
         doc,
         section,
+        ligneDoc: debutDoc,
         ligne: i - corps.length + 1,
         finLigne: i,
         code: corps.join('\n'),
@@ -143,19 +154,13 @@ async function indexChapitre(dossier) {
   return { titre, statuts };
 }
 
-async function chapitres(programme) {
-  const base = join(COURS, programme.id);
-  const dossiers = (await readdir(base, { withFileTypes: true }))
-    .filter((d) => d.isDirectory())
-    .map((d) => d.name)
-    .sort();
-
-  const out = [];
-  for (const nom of dossiers) {
-    const dossier = join(base, nom);
+async function chapitre(chemin) {
+  const [programme, nom] = chemin.split('/');
+  {
+    const dossier = join(COURS, programme, nom);
     const fichiers = (await readdir(dossier)).sort();
     const leans = fichiers.filter((f) => f.endsWith('.lean'));
-    if (leans.length === 0) continue;
+    if (leans.length === 0) return null;
 
     const { titre, statuts } = await indexChapitre(dossier);
     const tex = fichiers.find((f) => f.endsWith('.tex'));
@@ -181,16 +186,16 @@ async function chapitres(programme) {
       });
     }
 
-    out.push({
-      id: `${programme.id}/${nom}`,
+    return {
+      id: chemin,
       dossier: nom,
-      programme: programme.id,
+      programme,
+      niveau: NIVEAUX[programme] ?? programme,
       titre,
       statuts,
       modules,
-    });
+    };
   }
-  return out;
 }
 
 const chemin = (id) => join(SORTIE, 'chapters', `${id.replace('/', '__')}.json`);
@@ -225,32 +230,58 @@ async function main() {
   await rm(join(SORTIE, 'chapters'), { recursive: true, force: true });
   await mkdir(join(SORTIE, 'chapters'), { recursive: true });
 
-  const index = { programmes: [], engendre: 'npm run manifest' };
-  for (const programme of PROGRAMMES) {
-    const liste = await chapitres(programme);
-    for (const c of liste) await writeFile(chemin(c.id), JSON.stringify(c));
-    index.programmes.push({
-      id: programme.id,
-      titre: programme.titre,
-      source: programme.source,
+  const index = { themes: [], engendre: 'npm run manifest' };
+  const vus = new Set();
+
+  for (const theme of await themes()) {
+    const liste = [];
+    for (const ch of theme.chapitres) {
+      const c = await chapitre(ch);
+      if (!c) continue;
+      vus.add(ch);
+      await writeFile(chemin(c.id), JSON.stringify(c));
+      liste.push(c);
+    }
+    index.themes.push({
+      id: theme.id,
+      titre: theme.titre,
+      sousTitre: theme.sousTitre,
       chapitres: liste.map((c) => ({
         id: c.id,
         titre: c.titre,
+        niveau: c.niveau,
         statuts: c.statuts,
         modules: c.modules.map((m) => ({ nom: m.nom, declarations: m.declarations.length })),
       })),
     });
   }
 
+  // Un chapitre qu'aucun thème ne recouvre n'apparaîtrait nulle part : on le
+  // signale plutôt que de le laisser disparaître en silence.
+  for (const programme of Object.keys(NIVEAUX)) {
+    for (const nom of await readdir(join(COURS, programme))) {
+      const dossier = join(COURS, programme, nom);
+      let leans = [];
+      try {
+        leans = (await readdir(dossier)).filter((f) => f.endsWith('.lean'));
+      } catch {
+        continue;
+      }
+      if (leans.length && !vus.has(`${programme}/${nom}`)) {
+        console.warn(`chapitre hors thème : ${programme}/${nom} — voir courses/themes.json`);
+      }
+    }
+  }
+
   await writeFile(join(SORTIE, 'index.json'), JSON.stringify(index, null, 2));
   await writeFile(join(SORTIE, 'book.json'), JSON.stringify(await livre()));
 
-  const n = index.programmes.reduce((a, p) => a + p.chapitres.length, 0);
-  const d = index.programmes.reduce(
-    (a, p) => a + p.chapitres.reduce((b, c) => b + c.statuts.demontres, 0),
+  const n = index.themes.reduce((a, t) => a + t.chapitres.length, 0);
+  const d = index.themes.reduce(
+    (a, t) => a + t.chapitres.reduce((b, c) => b + c.statuts.demontres, 0),
     0,
   );
-  console.log(`public/index.json : ${n} chapitres, ${d} énoncés démontrés`);
+  console.log(`public/index.json : ${index.themes.length} thèmes, ${n} chapitres, ${d} démontrés`);
 }
 
 await main();

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Footer, Header } from './components/Frame.tsx'
 import { LeanPane } from './components/LeanPane.tsx'
 import { TexPane } from './components/TexPane.tsx'
+import type { Declare } from './lib/lean.ts'
 import type { Cible, Pilote } from './lib/sync.ts'
 import type { Chapitre, Declaration, Index } from './lib/types.ts'
 
@@ -42,15 +43,13 @@ export function ReaderPage() {
   // Qui mène, et sur quelle déclaration s'aligner. Voir lib/sync.ts.
   const pilote = useRef<Pilote>(null)
   const [cible, setCible] = useState<Cible>(null)
-  const defile = useCallback((ligne: number) => {
-    setCible({ ligne, par: pilote.current === 'tex' ? 'tex' : 'lean' })
-  }, [])
+  const defile = useCallback((p: NonNullable<Cible>) => setCible(p), [])
 
   useEffect(() => {
     fetch('/index.json')
       .then((r) => r.json())
       .then(setIndex)
-      .catch(() => setIndex({ programmes: [] }))
+      .catch(() => setIndex({ themes: [] }))
   }, [])
 
   const charger = useCallback(async (id: string, ligne?: number, nomModule?: string) => {
@@ -61,7 +60,7 @@ export function ReaderPage() {
     setModule(m.nom)
     const d = ligne ? (m.declarations.find((x) => x.ligne === ligne) ?? null) : null
     setCourante(d)
-    setCible(d ? { ligne: d.ligne, par: 'clic' } : null)
+    setCible(d ? { ligne: d.ligne, suivante: null, f: 0, par: 'clic' } : null)
     setMenu(false)
   }, [])
 
@@ -69,7 +68,7 @@ export function ReaderPage() {
   useEffect(() => {
     if (!index || chapitre) return
     const adresse = lireHash()
-    const premier = index.programmes[0]?.chapitres[0]?.id
+    const premier = index.themes[0]?.chapitres[0]?.id
     const id = adresse?.chapitre ?? premier
     if (id) void charger(id, adresse?.ligne, adresse?.module)
   }, [index, chapitre, charger])
@@ -80,10 +79,33 @@ export function ReaderPage() {
       // Un clic est un déplacement voulu : les deux volets s'y rendent, quel
       // que soit l'état du défilement lié.
       pilote.current = 'clic'
-      setCible({ ligne: d.ligne, par: 'clic' })
+      setCible({ ligne: d.ligne, suivante: null, f: 0, par: 'clic' })
       if (chapitre && module) location.hash = `${chapitre.id}/${module}/L${d.ligne}`
     },
     [chapitre, module],
+  )
+
+  // Les noms déclarés dans le chapitre, tous modules confondus : un fichier
+  // cite volontiers un théorème démontré dans le fichier d'à côté.
+  const declares = new Map<string, Declare>()
+  for (const mod of chapitre?.modules ?? []) {
+    for (const d of mod.declarations) {
+      if (d.nom) declares.set(d.nom, { module: mod.nom, ligne: d.ligne })
+    }
+  }
+
+  const suivre = useCallback(
+    (nomModule: string, ligne: number) => {
+      const mod = chapitre?.modules.find((x) => x.nom === nomModule)
+      const d = mod?.declarations.find((x) => x.ligne === ligne)
+      if (!mod || !d) return
+      setModule(mod.nom)
+      setCourante(d)
+      pilote.current = 'clic'
+      setCible({ ligne: d.ligne, suivante: null, f: 0, par: 'clic' })
+      if (chapitre) location.hash = `${chapitre.id}/${mod.nom}/L${d.ligne}`
+    },
+    [chapitre],
   )
 
   const m = chapitre?.modules.find((x) => x.nom === module) ?? null
@@ -102,12 +124,15 @@ export function ReaderPage() {
           ].join(' ')}
         >
           <div className="max-h-[70vh] overflow-auto p-2 lg:max-h-[calc(100dvh-3rem)]">
-            {index?.programmes.map((p) => (
-              <div key={p.id} className="mb-4">
-                <div className="px-1.5 py-1 font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
-                  {p.titre}
+            {index?.themes.map((t) => (
+              <div key={t.id} className="mb-4">
+                <div
+                  className="px-1.5 py-1 font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase"
+                  title={t.sousTitre}
+                >
+                  {t.titre}
                 </div>
-                {p.chapitres.map((c) => {
+                {t.chapitres.map((c) => {
                   const actif = chapitre?.id === c.id
                   const complet = c.statuts.demontres === c.statuts.total
                   return (
@@ -119,7 +144,15 @@ export function ReaderPage() {
                         actif ? 'bg-brand-50 text-ink-900' : 'text-ink-600 hover:bg-ink-100',
                       ].join(' ')}
                     >
-                      <span className="min-w-0 flex-1 truncate" title={c.titre}>
+                      <span className="min-w-0 flex-1 truncate" title={`${c.titre} — ${c.niveau}`}>
+                        <span
+                          aria-hidden
+                          className={
+                            c.niveau === 'collège'
+                              ? 'mr-1.5 inline-block size-1.5 rounded-full bg-ink-300 align-middle'
+                              : 'mr-1.5 inline-block size-1.5 rounded-full bg-brand-400 align-middle'
+                          }
+                        />
                         {c.titre}
                       </span>
                       <span
@@ -189,8 +222,10 @@ export function ReaderPage() {
                   cible={cible}
                   lie={lie}
                   pilote={pilote}
+                  declares={declares}
                   onChoisir={choisir}
                   onDefile={defile}
+                  onSuivre={suivre}
                 />
               </div>
               <div className="h-[50dvh] lg:h-[calc(100dvh-6.5rem)]">

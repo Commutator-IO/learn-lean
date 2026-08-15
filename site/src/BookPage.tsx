@@ -37,7 +37,7 @@ export function BookPage() {
     fetch('/index.json')
       .then((r) => r.json())
       .then(setIndex)
-      .catch(() => setIndex({ programmes: [] }))
+      .catch(() => setIndex({ themes: [] }))
     fetch('/book.json')
       .then((r) => r.json())
       .then(setLivre)
@@ -61,10 +61,15 @@ export function BookPage() {
     if (id) void charger(id)
   }, [charger])
 
+  // Le livre est numéroté d'un bout à l'autre : les chapitres se suivent d'un
+  // thème au suivant, sans repartir de 1.
   const numero = (id: string) => {
-    for (const p of index?.programmes ?? []) {
-      const i = p.chapitres.findIndex((c) => c.id === id)
-      if (i >= 0) return i + 1
+    let n = 0
+    for (const t of index?.themes ?? []) {
+      for (const c of t.chapitres) {
+        n++
+        if (c.id === id) return n
+      }
     }
     return null
   }
@@ -97,12 +102,15 @@ export function BookPage() {
             >
               Avant-propos
             </button>
-            {index?.programmes.map((p, i) => (
-              <div key={p.id} className="mb-3">
-                <div className="px-1.5 py-1 font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
-                  Partie {i + 1} · {p.titre}
+            {index?.themes.map((t) => (
+              <div key={t.id} className="mb-3">
+                <div
+                  className="px-1.5 py-1 font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase"
+                  title={t.sousTitre}
+                >
+                  {t.titre}
                 </div>
-                {p.chapitres.map((c, j) => (
+                {t.chapitres.map((c) => (
                   <button
                     key={c.id}
                     onClick={() => void charger(c.id)}
@@ -113,8 +121,8 @@ export function BookPage() {
                         : 'text-ink-600 hover:bg-ink-100',
                     ].join(' ')}
                   >
-                    <span className="font-mono text-[10.5px] text-ink-400">{j + 1}</span>
-                    <span className="min-w-0 flex-1 truncate" title={c.titre}>
+                    <span className="font-mono text-[10.5px] text-ink-400">{numero(c.id)}</span>
+                    <span className="min-w-0 flex-1 truncate" title={`${c.titre} — ${c.niveau}`}>
                       {c.titre}
                     </span>
                   </button>
@@ -155,16 +163,17 @@ export function BookPage() {
                 />
                 <div className="mt-10 border-t border-ink-200 pt-6">
                   <h2 className="font-serif text-xl text-ink-900">Table des matières</h2>
-                  {index?.programmes.map((p, i) => (
-                    <div key={p.id} className="mt-5">
+                  {index?.themes.map((t, i) => (
+                    <div key={t.id} className="mt-5">
                       <div className="font-sans text-[12px] font-semibold tracking-wide text-ink-400 uppercase">
-                        Partie {i + 1} — {p.titre}
+                        Partie {i + 1} — {t.titre}
                       </div>
+                      <div className="font-sans text-[13px] text-ink-400">{t.sousTitre}</div>
                       <ol className="mt-2 space-y-1 font-sans text-[14px]">
-                        {p.chapitres.map((c, j) => (
+                        {t.chapitres.map((c) => (
                           <li key={c.id} className="flex gap-3">
                             <span className="w-5 shrink-0 text-right font-mono text-ink-400">
-                              {j + 1}
+                              {numero(c.id)}
                             </span>
                             <button
                               onClick={() => void charger(c.id)}
@@ -172,6 +181,9 @@ export function BookPage() {
                             >
                               {c.titre}
                             </button>
+                            <span className="ml-auto shrink-0 text-[12px] text-ink-400">
+                              {c.niveau}
+                            </span>
                           </li>
                         ))}
                       </ol>
@@ -182,7 +194,7 @@ export function BookPage() {
             ) : (
               <>
                 <div className="font-sans text-[12px] font-semibold tracking-wide text-ink-400 uppercase">
-                  Chapitre {numero(chapitre.id)}
+                  Chapitre {numero(chapitre.id)} · {chapitre.niveau}
                 </div>
                 <h1 className="mt-1 font-serif text-3xl text-ink-900">{chapitre.titre}</h1>
 

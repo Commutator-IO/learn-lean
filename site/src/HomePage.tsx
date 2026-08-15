@@ -14,11 +14,11 @@ export function HomePage() {
     fetch('/index.json')
       .then((r) => r.json())
       .then(setIndex)
-      .catch(() => setIndex({ programmes: [] }))
+      .catch(() => setIndex({ themes: [] }))
   }, [])
 
-  const compte = (p: Index['programmes'][number]) =>
-    p.chapitres.reduce(
+  const compte = (t: Index['themes'][number]) =>
+    t.chapitres.reduce(
       (a, c) => ({
         total: a.total + c.statuts.total,
         demontres: a.demontres + c.statuts.demontres,
@@ -41,7 +41,9 @@ export function HomePage() {
               Lean 4
             </a>
             , puis transcrit en français. Le site montre les deux textes côte à côte : à gauche la
-            preuve que la machine accepte, à droite celle qu'un élève peut lire.
+            preuve que la machine accepte, à droite celle qu'un élève peut lire. Les chapitres se
+            suivent par notion et non par cycle : la divisibilité de sixième et l'arithmétique de
+            terminale sont le même sujet, et se lisent à la suite.
           </p>
           <p className="mt-4 text-[15px] leading-relaxed text-ink-500">
             Le corpus est pris tel quel, sans écarter ce qui résiste. Les énoncés qu'on ne sait pas
@@ -67,30 +69,39 @@ export function HomePage() {
         </section>
 
         <section className="border-y border-ink-200 bg-ink-50">
-          <div className="mx-auto grid max-w-3xl gap-6 px-5 py-10 sm:grid-cols-2">
-            {index?.programmes.map((p) => {
-              const c = compte(p)
-              return (
-                <div key={p.id}>
-                  <div className="font-serif text-2xl text-ink-900">
-                    {c.demontres}
-                    <span className="text-ink-400">/{c.total}</span>
-                  </div>
-                  <div className="mt-1 text-[14px] text-ink-600">
-                    énoncés démontrés — {p.titre.toLowerCase()}
-                  </div>
-                  <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-ink-200">
-                    <div
-                      className="h-full rounded-full bg-prouve-500"
-                      style={{ width: `${c.total ? (100 * c.demontres) / c.total : 0}%` }}
-                    />
-                  </div>
-                  <div className="mt-2 text-[12.5px] text-ink-400">
-                    {p.chapitres.length} chapitres
-                  </div>
-                </div>
-              )
-            })}
+          <div className="mx-auto max-w-3xl px-5 py-10">
+            <h2 className="font-serif text-2xl text-ink-900">Les cinq thèmes</h2>
+            <p className="mt-2 text-[14.5px] text-ink-500">
+              Chacun va du collège à la terminale, sans interruption.
+            </p>
+            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+              {index?.themes.map((t) => {
+                const c = compte(t)
+                return (
+                  <a key={t.id} href={`/cours/#${t.chapitres[0]?.id ?? ''}`} className="group">
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-serif text-[17px] text-ink-900 group-hover:underline">
+                        {t.titre}
+                      </span>
+                      <span className="ml-auto font-mono text-[12.5px] text-ink-400">
+                        {c.demontres}/{c.total}
+                      </span>
+                    </div>
+                    <div className="text-[13.5px] text-ink-500">{t.sousTitre}</div>
+                    <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-ink-200">
+                      <div
+                        className="h-full rounded-full bg-prouve-500"
+                        style={{ width: `${c.total ? (100 * c.demontres) / c.total : 0}%` }}
+                      />
+                    </div>
+                    <div className="mt-1.5 text-[12px] text-ink-400">
+                      {t.chapitres.length} chapitre{t.chapitres.length > 1 ? 's' : ''} ·{' '}
+                      {[...new Set(t.chapitres.map((x) => x.niveau))].join(' et ')}
+                    </div>
+                  </a>
+                )
+              })}
+            </div>
           </div>
         </section>
 

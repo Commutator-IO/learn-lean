@@ -5,10 +5,16 @@ import { Footer, Header } from './components/Frame.tsx'
  * Les sujets d'examens : les annales, en consultation seulement.
  *
  * Cette page annonce un chantier ouvert et n'affiche que ce qui existe : des
- * liens vers les sujets, hébergés par l'APMEP. Aucun n'est résolu en Lean pour
- * l'instant, et la page le dit — une case « à faire » qui laisserait croire à
- * un travail commencé apprendrait à se méfier de tous les autres chiffres du
- * site.
+ * sujets, hébergés par l'APMEP. Aucun n'est résolu en Lean pour l'instant, et la
+ * page le dit — une case « à faire » qui laisserait croire à un travail commencé
+ * apprendrait à se méfier de tous les autres chiffres du site.
+ *
+ * Le sujet choisi s'ouvre dans un volet d'aperçu, à droite. Le fichier vient de
+ * l'APMEP et y reste : rien n'est copié ici. L'affichage dans un cadre est
+ * possible parce que le serveur ne l'interdit pas — pas d'en-tête
+ * `X-Frame-Options`, pas de `frame-ancestors` — ce qui n'est pas garanti pour
+ * toujours ; d'où le lien qui ouvre le fichier chez l'association, à côté de
+ * l'aperçu.
  */
 
 type Session = { annee: number; session: string; sujet: string; corrige: string | null }
@@ -18,6 +24,7 @@ export function SujetsPage() {
   const [examens, setExamens] = useState<Examen[] | null>(null)
   const [choisi, setChoisi] = useState('brevet')
   const [annee, setAnnee] = useState<number | 'toutes'>('toutes')
+  const [ouvert, setOuvert] = useState<Session | null>(null)
 
   useEffect(() => {
     fetch('/exams.json')
@@ -40,40 +47,24 @@ export function SujetsPage() {
     <div className="flex min-h-dvh flex-col">
       <Header path="/sujets/" />
 
-      <main className="mx-auto w-full max-w-4xl flex-1 px-5 pb-16">
-        <div className="mt-14 flex items-center gap-3">
-          <h1 className="font-serif text-4xl leading-tight text-ink-900">Sujets d'examens</h1>
+      <div className="mx-auto w-full max-w-7xl flex-1 px-5">
+        <div className="flex items-center gap-3 pt-10">
+          <h1 className="font-serif text-3xl leading-tight text-ink-900">Sujets d'examens</h1>
           <span className="rounded-full bg-encours-50 px-2.5 py-1 font-sans text-[11px] font-semibold tracking-wide text-encours-600 uppercase">
             chantier ouvert
           </span>
         </div>
 
-        <p className="mt-5 text-[17px] leading-relaxed text-ink-600">
-          Le cours est démontré ; les épreuves ne le sont pas encore. Cette page rassemble les
-          sujets de brevet et de baccalauréat de France métropolitaine — <strong>en consultation
-          seulement</strong>. Aucun exercice n'est aujourd'hui formalisé. Les corrigés de l'APMEP
-          ne sont pas repris ici : l'objet du chantier est de démontrer les énoncés, pas de les
-          comparer à une correction rédigée.
+        <p className="mt-4 max-w-3xl text-[15.5px] leading-relaxed text-ink-600">
+          Le cours est démontré ; les épreuves ne le sont pas encore. Les sujets de brevet et de
+          baccalauréat de France métropolitaine sont ici <strong>en consultation seulement</strong>
+          . L'objectif est de les reprendre un à un : écrire l'énoncé en Lean, le démontrer, puis
+          transcrire la démonstration en français, comme pour les chapitres du cours. Un exercice
+          d'examen est un banc d'essai plus exigeant qu'un théorème de manuel — il est concret, il
+          mêle les chapitres, et son énoncé s'adresse à un élève, pas à une machine.
         </p>
 
-        <div className="mt-6 rounded-lg border border-ink-200 bg-ink-50 px-5 py-4 text-[15px] leading-relaxed text-ink-600">
-          <p>
-            <strong className="text-ink-800">Ce qui est prévu.</strong> Reprendre ces exercices un
-            à un : écrire l'énoncé en Lean, le démontrer, puis transcrire la démonstration en
-            français comme pour les chapitres du cours. Un exercice d'examen est un banc d'essai
-            plus exigeant qu'un théorème de manuel — il est concret, il mélange les chapitres, et
-            son énoncé est écrit pour un élève, pas pour une machine.
-          </p>
-          <p className="mt-3">
-            <strong className="text-ink-800">Pourquoi ce n'est pas commencé.</strong> Un sujet
-            d'examen pose d'abord un problème de modélisation : une figure à traduire, une
-            situation à formaliser, des questions qui s'enchaînent. Ce travail-là est d'une autre
-            nature que celui du cours, et il valait mieux finir les dix-sept chapitres avant de
-            l'ouvrir.
-          </p>
-        </div>
-
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           <div className="flex rounded-lg border border-ink-200 p-0.5">
             {examens?.map((e) => (
               <button
@@ -81,6 +72,7 @@ export function SujetsPage() {
                 onClick={() => {
                   setChoisi(e.id)
                   setAnnee('toutes')
+                  setOuvert(null)
                 }}
                 className={[
                   'rounded-md px-3 py-1.5 text-[13px]',
@@ -88,16 +80,16 @@ export function SujetsPage() {
                 ].join(' ')}
               >
                 {e.titre}
-                <span className="ml-1.5 font-mono text-[11px] opacity-70">
-                  {e.sessions.length}
-                </span>
+                <span className="ml-1.5 font-mono text-[11px] opacity-70">{e.sessions.length}</span>
               </button>
             ))}
           </div>
 
           <select
             value={annee}
-            onChange={(e) => setAnnee(e.target.value === 'toutes' ? 'toutes' : Number(e.target.value))}
+            onChange={(e) =>
+              setAnnee(e.target.value === 'toutes' ? 'toutes' : Number(e.target.value))
+            }
             className="rounded-lg border border-ink-200 px-3 py-1.5 text-[13px] text-ink-600"
           >
             <option value="toutes">Toutes les années</option>
@@ -113,40 +105,73 @@ export function SujetsPage() {
           </span>
         </div>
 
-        <table className="mt-5 w-full border-collapse text-[14px]">
-          <thead>
-            <tr className="border-b border-ink-200 text-left text-[12px] tracking-wide text-ink-400 uppercase">
-              <th className="py-2 pr-3 font-semibold">Session</th>
-              <th className="py-2 pr-3 font-semibold">Sujet</th>
-              <th className="py-2 font-semibold">Formalisé</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sessions.map((s, i) => (
-              <tr key={`${s.annee}-${i}`} className="border-b border-ink-100">
-                <td className="py-2 pr-3 text-ink-700">{s.session}</td>
-                <td className="py-2 pr-3">
-                  <a
-                    href={s.sujet}
-                    className="text-brand-700 underline underline-offset-2 hover:text-brand-800"
+        <div className="mt-5 grid gap-5 pb-12 lg:grid-cols-[22rem_1fr]">
+          {/* La liste : cliquer ouvre l'aperçu, sans quitter la page. */}
+          <div className="max-h-[70dvh] overflow-auto rounded-lg border border-ink-200">
+            <table className="w-full border-collapse text-[13.5px]">
+              <thead className="sticky top-0 bg-white">
+                <tr className="border-b border-ink-200 text-left text-[11px] tracking-wide text-ink-400 uppercase">
+                  <th className="px-3 py-2 font-semibold">Session</th>
+                  <th className="px-2 py-2 font-semibold">Formalisé</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sessions.map((s, i) => (
+                  <tr
+                    key={`${s.annee}-${i}`}
+                    onClick={() => setOuvert(s)}
+                    className={[
+                      'cursor-pointer border-b border-ink-100',
+                      ouvert?.sujet === s.sujet ? 'bg-brand-50' : 'hover:bg-ink-50',
+                    ].join(' ')}
                   >
-                    PDF
-                  </a>
-                </td>
-                <td className="py-2 font-mono text-[12px] text-ink-300">☐</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                    <td className="px-3 py-2 text-ink-700">{s.session}</td>
+                    <td className="px-2 py-2 font-mono text-[12px] text-ink-300">☐</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-        <p className="mt-8 text-[13.5px] leading-relaxed text-ink-500">
-          Les sujets et corrigés sont la propriété de leurs auteurs et sont diffusés par
-          l'
+          {/* L'aperçu : le fichier de l'APMEP, affiché tel quel. */}
+          <div className="flex h-[70dvh] flex-col overflow-hidden rounded-lg border border-ink-200">
+            {ouvert ? (
+              <>
+                <div className="flex items-center gap-3 border-b border-ink-200 px-4 py-2">
+                  <span className="min-w-0 truncate text-[13.5px] text-ink-700">
+                    {ouvert.session}
+                  </span>
+                  <a
+                    href={ouvert.sujet}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="ml-auto shrink-0 rounded border border-ink-300 px-2 py-1 text-[12px] text-ink-600 hover:bg-ink-50"
+                  >
+                    ouvrir chez l'APMEP
+                  </a>
+                </div>
+                <iframe
+                  key={ouvert.sujet}
+                  src={ouvert.sujet}
+                  title={`Sujet — ${ouvert.session}`}
+                  className="min-h-0 flex-1 bg-ink-100"
+                />
+              </>
+            ) : (
+              <div className="grid flex-1 place-items-center px-6 text-center text-[13.5px] text-ink-400">
+                Choisissez une session dans la liste pour l'afficher ici.
+              </div>
+            )}
+          </div>
+        </div>
+
+        <p className="pb-12 text-[13px] leading-relaxed text-ink-500">
+          Les sujets et corrigés appartiennent à leurs auteurs et sont diffusés par l'
           <a className="underline underline-offset-2" href="https://www.apmep.fr/">
             APMEP
           </a>
-          , qui archive les annales depuis 1941. Ce dépôt n'en héberge aucune copie : les liens
-          ci-dessus mènent aux fichiers de l'association. Les listes complètes, avec leurs notes de
+          , qui archive les annales depuis 1941. Ce dépôt n'en héberge aucune copie : l'aperçu
+          ci-dessus affiche le fichier de l'association. Les listes complètes, avec leurs notes de
           lecture, sont dans{' '}
           <a
             className="underline underline-offset-2"
@@ -156,7 +181,7 @@ export function SujetsPage() {
           </a>
           .
         </p>
-      </main>
+      </div>
 
       <Footer />
     </div>

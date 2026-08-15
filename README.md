@@ -48,6 +48,8 @@ honnêtement demande un appareillage sans rapport avec le niveau de l'énoncé.
 courses/        les deux programmes et un dossier par chapitre
   college.md      liste du programme du collège, un tableau par thème
   lycee.md        idem pour le lycée, filière S
+  themes.json     l'ordre de lecture : cinq thèmes, chacun du collège à la
+                  terminale — lu par le site comme par le livre
   01-college/     7 chapitres
   02-lycee/      10 chapitres
                 chaque chapitre contient ses .lean (les preuves) et son .tex
@@ -231,10 +233,10 @@ Le dépôt publie [lean.commutator.io](https://lean.commutator.io/), cinq onglet
 
 | Onglet | Contenu |
 |---|---|
-| Apprendre Lean | le cours à deux volets — le fichier Lean à gauche, sa transcription française à droite, défilement lié |
+| Apprendre Lean | le cours à deux volets — le fichier Lean à gauche, sa transcription française à droite, défilement lié et identifiants cliquables |
 | Le livre | le même cours rédigé d'affilée, sans le code, et son PDF |
 | Méthode | comment on passe d'un énoncé de programme à un théorème vérifié, les outils, les deux skills |
-| Sujets d'examens | les annales de brevet et de baccalauréat, en consultation — le chantier suivant |
+| Sujets d'examens | les annales de brevet et de baccalauréat, avec aperçu du PDF — le chantier suivant |
 | Dépôt | le code source |
 
 ```bash
@@ -253,6 +255,8 @@ python3 tools/generate-book.py && tectonic book/cours-complet.tex
 ```
 
 Il n'ajoute aucune mathématique : seulement le texte de liaison de `book/textes/`, écrit
-selon la skill [`write-course-book`](.claude/skills/write-course-book/SKILL.md). Le
+selon la skill [`write-course-book`](.claude/skills/write-course-book/SKILL.md). Ses parties
+sont les thèmes de `courses/themes.json`, et non les deux cycles : on lit une notion du
+collège à la terminale sans changer de partie. Le
 workflow [`site.yml`](.github/workflows/site.yml) construit les deux et les déploie sur
 GitHub Pages.

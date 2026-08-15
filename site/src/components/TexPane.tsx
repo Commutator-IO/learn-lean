@@ -34,7 +34,7 @@ export function TexPane({
   lie: boolean
   pilote: React.RefObject<Pilote>
   onChoisir: (d: Declaration) => void
-  onDefile: (ligne: number) => void
+  onDefile: (p: NonNullable<Cible>) => void
 }) {
   const conteneur = useRef<HTMLDivElement>(null)
 
@@ -48,7 +48,7 @@ export function TexPane({
         Transcription française · <span className="font-mono">{module.nom.replace('.lean', '.tex')}</span>
       </div>
 
-      <div className="mx-auto max-w-2xl px-6 py-4 font-serif text-[15px] text-ink-800">
+      <div className="mx-auto max-w-3xl px-5 py-4 font-serif text-[15px] text-ink-800">
         {module.declarations.map((d) => {
           const nouvelleSection = d.section && d.section !== sectionCourante
           if (nouvelleSection) sectionCourante = d.section
@@ -70,6 +70,7 @@ export function TexPane({
 
               <section
                 data-decl={d.ligne}
+                data-decl-bas={d.ligne}
                 onClick={() => onChoisir(d)}
                 className={[
                   '-mx-3 my-2 cursor-pointer rounded-lg px-3 py-2 transition-colors',

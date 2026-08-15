@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { colorier } from '../lib/lean.ts'
+import { colorier, type Declare } from '../lib/lean.ts'
 import { useSyncScroll, type Cible, type Pilote } from '../lib/sync.ts'
 import type { Declaration, Module } from '../lib/types.ts'
 
@@ -22,8 +22,10 @@ export function LeanPane({
   cible,
   lie,
   pilote,
+  declares,
   onChoisir,
   onDefile,
+  onSuivre,
 }: {
   module: Module
   chapitre: string
@@ -31,18 +33,23 @@ export function LeanPane({
   cible: Cible
   lie: boolean
   pilote: React.RefObject<Pilote>
+  /** Les déclarations du chapitre, pour rendre leurs noms cliquables. */
+  declares: Map<string, Declare>
   onChoisir: (d: Declaration) => void
-  onDefile: (ligne: number) => void
+  onDefile: (p: NonNullable<Cible>) => void
+  onSuivre: (module: string, ligne: number) => void
 }) {
-  const lignes = colorier(module.source)
+  const lignes = colorier(module.source, declares)
   const conteneur = useRef<HTMLDivElement>(null)
 
   useSyncScroll({ conteneur, moi: 'lean', cible, lie, pilote, onDefile })
 
-  // Quelle déclaration couvre quelle ligne, pour surligner le bloc courant.
+  // Quelle déclaration couvre quelle ligne. Le bloc commence à sa docstring et
+  // non au mot-clé : c'est elle qui porte l'énoncé, et c'est donc elle qui doit
+  // arriver en haut de l'écran quand on suit un renvoi.
   const parLigne = new Map<number, Declaration>()
   for (const d of module.declarations) {
-    for (let l = d.ligne; l <= d.finLigne; l++) parLigne.set(l, d)
+    for (let l = d.ligneDoc; l <= d.finLigne; l++) parLigne.set(l, d)
   }
 
   return (
@@ -65,7 +72,8 @@ export function LeanPane({
           return (
             <div
               key={numero}
-              data-decl={d?.ligne === numero ? numero : undefined}
+              data-decl={d?.ligneDoc === numero ? d.ligne : undefined}
+              data-decl-bas={d?.finLigne === numero ? d.ligne : undefined}
               onClick={d ? () => onChoisir(d) : undefined}
               className={[
                 'flex gap-3 px-4',
@@ -75,11 +83,45 @@ export function LeanPane({
             >
               <span className="w-8 shrink-0 select-none text-right text-ink-300">{numero}</span>
               <span className="whitespace-pre-wrap break-words">
-                {jetons.map((j, k) => (
-                  <span key={k} className={j.classe === 'texte' ? undefined : `jeton-${j.classe}`}>
-                    {j.texte}
-                  </span>
-                ))}
+                {jetons.map((j, k) => {
+                  const classe = j.classe === 'texte' ? undefined : `jeton-${j.classe}`
+                  if (!j.lien) {
+                    return (
+                      <span key={k} className={classe}>
+                        {j.texte}
+                      </span>
+                    )
+                  }
+                  // Un nom du chapitre mène à sa propre déclaration, dans les
+                  // deux volets ; un nom de Mathlib, à sa documentation, dans un
+                  // autre onglet — on ne quitte pas sa lecture pour un détour.
+                  return j.interne ? (
+                    <button
+                      key={k}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        const [mod, l] = j.lien!.split('/L')
+                        onSuivre(mod, Number(l))
+                      }}
+                      className="jeton-lien-interne"
+                      title="déclaration de ce chapitre"
+                    >
+                      {j.texte}
+                    </button>
+                  ) : (
+                    <a
+                      key={k}
+                      href={j.lien}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="jeton-lien"
+                      title="documentation de Mathlib"
+                    >
+                      {j.texte}
+                    </a>
+                  )
+                })}
               </span>
             </div>
           )

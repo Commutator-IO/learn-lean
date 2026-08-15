@@ -1,0 +1,71 @@
+{
+  "_lisez_moi": [
+    "Les thèmes du cours, et les chapitres qu'ils recouvrent.",
+    "",
+    "Le dépôt range ses chapitres par cycle, parce que c'est ainsi que les",
+    "programmes sont écrits. Mais un lecteur ne suit pas un cycle : il suit une",
+    "notion. La divisibilité de sixième et l'arithmétique de terminale sont le même",
+    "sujet, à six ans d'écart ; les couper en deux parties oblige à traverser tout",
+    "le livre pour retrouver la suite d'une idée.",
+    "",
+    "Ce fichier définit donc l'ordre de lecture — thème par thème, du collège au",
+    "lycée à l'intérieur de chacun. Il est lu par tools/generate-book.py et par",
+    "site/scripts/manifest.mjs : l'ordre du livre et celui du site sont le même,",
+    "et il n'y a qu'un endroit à corriger.",
+    "",
+    "Un chapitre absent de ce fichier n'apparaîtrait nulle part : les deux",
+    "générateurs signalent l'oubli plutôt que de le taire."
+  ],
+  "themes": [
+    {
+      "id": "nombres",
+      "titre": "Nombres et calcul",
+      "sousTitre": "des entiers naturels aux nombres complexes",
+      "chapitres": [
+        "01-college/01-nombres-et-calculs",
+        "02-lycee/01-nombres-calcul-algebrique",
+        "02-lycee/07-nombres-complexes",
+        "02-lycee/10-specialite-mathematiques-terminale-s"
+      ]
+    },
+    {
+      "id": "fonctions",
+      "titre": "Fonctions, suites et analyse",
+      "sousTitre": "de la proportionnalité à l'intégrale",
+      "chapitres": [
+        "01-college/05-proportionnalite-et-fonctions",
+        "02-lycee/02-fonctions-second-degre",
+        "02-lycee/03-suites",
+        "02-lycee/04-limites-continuite-derivation",
+        "02-lycee/05-exponentielle-logarithme-trigonometrie",
+        "02-lycee/06-integration"
+      ]
+    },
+    {
+      "id": "geometrie",
+      "titre": "Géométrie et mesure",
+      "sousTitre": "de la figure au produit scalaire",
+      "chapitres": [
+        "01-college/02-geometrie-plane",
+        "01-college/03-transformations-du-plan",
+        "01-college/04-grandeurs-et-mesures",
+        "02-lycee/08-geometrie-vecteurs-produit-scalaire-espace"
+      ]
+    },
+    {
+      "id": "aleatoire",
+      "titre": "Probabilités et statistiques",
+      "sousTitre": "du dénombrement aux lois continues",
+      "chapitres": [
+        "01-college/06-statistiques-et-probabilites",
+        "02-lycee/09-probabilites-et-statistiques"
+      ]
+    },
+    {
+      "id": "algorithmique",
+      "titre": "Algorithmique",
+      "sousTitre": "ce qu'un programme calcule, et ce qu'on en démontre",
+      "chapitres": ["01-college/07-algorithmique-et-programmation"]
+    }
+  ]
+}

@@ -18,17 +18,26 @@ lui-même devient un `\chapter`. Un chapitre dont tout tient en un seul fichier
 Lean ne montre pas ce niveau intermédiaire, qui ne dirait rien.
 """
 
-import os, re, sys
+import json, os, re, sys
 
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COURS = os.path.join(RACINE, "courses")
 LIVRE = os.path.join(RACINE, "book")
 TEXTES = os.path.join(LIVRE, "textes")
 
-PARTIES = [
-    ("01-college", "Collège", "college.md"),
-    ("02-lycee", "Lycée — filière S", "lycee.md"),
-]
+NIVEAUX = {"01-college": "collège", "02-lycee": "lycée"}
+
+
+def themes():
+    """Les thèmes et leurs chapitres, dans l'ordre de lecture.
+
+    Le livre ne suit pas les cycles mais les notions : la divisibilité de
+    sixième et l'arithmétique de terminale sont le même sujet, et les séparer
+    en deux parties obligerait à traverser le livre pour suivre une idée.
+    L'ordre est celui de `courses/themes.json`, partagé avec le site.
+    """
+    with open(os.path.join(COURS, "themes.json"), encoding="utf-8") as f:
+        return json.load(f)["themes"]
 
 
 def titre_chapitre(dossier):
@@ -60,17 +69,34 @@ def sections_du_chapitre(dossier):
     return ordre
 
 
-def chapitres(partie):
-    base = os.path.join(COURS, partie)
-    for nom in sorted(os.listdir(base)):
-        dossier = os.path.join(base, nom)
+def chapitres(theme):
+    """Les chapitres d'un thème : identifiant, dossier, document."""
+    for chemin in theme["chapitres"]:
+        dossier = os.path.join(COURS, *chemin.split("/"))
         if not os.path.isdir(dossier):
             continue
         tex = [f for f in sorted(os.listdir(dossier)) if f.endswith(".tex")]
         lean = [f for f in os.listdir(dossier) if f.endswith(".lean")]
         if not tex or not lean:
             continue
-        yield f"{partie}__{nom}", dossier, os.path.join(dossier, tex[0])
+        yield chemin.replace("/", "__"), dossier, os.path.join(dossier, tex[0])
+
+
+def orphelins():
+    """Les chapitres qu'aucun thème ne recouvre : un oubli se signale."""
+    connus = {c for t in themes() for c in t["chapitres"]}
+    out = []
+    for programme in NIVEAUX:
+        base = os.path.join(COURS, programme)
+        for nom in sorted(os.listdir(base)):
+            dossier = os.path.join(base, nom)
+            if not os.path.isdir(dossier):
+                continue
+            if not any(f.endswith(".lean") for f in os.listdir(dossier)):
+                continue
+            if f"{programme}/{nom}" not in connus:
+                out.append(f"{programme}/{nom}")
+    return out
 
 
 def corps(chemin, sections):
@@ -137,17 +163,23 @@ def assembler():
 
     out += [r"\tableofcontents", r"\cleardoublepage", ""]
 
-    for partie, titre, _ in PARTIES:
-        out += [r"\part{" + titre + "}"]
-        intro = liaison(partie)
+    for theme in themes():
+        out += [r"\part{" + theme["titre"] + "}"]
+        intro = liaison(theme["id"])
         if intro:
             out += [intro, ""]
         else:
-            manquants.append(partie)
+            manquants.append(theme["id"])
 
-        for identifiant, dossier, tex in chapitres(partie):
+        for identifiant, dossier, tex in chapitres(theme):
             sections = sections_du_chapitre(dossier)
-            out += [r"\chapter{" + titre_chapitre(dossier) + "}"]
+            # Le niveau figure dans le titre du chapitre : le lecteur suit une
+            # notion d'un bout à l'autre, mais doit savoir de quelle classe
+            # relève ce qu'il lit.
+            niveau = NIVEAUX[identifiant.split("__")[0]]
+            out += [r"\chapter[" + titre_chapitre(dossier) + "]{"
+                    + titre_chapitre(dossier)
+                    + r"\\[2pt]\normalsize\normalfont\textit{" + niveau + "}}"]
             intro = liaison(identifiant)
             if intro:
                 out += [intro, ""]
@@ -171,9 +203,9 @@ def assembler():
 
 def liste():
     print("livre                     ouverture du livre")
-    for partie, titre, _ in PARTIES:
-        print(f"{partie:<25} ouverture de la partie « {titre} »")
-        for identifiant, dossier, _ in chapitres(partie):
+    for theme in themes():
+        print(f"{theme['id']:<25} ouverture du thème « {theme['titre']} »")
+        for identifiant, dossier, _ in chapitres(theme):
             print(f"{identifiant:<25} {titre_chapitre(dossier)}")
 
 
@@ -183,8 +215,13 @@ if __name__ == "__main__":
         raise SystemExit(0)
 
     cible, manquants = assembler()
-    n = sum(1 for p, _, _ in PARTIES for _ in chapitres(p))
-    print(f"{os.path.relpath(cible, RACINE)} : {n} chapitres")
+    n = sum(1 for t in themes() for _ in chapitres(t))
+    print(f"{os.path.relpath(cible, RACINE)} : {len(themes())} thèmes, {n} chapitres")
+    perdus = orphelins()
+    if perdus:
+        print(f"chapitres hors thème ({len(perdus)}) — à ajouter à courses/themes.json :")
+        for c in perdus:
+            print("  " + c)
     if manquants:
         print(f"textes de liaison manquants ({len(manquants)}) :")
         for m in manquants:

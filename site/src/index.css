@@ -80,6 +80,16 @@
 .jeton-nombre {
   @apply text-ink-600;
 }
+/* Les identifiants cliquables restent discrets : un soulignement pointillé qui
+   n'apparaît qu'au survol. Le code se lit d'abord ; les liens sont là pour
+   celui qui les cherche. */
+.jeton-lien,
+.jeton-lien-interne {
+  @apply cursor-pointer decoration-dotted underline-offset-2 hover:underline;
+}
+.jeton-lien-interne {
+  @apply text-brand-700;
+}
 
 /* Prose des énoncés et des démonstrations : le HTML vient du LaTeX, il n'a
    donc aucune classe. On le met en forme ici, une fois. */
@@ -97,4 +107,11 @@
 }
 .prose-cours .katex-display {
   @apply my-3 overflow-x-auto overflow-y-hidden py-1;
+}
+/* Une formule en display est composée d'un bloc : elle ne se coupe pas. Dans les
+   deux volets, dont chacun n'a que la moitié de l'écran, on la réduit un peu
+   plutôt que de la faire déborder — la barre de défilement horizontale sous
+   chaque formule rend la lecture impossible. */
+.prose-cours .katex-display > .katex {
+  @apply text-[0.94em];
 }

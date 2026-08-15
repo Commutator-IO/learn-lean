@@ -14,7 +14,9 @@ export type Declaration = {
   doc: string
   /** Le titre de la section `/-! ## … -/` qui la précède, s'il y en a une. */
   section: string | null
-  /** Première et dernière ligne dans le fichier `.lean`, à partir de 1. */
+  /** La ligne où s'ouvre la docstring : le vrai haut du bloc à l'écran. */
+  ligneDoc: number
+  /** Première et dernière ligne de la déclaration elle-même, à partir de 1. */
   ligne: number
   finLigne: number
   code: string
@@ -38,19 +40,29 @@ export type Chapitre = {
   id: string
   dossier: string
   programme: string
+  /** `collège` ou `lycée` : la classe dont relève le chapitre. */
+  niveau: string
   titre: string
   statuts: Statuts
   modules: Module[]
 }
 
+/**
+ * L'index est rangé par thème, pas par cycle.
+ *
+ * Un lecteur ne suit pas un cycle mais une notion : la divisibilité de sixième
+ * et l'arithmétique de terminale sont le même sujet. Le niveau reste porté par
+ * chaque chapitre, pour qu'on sache toujours de quelle classe il relève.
+ */
 export type Index = {
-  programmes: {
+  themes: {
     id: string
     titre: string
-    source: string
+    sousTitre: string
     chapitres: {
       id: string
       titre: string
+      niveau: string
       statuts: Statuts
       modules: { nom: string; declarations: number }[]
     }[]

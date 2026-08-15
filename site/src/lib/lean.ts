@@ -26,17 +26,61 @@ const TACTIQUES = new Set([
   'rfl', 'sorry', 'nth_rewrite', 'by_contra', 'by_cases', 'subst', 'specialize',
 ])
 
-export type Jeton = { texte: string; classe: string }
+export type Jeton = {
+  texte: string
+  classe: string
+  /** Adresse de la déclaration nommée par ce jeton, quand on sait la trouver. */
+  lien?: string
+  /** Vrai si le lien reste dans le site : une déclaration de ce chapitre. */
+  interne?: boolean
+}
+
+/** Une déclaration du chapitre courant : où la trouver dans le site. */
+export type Declare = { module: string; ligne: number }
+
+const MATHLIB = 'https://leanprover-community.github.io/mathlib4_docs/find/?pattern='
+
+/**
+ * Où mène un identifiant.
+ *
+ * Deux cas, et une part d'à-peu-près assumée. Un nom déclaré dans le chapitre
+ * mène à sa propre page — c'est exact, le manifeste le sait. Un nom de la
+ * bibliothèque mène à la recherche de la documentation de Mathlib, qui résout
+ * elle-même le nom vers sa page : on n'a donc pas à connaître le module où il
+ * vit, ce qui serait invérifiable ici.
+ *
+ * Reste à décider qui est un nom de bibliothèque. Sans le serveur de langage —
+ * qui demanderait de compiler Mathlib à chaque construction du site — on s'en
+ * tient à deux formes que les fichiers du dépôt n'emploient pas pour leurs
+ * variables locales : un nom qualifié (`Nat.dvd_add`) et un nom en
+ * `serpent_case` d'au moins deux mots (`mul_eq_zero`). Un lien qui tombe à côté
+ * arrive sur une page « non trouvé » de la documentation, ce qui se voit ; c'est
+ * le prix, jugé acceptable, de rendre le code cliquable.
+ */
+function lien(mot: string, declares: Map<string, Declare>): Pick<Jeton, 'lien' | 'interne'> {
+  const local = declares.get(mot)
+  if (local) return { lien: `${local.module}/L${local.ligne}`, interne: true }
+
+  const qualifie = /^[A-Z][A-Za-z0-9]*(\.[A-Za-z_][A-Za-z0-9_']*)+$/.test(mot)
+  const serpent = /^[a-z][a-z0-9]*(_[a-z0-9']+){1,}$/.test(mot)
+  if (qualifie || serpent) return { lien: `${MATHLIB}${encodeURIComponent(mot)}#doc` }
+  return {}
+}
 
 /** Découpe une ligne de Lean en jetons colorés. */
-export function jetons(ligne: string): Jeton[] {
+export function jetons(ligne: string, declares: Map<string, Declare> = new Map()): Jeton[] {
   const out: Jeton[] = []
   let i = 0
-  const pousser = (texte: string, classe: string) => {
+  const pousser = (texte: string, classe: string, extra?: Pick<Jeton, 'lien' | 'interne'>) => {
     if (!texte) return
     const dernier = out[out.length - 1]
-    if (dernier && dernier.classe === classe) dernier.texte += texte
-    else out.push({ texte, classe })
+    // Deux jetons ne se recollent que s'ils sont de même nature *et* sans lien :
+    // un identifiant cliquable doit rester un élément à lui seul.
+    if (dernier && dernier.classe === classe && !dernier.lien && !extra?.lien) {
+      dernier.texte += texte
+    } else {
+      out.push({ texte, classe, ...extra })
+    }
   }
 
   while (i < ligne.length) {
@@ -73,7 +117,9 @@ export function jetons(ligne: string): Jeton[] {
     if (mot) {
       const m = mot[0]
       const nu = m.split('.').pop() ?? m
-      pousser(m, MOTS.has(m) ? 'motcle' : TACTIQUES.has(nu) ? 'tactique' : 'texte')
+      if (MOTS.has(m)) pousser(m, 'motcle')
+      else if (TACTIQUES.has(nu)) pousser(m, 'tactique')
+      else pousser(m, 'texte', lien(m, declares))
       i += m.length
       continue
     }
@@ -96,7 +142,7 @@ export function jetons(ligne: string): Jeton[] {
  * d'un seul tenant, en gardant l'état d'un `/- … -/` ouvert d'une ligne à
  * l'autre.
  */
-export function colorier(source: string): Jeton[][] {
+export function colorier(source: string, declares: Map<string, Declare> = new Map()): Jeton[][] {
   const lignes = source.split('\n')
   const out: Jeton[][] = []
   let dansCommentaire = false
@@ -110,17 +156,23 @@ export function colorier(source: string): Jeton[][] {
       }
       dansCommentaire = false
       const debut = ligne.slice(0, fin + 2)
-      out.push([{ texte: debut, classe: 'commentaire' }, ...jetons(ligne.slice(fin + 2))])
+      out.push([
+          { texte: debut, classe: 'commentaire' },
+          ...jetons(ligne.slice(fin + 2), declares),
+        ])
       continue
     }
 
     const ouvre = ligne.lastIndexOf('/-')
     if (ouvre !== -1 && !ligne.slice(ouvre).includes('-/')) {
       dansCommentaire = true
-      out.push([...jetons(ligne.slice(0, ouvre)), { texte: ligne.slice(ouvre), classe: 'commentaire' }])
+      out.push([
+        ...jetons(ligne.slice(0, ouvre), declares),
+        { texte: ligne.slice(ouvre), classe: 'commentaire' },
+      ])
       continue
     }
-    out.push(jetons(ligne))
+    out.push(jetons(ligne, declares))
   }
   return out
 }
