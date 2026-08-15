@@ -145,10 +145,23 @@ Théorème de Bézout :
 \end{theoreme}
 
 \begin{proof}
-La bibliothèque appelle \emph{copremiers} deux éléments pour lesquels une telle
-combinaison existe, et démontre que, dans $\mathbb{Z}$, cette propriété équivaut à
-$\mathrm{pgcd}(a, b) = 1$. Une fois cette équivalence citée, les deux membres sont le même
-énoncé, et chaque sens se démontre en reprenant le couple $(u, v)$ fourni par l'autre.
+La bibliothèque appelle \emph{copremiers} deux éléments $a$ et $b$ pour lesquels il existe
+$u$ et $v$ avec $ua + vb = 1$, et démontre que, dans $\mathbb{Z}$, cette propriété équivaut à
+$\mathrm{pgcd}(a, b) = 1$. Les deux sens ne coûtent pas le même prix.
+
+\emph{Une combinaison force le pgcd à valoir un.} Si $ua + vb = 1$, alors tout diviseur
+commun de $a$ et $b$ divise le membre de gauche, donc divise $1$ : le pgcd vaut $1$. C'est
+immédiat.
+
+\emph{Le pgcd fournit une combinaison.} C'est le sens qui a du contenu, et la bibliothèque
+ne l'obtient pas par un argument d'existence : elle \emph{calcule} les coefficients, par
+l'algorithme d'Euclide étendu. À chaque division $b = aq + r$, on remonte une écriture de
+$r$ comme combinaison de $a$ et $b$ ; en fin de course, le dernier reste non nul est le
+pgcd, et l'on dispose de son écriture. L'égalité $\mathrm{pgcd}(a,b) = au + bv$ vaut donc
+toujours, et l'hypothèse $\mathrm{pgcd} = 1$ ne fait que la spécialiser.
+
+Une fois l'équivalence en main, les deux membres de l'énoncé sont le même, et chaque sens se
+démontre en reprenant le couple $(u, v)$ fourni par l'autre.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/Arithmetique.lean\#L55}{Arithmetique.lean\#L55}
 

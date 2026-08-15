@@ -246,10 +246,19 @@ Symétrie et bilinéarité :
 \end{theoreme}
 
 \begin{proof}
-Les trois propriétés sont celles de la bibliothèque, citées : sur un espace préhilbertien
-\emph{réel}, le produit scalaire est symétrique et linéaire en chaque variable. Sur un
-espace complexe la symétrie deviendrait une symétrie hermitienne, ce qui n'est pas le cadre
-du programme.
+Il n'y a rien à démontrer ici, et c'est ce qu'il faut dire : ces trois propriétés sont les
+\emph{axiomes} d'un espace préhilbertien réel, celles que la bibliothèque exige de toute
+structure portant ce nom. Les citer, c'est constater que le produit scalaire du programme
+est bien celui de la bibliothèque.
+
+Une seule demande un mot. Mathlib définit le produit scalaire pour un corps de base
+quelconque, et l'axiome y est la symétrie \emph{hermitienne}
+$\langle u, v\rangle = \overline{\langle v, u\rangle}$. Sur $\mathbb{R}$, la conjugaison est
+l'identité, et l'on retrouve la symétrie ordinaire — c'est la seule chose que la
+démonstration formelle a à faire.
+
+La linéarité à droite s'en déduirait par symétrie ; le programme ne demande que celle à
+gauche.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L160}{GeometrieVecteursProduitScalaireEspace.lean\#L160}
 

@@ -227,9 +227,22 @@ Le logarithme est négligeable devant l'identité :
 \end{theoreme}
 
 \begin{proof}
-La bibliothèque énonce que $\ln$ est négligeable devant la fonction identité en
-$+\infty$, ce qui signifie précisément que le quotient des deux tend vers zéro. Comme la
-fonction identité vaut $x$ en $x$, le quotient est bien $\ln x / x$.
+La bibliothèque énonce que $\ln$ est \emph{négligeable} devant la fonction identité en
+$+\infty$, ce qui signifie précisément que le quotient des deux tend vers zéro ; elle le
+démontre dans le cas général de $(\ln x)^n$.
+
+Voici l'argument, dans le cas qui nous occupe. La bibliothèque établit d'abord la
+majoration
+\[ \ln t \le t - 1 \qquad \text{pour tout } t > 0 , \]
+qui exprime que la courbe du logarithme reste sous sa tangente en $1$. Appliquée à
+$t = \sqrt x$ :
+\[ \tfrac12 \ln x = \ln \sqrt x \le \sqrt x - 1 \le \sqrt x , \]
+d'où, pour $x > 0$,
+\[ 0 \le \frac{\ln x}{x} \le \frac{2\sqrt x}{x} = \frac{2}{\sqrt x} . \]
+Le majorant tend vers zéro, donc le quotient aussi.
+
+Le détour par $\sqrt x$ est ce qui fait tout : appliquée directement à $x$, la majoration
+$\ln x \le x - 1$ ne donne qu'un quotient majoré par $1$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L97}{LimitesContinuiteDerivation.lean\#L97}
 

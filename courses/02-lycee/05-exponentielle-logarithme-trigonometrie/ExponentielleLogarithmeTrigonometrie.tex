@@ -108,9 +108,17 @@ L'exponentielle transforme les sommes en produits :
 \end{theoreme}
 
 \begin{proof}
-La première égalité est celle de la bibliothèque, qui l'obtient du produit de Cauchy des
-séries. Les deux autres s'en déduisent : la bibliothèque donne $\exp(-a) = \exp(a)^{-1}$,
-que l'on récrit en fraction, et $\exp(na) = \exp(a)^{n}$, lue de droite à gauche.
+La première égalité est celle de la bibliothèque, obtenue du produit de Cauchy des séries.
+En écrivant $\exp(a) = \sum_n a^n/n!$ et de même pour $b$, le produit des deux séries se
+réordonne en
+\[ \sum_{n} \frac{1}{n!} \sum_{k=0}^{n} \binom{n}{k} a^{k} b^{n-k}
+   = \sum_{n} \frac{(a+b)^n}{n!} = \exp(a + b) , \]
+la seconde égalité étant la formule du binôme. Le réordonnancement est licite parce que les
+deux séries convergent absolument.
+
+Les deux autres s'en déduisent. En prenant $b = -a$, il vient $\exp(a)\exp(-a) = \exp(0) = 1$,
+donc $\exp(-a) = 1/\exp(a)$ ; et une récurrence sur $n$, partant de $\exp(0) = 1$, donne
+$\exp(na) = \exp(a)^{n}$.
 
 \medskip\noindent
 C'est cette propriété qui vaut à $\exp$ son nom : elle échange la structure additive de
@@ -218,9 +226,17 @@ l'intervalle ne sert pas, seule celle de $x$ est requise.
 \end{theoreme}
 
 \begin{proof}
-Les deux limites sont celles de la bibliothèque ; elles sont l'image, par la réciprocité,
-des limites de l'exponentielle : $\exp$ envoie $-\infty$ sur $0^{+}$ et $+\infty$ sur
-$+\infty$, donc $\ln$ fait l'inverse.
+Les deux limites sont celles de la bibliothèque, et elles se déduisent de celles de
+l'exponentielle par réciprocité.
+
+Le logarithme est défini comme la réciproque de $\exp$, laquelle est une bijection
+strictement croissante de $\mathbb{R}$ sur $\mathbb{R}_{+}^{*}$. Une bijection croissante et
+sa réciproque échangent les extrémités : comme $\exp$ envoie $-\infty$ sur $0^{+}$ et
+$+\infty$ sur $+\infty$, le logarithme envoie $0^{+}$ sur $-\infty$ et $+\infty$ sur
+$+\infty$.
+
+Concrètement, pour la première : soit $A > 0$ ; pour $0 < x < \exp(-A)$, la croissance du
+logarithme donne $\ln x < -A$. Pour la seconde : pour $x > \exp(A)$, on a $\ln x > A$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L93}{ExponentielleLogarithmeTrigonometrie.lean\#L93}
 
@@ -252,11 +268,19 @@ Un tour complet vaut $2\pi$ radians : le cosinus et le sinus sont $2\pi$-périod
 \end{theoreme}
 
 \begin{proof}
-Deux résultats de la bibliothèque. Dans Mathlib, $\pi$ est \emph{défini} comme le double du
-premier zéro du cosinus sur $[0\,;2]$ ; la périodicité est ensuite démontrée à partir des
-formules d'addition. La définition scolaire \textemdash{} $\pi$ est le rapport de la
-circonférence au diamètre \textemdash{} n'est pas celle-là, et le fichier ne démontre pas
-qu'elles coïncident.
+Dans Mathlib, $\pi$ est \emph{défini} comme le double du premier zéro du cosinus sur
+$[0\,;2]$. La périodicité s'en déduit par les formules d'addition, en deux temps.
+
+De $\cos(\pi/2) = 0$ et $\cos^2 + \sin^2 = 1$ on tire $\sin(\pi/2) = 1$, le sinus étant
+positif sur $[0\,;\pi/2]$. Les formules d'addition donnent alors
+\[ \cos \pi = \cos^2(\pi/2) - \sin^2(\pi/2) = -1 , \qquad
+   \sin \pi = 2\sin(\pi/2)\cos(\pi/2) = 0 , \]
+puis, de la même façon, $\cos 2\pi = 1$ et $\sin 2\pi = 0$. Il ne reste qu'à développer :
+\[ \cos(x + 2\pi) = \cos x \cos 2\pi - \sin x \sin 2\pi = \cos x , \]
+et de même pour le sinus.
+
+La définition scolaire \textemdash{} $\pi$ est le rapport de la circonférence au diamètre
+\textemdash{} n'est pas celle-là, et le fichier ne démontre pas qu'elles coïncident.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L107}{ExponentielleLogarithmeTrigonometrie.lean\#L107}
 
@@ -290,10 +314,21 @@ Angles associés, qui se lisent par symétrie sur le cercle :
 \end{theoreme}
 
 \begin{proof}
-Six identités de la bibliothèque, citées. Les deux premières disent que le cosinus est pair
-et le sinus impair \textemdash{} symétrie par rapport à l'axe des abscisses ; les deux
-suivantes, la symétrie par rapport à l'axe des ordonnées ; les deux dernières, la symétrie
-par rapport à la première bissectrice, qui échange les deux coordonnées.
+Les six identités sont celles de la bibliothèque, et toutes se déduisent des formules
+d'addition jointes aux valeurs remarquables.
+
+La parité du cosinus et l'imparité du sinus se lisent sur les séries, où le cosinus n'a que
+des puissances paires et le sinus que des impaires. Les quatre autres s'obtiennent en
+développant :
+\[ \cos(\pi - x) = \cos\pi\cos x + \sin\pi\sin x = -\cos x , \]
+\[ \sin(\pi - x) = \sin\pi\cos x - \cos\pi\sin x = \sin x , \]
+avec $\cos\pi = -1$ et $\sin\pi = 0$ ; et de même en $\pi/2$, où $\cos(\pi/2) = 0$ et
+$\sin(\pi/2) = 1$ donnent
+\[ \cos(\pi/2 - x) = \sin x , \qquad \sin(\pi/2 - x) = \cos x . \]
+
+Géométriquement, ces trois couples sont trois symétries du cercle trigonométrique :
+l'axe des abscisses, l'axe des ordonnées, et la première bissectrice, qui échange les deux
+coordonnées.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L125}{ExponentielleLogarithmeTrigonometrie.lean\#L125}
 
@@ -306,10 +341,22 @@ par rapport à la première bissectrice, qui échange les deux coordonnées.
 \end{theoreme}
 
 \begin{proof}
-Les quatre formules sont citées à la bibliothèque, qui les obtient des séries \textemdash{}
-ou, plus commodément, de l'identité $e^{i\theta} = \cos\theta + i\sin\theta$, le produit
-$e^{ia}e^{ib} = e^{i(a+b)}$ donnant d'un coup les deux formules d'addition en séparant
-partie réelle et partie imaginaire. Les formules de duplication en sont le cas $b = a$.
+Les quatre formules sont citées à la bibliothèque, qui les obtient des séries. Le chemin le
+plus court passe par l'exponentielle complexe et l'identité $e^{i\theta} = \cos\theta +
+i\sin\theta$ : la relation $e^{ia}e^{ib} = e^{i(a+b)}$ s'écrit
+\[ (\cos a + i\sin a)(\cos b + i\sin b)
+   = \cos(a+b) + i\sin(a+b) , \]
+et le développement du membre de gauche donne
+\[ (\cos a\cos b - \sin a\sin b) + i\,(\sin a\cos b + \cos a\sin b) . \]
+L'identification des parties réelle et imaginaire rend d'un coup les deux formules
+d'addition.
+
+Les formules de duplication en sont le cas $b = a$.
+
+\medskip\noindent
+Le raisonnement n'est pas circulaire : l'exponentielle complexe est définie par sa série,
+indépendamment de $\cos$ et $\sin$, et l'identité d'Euler se démontre en séparant les termes
+pairs et impairs de cette série.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L135}{ExponentielleLogarithmeTrigonometrie.lean\#L135}
 

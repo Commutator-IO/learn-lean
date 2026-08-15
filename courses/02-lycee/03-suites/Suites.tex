@@ -162,10 +162,22 @@ La convergence de la bibliothèque est exactement la définition du programme :
 \end{theoreme}
 
 \begin{proof}
-La convergence au sens de Mathlib signifie que tout voisinage de $\ell$ contient les
-termes à partir d'un certain rang ; dans un espace métrique, cela se réécrit avec les
-boules, c'est-à-dire avec $\varepsilon$. Les deux formulations sont donc la même, ce que
-la démonstration vérifie en dépliant la distance $|u_n - \ell|$.
+La convergence, dans la bibliothèque, n'est pas définie avec $\varepsilon$ mais avec des
+\emph{filtres} : $u$ tend vers $\ell$ lorsque l'image du filtre « rangs assez grands » est
+plus fine que le filtre des voisinages de $\ell$. Autrement dit : tout voisinage de $\ell$
+contient les termes à partir d'un certain rang.
+
+L'équivalence avec la définition scolaire tient à ce que, dans un espace métrique, les
+boules forment une base de voisinages : tout voisinage de $\ell$ contient une boule
+$B(\ell, \varepsilon)$, et toute boule est un voisinage. Se donner un voisinage revient donc
+à se donner un $\varepsilon > 0$, et
+\[ u_n \in B(\ell, \varepsilon) \iff d(u_n, \ell) < \varepsilon
+   \iff |u_n - \ell| < \varepsilon , \]
+la dernière écriture étant la distance de $\mathbb{R}$.
+
+La démonstration ne fait que cela : citer la caractérisation métrique, puis déplier la
+distance. Les deux définitions ne sont pas seulement équivalentes, elles sont la même,
+énoncée à deux niveaux de généralité.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L91}{Suites.lean\#L91}
 

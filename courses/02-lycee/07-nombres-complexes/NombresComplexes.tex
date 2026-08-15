@@ -145,9 +145,23 @@ Forme trigonométrique :
 \end{theoreme}
 
 \begin{proof}
-C'est la définition de l'argument dans la bibliothèque, où $\arg z$ est construit de sorte
-que cette égalité soit vérifiée ; le résultat correspondant y est marqué comme
-simplification automatique, si bien que la transcription se réduit à l'invoquer.
+L'argument n'est pas posé par cette égalité dans la bibliothèque : il y est \emph{construit},
+puis l'égalité est démontrée.
+
+La construction se fait par cas sur la position de $z$ dans le plan :
+\[ \arg z = \begin{cases}
+   \arcsin\bigl(\mathrm{Im}(z)/|z|\bigr) & \text{si } \mathrm{Re}(z) \ge 0 ,\\
+   \arcsin\bigl(-\mathrm{Im}(z)/|z|\bigr) + \pi & \text{si } \mathrm{Re}(z) < 0
+     \text{ et } \mathrm{Im}(z) \ge 0 ,\\
+   \arcsin\bigl(-\mathrm{Im}(z)/|z|\bigr) - \pi & \text{sinon} ,
+   \end{cases} \]
+les deux derniers cas ramenant dans $]-\pi\,;\pi]$ l'angle du demi-plan gauche, où
+l'$\arcsin$ seul ne suffirait pas à distinguer un point de son symétrique.
+
+La bibliothèque démontre ensuite, dans chacun de ces cas, que
+$\cos(\arg z) = \mathrm{Re}(z)/|z|$ et $\sin(\arg z) = \mathrm{Im}(z)/|z|$, ce qui donne
+l'égalité voulue en multipliant par $|z|$. Le résultat y est marqué comme simplification
+automatique, si bien que la transcription formelle se réduit à l'invoquer.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/07-nombres-complexes/NombresComplexes.lean\#L65}{NombresComplexes.lean\#L65}
 
