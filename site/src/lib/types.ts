@@ -36,6 +36,9 @@ export type Module = {
 
 export type Statuts = { total: number; demontres: number; encours: number }
 
+/** Une ligne de l'index d'un chapitre : l'énoncé tel que le programme le pose. */
+export type Enonce = { enonce: string; niveau: string; statut: string }
+
 export type Chapitre = {
   id: string
   dossier: string
@@ -45,6 +48,11 @@ export type Chapitre = {
   titre: string
   statuts: Statuts
   modules: Module[]
+  /**
+   * La liste des énoncés à démontrer, portée par les seuls chapitres qui n'ont
+   * pas encore de fichier Lean : c'est tout ce qu'il y a à montrer d'eux.
+   */
+  enonces?: Enonce[]
 }
 
 /**

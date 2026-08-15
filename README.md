@@ -15,12 +15,17 @@ ce dépôt cherche à mesurer, autant que les preuves elles-mêmes.
 |---|---|---|---|
 | [college.md](courses/college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 93 | 90 |
 | [lycee.md](courses/lycee.md) | Seconde, première S, terminale S et spécialité | 137 | 123 |
+| [lycee.md](courses/lycee.md#11-informatique-nsi) | Spécialité NSI, première et terminale | 41 | 0 |
 
-Les dix-sept chapitres des deux programmes ont leurs fichiers `.lean`, leur transcription
-française et leur PDF. Les énoncés restants sont ceux qui résistent, et les raisons sont
-écrites au cas par cas dans les documents des chapitres concernés : aire du disque et
-volume de la boule au collège, volume d'un solide de révolution, théorème du toit,
-Moivre–Laplace et les intervalles de fluctuation au lycée.
+Les dix-sept chapitres de mathématiques ont leurs fichiers `.lean`, leur transcription
+française et leur PDF. S'y ajoute un dix-huitième chapitre, la spécialité NSI, dont les
+énoncés sont posés mais dont aucune preuve n'est écrite : il donne au thème
+*Algorithmique* la suite qui lui manquait après le collège.
+
+Les énoncés de mathématiques restants sont ceux qui résistent, et les raisons sont écrites
+au cas par cas dans les documents des chapitres concernés : aire du disque et volume de la
+boule au collège, volume d'un solide de révolution, théorème du toit, Moivre–Laplace et
+les intervalles de fluctuation au lycée.
 
 Chaque ligne y porte un statut. Le fichier lycée ajoute une colonne *Admis* qui signale
 les énoncés que le programme admet sans démonstration (théorème des valeurs
@@ -51,7 +56,7 @@ courses/        les deux programmes et un dossier par chapitre
   themes.json     l'ordre de lecture : cinq thèmes, chacun du collège à la
                   terminale — lu par le site comme par le livre
   01-college/     7 chapitres
-  02-lycee/      10 chapitres
+  02-lycee/      11 chapitres (dont la spécialité NSI, énoncés seuls)
                 chaque chapitre contient ses .lean (les preuves) et son .tex
                 (les mêmes énoncés rédigés en français), et produit un PDF
 exams/          annales du brevet et du baccalauréat (2000-2026)

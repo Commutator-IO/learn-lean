@@ -1,4 +1,4 @@
-# Statistiques et probabilités
+# Statistiques descriptives et premières probabilités
 
 *Programme du collège* — énoncés tirés de [college.md](../../college.md) · retour à l'[index](../README.md).
 

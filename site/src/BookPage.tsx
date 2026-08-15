@@ -205,6 +205,18 @@ export function BookPage() {
                   />
                 )}
 
+                {chapitre.modules.length === 0 && (
+                  <p className="mt-6 border-l-2 border-encours-500 pl-4 text-[15px] text-ink-600">
+                    Ce chapitre reste à écrire : ses {chapitre.statuts.total} énoncés sont posés,
+                    aucun n'est encore démontré. Il figure au sommaire parce que la progression le
+                    demande — la liste des énoncés est dans l'onglet{' '}
+                    <a className="underline underline-offset-2" href={`/cours/#${chapitre.id}`}>
+                      Apprendre Lean
+                    </a>
+                    . Le livre en PDF, lui, n'imprime que ce qui est démontré.
+                  </p>
+                )}
+
                 {chapitre.modules.map((m) => {
                   sectionCourante = null
                   return (

@@ -18,12 +18,74 @@ import type { Chapitre, Declaration, Index } from './lib/types.ts'
  * pour qu'un lien pointe sur un théorème et pas seulement sur un chapitre.
  */
 
-/** Ce que désigne l'adresse : un chapitre, un module, une ligne. */
-type Adresse = { chapitre: string; module: string; ligne: number } | null
+/** Ce que désigne l'adresse : un chapitre, et si elle le précise, une ligne. */
+type Adresse = { chapitre: string; module?: string; ligne?: number } | null
 
 function lireHash(): Adresse {
   const m = /^#([\w-]+\/[\w-]+)\/([\w.]+)\/L(\d+)$/.exec(location.hash)
-  return m ? { chapitre: m[1], module: m[2], ligne: Number(m[3]) } : null
+  if (m) return { chapitre: m[1], module: m[2], ligne: Number(m[3]) }
+  // Un chapitre seul : c'est ainsi que le livre renvoie vers un chapitre qui
+  // n'a pas encore de déclaration à pointer.
+  const c = /^#([\w-]+\/[\w-]+)$/.exec(location.hash)
+  return c ? { chapitre: c[1] } : null
+}
+
+/**
+ * Un chapitre annoncé, pas encore démontré.
+ *
+ * Il n'a pas de fichier Lean : les deux volets n'auraient rien à comparer. On
+ * montre alors ce qui existe, la liste des énoncés du programme, plutôt que de
+ * retirer le chapitre du sommaire — la progression annoncée resterait sinon
+ * silencieusement incomplète.
+ */
+function AFaire({ chapitre }: { chapitre: Chapitre }) {
+  return (
+    <div className="flex-1 overflow-auto">
+      <div className="mx-auto max-w-3xl px-6 py-10">
+        <div className="flex items-center gap-2">
+          <span className="rounded-full bg-encours-50 px-2.5 py-1 font-sans text-[11px] font-semibold tracking-wide text-encours-600 uppercase">
+            à démontrer
+          </span>
+          <span className="text-[13px] text-ink-400">
+            {chapitre.statuts.total} énoncés, aucun formalisé pour l'instant
+          </span>
+        </div>
+        <p className="mt-4 text-[15px] leading-relaxed text-ink-600">
+          Ce chapitre n'a pas encore de fichier Lean : il n'y a donc rien à mettre en regard. Les
+          énoncés ci-dessous sont ceux du programme, dans l'ordre où le dépôt les traitera. Ils
+          sont tenus dans{' '}
+          <a
+            className="underline underline-offset-2"
+            href={`https://github.com/Commutator-IO/learn-lean/blob/main/courses/${chapitre.id}/README.md`}
+          >
+            l'index du chapitre
+          </a>
+          .
+        </p>
+        <ul className="mt-6 divide-y divide-ink-100 border-y border-ink-100">
+          {(chapitre.enonces ?? []).map((e, i) => (
+            <li key={i} className="flex items-baseline gap-3 py-2">
+              <span className="w-10 shrink-0 font-mono text-[11px] text-ink-400">{e.niveau}</span>
+              <span className="flex-1 text-[14px] leading-relaxed text-ink-700">
+                {/* Les énoncés viennent d'un index en markdown : le code y est
+                    entre accents graves, et le reste est du texte. */}
+                {e.enonce.split('`').map((part, k) =>
+                  k % 2 ? (
+                    <code key={k} className="font-mono text-[13px] text-ink-800">
+                      {part}
+                    </code>
+                  ) : (
+                    part
+                  ),
+                )}
+              </span>
+              <span className="shrink-0 font-mono text-[12px] text-ink-300">{e.statut}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
 }
 
 export function ReaderPage() {
@@ -56,9 +118,11 @@ export function ReaderPage() {
     const r = await fetch(`/chapters/${id.replace('/', '__')}.json`)
     const c: Chapitre = await r.json()
     setChapitre(c)
-    const m = c.modules.find((x) => x.nom === nomModule) ?? c.modules[0]
-    setModule(m.nom)
-    const d = ligne ? (m.declarations.find((x) => x.ligne === ligne) ?? null) : null
+    // Un chapitre annoncé mais pas encore démontré n'a aucun module : il n'y a
+    // rien à mettre en regard, seulement des énoncés à afficher.
+    const m = c.modules.find((x) => x.nom === nomModule) ?? c.modules[0] ?? null
+    setModule(m?.nom ?? null)
+    const d = ligne && m ? (m.declarations.find((x) => x.ligne === ligne) ?? null) : null
     setCourante(d)
     setCible(d ? { ligne: d.ligne, suivante: null, f: 0, par: 'clic' } : null)
     setMenu(false)
@@ -240,6 +304,8 @@ export function ReaderPage() {
                 />
               </div>
             </div>
+          ) : chapitre && chapitre.modules.length === 0 ? (
+            <AFaire chapitre={chapitre} />
           ) : (
             <div className="grid flex-1 place-items-center p-10 text-[13px] text-ink-400">
               Chargement du chapitre…

@@ -94,6 +94,38 @@ function declarations(source) {
 }
 
 /**
+ * Retire les titres de section, accolades comprises.
+ *
+ * Le titre est enlevé et non rendu : la structure du chapitre vient du fichier
+ * Lean, qui la porte déjà. Reste à l'enlever proprement. Une expression
+ * régulière s'arrête à la première accolade fermante, or un titre contient
+ * volontiers du code — `\subsection{Puissances ; \texttt{aᵐ × aⁿ}}` — dont
+ * l'accolade est intérieure : la fin du titre et l'accolade orpheline
+ * retombaient alors dans le texte, où elles s'affichaient telles quelles. On
+ * compte donc les accolades.
+ */
+function sansTitres(tex) {
+  const debut = /\\(?:sub)*section\*?\{/g;
+  let out = '';
+  let i = 0;
+  let m;
+  while ((m = debut.exec(tex)) !== null) {
+    out += tex.slice(i, m.index);
+    let j = m.index + m[0].length;
+    let profondeur = 1;
+    while (j < tex.length && profondeur > 0) {
+      if (tex[j] === '\\') j++;
+      else if (tex[j] === '{') profondeur++;
+      else if (tex[j] === '}') profondeur--;
+      j++;
+    }
+    i = j;
+    debut.lastIndex = j;
+  }
+  return out + tex.slice(i);
+}
+
+/**
  * Découpe un document LaTeX en blocs, un par déclaration.
  *
  * Chaque bloc va de la fin du précédent jusqu'à son `\source`. On y lit
@@ -126,7 +158,7 @@ function blocsTex(source) {
     // Ce qui précède l'énoncé dans le bloc : les remarques libres du fichier
     // Lean, qui appartiennent au fil du texte et non à un théorème.
     const avant = enonce ? corps.slice(0, enonce.index) : corps;
-    const remarque = avant.replace(/\\(?:sub)*section\{[^}]*\}/g, '').trim();
+    const remarque = sansTitres(avant).trim();
 
     blocs.set(cle, {
       enonceHtml: enonce ? texToHtml(enonce[2].trim()) : '',
@@ -137,12 +169,13 @@ function blocsTex(source) {
   return blocs;
 }
 
-/** Le titre d'un chapitre et l'état de ses énoncés, lus dans son index. */
+/** Le titre d'un chapitre, l'état et la liste de ses énoncés, lus dans son index. */
 async function indexChapitre(dossier) {
   const md = await readFile(join(dossier, 'README.md'), 'utf8');
   const titre = /^# (.+)$/m.exec(md)?.[1] ?? basename(dossier);
   const lignes = md.split('\n').filter((l) => l.startsWith('| ') && !l.startsWith('|---'));
   const statuts = { total: 0, demontres: 0, encours: 0 };
+  const enonces = [];
   for (const l of lignes) {
     const cellules = l.split('|').map((c) => c.trim());
     const statut = cellules[cellules.length - 2];
@@ -150,8 +183,9 @@ async function indexChapitre(dossier) {
     statuts.total++;
     if (statut === '☑') statuts.demontres++;
     if (statut === '◐') statuts.encours++;
+    enonces.push({ enonce: cellules[1], niveau: cellules[2], statut });
   }
-  return { titre, statuts };
+  return { titre, statuts, enonces };
 }
 
 async function chapitre(chemin) {
@@ -160,9 +194,24 @@ async function chapitre(chemin) {
     const dossier = join(COURS, programme, nom);
     const fichiers = (await readdir(dossier)).sort();
     const leans = fichiers.filter((f) => f.endsWith('.lean'));
-    if (leans.length === 0) return null;
+    const { titre, statuts, enonces } = await indexChapitre(dossier);
 
-    const { titre, statuts } = await indexChapitre(dossier);
+    // Un chapitre annoncé dans un thème mais pas encore démontré n'a pas de
+    // fichier Lean. Il reste au sommaire, avec la liste de ce qui est à faire :
+    // le retirer donnerait à lire une progression qui saute une étape sans le
+    // dire.
+    if (leans.length === 0) {
+      return {
+        id: chemin,
+        dossier: nom,
+        programme,
+        niveau: NIVEAUX[programme] ?? programme,
+        titre,
+        statuts,
+        modules: [],
+        enonces,
+      };
+    }
     const tex = fichiers.find((f) => f.endsWith('.tex'));
     const blocs = tex ? blocsTex(await readFile(join(dossier, tex), 'utf8')) : new Map();
 

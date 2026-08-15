@@ -82,6 +82,23 @@ def chapitres(theme):
         yield chemin.replace("/", "__"), dossier, os.path.join(dossier, tex[0])
 
 
+def annonces():
+    """Les chapitres qu'un thème appelle mais qui n'ont pas encore de preuve.
+
+    Le livre n'imprime que ce qui est écrit ; un chapitre sans fichier Lean en
+    est donc absent. Le taire serait laisser croire à un oubli — on le nomme.
+    """
+    out = []
+    for theme in themes():
+        for chemin in theme["chapitres"]:
+            dossier = os.path.join(COURS, *chemin.split("/"))
+            if not os.path.isdir(dossier):
+                out.append(chemin)
+            elif not any(f.endswith(".lean") for f in os.listdir(dossier)):
+                out.append(chemin)
+    return out
+
+
 def orphelins():
     """Les chapitres qu'aucun thème ne recouvre : un oubli se signale."""
     connus = {c for t in themes() for c in t["chapitres"]}
@@ -221,6 +238,11 @@ if __name__ == "__main__":
     if perdus:
         print(f"chapitres hors thème ({len(perdus)}) — à ajouter à courses/themes.json :")
         for c in perdus:
+            print("  " + c)
+    attendus = annonces()
+    if attendus:
+        print(f"chapitres annoncés mais pas encore démontrés, absents du livre ({len(attendus)}) :")
+        for c in attendus:
             print("  " + c)
     if manquants:
         print(f"textes de liaison manquants ({len(manquants)}) :")

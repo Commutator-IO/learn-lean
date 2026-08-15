@@ -63,9 +63,12 @@
     },
     {
       "id": "algorithmique",
-      "titre": "Algorithmique",
+      "titre": "Algorithmique et informatique",
       "sousTitre": "ce qu'un programme calcule, et ce qu'on en démontre",
-      "chapitres": ["01-college/07-algorithmique-et-programmation"]
+      "chapitres": [
+        "01-college/07-algorithmique-et-programmation",
+        "02-lycee/11-informatique-nsi"
+      ]
     }
   ]
 }

@@ -1,4 +1,4 @@
-# Probabilités et statistiques
+# Variables aléatoires, lois et échantillonnage
 
 *Programme du lycée (filière S)* — énoncés tirés de [lycee.md](../../lycee.md) · retour à l'[index](../README.md).
 

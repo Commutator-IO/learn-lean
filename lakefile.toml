@@ -2,7 +2,7 @@
 # ajouté un fichier .lean dans courses/. Les blocs [[require]] sont conservés.
 
 name = "learn-lean"
-defaultTargets = ["CollegeNombresEtCalculs", "CollegeGeometriePlane", "CollegeTransformationsDuPlan", "CollegeGrandeursEtMesures", "CollegeProportionnaliteEtFonctions", "CollegeStatistiquesEtProbabilites", "CollegeAlgorithmiqueEtProgrammation", "LyceeNombresCalculAlgebrique", "LyceeFonctionsSecondDegre", "LyceeSuites", "LyceeLimitesContinuiteDerivation", "LyceeExponentielleLogarithmeTrigonometrie", "LyceeIntegration", "LyceeNombresComplexes", "LyceeGeometrieVecteursProduitScalaireEspace", "LyceeProbabilitesEtStatistiques", "LyceeSpecialiteMathematiquesTerminaleS"]
+defaultTargets = ["CollegeNombresEtCalculs", "CollegeGeometriePlane", "CollegeTransformationsDuPlan", "CollegeGrandeursEtMesures", "CollegeProportionnaliteEtFonctions", "CollegeStatistiquesEtProbabilites", "CollegeAlgorithmiqueEtProgrammation", "LyceeNombresCalculAlgebrique", "LyceeFonctionsSecondDegre", "LyceeSuites", "LyceeLimitesContinuiteDerivation", "LyceeExponentielleLogarithmeTrigonometrie", "LyceeIntegration", "LyceeNombresComplexes", "LyceeGeometrieVecteursProduitScalaireEspace", "LyceeProbabilitesEtStatistiques", "LyceeSpecialiteMathematiquesTerminaleS", "LyceeInformatiqueNsi"]
 
 [[require]]
 name = "mathlib"
@@ -93,3 +93,8 @@ globs = ["ProbabilitesEtStatistiques"]
 name = "LyceeSpecialiteMathematiquesTerminaleS"
 srcDir = "courses/02-lycee/10-specialite-mathematiques-terminale-s"
 globs = ["Arithmetique", "MatricesEtGraphes"]
+
+[[lean_lib]]
+name = "LyceeInformatiqueNsi"
+srcDir = "courses/02-lycee/11-informatique-nsi"
+globs = []
