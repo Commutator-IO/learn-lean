@@ -59,6 +59,42 @@ SPECIAUX = {"\\": r"\textbackslash{}", "{": r"\{", "}": r"\}", "$": r"\$",
             "&": r"\&", "#": r"\#", "%": r"\%", "_": r"\_", "^": r"\textasciicircum{}",
             "~": r"\textasciitilde{}"}
 
+# Les exposants qui traînent sous un radical : `√(a²)` doit donner
+# \(\sqrt{a^{2}}\), et non un carré Unicode que la police mathématique n'a pas.
+EXPOSANTS = {"²": "^{2}", "³": "^{3}", "⁴": "^{4}", "ⁿ": "^{n}", "ᵐ": "^{m}"}
+
+def racines(latex):
+    r"""Referme les radicaux sur leur opérande.
+
+    La conversion se fait caractère par caractère : `√` devient `\sqrt{}`, et
+    l'opérande reste dehors — un radical vide suivi d'un `2`. On recolle donc
+    après coup ce que `√` gouverne : le groupe parenthésé qui suit, ou le mot
+    qui suit.
+    """
+    vide = r"\(\sqrt{}\)"
+
+    def contenu(x):
+        for c, r in EXPOSANTS.items():
+            x = x.replace(c, r)
+        return x
+
+    sortie, i = [], 0
+    while True:
+        j = latex.find(vide, i)
+        if j == -1:
+            sortie.append(latex[i:])
+            return "".join(sortie)
+        sortie.append(latex[i:j])
+        reste = latex[j + len(vide):]
+        m = re.match(r"\(([^()]*)\)", reste)          # √(a + b)
+        if m is None:
+            m = re.match(r"[A-Za-z0-9²³⁴ⁿᵐ]+", reste)   # √2, √ab, √x²
+            arg, suite = (m.group(0), reste[m.end():]) if m else ("", reste)
+        else:
+            arg, suite = m.group(1), reste[m.end():]
+        sortie.append(r"\(\sqrt{" + contenu(arg) + r"}\)" if arg else vide)
+        latex, i = suite, 0
+
 def code_latex(texte):
     """Échappe un extrait de code pour l'environnement `alltt`, en rendant les
     symboles mathématiques Unicode par leur commande LaTeX."""
@@ -72,7 +108,7 @@ def code_latex(texte):
             sortie.append(TEXTE[c])
         else:
             sortie.append(c)
-    return "".join(sortie)
+    return racines("".join(sortie))
 
 def prose_latex(texte):
     """Rend un commentaire français : `code` en machine à écrire, symboles en math."""
@@ -90,7 +126,7 @@ def prose_latex(texte):
             for c, r in TEXTE.items():
                 m = m.replace(c, r)
             sortie.append(m)
-    return "".join(sortie)
+    return racines("".join(sortie))
 
 # --- lien vers la source ----------------------------------------------------
 

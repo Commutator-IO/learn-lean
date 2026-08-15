@@ -411,7 +411,7 @@ programmes coïncident donc pour toute entrée.
 
 \noindent
 Collège \textemdash{} section \og{} Écritures des nombres \fg{}. Mathlib est nécessaire ici : les réels,
-la racine carrée et l'irrationalité de \(\sqrt{}\)2 n'existent pas dans Lean core.
+la racine carrée et l'irrationalité de \(\sqrt{2}\) n'existent pas dans Lean core.
 Énoncés et démonstrations en français : voir NombresEtCalculs.tex.
 
 \subsection{Numération décimale de position ; valeur d'un chiffre selon son rang}
@@ -597,7 +597,7 @@ et $10^{1}$, donc son exposant vérifie $-1 < n - n' < 1$ : il est nul. Les expo
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L120}{EcrituresDesNombres.lean\#L120}
 
-\subsection{Racine carrée : \texttt{(\(\sqrt{}\)a)² = a} et \texttt{\(\sqrt{}\)(a²) = a} pour \texttt{a \(\ge\) 0}}
+\subsection{Racine carrée : \texttt{(\(\sqrt{a}\))² = a} et \texttt{\(\sqrt{a^{2}}\) = a} pour \texttt{a \(\ge\) 0}}
 
 \begin{theoreme}
 Élever au carré annule la racine.
@@ -619,7 +619,7 @@ nombre négatif, elle en donnerait la valeur absolue.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L167}{EcrituresDesNombres.lean\#L167}
 
-\subsection{\texttt{\(\sqrt{}\)(ab) = \(\sqrt{}\)a \(\times\) \(\sqrt{}\)b} et \texttt{\(\sqrt{}\)(a/b) = \(\sqrt{}\)a / \(\sqrt{}\)b} (\texttt{a \(\ge\) 0}, \texttt{b > 0})}
+\subsection{\texttt{\(\sqrt{ab}\) = \(\sqrt{a}\) \(\times\) \(\sqrt{b}\)} et \texttt{\(\sqrt{a/b}\) = \(\sqrt{a}\) / \(\sqrt{b}\)} (\texttt{a \(\ge\) 0}, \texttt{b > 0})}
 
 \begin{theoreme}
 La racine d'un produit est le produit des racines.
@@ -640,10 +640,10 @@ Même argument avec un quotient.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L177}{EcrituresDesNombres.lean\#L177}
 
-\subsection{Contre-exemple : \texttt{\(\sqrt{}\)(a + b) \(\ne\) \(\sqrt{}\)a + \(\sqrt{}\)b} en général}
+\subsection{Contre-exemple : \texttt{\(\sqrt{a + b}\) \(\ne\) \(\sqrt{a}\) + \(\sqrt{b}\)} en général}
 
 \begin{exemple}
-La racine d'une somme n'est pas la somme des racines : \texttt{\(\sqrt{}\)2 \(\ne\) 2}.
+La racine d'une somme n'est pas la somme des racines : \texttt{\(\sqrt{2}\) \(\ne\) 2}.
 \end{exemple}
 
 \begin{explication}
@@ -652,10 +652,10 @@ obtiendrait $2 = 4$. La racine d'une somme n'est donc pas la somme des racines.
 \end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L183}{EcrituresDesNombres.lean\#L183}
 
-\subsection{Rationnels et irrationnels : \texttt{\(\sqrt{}\)2} n'est pas rationnel}
+\subsection{Rationnels et irrationnels : \texttt{\(\sqrt{2}\)} n'est pas rationnel}
 
 \begin{theoreme}
-\texttt{\(\sqrt{}\)2} est irrationnel. Au collège, le résultat est mentionné sans démonstration.
+\texttt{\(\sqrt{2}\)} est irrationnel. Au collège, le résultat est mentionné sans démonstration.
 \end{theoreme}
 
 \begin{proof}
@@ -1087,9 +1087,9 @@ Le prédicat \texttt{Premier} défini ici coïncide avec celui de la bibliothèq
 \end{theoreme}
 
 \begin{proof}
-Les deux calculs sont menés à leur terme et comparés : $2 + 3 \times 4 = 14$ tandis que
-$(2+3) \times 4 = 20$. La priorité de la multiplication est une convention d'écriture, pas
-un théorème ; ce qui se démontre, c'est que les deux résultats diffèrent.
+Les deux définitions disent la même chose, mot pour mot : un entier est premier lorsqu'il
+vaut au moins $2$ et que tout diviseur de cet entier est $1$ ou lui-même. Il n'y a donc
+rien à démontrer, seulement à constater que les deux énoncés se superposent.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L297}{EntiersDivisibilite.lean\#L297}
 

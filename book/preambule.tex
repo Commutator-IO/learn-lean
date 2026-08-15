@@ -30,6 +30,7 @@
 
 % Les encadrés à icônes : note, astuce, mise en garde, avertissement.
 \usepackage{awesomebox}
+\usepackage[most]{tcolorbox}
 
 \usepackage[hidelinks]{hyperref}
 
@@ -59,6 +60,24 @@
 
 % Un exemple ne se démontre pas : on explique ce qu'il montre.
 \newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
+% Un exemple se donne à voir : un cas calculé, un contre-exemple. Il est composé
+% en bloc détaché, filet et fond tramés, comme les encadrés d'un livre technique
+% \textemdash{} et son explication vient dans le même bloc, puisqu'elle ne vaut
+% que pour lui.
+\definecolor{tonexemple}{HTML}{B45309}
+\tcolorboxenvironment{exemple}{
+  enhanced, breakable, sharp corners, boxrule=0pt,
+  colback=tonexemple!4, borderline west={2.5pt}{0pt}{tonexemple!70},
+  left=10pt, right=8pt, top=6pt, bottom=6pt,
+  before skip=10pt, after skip=2pt,
+}
+\tcolorboxenvironment{explication}{
+  enhanced, breakable, sharp corners, boxrule=0pt,
+  colback=tonexemple!4, borderline west={2.5pt}{0pt}{tonexemple!70},
+  left=10pt, right=8pt, top=0pt, bottom=6pt,
+  before skip=0pt, after skip=10pt,
+}
 
 % Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`. La mise en
 % garde à icône dit ce qu'un paragraphe en italique disait plus discrètement.
