@@ -13,6 +13,11 @@
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=2.5cm]{geometry}
+% Les figures : TikZ, pour que leurs étiquettes soient composées dans les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \usepackage[hidelinks]{hyperref}
 
 \theoremstyle{definition}
@@ -163,6 +168,12 @@ mathématiques : elles rendent la fonction totale, rien de plus, et l'hypothèse
 celle de l'énoncé.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L69}{ExponentielleLogarithmeTrigonometrie.lean\#L69}
+
+\begin{figure}[h]
+\centering
+\input{figures/logarithme_reciproque}
+\caption{Les courbes de $\exp$ et de $\ln$ sont symétriques par rapport à la première bissectrice.}
+\end{figure}
 
 \begin{theoreme}
 Pour $a > 0$ et $b > 0$, le logarithme transforme les produits en sommes :

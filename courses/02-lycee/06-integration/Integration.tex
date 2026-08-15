@@ -13,6 +13,11 @@
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=2.5cm]{geometry}
+% Les figures : TikZ, pour que leurs étiquettes soient composées dans les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \usepackage[hidelinks]{hyperref}
 
 \theoremstyle{definition}
@@ -89,6 +94,12 @@ ensemble. Enfin, ce théorème est l'exact renversement du cours : au lycée l'a
 l'intégrale, ici l'intégrale calcule l'aire.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L21}{Integration.lean\#L21}
+
+\begin{figure}[h]
+\centering
+\input{figures/integrale_aire_sous_la_courbe}
+\caption{L'intégrale d'une fonction continue positive est l'aire de la partie du plan comprise entre l'axe des abscisses et la courbe.}
+\end{figure}
 
 \subsection{Primitives}
 

@@ -1,0 +1,13 @@
+<svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor" fill="none" stroke-width="1.1"
+     font-size="11" font-style="italic">
+  <title>La parabole, son sommet et son axe de symétrie</title>
+  <style>text { fill: currentColor; stroke: none; }
+         .l { font-size: 9.5px; }</style>
+  <path d="M20,110 L206,110 M40,150 L40,20" />
+  <path d="M46,34 C 80,150 120,150 158,34" stroke-width="1.4" />
+  <path d="M102,150 L102,24" stroke-dasharray="4 4" />
+  <circle cx="102" cy="128" r="3" fill="currentColor" />
+  <text x="108" y="144" class="l">sommet</text>
+  <text x="108" y="34" class="l">axe de symétrie</text>
+</svg>

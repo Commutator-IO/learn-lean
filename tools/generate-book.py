@@ -158,10 +158,15 @@ def corps(chemin, sections):
             morceaux[courant].append(bloc)
 
     out = ["".join(entete).strip()]
-    repris = 0
+    repris, deja = 0, set()
     for module, titre in sections:
-        if module not in morceaux:
+        # L'index peut ranger un même fichier sous plusieurs rubriques — c'est le
+        # cas quand un chapitre a été écrit d'un bloc alors que le programme le
+        # découpe. Le reprendre une fois par rubrique l'imprimerait plusieurs
+        # fois : on le pose à sa première mention.
+        if module not in morceaux or module in deja:
             continue
+        deja.add(module)
         repris += 1
         out += ["", r"\section{" + titre + "}", "".join(morceaux[module]).strip()]
 

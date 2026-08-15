@@ -1,0 +1,16 @@
+<svg viewBox="0 0 220 165" xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor" fill="none" stroke-width="1.1"
+     font-size="11" font-style="italic">
+  <title>La courbe de f et sa tangente au point d'abscisse a</title>
+  <style>text { fill: currentColor; stroke: none; }
+         .l { font-size: 9.5px; }</style>
+  <path d="M20,140 L206,140 M32,150 L32,20" />
+  <path d="M32,127 C 70,127 110,96 140,40" stroke-width="1.4" />
+  <path d="M56,138 L186,28" />
+  <path d="M104,140 L104,86" stroke-dasharray="4 4" />
+  <circle cx="104" cy="86" r="2.5" fill="currentColor" />
+  <text x="100" y="154">a</text>
+  <text x="62" y="80" class="l">f(a)</text>
+  <text x="150" y="46" class="l">tangente</text>
+  <text x="138" y="34" class="l">f</text>
+</svg>

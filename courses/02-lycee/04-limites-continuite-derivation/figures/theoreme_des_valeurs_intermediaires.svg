@@ -1,0 +1,18 @@
+<svg viewBox="0 0 220 165" xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor" fill="none" stroke-width="1.1"
+     font-size="11" font-style="italic">
+  <title>Une fonction continue atteint toute valeur k comprise entre f(a) et f(b)</title>
+  <style>text { fill: currentColor; stroke: none; }
+         .l { font-size: 9.5px; }</style>
+  <path d="M20,140 L210,140 M32,150 L32,20" />
+  <path d="M52,116 C 100,52 140,44 188,68" stroke-width="1.4" />
+  <path d="M32,79 L188,79" stroke-dasharray="4 4" />
+  <path d="M52,140 L52,116 M188,140 L188,68 M117,140 L117,60" stroke-dasharray="4 4" />
+  <circle cx="52" cy="116" r="2.5" fill="currentColor" />
+  <circle cx="188" cy="68" r="2.5" fill="currentColor" />
+  <circle cx="117" cy="60" r="2.5" fill="currentColor" />
+  <text x="20" y="83">k</text>
+  <text x="48" y="154">a</text>
+  <text x="113" y="154">c</text>
+  <text x="184" y="154">b</text>
+</svg>

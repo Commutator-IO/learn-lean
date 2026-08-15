@@ -1,0 +1,19 @@
+<svg viewBox="0 0 220 180" xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor" fill="none" stroke-width="1.1"
+     font-size="11" font-style="italic">
+  <title>Triangle abc et le segment joignant les milieux m de [ab] et n de [ac]</title>
+  <style>text { fill: currentColor; stroke: none; }
+         .l { font-size: 9.5px; }</style>
+  <polygon points="72,54 40,150 200,150" />
+  <path d="M56,102 L136,102" stroke-dasharray="5 4" />
+  <circle cx="72" cy="54" r="2.5" fill="currentColor" />
+  <circle cx="40" cy="150" r="2.5" fill="currentColor" />
+  <circle cx="200" cy="150" r="2.5" fill="currentColor" />
+  <circle cx="56" cy="102" r="2.5" fill="currentColor" />
+  <circle cx="136" cy="102" r="2.5" fill="currentColor" />
+  <text x="68" y="46">a</text>
+  <text x="28" y="164">b</text>
+  <text x="204" y="164">c</text>
+  <text x="40" y="98">m</text>
+  <text x="142" y="98">n</text>
+</svg>

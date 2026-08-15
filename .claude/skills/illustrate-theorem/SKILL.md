@@ -85,9 +85,14 @@ absolu.
 
 ## La version du site : SVG
 
-Un fichier SVG autonome, lisible dans un éditeur de texte, sans référence extérieure.
+Un fichier SVG autonome, lisible dans un éditeur de texte, sans référence extérieure. Il
+est repris tel quel par `site/scripts/manifest.mjs`, qui l'attache à la déclaration du même
+nom, et inséré dans la page par le composant `Figure` — donc jamais chargé comme une image,
+ce qui lui permet de suivre la couleur du texte.
 
-- `viewBox` obligatoire, pas de `width`/`height` fixes : la figure s'adapte au volet ;
+- `viewBox` obligatoire, pas de `width`/`height` fixes : la figure s'adapte au volet. C'est
+  la feuille de style qui lui donne sa largeur ; un SVG sans dimension se replie à zéro dans
+  un conteneur flexible, et l'on croit alors la figure absente ;
 - `stroke="currentColor"` pour les traits, `fill="none"` par défaut : la figure suit la
   couleur du texte, donc le thème ;
 - les étiquettes en `<text>`, `font-style="italic"`, jamais d'image bitmap ni de police
@@ -130,11 +135,17 @@ le PDF et le site doivent partir de la même image.
    coordonnées.
 3. Insérer la `figure` dans le `.tex` du chapitre, juste après l'énoncé qu'elle illustre —
    jamais au milieu d'une démonstration.
-4. Compiler le chapitre : `tectonic courses/<…>/<Chapitre>.tex`, et vérifier que la figure
-   ne déborde pas.
-5. Reconstruire le site : `npm run manifest --prefix site`, et regarder la figure dans les
+4. Déclarer `\usepackage{tikz}` dans le document du chapitre s'il ne l'a pas encore —
+   `tools/generate-tex.py` le met désormais dans les documents qu'il crée, mais pas dans
+   ceux qui existaient avant.
+5. Compiler le chapitre : `tectonic courses/<…>/<Chapitre>.tex`, et **regarder la page** :
+   `pdftoppm -f <page> -l <page> -r 75 -png <fichier>.pdf <sortie>` rend une image qu'on
+   peut ouvrir. Une figure qui déborde ou qui chevauche son titre ne se voit pas autrement.
+6. Reconstruire le site : `npm run manifest --prefix site`, et regarder la figure dans les
    deux volets.
-6. Reconstruire le livre : `python3 tools/generate-book.py` puis `tectonic book/cours-complet.tex`.
+7. Reconstruire le livre : `python3 tools/generate-book.py` puis `tectonic book/cours-complet.tex`,
+   et vérifier que la figure y est arrivée — le livre passe par une réécriture de chemin,
+   c'est un endroit de plus où elle peut se perdre.
 
 ## Ce qu'il ne faut pas faire
 
@@ -145,3 +156,8 @@ le PDF et le site doivent partir de la même image.
 - Faire porter à la couleur la seule différence entre deux objets.
 - Recopier une figure d'un manuel : elles sont protégées, et celles de ce dépôt se
   construisent à partir de l'énoncé Lean, pas d'une source extérieure.
+- Mettre la légende dans le fichier de figure : elle appartient au document, qui seul sait
+  ce que la figure vient illustrer à cet endroit.
+- Croire une figure absente parce que le navigateur ne l'affiche pas : vérifier d'abord
+  qu'elle est bien dans les données du site (`site/public/chapters/*.json`, champ
+  `figure`), puis qu'elle a une largeur.

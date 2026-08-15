@@ -13,6 +13,11 @@
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=2.5cm]{geometry}
+% Les figures : TikZ, pour que leurs étiquettes soient composées dans les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \usepackage[hidelinks]{hyperref}
 
 \theoremstyle{definition}
@@ -147,6 +152,12 @@ On met $a$ en facteur puis on complète le carré :
 et $-\dfrac{b^2}{4a} + c = -\dfrac{b^2 - 4ac}{4a} = -\dfrac{\Delta}{4a}$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/02-fonctions-second-degre/FonctionsSecondDegre.lean\#L69}{FonctionsSecondDegre.lean\#L69}
+
+\begin{figure}[h]
+\centering
+\input{figures/forme_canonique}
+\caption{La forme canonique donne le sommet de la parabole et son axe de symétrie.}
+\end{figure}
 
 \subsection{Discriminant et racines}
 

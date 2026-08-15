@@ -43,6 +43,13 @@
 % espacements plus lâches que des lignes qui débordent dans la marge.
 \emergencystretch=2em
 
+% La table des matières : un numéro comme « 11.2.10 » déborde de la largeur que
+% KOMA réserve par défaut, et vient coller le titre. On élargit la colonne des
+% numéros à mesure qu'on descend dans la hiérarchie.
+\DeclareTOCStyleEntry[numwidth=2.4em]{tocline}{section}
+\DeclareTOCStyleEntry[numwidth=3.6em]{tocline}{subsection}
+\DeclareTOCStyleEntry[numwidth=4.4em]{tocline}{subsubsection}
+
 % Titres et en-têtes en sans-serif, comme dans un manuel technique.
 \setkomafont{disposition}{\sffamily}
 \setkomafont{descriptionlabel}{\sffamily\bfseries}

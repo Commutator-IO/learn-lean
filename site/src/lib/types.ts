@@ -28,6 +28,11 @@ export type Declaration = {
   remarqueHtml: string
   /** Vrai si la preuve est un `sorry` : l'énoncé est écrit, pas démontré. */
   admis?: boolean
+  /**
+   * La figure de l'énoncé, en SVG, telle qu'elle est écrite dans le dépôt.
+   * Elle porte le nom de la déclaration : voir la skill `illustrate-theorem`.
+   */
+  figure?: string
 }
 
 export type Module = {

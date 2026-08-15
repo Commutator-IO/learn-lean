@@ -1,0 +1,15 @@
+<svg viewBox="0 0 210 180" xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor" fill="none" stroke-width="1.1"
+     font-size="11" font-style="italic">
+  <title>Triangle rectangle en b, de côtés [ab] et [bc] et d'hypoténuse [ac]</title>
+  <style>text { fill: currentColor; stroke: none; }
+         .l { font-size: 9.5px; }</style>
+  <polygon points="40,150 168,150 40,54" />
+  <path d="M40,141 h9 v9" />
+  <text x="30" y="164">b</text>
+  <text x="172" y="164">a</text>
+  <text x="30" y="48">c</text>
+  <text x="88" y="168" class="l">dist(a, b)</text>
+  <text x="4" y="106" class="l">dist(b, c)</text>
+  <text x="118" y="92" class="l">dist(a, c)</text>
+</svg>

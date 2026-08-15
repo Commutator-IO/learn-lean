@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Footer, Header } from "./components/Frame.tsx";
 import { donnees } from "./lib/donnees.ts";
 import { avecCode } from "./lib/inline.tsx";
+import { Figure } from "./components/Figure.tsx";
 import type { Chapitre, Index } from "./lib/types.ts";
 
 /**
@@ -307,6 +308,7 @@ export function BookPage() {
                                   __html: d.enonceHtml || `<p>${d.doc}</p>`,
                                 }}
                               />
+                              {d.figure && <Figure svg={d.figure} />}
                               {d.preuveHtml && (
                                 <div className="mt-3 border-l-2 border-ink-200 pl-4">
                                   <div className="font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase">

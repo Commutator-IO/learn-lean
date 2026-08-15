@@ -1,0 +1,14 @@
+<svg viewBox="0 0 210 200" xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor" fill="none" stroke-width="1.1"
+     font-size="11" font-style="italic">
+  <title>Les courbes de exp et de ln, symétriques par rapport à la droite d'équation y = x</title>
+  <style>text { fill: currentColor; stroke: none; }
+         .l { font-size: 9.5px; }</style>
+  <path d="M14,110 L200,110 M110,190 L110,14" />
+  <path d="M30,190 L190,30" stroke-dasharray="4 4" />
+  <path d="M40,105 C 90,100 118,84 140,20" stroke-width="1.4" />
+  <path d="M105,180 C 110,130 126,102 190,80" stroke-width="1.4" />
+  <text x="142" y="26" class="l">exp</text>
+  <text x="176" y="94" class="l">ln</text>
+  <text x="166" y="34" class="l">y = x</text>
+</svg>

@@ -1,6 +1,7 @@
-import { useRef } from 'react'
-import { useSyncScroll, type Cible, type Pilote } from '../lib/sync.ts'
-import type { Declaration, Module } from '../lib/types.ts'
+import { useRef } from "react";
+import { Figure } from "./Figure.tsx";
+import { useSyncScroll, type Cible, type Pilote } from "../lib/sync.ts";
+import type { Declaration, Module } from "../lib/types.ts";
 
 /**
  * Le volet de droite : le même chapitre, rédigé en français.
@@ -11,13 +12,13 @@ import type { Declaration, Module } from '../lib/types.ts'
  */
 
 const ETIQUETTE: Record<string, string> = {
-  theorem: 'Théorème',
-  lemma: 'Lemme',
-  def: 'Définition',
-  abbrev: 'Définition',
-  instance: 'Instance',
-  example: 'Exemple',
-}
+  theorem: "Théorème",
+  lemma: "Lemme",
+  def: "Définition",
+  abbrev: "Définition",
+  instance: "Instance",
+  example: "Exemple",
+};
 
 export function TexPane({
   module,
@@ -28,31 +29,32 @@ export function TexPane({
   onChoisir,
   onDefile,
 }: {
-  module: Module
-  courante: Declaration | null
-  cible: Cible
-  lie: boolean
-  pilote: React.RefObject<Pilote>
-  onChoisir: (d: Declaration) => void
-  onDefile: (p: NonNullable<Cible>) => void
+  module: Module;
+  courante: Declaration | null;
+  cible: Cible;
+  lie: boolean;
+  pilote: React.RefObject<Pilote>;
+  onChoisir: (d: Declaration) => void;
+  onDefile: (p: NonNullable<Cible>) => void;
 }) {
-  const conteneur = useRef<HTMLDivElement>(null)
+  const conteneur = useRef<HTMLDivElement>(null);
 
-  useSyncScroll({ conteneur, moi: 'tex', cible, lie, pilote, onDefile })
+  useSyncScroll({ conteneur, moi: "tex", cible, lie, pilote, onDefile });
 
-  let sectionCourante: string | null = null
+  let sectionCourante: string | null = null;
 
   return (
     <div ref={conteneur} className="h-full overflow-auto bg-white">
       <div className="sticky top-0 z-10 border-b border-ink-200 bg-white px-6 py-2 text-[12px] text-ink-500">
-        Transcription française · <span className="font-mono">{module.nom.replace('.lean', '.tex')}</span>
+        Transcription française ·{" "}
+        <span className="font-mono">{module.nom.replace(".lean", ".tex")}</span>
       </div>
 
       <div className="mx-auto max-w-3xl px-5 py-4 font-serif text-[15px] text-ink-800">
         {module.declarations.map((d) => {
-          const nouvelleSection = d.section && d.section !== sectionCourante
-          if (nouvelleSection) sectionCourante = d.section
-          const active = courante === d
+          const nouvelleSection = d.section && d.section !== sectionCourante;
+          if (nouvelleSection) sectionCourante = d.section;
+          const active = courante === d;
           return (
             <div key={`${d.nom}-${d.ligne}`}>
               {nouvelleSection && (
@@ -73,15 +75,19 @@ export function TexPane({
                 data-decl-bas={d.ligne}
                 onClick={() => onChoisir(d)}
                 className={[
-                  '-mx-3 my-2 cursor-pointer rounded-lg px-3 py-2 transition-colors',
-                  active ? 'bg-brand-50 ring-1 ring-brand-200' : 'hover:bg-ink-50',
-                ].join(' ')}
+                  "-mx-3 my-2 cursor-pointer rounded-lg px-3 py-2 transition-colors",
+                  active
+                    ? "bg-brand-50 ring-1 ring-brand-200"
+                    : "hover:bg-ink-50",
+                ].join(" ")}
               >
                 <div className="flex items-baseline gap-2">
                   <span className="font-sans text-[12px] font-semibold tracking-wide text-brand-700 uppercase">
                     {ETIQUETTE[d.sorte] ?? d.sorte}
                   </span>
-                  <code className="font-mono text-[11.5px] text-ink-400">{d.nom}</code>
+                  <code className="font-mono text-[11.5px] text-ink-400">
+                    {d.nom}
+                  </code>
                   {d.admis && (
                     <span
                       className="rounded bg-encours-50 px-1.5 py-0.5 font-sans text-[10px] font-semibold tracking-wide text-encours-600 uppercase"
@@ -90,18 +96,23 @@ export function TexPane({
                       admis
                     </span>
                   )}
-                  <span className="ml-auto font-mono text-[11px] text-ink-300">L{d.ligne}</span>
+                  <span className="ml-auto font-mono text-[11px] text-ink-300">
+                    L{d.ligne}
+                  </span>
                 </div>
 
                 <div
                   className="prose-cours mt-1"
-                  dangerouslySetInnerHTML={{ __html: d.enonceHtml || `<p>${d.doc}</p>` }}
+                  dangerouslySetInnerHTML={{
+                    __html: d.enonceHtml || `<p>${d.doc}</p>`,
+                  }}
                 />
 
+                {d.figure && <Figure svg={d.figure} />}
                 {d.preuveHtml && (
                   <div className="mt-3 border-l-2 border-ink-200 pl-3">
                     <div className="font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
-                      {d.sorte === 'example' ? 'Explication' : 'Démonstration'}
+                      {d.sorte === "example" ? "Explication" : "Démonstration"}
                     </div>
                     <div
                       className="prose-cours text-[14.5px] text-ink-700"
@@ -111,9 +122,9 @@ export function TexPane({
                 )}
               </section>
             </div>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }

@@ -1,0 +1,16 @@
+<svg viewBox="0 0 220 165" xmlns="http://www.w3.org/2000/svg"
+     stroke="currentColor" fill="none" stroke-width="1.1"
+     font-size="11" font-style="italic">
+  <title>L'aire comprise entre l'axe des abscisses et la courbe de f, de a à b</title>
+  <style>text { fill: currentColor; stroke: none; }
+         .l { font-size: 9.5px; }</style>
+  <path d="M20,140 L210,140 M32,150 L32,20" />
+  <path d="M64,61 C 96,110 128,124 176,75 L176,140 L64,140 Z"
+        fill="currentColor" fill-opacity="0.12" stroke="none" />
+  <path d="M38,25 C 80,132 130,132 190,42" stroke-width="1.4" />
+  <path d="M64,140 L64,61 M176,140 L176,75" stroke-dasharray="4 4" />
+  <text x="60" y="154">a</text>
+  <text x="172" y="154">b</text>
+  <text x="110" y="128" class="l">∫ f</text>
+  <text x="192" y="36" class="l">f</text>
+</svg>

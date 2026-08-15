@@ -127,7 +127,7 @@ function Chaine() {
 
   return (
     <figure className="my-6 overflow-x-auto rounded-lg border border-ink-200 bg-ink-50/50 p-4">
-      <svg viewBox="0 0 640 330" className="w-full min-w-[560px]" fill="none">
+      <svg viewBox="0 0 640 410" className="w-full min-w-[560px]" fill="none">
         <title>
           De la preuve Lean au livre : ordre de production et outils employés
         </title>
@@ -151,8 +151,16 @@ function Chaine() {
         {boite(225, 93, 190, "courses/**/*.tex", "squelette + ancres #Lnn")}
         {bas(320, 137, 167, "à la main : la transcription")}
         {boite(225, 171, 190, "+ démonstrations", "en français, appariées")}
-        {bas(320, 215, 245, "generate-book.py")}
-        {boite(225, 249, 190, "book/cours-complet.tex", "+ book/textes")}
+        {bas(320, 215, 245, "à la main : les figures")}
+        {boite(
+          225,
+          249,
+          190,
+          "figures/<théorème>",
+          "TikZ pour le livre, SVG pour le site",
+        )}
+        {bas(320, 293, 323, "generate-book.py")}
+        {boite(225, 327, 190, "book/cours-complet.tex", "+ book/textes")}
 
         {/* À droite : ce que Lean et LaTeX en font. */}
         {cote(415, 436, 37)}
@@ -165,13 +173,20 @@ function Chaine() {
           false,
         )}
         {cote(415, 436, 193)}
-        {boite(440, 171, 185, "PDF du chapitre", "tectonic", false)}
-        {cote(415, 436, 271)}
-        {boite(440, 249, 185, "cours-complet.pdf", "tectonic", false)}
+        {boite(440, 171, 185, "PDF du chapitre", "tectonic + TikZ", false)}
+        {cote(415, 436, 349)}
+        {boite(440, 327, 185, "cours-complet.pdf", "tectonic", false)}
 
         {/* À gauche : ce que le site en fait. */}
         {cote(225, 204, 193)}
-        {boite(15, 171, 185, "site/public/*.json", "manifest.mjs", false)}
+        {boite(
+          15,
+          171,
+          185,
+          "site/public/*.json",
+          "manifest.mjs, SVG compris",
+          false,
+        )}
         {bas(107, 215, 245, "vite build")}
         {boite(
           15,
@@ -414,6 +429,14 @@ export function MethodePage() {
           </p>
           <Chaine />
           <p>
+            Les figures suivent le même chemin, avec une particularité : elles
+            s'écrivent deux fois. En TikZ pour le livre, où leurs étiquettes
+            sont alors composées dans ses polices, et en SVG pour le site, où la
+            figure suit la couleur du texte donc le thème. Les deux se déduisent
+            des mêmes coordonnées, écrites une fois en tête du fichier TikZ, et
+            c'est le nom du théorème qui les relie à leur énoncé.
+          </p>
+          <p className="mt-3">
             Deux conséquences pratiques. Un fichier Lean dont les lignes bougent
             désengage tous ses renvois en aval, et le site n'apparie plus rien :
             c'est arrivé, et une vérification d'intégration le rattrape

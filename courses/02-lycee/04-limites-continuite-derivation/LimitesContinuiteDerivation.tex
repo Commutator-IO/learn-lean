@@ -13,6 +13,11 @@
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage[margin=2.5cm]{geometry}
+% Les figures : TikZ, pour que leurs étiquettes soient composées dans les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \usepackage[hidelinks]{hyperref}
 
 \theoremstyle{definition}
@@ -296,6 +301,12 @@ l'obtient de la connexité de l'intervalle.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L123}{LimitesContinuiteDerivation.lean\#L123}
 
+\begin{figure}[h]
+\centering
+\input{figures/theoreme_des_valeurs_intermediaires}
+\caption{Une fonction continue prend toute valeur $k$ comprise entre $f(a)$ et $f(b)$.}
+\end{figure}
+
 \begin{theoreme}
 Corollaire : si de plus $f$ est strictement croissante sur $[a\,;b]$, la solution de
 $f(x) = k$ y est unique.
@@ -349,6 +360,12 @@ tangente est donc la fonction affine de coefficient directeur $d$ qui coïncide 
 $a$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L153}{LimitesContinuiteDerivation.lean\#L153}
+
+\begin{figure}[h]
+\centering
+\input{figures/equation_de_la_tangente}
+\caption{La tangente au point d'abscisse $a$ : elle passe par $(a, f(a))$ et sa pente est le nombre dérivé.}
+\end{figure}
 
 \subsection{Dérivées usuelles}
 
