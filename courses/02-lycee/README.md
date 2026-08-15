@@ -13,7 +13,7 @@ Index dérivé de [lycee.md](../lycee.md) · retour à l'[index du cours](../REA
 | 7. Nombres complexes | [`07-nombres-complexes/`](07-nombres-complexes/README.md) | 10 | 10 |
 | 8. Géométrie : vecteurs, produit scalaire, espace | [`08-geometrie-vecteurs-produit-scalaire-espace/`](08-geometrie-vecteurs-produit-scalaire-espace/README.md) | 19 | 16 |
 | 9. Variables aléatoires, lois et échantillonnage | [`09-probabilites-et-statistiques/`](09-probabilites-et-statistiques/README.md) | 16 | 9 |
-| 10. Arithmétique, matrices et graphes (spécialité) | [`10-specialite-mathematiques-terminale-s/`](10-specialite-mathematiques-terminale-s/README.md) | 17 | 16 |
-| 11. Informatique (NSI) | [`11-informatique-nsi/`](11-informatique-nsi/README.md) | 41 | 0 |
+| 10. Arithmétique, matrices et graphes | [`10-specialite-mathematiques-terminale-s/`](10-specialite-mathematiques-terminale-s/README.md) | 17 | 16 |
+| 11. Informatique | [`11-informatique-nsi/`](11-informatique-nsi/README.md) | 41 | 0 |
 
 **178 énoncés** au total, dont **123 démontrés**.

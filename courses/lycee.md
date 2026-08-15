@@ -212,7 +212,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 ---
 
-## 10. Arithmétique, matrices et graphes (spécialité)
+## 10. Arithmétique, matrices et graphes
 
 ### Arithmétique
 
@@ -243,7 +243,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 ---
 
-## 11. Informatique (NSI)
+## 11. Informatique
 
 La spécialité *numérique et sciences informatiques*, en première et en terminale. Elle ne
 fait pas partie du programme de mathématiques, et figure ici pour une raison précise : le

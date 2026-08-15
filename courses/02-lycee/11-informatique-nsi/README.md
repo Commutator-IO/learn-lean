@@ -1,4 +1,4 @@
-# Informatique (NSI)
+# Informatique
 
 *Programme du lycée — spécialité NSI* — énoncés tirés de [lycee.md](../../lycee.md) · retour à l'[index](../README.md).
 

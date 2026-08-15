@@ -1,4 +1,4 @@
-# Arithmétique, matrices et graphes (spécialité)
+# Arithmétique, matrices et graphes
 
 *Programme du lycée (filière S)* — énoncés tirés de [lycee.md](../../lycee.md) · retour à l'[index](../README.md).
 
