@@ -25,6 +25,9 @@
 % Un exemple ne se démontre pas : on explique ce qu'il montre.
 \newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
 
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -277,6 +280,33 @@ Même chose pour la boule : $\mathcal{V}(kr) = k^3\,\mathcal{V}(r)$.
 $\tfrac43 \pi (kr)^3 = k^3 \times \tfrac43 \pi r^3$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L139}{GrandeursEtMesures.lean\#L139}
+
+\subsection{Énoncés admis}
+
+\noindent
+Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
+
+\begin{theoreme}
+Le disque de rayon $r$, vu comme la partie du plan $\{(x, y) \mid x^2 + y^2 \le r^2\}$,
+a pour mesure $\pi r^2$.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L151}{GrandeursEtMesures.lean\#L151}
+
+\begin{theoreme}
+Le triangle rectangle de base $b$ et de hauteur $h$, vu comme la partie du plan située
+sous la droite qui joint $(0, h)$ à $(b, 0)$, a pour mesure $\tfrac{bh}{2}$.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L156}{GrandeursEtMesures.lean\#L156}
+
+\begin{theoreme}
+Le cône de rayon $R$ et de hauteur $H$, vu comme la partie de l'espace dont les sections
+horizontales sont des disques de rayon décroissant, a pour mesure le tiers de celle du
+cylindre de mêmes base et hauteur.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L163}{GrandeursEtMesures.lean\#L163}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

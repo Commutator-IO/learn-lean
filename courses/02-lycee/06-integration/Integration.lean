@@ -142,4 +142,18 @@ theorem aire_entre_deux_courbes {f g : ℝ → ℝ} {a b : ℝ} (hf : Continuous
 disque : un appareillage sans commune mesure avec l'approche du programme, qui se contente
 d'empiler des cylindres. -/
 
+/-! ## Énoncés admis
+
+Ce que le programme demande et que ce dépôt ne démontre pas. L'énoncé est écrit, sa
+démonstration est admise. -/
+
+/-- Volume d'un solide de révolution : en tournant autour de l'axe des abscisses, la partie
+sous la courbe d'une fonction continue positive engendre un solide de volume
+`π ∫ f²`. -/
+theorem volume_solide_de_revolution {f : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b) (hf : Continuous f)
+    (hpos : ∀ x, 0 ≤ f x) :
+    volume {p : ℝ × ℝ × ℝ | p.1 ∈ Set.Icc a b ∧ p.2.1 ^ 2 + p.2.2 ^ 2 ≤ f p.1 ^ 2} =
+      ENNReal.ofReal (Real.pi * ∫ x in a..b, f x ^ 2) := by
+  sorry
+
 end Lycee.Integration

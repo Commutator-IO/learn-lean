@@ -193,6 +193,9 @@ ENTETE = r"""%% Fichier engendré par tools/generate-tex.py à partir de %(sourc
 %% Un exemple ne se démontre pas : on explique ce qu'il montre.
 \newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
 
+%% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
 %% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 

@@ -26,6 +26,8 @@ export type Declaration = {
   preuveHtml: string
   /** Les remarques du fichier Lean qui précèdent l'énoncé dans le document. */
   remarqueHtml: string
+  /** Vrai si la preuve est un `sorry` : l'énoncé est écrit, pas démontré. */
+  admis?: boolean
 }
 
 export type Module = {

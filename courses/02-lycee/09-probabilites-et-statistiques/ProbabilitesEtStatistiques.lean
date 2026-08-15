@@ -14,7 +14,7 @@ import Mathlib
 
 namespace Lycee.Probabilites
 
-open MeasureTheory ProbabilityTheory Finset
+open MeasureTheory ProbabilityTheory Finset Filter Topology
 
 /-! ## Définitions : séries statistiques -/
 
@@ -253,19 +253,62 @@ theorem loi_normale (m : ℝ) (v : NNReal) :
     (∫ x, x ∂(gaussianReal m v) = m) ∧ Var[id; gaussianReal m v] = v :=
   ⟨integral_id_gaussianReal, variance_id_gaussianReal⟩
 
-/- Trois énoncés du programme ne sont pas formalisés ici.
+/-! ## Énoncés admis
 
-Le **théorème de Moivre–Laplace** — la loi binomiale centrée réduite converge vers la loi
-normale centrée réduite — est un cas particulier du théorème central limite. Mathlib
-possède `Mathlib/Probability/CentralLimitTheorem.lean`, mais l'écart entre son énoncé
-(convergence en loi de sommes de variables indépendantes) et la forme scolaire, qui parle
-d'intervalles et de valeurs numériques, demande un travail de traduction à part entière.
+Ce que le programme demande et que ce dépôt ne démontre pas. Les énoncés sont écrits pour
+que le manque se voie et se compte ; leur démonstration est admise.
 
-Les **intervalles `1σ`, `2σ`, `3σ`** (68 %, 95 %, 99,7 %) ne sont pas démontrés : leurs
-valeurs numériques réclament un encadrement de la fonction d'erreur, dont Mathlib ne
-fournit pas les estimations à cette précision.
+Un mot sur chacun. La **variance d'une binomiale** et l'**espérance d'une exponentielle**
+sont à portée, mais demandent un calcul de somme et une intégration par parties que ce
+fichier n'a pas menés. Le **théorème de Moivre–Laplace** est un cas particulier du théorème
+central limite : Mathlib le possède, mais l'écart entre son énoncé et la forme scolaire,
+qui parle d'intervalles et de valeurs numériques, est un travail de traduction à part
+entière. Les **intervalles `1σ`, `2σ`, `3σ`** réclament un encadrement de la fonction
+d'erreur que Mathlib ne fournit pas à cette précision. L'**intervalle de fluctuation** et
+l'**intervalle de confiance** reposent sur Moivre–Laplace, et tombent avec lui.
 
-L'**intervalle de fluctuation asymptotique** et l'**intervalle de confiance** reposent
-tous deux sur Moivre–Laplace, et tombent avec lui. -/
+Les quartiles et l'écart interquartile manquent aussi, mais il leur manque une définition,
+pas une démonstration : rien à admettre tant qu'ils ne sont pas définis. -/
+
+/-- Variance d'une loi binomiale : `V(X) = np(1 − p)`. -/
+theorem variance_binomiale (n : ℕ) (p : unitInterval) :
+    Var[fun k : ℕ => (k : ℝ); binomial n p] = n * (p : ℝ) * (1 - (p : ℝ)) := by
+  sorry
+
+/-- Espérance d'une loi exponentielle de paramètre `r` : elle vaut `1/r`. -/
+theorem esperance_exponentielle {r : ℝ} (hr : 0 < r) :
+    ∫ t, t ∂(expMeasure r) = 1 / r := by
+  sorry
+
+/-- Théorème de Moivre–Laplace : la loi binomiale centrée réduite converge vers la loi
+normale centrée réduite. -/
+theorem moivre_laplace {p : unitInterval} (hp : 0 < (p : ℝ)) (hp1 : (p : ℝ) < 1) (x : ℝ) :
+    Tendsto (fun n : ℕ => ((binomial n p)
+        {k : ℕ | ((k : ℝ) - n * p) / Real.sqrt (n * (p : ℝ) * (1 - p)) ≤ x}).toReal)
+      atTop (nhds (cdf (gaussianReal 0 1) x)) := by
+  sorry
+
+/-- Intervalles `1σ`, `2σ` et `3σ` d'une loi normale : environ 68 %, 95 % et 99,7 %. -/
+theorem intervalles_sigma (m : ℝ) (σ : NNReal) (hσ : 0 < σ) :
+    |((gaussianReal m (σ ^ 2)) (Set.Icc (m - σ) (m + σ))).toReal - 0.68| ≤ 0.005 ∧
+      |((gaussianReal m (σ ^ 2)) (Set.Icc (m - 2 * σ) (m + 2 * σ))).toReal - 0.95| ≤ 0.005 ∧
+      |((gaussianReal m (σ ^ 2)) (Set.Icc (m - 3 * σ) (m + 3 * σ))).toReal - 0.997| ≤ 0.005 := by
+  sorry
+
+/-- Intervalle de fluctuation asymptotique au seuil de 95 % : la fréquence observée tombe
+dans `[p ± 1,96 √(p(1−p)/n)]` avec une probabilité qui tend vers celle que la loi normale
+donne à `[−1,96 ; 1,96]`. -/
+theorem intervalle_de_fluctuation {p : unitInterval} (hp : 0 < (p : ℝ)) (hp1 : (p : ℝ) < 1) :
+    Tendsto (fun n : ℕ => ((binomial n p)
+        {k : ℕ | |(k : ℝ) / n - p| ≤ 1.96 * Real.sqrt ((p : ℝ) * (1 - p) / n)}).toReal)
+      atTop (nhds (cdf (gaussianReal 0 1) 1.96 - cdf (gaussianReal 0 1) (-1.96))) := by
+  sorry
+
+/-- Intervalle de confiance : à partir d'un certain rang, la fréquence observée est à
+moins de `1/√n` de la probabilité cherchée dans au moins 95 % des cas. -/
+theorem intervalle_de_confiance {p : unitInterval} (hp : 0 < (p : ℝ)) (hp1 : (p : ℝ) < 1) :
+    ∀ᶠ n : ℕ in atTop,
+      0.95 ≤ ((binomial n p) {k : ℕ | |(k : ℝ) / n - p| ≤ 1 / Real.sqrt n}).toReal := by
+  sorry
 
 end Lycee.Probabilites

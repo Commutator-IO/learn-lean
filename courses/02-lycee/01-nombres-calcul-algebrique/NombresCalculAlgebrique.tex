@@ -21,6 +21,9 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -293,6 +296,19 @@ le terme $na^2$ étant positif. C'est l'exemple canonique de démonstration par 
 du programme, et il sert à établir que $q^n$ tend vers l'infini pour $q > 1$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L153}{NombresCalculAlgebrique.lean\#L153}
+
+\subsection{Énoncés admis}
+
+\noindent
+Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
+
+\begin{theoreme}
+Le développement décimal d'un rationnel positif est périodique à partir d'un certain
+rang : il existe une période $p > 0$ et un rang $n_0$ tels que, pour tout $n \ge n_0$, le
+chiffre de rang $n + p$ égale celui de rang $n$.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/01-nombres-calcul-algebrique/NombresCalculAlgebrique.lean\#L172}{NombresCalculAlgebrique.lean\#L172}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

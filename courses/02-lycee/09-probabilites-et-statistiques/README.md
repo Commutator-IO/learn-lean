@@ -27,5 +27,5 @@ Fichier : `ProbabilitesEtStatistiques.lean`
 | Loi exponentielle : densité `λe^{−λt}`, `P(X > t) = e^{−λt}`, absence de mémoire, espérance `1/λ` | TS | `loi_exponentielle_densite_absence_de_memoire_esperance` | ◐ |
 | Loi normale centrée réduite ; théorème de Moivre–Laplace | TS | `loi_normale_centree_reduite_theoreme_de_moivrelaplace` | ◐ |
 | Loi normale `N(μ, σ²)` ; intervalles `1σ`, `2σ`, `3σ` (68 %, 95 %, 99,7 %) | TS | `loi_normale_intervalles_68_95_99_7` | ◐ |
-| Intervalle de fluctuation asymptotique au seuil 95 % : `[p ± 1,96√(p(1−p)/n)]` | TS | `intervalle_de_fluctuation_asymptotique_au_seuil_95` | ☐ |
-| Intervalle de confiance `[f ± 1/√n]` ; prise de décision | TS | `intervalle_de_confiance_prise_de_decision` | ☐ |
+| Intervalle de fluctuation asymptotique au seuil 95 % : `[p ± 1,96√(p(1−p)/n)]` | TS | `intervalle_de_fluctuation_asymptotique_au_seuil_95` | ◐ |
+| Intervalle de confiance `[f ± 1/√n]` ; prise de décision | TS | `intervalle_de_confiance_prise_de_decision` | ◐ |

@@ -21,6 +21,9 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -425,6 +428,55 @@ lui. Le programme les admet ; ici ils ne sont pas écrits du tout, ce qui est la
 réponse honnête.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L252}{ProbabilitesEtStatistiques.lean\#L252}
+
+\subsection{Énoncés admis}
+
+\noindent
+Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
+
+\begin{theoreme}
+La variance d'une loi binomiale de paramètres $n$ et $p$ vaut $np(1 - p)$.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L274}{ProbabilitesEtStatistiques.lean\#L274}
+
+\begin{theoreme}
+L'espérance d'une loi exponentielle de paramètre $r$ vaut $\tfrac1r$.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L279}{ProbabilitesEtStatistiques.lean\#L279}
+
+\begin{theoreme}
+\emph{Théorème de Moivre--Laplace.} Pour une loi binomiale de paramètres $n$ et $p$, la
+probabilité que la variable centrée réduite $\frac{X_n - np}{\sqrt{np(1-p)}}$ soit inférieure
+à $x$ tend, quand $n$ grandit, vers la valeur en $x$ de la fonction de répartition de la loi
+normale centrée réduite.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L285}{ProbabilitesEtStatistiques.lean\#L285}
+
+\begin{theoreme}
+Pour une loi normale d'espérance $\mu$ et d'écart-type $\sigma$, les intervalles
+$[\mu \pm \sigma]$, $[\mu \pm 2\sigma]$ et $[\mu \pm 3\sigma]$ ont pour probabilités
+respectives $0{,}68$, $0{,}95$ et $0{,}997$, à $0{,}005$ près.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L292}{ProbabilitesEtStatistiques.lean\#L292}
+
+\begin{theoreme}
+\emph{Intervalle de fluctuation asymptotique au seuil de 95 \%.} La probabilité que la
+fréquence observée tombe dans $\left[p \pm 1{,}96\sqrt{\tfrac{p(1-p)}{n}}\right]$ tend vers
+celle que la loi normale centrée réduite donne à l'intervalle $[-1{,}96\,;\,1{,}96]$.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L301}{ProbabilitesEtStatistiques.lean\#L301}
+
+\begin{theoreme}
+\emph{Intervalle de confiance.} À partir d'un certain rang, la fréquence observée est à
+moins de $\tfrac{1}{\sqrt n}$ de la probabilité cherchée dans au moins $95\,\%$ des cas.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L309}{ProbabilitesEtStatistiques.lean\#L309}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

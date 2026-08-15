@@ -27,7 +27,7 @@ Fichier : `GeometrieVecteursProduitScalaireEspace.lean`
 | Équation cartésienne d'un cercle ; caractérisation `MA · MB = 0` | 1S | `equation_cartesienne_d_un_cercle_caracterisation` | ☑ |
 | Loi des sinus ; aire `½ ab sin C` | 1S | `loi_des_sinus_aire` | ☑ |
 | Géométrie dans l'espace : positions relatives de droites et plans | TS | `geometrie_dans_l_espace_positions_relatives_de_droites` | ◐ |
-| Théorème du toit ; parallélisme de deux plans par deux sécantes | TS | `theoreme_du_toit_parallelisme_de_deux_plans_par` | ☐ |
+| Théorème du toit ; parallélisme de deux plans par deux sécantes | TS | `theoreme_du_toit_parallelisme_de_deux_plans_par` | ◐ |
 | Vecteurs de l'espace, coplanarité, repère et base | TS | `vecteurs_de_l_espace_coplanarite_repere_et_base` | ☑ |
 | Représentation paramétrique d'une droite, d'un plan | TS | `representation_parametrique_d_une_droite_d_un_plan` | ☑ |
 | Produit scalaire dans l'espace ; vecteur normal et équation cartésienne `ax + by + cz + d = 0` | TS | `produit_scalaire_dans_l_espace_vecteur_normal_et` | ☑ |

@@ -25,6 +25,9 @@
 % Un exemple ne se démontre pas : on explique ce qu'il montre.
 \newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
 
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -464,6 +467,19 @@ par la constante $u_0 - \pi_0$, la limite reste nulle. L'écart à l'état stabl
 vers zéro, quel que soit l'état initial : c'est la convergence que le programme admet.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L104}{MatricesEtGraphes.lean\#L104}
+
+\subsection{Énoncés admis}
+
+\noindent
+Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
+
+\begin{theoreme}
+\emph{Chiffrement RSA.} Si $p$ et $q$ sont deux nombres premiers distincts et si
+$ed \equiv 1 \pmod{(p-1)(q-1)}$, alors élever un message à la puissance $e$ puis à la
+puissance $d$ le ramène à lui-même modulo $pq$.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/Arithmetique.lean\#L147}{Arithmetique.lean\#L147}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

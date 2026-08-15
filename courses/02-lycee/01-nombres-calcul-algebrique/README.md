@@ -15,7 +15,7 @@ Fichier : `NombresCalculAlgebrique.lean`
 |---|---|---|---|
 | Inclusions `ℕ ⊂ ℤ ⊂ 𝔻 ⊂ ℚ ⊂ ℝ`, strictes | 2de | `inclusions_strictes` | ☑ |
 | `√2` est irrationnel | 2de | `est_irrationnel` | ☑ |
-| Un rationnel a un développement décimal périodique, et réciproquement | 2de | `un_rationnel_a_un_developpement_decimal_periodique_et` | ☐ |
+| Un rationnel a un développement décimal périodique, et réciproquement | 2de | `un_rationnel_a_un_developpement_decimal_periodique_et` | ◐ |
 | Valeur absolue : `\|x − a\| ≤ r ⟺ x ∈ [a − r, a + r]` | 2de | `valeur_absolue` | ☑ |
 | Inégalité triangulaire : `\|x + y\| ≤ \|x\| + \|y\|` | 2de | `inegalite_triangulaire` | ☑ |
 | Identités remarquables `(a ± b)²`, `a² − b²` | 2de | `identites_remarquables` | ☑ |

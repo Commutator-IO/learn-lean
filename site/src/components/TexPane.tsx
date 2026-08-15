@@ -82,6 +82,14 @@ export function TexPane({
                     {ETIQUETTE[d.sorte] ?? d.sorte}
                   </span>
                   <code className="font-mono text-[11.5px] text-ink-400">{d.nom}</code>
+                  {d.admis && (
+                    <span
+                      className="rounded bg-encours-50 px-1.5 py-0.5 font-sans text-[10px] font-semibold tracking-wide text-encours-600 uppercase"
+                      title="l'énoncé est écrit en Lean, sa démonstration reste à faire"
+                    >
+                      admis
+                    </span>
+                  )}
                   <span className="ml-auto font-mono text-[11px] text-ink-300">L{d.ligne}</span>
                 </div>
 

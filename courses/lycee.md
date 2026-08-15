@@ -35,7 +35,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 |---|---|---|---|
 | Inclusions `ℕ ⊂ ℤ ⊂ 𝔻 ⊂ ℚ ⊂ ℝ`, strictes | 2de | | ☑ |
 | `√2` est irrationnel | 2de | | ☑ |
-| Un rationnel a un développement décimal périodique, et réciproquement | 2de | oui | ☐ |
+| Un rationnel a un développement décimal périodique, et réciproquement | 2de | oui | ◐ |
 | Valeur absolue : `\|x − a\| ≤ r ⟺ x ∈ [a − r, a + r]` | 2de | | ☑ |
 | Inégalité triangulaire : `\|x + y\| ≤ \|x\| + \|y\|` | 2de | | ☑ |
 | Identités remarquables `(a ± b)²`, `a² − b²` | 2de | | ☑ |
@@ -181,7 +181,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 | Équation cartésienne d'un cercle ; caractérisation `MA · MB = 0` | 1S | | ☑ |
 | Loi des sinus ; aire `½ ab sin C` | 1S | | ☑ |
 | Géométrie dans l'espace : positions relatives de droites et plans | TS | | ◐ |
-| Théorème du toit ; parallélisme de deux plans par deux sécantes | TS | oui | ☐ |
+| Théorème du toit ; parallélisme de deux plans par deux sécantes | TS | oui | ◐ |
 | Vecteurs de l'espace, coplanarité, repère et base | TS | | ☑ |
 | Représentation paramétrique d'une droite, d'un plan | TS | | ☑ |
 | Produit scalaire dans l'espace ; vecteur normal et équation cartésienne `ax + by + cz + d = 0` | TS | | ☑ |
@@ -207,8 +207,8 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 | Loi exponentielle : densité `λe^{−λt}`, `P(X > t) = e^{−λt}`, absence de mémoire, espérance `1/λ` | TS | | ◐ |
 | Loi normale centrée réduite ; théorème de Moivre–Laplace | TS | oui | ◐ |
 | Loi normale `N(μ, σ²)` ; intervalles `1σ`, `2σ`, `3σ` (68 %, 95 %, 99,7 %) | TS | oui | ◐ |
-| Intervalle de fluctuation asymptotique au seuil 95 % : `[p ± 1,96√(p(1−p)/n)]` | TS | | ☐ |
-| Intervalle de confiance `[f ± 1/√n]` ; prise de décision | TS | oui | ☐ |
+| Intervalle de fluctuation asymptotique au seuil 95 % : `[p ± 1,96√(p(1−p)/n)]` | TS | | ◐ |
+| Intervalle de confiance `[f ± 1/√n]` ; prise de décision | TS | oui | ◐ |
 
 ---
 

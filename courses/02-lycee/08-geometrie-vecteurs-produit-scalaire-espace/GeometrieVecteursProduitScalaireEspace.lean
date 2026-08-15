@@ -379,4 +379,36 @@ theorem distance_a_un_plan {E : Type*} [NormedAddCommGroup E] [InnerProductSpace
       abs_of_nonneg (by positivity : (0 : ℝ) ≤ ‖n‖ ^ 2)]
     field_simp
 
+/-! ## Énoncés admis
+
+Ce que le programme demande dans l'espace et que ce dépôt ne démontre pas. Les énoncés sont
+écrits, leur démonstration est admise. -/
+
+/-- Positions relatives de deux plans distincts de l'espace : ou bien ils sont parallèles et
+ne se rencontrent pas, ou bien ils se coupent selon une droite. -/
+theorem positions_relatives_de_deux_plans {E : Type*} [NormedAddCommGroup E]
+    [NormedSpace ℝ E] (hdim : Module.finrank ℝ E = 3) {P Q : AffineSubspace ℝ E}
+    (hP : Module.finrank ℝ P.direction = 2) (hQ : Module.finrank ℝ Q.direction = 2)
+    (hne : P ≠ Q) :
+    ((P ⊓ Q : AffineSubspace ℝ E) : Set E) = ∅ ∨
+      Module.finrank ℝ (P ⊓ Q : AffineSubspace ℝ E).direction = 1 := by
+  sorry
+
+/-- Théorème du toit : deux plans sécants contenant chacun l'une de deux droites parallèles
+se coupent selon une droite parallèle à celles-ci. -/
+theorem theoreme_du_toit {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    (hdim : Module.finrank ℝ E = 3) {P Q d d' : AffineSubspace ℝ E}
+    (hP : Module.finrank ℝ P.direction = 2) (hQ : Module.finrank ℝ Q.direction = 2)
+    (hne : P ≠ Q) (hd : d ≤ P) (hd' : d' ≤ Q)
+    (hdroite : Module.finrank ℝ d.direction = 1) (hpar : d.direction = d'.direction)
+    (hsecants : ((P ⊓ Q : AffineSubspace ℝ E) : Set E).Nonempty) :
+    (P ⊓ Q : AffineSubspace ℝ E).direction = d.direction := by
+  sorry
+
+/-- Distance d'un point à un plan : elle se lit sur le vecteur normal. -/
+theorem distance_d_un_point_a_un_plan {E : Type*} [NormedAddCommGroup E]
+    [InnerProductSpace ℝ E] {n : E} (hn : n ≠ 0) (a m : E) :
+    Metric.infDist m {x : E | inner ℝ n (x - a) = (0 : ℝ)} = |inner ℝ n (m - a)| / ‖n‖ := by
+  sorry
+
 end Lycee.Geometrie

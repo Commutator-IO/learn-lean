@@ -21,6 +21,9 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -370,6 +373,18 @@ C'est ce qui permet de trouver la limite en résolvant l'équation $f(x) = x$ �
 d'avoir établi \emph{par ailleurs} que la suite converge, ce que ce théorème ne dit pas.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L223}{Suites.lean\#L223}
+
+\subsection{Énoncés admis}
+
+\noindent
+Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
+
+\begin{theoreme}
+Deux suites adjacentes \textemdash{} l'une croissante, l'autre décroissante, leur
+différence tendant vers zéro \textemdash{} convergent vers une même limite.
+\end{theoreme}
+\admis
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L237}{Suites.lean\#L237}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

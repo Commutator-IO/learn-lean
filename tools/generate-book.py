@@ -132,6 +132,13 @@ def corps(chemin, sections):
     # sa citation de fin, et les réglages de composition déjà faits par le
     # préambule du livre.
     corps = corps.replace(r"\maketitle", "").replace(r"\sloppy", "")
+
+    # Les figures sont rangées à côté du document de chapitre et appelées par un
+    # chemin relatif, `\input{figures/x}`. Le livre se compile depuis book/ : le
+    # chemin doit donc être réécrit, faute de quoi la figure disparaîtrait du
+    # livre alors qu'elle est bien là dans le chapitre isolé.
+    relatif = os.path.relpath(os.path.dirname(chemin), LIVRE)
+    corps = corps.replace(r"\input{figures/", r"\input{" + relatif + "/figures/")
     corps = re.sub(r"\\vfill\s*\n\\noindent\\rule.*?\\par\}", "", corps, flags=re.S)
     corps = "\n".join(l for l in corps.split("\n") if not l.lstrip().startswith("%"))
 

@@ -79,6 +79,9 @@ function declarations(source) {
       out.push({
         sorte: m?.[1] ?? '',
         nom: m?.[2] ?? '',
+        // Un énoncé écrit mais non démontré : sa preuve est `sorry`. Le site et
+        // le livre le disent, plutôt que de le laisser passer pour démontré.
+        admis: corps.some((l) => /(^|\s)sorry(\s|$)/.test(l)),
         doc,
         section,
         ligneDoc: debutDoc,
@@ -190,6 +193,30 @@ async function indexChapitre(dossier) {
   return { titre, statuts, enonces };
 }
 
+/**
+ * Les figures d'un chapitre, rangées par nom de déclaration.
+ *
+ * Une figure est un SVG écrit à la main dans `figures/<nom>.svg`, à côté du
+ * document du chapitre — le nom est celui du théorème qu'elle illustre, c'est
+ * tout ce qui les relie. Le livre en PDF a sa propre version, en TikZ : voir la
+ * skill `illustrate-theorem`. Le SVG est repris tel quel, sans retouche : il est
+ * écrit dans ce dépôt, pas reçu de l'extérieur.
+ */
+async function figuresDuChapitre(dossier) {
+  const out = new Map();
+  let fichiers = [];
+  try {
+    fichiers = await readdir(join(dossier, 'figures'));
+  } catch {
+    return out;
+  }
+  for (const f of fichiers) {
+    if (!f.endsWith('.svg')) continue;
+    out.set(f.replace(/\.svg$/, ''), await readFile(join(dossier, 'figures', f), 'utf8'));
+  }
+  return out;
+}
+
 async function chapitre(chemin) {
   const [programme, nom] = chemin.split('/');
   {
@@ -216,6 +243,7 @@ async function chapitre(chemin) {
     }
     const tex = fichiers.find((f) => f.endsWith('.tex'));
     const blocs = tex ? blocsTex(await readFile(join(dossier, tex), 'utf8')) : new Map();
+    const figures = await figuresDuChapitre(dossier);
 
     const modules = [];
     for (const lean of leans) {
@@ -227,6 +255,7 @@ async function chapitre(chemin) {
           preuveHtml: '',
           remarqueHtml: '',
         }),
+        ...(figures.get(d.nom) ? { figure: figures.get(d.nom) } : {}),
       }));
       modules.push({
         nom: lean,

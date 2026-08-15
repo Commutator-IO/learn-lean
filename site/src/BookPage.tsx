@@ -293,6 +293,14 @@ export function BookPage() {
                               <span className="font-sans text-[12px] font-semibold tracking-wide text-brand-700 uppercase">
                                 {ETIQUETTE[d.sorte] ?? d.sorte}
                               </span>
+                              {d.admis && (
+                                <span
+                                  className="ml-2 rounded bg-encours-50 px-1.5 py-0.5 font-sans text-[10.5px] font-semibold tracking-wide text-encours-600 uppercase"
+                                  title="l'énoncé est écrit en Lean, sa démonstration reste à faire"
+                                >
+                                  admis
+                                </span>
+                              )}
                               <div
                                 className="prose-cours mt-1"
                                 dangerouslySetInnerHTML={{

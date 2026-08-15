@@ -32,6 +32,9 @@
 % Un exemple ne se démontre pas : on explique ce qu'il montre.
 \newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
 
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à
 % droite. C'est le seul lien entre le livre et le dépôt : il permet d'aller
 % vérifier, ligne par ligne, que la démonstration lue est bien celle que la
@@ -41,5 +44,7 @@
 \title{%
   Mathématiques du secondaire\\
   \large démontrées en Lean 4, de la sixième à la terminale}
-\author{Michel Hua \\ \texttt{commutator.io}}
+\author{Michel Hua \\ \texttt{commutator.io} \\[8pt]
+  \normalsize\normalfont assisté d'Opus~5 d'Anthropic\\
+  \normalsize\normalfont et des outils de la \emph{Lean Community}}
 \date{}

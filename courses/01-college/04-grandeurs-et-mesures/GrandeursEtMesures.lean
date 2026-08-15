@@ -5,12 +5,11 @@ données : les démontrer demanderait une théorie de la mesure. Ce qui se démo
 les relations entre elles, et leur comportement par agrandissement.
 Énoncés et démonstrations en français : voir GrandeursEtMesures.tex.
 -/
-import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
-import Mathlib.Tactic
+import Mathlib
 
 namespace College.Grandeurs
 
-open Real
+open Real MeasureTheory
 
 /-! ## Définitions -/
 
@@ -140,5 +139,31 @@ theorem agrandissement_volume_boule (k r : ℝ) :
     volumeBoule (k * r) = k ^ 3 * volumeBoule r := by
   simp only [volumeBoule]
   ring
+
+/-! ## Énoncés admis
+
+Les formules d'aire et de volume sont posées plus haut, comme au collège. Les démontrer,
+c'est calculer la mesure de Lebesgue d'une partie du plan ou de l'espace : le programme ne
+le demande pas et ce dépôt ne le fait pas. Les énoncés sont écrits ici pour que le manque
+se voie, et leur preuve est admise. -/
+
+/-- Le disque de rayon `r` a pour aire `π r²`, au sens de la mesure du plan. -/
+theorem aire_disque_est_sa_mesure (r : ℝ) (hr : 0 ≤ r) :
+    volume {p : ℝ × ℝ | p.1 ^ 2 + p.2 ^ 2 ≤ r ^ 2} = ENNReal.ofReal (aireDisque r) := by
+  sorry
+
+/-- Le triangle rectangle de base `b` et de hauteur `h` a pour aire `b h / 2`. -/
+theorem aire_triangle_est_sa_mesure (b h : ℝ) (hb : 0 < b) (hh : 0 ≤ h) :
+    volume {p : ℝ × ℝ | 0 ≤ p.1 ∧ p.1 ≤ b ∧ 0 ≤ p.2 ∧ p.2 ≤ h * (1 - p.1 / b)} =
+      ENNReal.ofReal (aireTriangle b h) := by
+  sorry
+
+/-- Le cône de rayon `R` et de hauteur `H` a pour volume le tiers de celui du cylindre de
+mêmes base et hauteur. -/
+theorem volume_cone_est_sa_mesure (R H : ℝ) (hR : 0 < R) (hH : 0 < H) :
+    volume {p : ℝ × ℝ × ℝ | 0 ≤ p.2.2 ∧ p.2.2 ≤ H ∧
+        p.1 ^ 2 + p.2.1 ^ 2 ≤ (R * (1 - p.2.2 / H)) ^ 2} =
+      ENNReal.ofReal (volumePyramide (aireDisque R) H) := by
+  sorry
 
 end College.Grandeurs
