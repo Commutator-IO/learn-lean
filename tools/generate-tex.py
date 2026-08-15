@@ -185,6 +185,7 @@ ENTETE = r"""%% Fichier engendré par tools/generate-tex.py à partir de %(sourc
 
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
+\newtheorem{exemple}{Exemple}
 \theoremstyle{plain}
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
@@ -213,6 +214,15 @@ CITATION = r"""\vfill
 """
 
 def environnement(sorte, nom):
+    """L'environnement LaTeX qui convient à une déclaration Lean.
+
+    Un `example` est anonyme en Lean : il ne sert à rien d'autre qu'à montrer un
+    cas — un calcul mené jusqu'au bout, un contre-exemple. Il devient donc un
+    « Exemple » et non un « Théorème », ce que le lecteur du livre doit voir
+    aussi nettement que le lecteur du fichier Lean.
+    """
+    if sorte == "example":
+        return "exemple"
     if sorte in ("def", "abbrev", "instance"):
         return "definition"
     return "lemme" if nom.startswith("lemme") else "theoreme"

@@ -87,7 +87,7 @@ theorem moyenne_entre_bornes {s : List ℝ} (hs : s ≠ []) {a b : ℝ}
 
 /-- Contre-exemple : une série de trois valeurs et une d'une seule valeur. La moyenne des
 deux moyennes vaut `3`, alors que la série réunie a pour moyenne `1,5`. -/
-theorem moyenne_des_moyennes_contre_exemple :
+example :
     moyenne [moyenne [0, 0, 0], moyenne [6]] ≠ moyenne [0, 0, 0, 6] := by
   simp only [moyenne]
   norm_num
@@ -95,7 +95,7 @@ theorem moyenne_des_moyennes_contre_exemple :
 /-! ## Médiane : au moins la moitié des valeurs lui sont inférieures ou égales -/
 
 /-- Sur une série de cinq valeurs rangées, la valeur centrale est bien une médiane. -/
-theorem mediane_serie_impaire : EstMediane [1, 2, 3, 4, 5] 3 := by
+example : EstMediane [1, 2, 3, 4, 5] 3 := by
   constructor <;> norm_num [EstMediane, List.filter]
 
 /-- Une médiane sépare la série en deux moitiés : au moins la moitié des valeurs lui sont

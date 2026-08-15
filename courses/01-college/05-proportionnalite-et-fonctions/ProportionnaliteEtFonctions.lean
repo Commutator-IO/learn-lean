@@ -57,7 +57,7 @@ theorem hausse_puis_baisse (p x : ℝ) :
 
 /-- En particulier, pour une valeur et un taux non nuls, on ne retrouve pas le point de
 départ : `+20 %` puis `−20 %` laisse `96 %` de la valeur initiale. -/
-theorem hausse_puis_baisse_contre_exemple :
+example :
     evolution (-(1/5)) (evolution (1/5) 100) = 96 := by
   simp only [evolution]
   norm_num
@@ -71,7 +71,7 @@ theorem image_unique (f : ℝ → ℝ) (x y₁ y₂ : ℝ) (h₁ : f x = y₁) (
 
 /-- Un nombre peut en revanche avoir plusieurs antécédents : par la fonction carré, `4`
 a pour antécédents `2` et `−2`. -/
-theorem antecedent_non_unique :
+example :
     (fun x : ℝ => x ^ 2) 2 = 4 ∧ (fun x : ℝ => x ^ 2) (-2) = 4 ∧ (2 : ℝ) ≠ -2 := by
   norm_num
 

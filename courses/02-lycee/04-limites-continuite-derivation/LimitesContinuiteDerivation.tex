@@ -17,6 +17,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
+\newtheorem{exemple}{Exemple}
 \theoremstyle{plain}
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
@@ -471,11 +472,11 @@ et d'autre.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L232}{LimitesContinuiteDerivation.lean\#L232}
 
-\begin{theoreme}
+\begin{exemple}
 La réciproque est fausse : la fonction cube a un nombre dérivé nul en zéro,
 \[ (x^{3})'\big|_{x=0} = 3 \times 0^{2} = 0 , \]
 sans y présenter de maximum local.
-\end{theoreme}
+\end{exemple}
 
 \begin{proof}
 Le nombre dérivé se lit sur la formule $(x^n)' = n x^{n-1}$ prise en $n = 3$ et $x = 0$ :

@@ -247,7 +247,7 @@ theorem estPremier_iff (n : ℕ) : estPremier n = true ↔ Premier n := by
       rcases hdiv d this with h1 | h1 <;> omega
 
 /-- Crible d'Ératosthène : les nombres premiers inférieurs à 100. -/
-theorem crible_eratosthene :
+example :
     (List.range 100).filter estPremier =
       [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73,
        79, 83, 89, 97] := by

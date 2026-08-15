@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Footer, Header } from "./components/Frame.tsx";
 import { donnees } from "./lib/donnees.ts";
+import { avecCode } from "./lib/inline.tsx";
 import { LeanPane } from "./components/LeanPane.tsx";
 import { TexPane } from "./components/TexPane.tsx";
 import type { Declare } from "./lib/lean.ts";
@@ -70,20 +71,7 @@ function AFaire({ chapitre }: { chapitre: Chapitre }) {
                 {e.niveau}
               </span>
               <span className="flex-1 text-[14px] leading-relaxed text-ink-700">
-                {/* Les énoncés viennent d'un index en markdown : le code y est
-                    entre accents graves, et le reste est du texte. */}
-                {e.enonce.split("`").map((part, k) =>
-                  k % 2 ? (
-                    <code
-                      key={k}
-                      className="font-mono text-[13px] text-ink-800"
-                    >
-                      {part}
-                    </code>
-                  ) : (
-                    part
-                  ),
-                )}
+                {avecCode(e.enonce, "font-mono text-[13px] text-ink-800")}
               </span>
               <span className="shrink-0 font-mono text-[12px] text-ink-300">
                 {e.statut}

@@ -17,6 +17,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
+\newtheorem{exemple}{Exemple}
 \theoremstyle{plain}
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
@@ -24,7 +25,7 @@
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
-\title{Spécialité mathématiques (terminale S)}
+\title{Arithmétique, matrices et graphes (spécialité)}
 \date{}
 
 \begin{document}
@@ -296,7 +297,7 @@ Les deux règles sont celles de la bibliothèque, où les matrices carrées form
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L17}{MatricesEtGraphes.lean\#L17}
 
-\begin{theoreme}
+\begin{exemple}
 Mais il n'est pas commutatif :
 \[ \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}
    \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}
@@ -305,7 +306,7 @@ Mais il n'est pas commutatif :
    \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}
    \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}
    = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix} . \]
-\end{theoreme}
+\end{exemple}
 
 \begin{proof}
 Réfutation par contre-exemple. Si les deux produits étaient égaux, leurs coefficients en

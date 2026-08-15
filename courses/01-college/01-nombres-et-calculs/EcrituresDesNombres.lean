@@ -180,7 +180,7 @@ theorem racine_d_un_quotient (a : ℝ) {b : ℝ} (hb : 0 ≤ b) :
 /-! ## Contre-exemple : `√(a + b) ≠ √a + √b` en général -/
 
 /-- La racine d'une somme n'est pas la somme des racines : `√2 ≠ 2`. -/
-theorem racine_d_une_somme_contre_exemple :
+example :
     Real.sqrt (1 + 1) ≠ Real.sqrt 1 + Real.sqrt 1 := by
   intro h
   rw [Real.sqrt_one, show (1 : ℝ) + 1 = 2 by norm_num] at h

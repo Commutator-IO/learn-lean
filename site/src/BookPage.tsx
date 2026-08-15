@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Footer, Header } from "./components/Frame.tsx";
 import { donnees } from "./lib/donnees.ts";
+import { avecCode } from "./lib/inline.tsx";
 import type { Chapitre, Index } from "./lib/types.ts";
 
 /**
@@ -244,7 +245,7 @@ export function BookPage() {
                     <div key={m.nom}>
                       {chapitre.modules.length > 1 && (
                         <h2 className="mt-10 font-serif text-2xl text-ink-900">
-                          {m.declarations[0]?.section ?? m.nom}
+                          {avecCode(m.declarations[0]?.section ?? m.nom)}
                         </h2>
                       )}
                       {m.declarations.map((d) => {
@@ -255,7 +256,7 @@ export function BookPage() {
                           <div key={`${m.nom}-${d.ligne}`}>
                             {nouvelle && (
                               <h3 className="mt-8 mb-2 font-serif text-[19px] text-ink-900">
-                                {d.section}
+                                {avecCode(d.section ?? "")}
                               </h3>
                             )}
                             {d.remarqueHtml && (

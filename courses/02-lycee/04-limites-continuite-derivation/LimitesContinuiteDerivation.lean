@@ -234,7 +234,7 @@ theorem extremum_local_annule_la_derivee {f : ℝ → ℝ} {d a : ℝ} (hd : Has
 
 /-- La réciproque est fausse : la dérivée de la fonction cube s'annule en zéro sans que
 la fonction y présente d'extremum, puisqu'elle est strictement croissante. -/
-theorem reciproque_fausse :
+example :
     HasDerivAt (fun x : ℝ => x ^ 3) 0 0 ∧ ¬ IsLocalMax (fun x : ℝ => x ^ 3) 0 := by
   constructor
   · simpa using hasDerivAt_pow 3 (0 : ℝ)

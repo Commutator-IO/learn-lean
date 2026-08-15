@@ -1,4 +1,4 @@
-# Spécialité mathématiques (terminale S)
+# Arithmétique, matrices et graphes (spécialité)
 
 *Programme du lycée (filière S)* — énoncés tirés de [lycee.md](../../lycee.md) · retour à l'[index](../README.md).
 

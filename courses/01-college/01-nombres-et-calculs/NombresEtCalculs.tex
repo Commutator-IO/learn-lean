@@ -17,6 +17,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}{Définition}
+\newtheorem{exemple}{Exemple}
 \theoremstyle{plain}
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
@@ -41,11 +42,11 @@ Collège \textemdash{} section \og{} Calculs et calcul littéral \fg{}.
 
 \subsection{Priorités opératoires ; rôle des parenthèses}
 
-\begin{theoreme}
+\begin{exemple}
 La multiplication est prioritaire sur l'addition : sans parenthèses, \texttt{2 + 3 \(\times\) 4}
 vaut \texttt{14}, et non \texttt{20}. La priorité est une convention d'écriture, pas un théorème ;
 ce qui se démontre, c'est que les deux expressions diffèrent.
-\end{theoreme}
+\end{exemple}
 
 \begin{proof}
 Les deux calculs sont menés à leur terme et comparés : $2 + 3 \times 4 = 14$ tandis
@@ -368,9 +369,9 @@ résoudre deux équations du premier degré.
 
 \subsection{Tester si un nombre est solution ; démontrer qu'une égalité est vraie pour tout \texttt{x}}
 
-\begin{theoreme}
+\begin{exemple}
 Tester une valeur : \texttt{2} est solution de \texttt{x² − 5x + 6 = 0}, \texttt{1} ne l'est pas.
-\end{theoreme}
+\end{exemple}
 
 \begin{proof}
 Les deux calculs sont menés : $2^2 - 5 \times 2 + 6 = 0$, donc $2$ est solution ;
@@ -638,9 +639,9 @@ Même argument avec un quotient.
 
 \subsection{Contre-exemple : \texttt{\(\sqrt{}\)(a + b) \(\ne\) \(\sqrt{}\)a + \(\sqrt{}\)b} en général}
 
-\begin{theoreme}
+\begin{exemple}
 La racine d'une somme n'est pas la somme des racines : \texttt{\(\sqrt{}\)2 \(\ne\) 2}.
-\end{theoreme}
+\end{exemple}
 
 \begin{proof}
 Si l'on avait $\sqrt{1+1} = \sqrt1 + \sqrt1 = 2$, alors en élevant au carré on
@@ -1035,9 +1036,9 @@ $d = n$ par primalité, ce qui contredit $2 \le d < n$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L227}{EntiersDivisibilite.lean\#L227}
 
-\begin{theoreme}
+\begin{exemple}
 Crible d'Ératosthène : les nombres premiers inférieurs à 100.
-\end{theoreme}
+\end{exemple}
 
 \begin{proof}
 Par calcul : le noyau évalue la liste $0, 1, \dots, 99$, la filtre par le test et compare

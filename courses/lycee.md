@@ -212,7 +212,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 
 ---
 
-## 10. Spécialité mathématiques (terminale S)
+## 10. Arithmétique, matrices et graphes (spécialité)
 
 ### Arithmétique
 

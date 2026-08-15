@@ -153,7 +153,7 @@ function blocsTex(source) {
     const fichier = m[1].replace(/\\#.*$/, '');
     const cle = `${fichier}#${m[2]}`;
 
-    const enonce = /\\begin\{(theoreme|lemme|definition)\}([\s\S]*?)\\end\{\1\}/.exec(corps);
+    const enonce = /\\begin\{(theoreme|lemme|definition|exemple)\}([\s\S]*?)\\end\{\1\}/.exec(corps);
     const preuve = /\\begin\{proof\}([\s\S]*?)\\end\{proof\}/.exec(corps);
     // Ce qui précède l'énoncé dans le bloc : les remarques libres du fichier
     // Lean, qui appartiennent au fil du texte et non à un théorème.

@@ -11,7 +11,7 @@ namespace College.NombresEtCalculs
 /-- La multiplication est prioritaire sur l'addition : sans parenthèses, `2 + 3 × 4`
 vaut `14`, et non `20`. La priorité est une convention d'écriture, pas un théorème ;
 ce qui se démontre, c'est que les deux expressions diffèrent. -/
-theorem priorites_operatoires : 2 + 3 * 4 = 14 ∧ (2 + 3) * 4 = 20 ∧ (14 : ℕ) ≠ 20 := by
+example : 2 + 3 * 4 = 14 ∧ (2 + 3) * 4 = 20 ∧ (14 : ℕ) ≠ 20 := by
   norm_num
 
 /-! ## Addition et soustraction des relatifs ; `a − b = a + (−b)` -/
@@ -134,7 +134,7 @@ theorem equation_produit (a b c d x : ℚ) :
 /-! ## Tester si un nombre est solution ; démontrer qu'une égalité est vraie pour tout `x` -/
 
 /-- Tester une valeur : `2` est solution de `x² − 5x + 6 = 0`, `1` ne l'est pas. -/
-theorem tester_une_solution :
+example :
     (2 : ℚ) ^ 2 - 5 * 2 + 6 = 0 ∧ (1 : ℚ) ^ 2 - 5 * 1 + 6 ≠ 0 := by norm_num
 
 /-- Démontrer une identité, c'est l'établir pour tout `x` à la fois — ce qu'aucun test de

@@ -19,7 +19,7 @@ theorem operations_matricielles {n : ℕ} (A B C : Matrix (Fin n) (Fin n) ℝ) :
   ⟨(Matrix.mul_assoc A B C).symm, Matrix.mul_add A B C⟩
 
 /-- Mais il n'est pas commutatif : deux matrices `2 × 2` suffisent à le montrer. -/
-theorem produit_non_commutatif :
+example :
     (!![0, 1; 0, 0] : Matrix (Fin 2) (Fin 2) ℝ) * !![0, 0; 1, 0]
       ≠ !![0, 0; 1, 0] * (!![0, 1; 0, 0] : Matrix (Fin 2) (Fin 2) ℝ) := by
   intro h

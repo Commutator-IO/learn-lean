@@ -87,14 +87,14 @@ theorem aire_trapeze_moyenne (B b h : ℝ) : aireTrapeze B b h = aireRectangle (
 
 /-- Deux rectangles de même aire peuvent avoir des périmètres différents : `1 × 12` et
 `3 × 4` ont tous deux pour aire `12`, mais leurs périmètres valent `26` et `14`. -/
-theorem meme_aire_perimetres_differents :
+example :
     aireRectangle 1 12 = aireRectangle 3 4 ∧
       perimetreRectangle 1 12 ≠ perimetreRectangle 3 4 := by
   constructor <;> simp [aireRectangle, perimetreRectangle] <;> norm_num
 
 /-- Et réciproquement, deux rectangles de même périmètre peuvent avoir des aires
 différentes : `1 × 5` et `3 × 3` ont pour périmètre `12`, pour aires `5` et `9`. -/
-theorem meme_perimetre_aires_differentes :
+example :
     perimetreRectangle 1 5 = perimetreRectangle 3 3 ∧
       aireRectangle 1 5 ≠ aireRectangle 3 3 := by
   constructor <;> simp [aireRectangle, perimetreRectangle] <;> norm_num
