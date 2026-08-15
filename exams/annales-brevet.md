@@ -19,6 +19,11 @@ qui archive les annales du brevet depuis 1951 et en propose aussi les sources La
 - Les sujets d'outre-mer et des centres étrangers (Pondichéry, Polynésie, Amérique du Nord, Asie,
   Centres étrangers…) ne sont pas repris ici : voir directement les pages annuelles de l'APMEP.
 - La colonne *Corrigé* renvoie aux corrigés APMEP, disponibles surtout à partir de 2008.
+- Les liens ont été vérifiés en ouvrant chaque fichier et en comparant l'intitulé qu'il porte
+  en première page à celui de la liste. Deux intitulés restent ceux de l'APMEP alors que le
+  sujet en porte un autre : « Groupe Nord novembre 2004 » est daté de septembre dans le
+  fichier, et le sujet de secours de 2019 porte la date de la session principale, le
+  1er juillet. Dans les deux cas le fichier est bien celui annoncé.
 
 ---
 
@@ -572,7 +577,7 @@ Page APMEP de l'année : <https://www.apmep.fr/Brevet-2000>
 |---|---|---|
 | Aix-Marseille juin 2000 | [PDF](https://www.apmep.fr/IMG/pdf/brevet_aix_marseille_juin_2000_dv.pdf) | — |
 | Bordeaux juin 2000 | [PDF](https://www.apmep.fr/IMG/pdf/brevet_bordeaux_juin_2000_dv.pdf) | — |
-| Caen juin 2001 | [PDF](https://www.apmep.fr/IMG/pdf/brevet_caen_juin_2000_dv.pdf) | — |
+| Caen juin 2000 | [PDF](https://www.apmep.fr/IMG/pdf/brevet_caen_juin_2000_dv.pdf) | — |
 | Clermont juin 2000 | [PDF](https://www.apmep.fr/IMG/pdf/brevet_clermont_juin_2000_dv.pdf) | — |
 | Grenoble juin 2000 | [PDF](https://www.apmep.fr/IMG/pdf/brevet_grenoble_juin_2000_dv.pdf) | — |
 | Limoges juin 2000 | [PDF](https://www.apmep.fr/IMG/pdf/brevet_limoges_juin_2000_dv.pdf) | — |

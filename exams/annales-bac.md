@@ -26,7 +26,12 @@ qui archive les annales du baccalauréat depuis 1941 et en propose aussi les sou
 - Les sujets d'outre-mer et des centres étrangers (Pondichéry, Polynésie, Amérique du
   Nord, Asie, Centres étrangers, Nouvelle-Calédonie…) ne sont pas repris ici : voir
   directement les pages annuelles de l'APMEP, en tête de chaque section.
-- Tous les liens ci-dessous ont été vérifiés.
+- Tous les liens ci-dessous ont été vérifiés, et pas seulement au sens où ils répondent :
+  chaque fichier a été ouvert et l'intitulé qu'il porte en première page comparé à celui de
+  la liste. Une seule session ne concordait pas — septembre 2004, voir la note à cette
+  année-là. Quelques sessions anciennes sont datées du seul mois ici alors que le sujet
+  porte le jour (juin 2009 est le 23 juin, juin 2007 le 15) : l'intitulé de l'APMEP a été
+  conservé.
 
 ---
 
@@ -247,7 +252,14 @@ Page APMEP de l'année : <https://www.apmep.fr/Annee-2004-14-sujets-14-corriges>
 | Session | Sujet | Corrigé |
 |---|---|---|
 | Métropole juin 2004 | [PDF](https://www.apmep.fr/IMG/pdf/Metropole__S_juin_2004_DV.pdf) | [corrigé](https://www.apmep.fr/IMG/pdf/Corrige_Metropole_S_juin_2004.pdf) |
-| Métropole septembre 2004 | [PDF](https://www.apmep.fr/IMG/pdf/Metropole__S_sept_2004_DV.pdf) | [corrigé](https://www.apmep.fr/IMG/pdf/Corrige_Metropole_S_sept_2004.pdf) |
+| Métropole septembre 2004 | [PDF](https://www.apmep.fr/IMG/pdf/Baccalaureat_S_2004_DV.pdf#page=46) — recueil de l'année, p. 46 (voir la note ci-dessous) | [corrigé](https://www.apmep.fr/IMG/pdf/Corrige_Metropole_S_sept_2004.pdf) |
+
+> **Session de septembre 2004.** Le fichier isolé de l'APMEP,
+> `Metropole__S_sept_2004_DV.pdf`, porte en titre « Baccalauréat S Métropole juin 2004 » :
+> c'est le sujet de juin, remis en page. Le sujet de septembre existe bien, dans le recueil
+> de l'année — [`Baccalaureat_S_2004_DV.pdf`](https://www.apmep.fr/IMG/pdf/Baccalaureat_S_2004_DV.pdf),
+> pages 46 à 51 — et le corrigé lié ci-dessus est bien celui de septembre. C'est donc vers
+> le recueil que pointe la liste, à la page voulue.
 
 ## 2003
 
