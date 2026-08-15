@@ -15,17 +15,19 @@ ce dépôt cherche à mesurer, autant que les preuves elles-mêmes.
 |---|---|---|---|
 | [college.md](courses/college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 93 | 90 |
 | [lycee.md](courses/lycee.md) | Seconde, première S, terminale S et spécialité | 137 | 123 |
-| [lycee.md](courses/lycee.md#11-informatique-nsi) | Spécialité NSI, première et terminale | 41 | 0 |
+| [lycee.md](courses/lycee.md#11-informatique-nsi) | Spécialité NSI, première et terminale | 42 | 41 |
 
-Les dix-sept chapitres de mathématiques ont leurs fichiers `.lean`, leur transcription
-française et leur PDF. S'y ajoute un dix-huitième chapitre, la spécialité NSI, dont les
-énoncés sont posés mais dont aucune preuve n'est écrite : il donne au thème
-*Algorithmique* la suite qui lui manquait après le collège.
+Les dix-huit chapitres ont leurs fichiers `.lean`, leur transcription française et leur
+PDF. Le dernier, la spécialité NSI, donne au thème *Algorithmique* la suite qui lui
+manquait après le collège : tris, dichotomie, arbres, invariants de boucle, et
+l'indécidabilité de l'arrêt.
 
-Les énoncés de mathématiques restants sont ceux qui résistent, et les raisons sont écrites
-au cas par cas dans les documents des chapitres concernés : aire du disque et volume de la
-boule au collège, volume d'un solide de révolution, théorème du toit, Moivre–Laplace et
-les intervalles de fluctuation au lycée.
+Les énoncés restants sont ceux qui résistent. Ils sont **écrits en Lean sans être
+démontrés** — leur preuve est un `sorry`, et le site comme le livre les marquent
+*admis* — de sorte que le manque se compte au lieu de disparaître : aire du disque et
+volume de la boule, volume d'un solide de révolution, théorème du toit, Moivre–Laplace,
+intervalles de fluctuation, et la moitié difficile du parcours en profondeur. La raison
+est écrite au cas par cas dans le document du chapitre.
 
 Chaque ligne y porte un statut. Le fichier lycée ajoute une colonne *Admis* qui signale
 les énoncés que le programme admet sans démonstration (théorème des valeurs
@@ -55,13 +57,19 @@ courses/        les deux programmes et un dossier par chapitre
   lycee.md        idem pour le lycée, filière S
   themes.json     l'ordre de lecture : cinq thèmes, chacun du collège à la
                   terminale — lu par le site comme par le livre
+  appuis.json     généré : où trouver, dans Mathlib, la source de chaque
+                  résultat emprunté par une démonstration
   01-college/     7 chapitres
-  02-lycee/      11 chapitres (dont la spécialité NSI, énoncés seuls)
-                chaque chapitre contient ses .lean (les preuves) et son .tex
-                (les mêmes énoncés rédigés en français), et produit un PDF
+  02-lycee/      11 chapitres, dont la spécialité NSI
+                chaque chapitre contient ses .lean (les preuves), son .tex
+                (les mêmes énoncés rédigés en français) et son dossier
+                figures/, et produit un PDF
 exams/          annales du brevet et du baccalauréat (2000-2026)
 tools/          generate-courses.py (index), generate-lakefile.py (bibliothèques),
-                generate-tex.py (un document LaTeX par chapitre)
+                generate-tex.py (un document LaTeX par chapitre),
+                generate-book.py (le livre entier), liens-mathlib.py (les emprunts)
+book/           le livre : préambule, textes de liaison, références
+site/           le site publié sur lean.commutator.io
 lakefile.toml   généré : une bibliothèque Lean par chapitre
 ```
 
@@ -74,29 +82,46 @@ attendu est donné par l'index (`Triangles.lean`, `Integration.lean`) :
 -- courses/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean
 
 /-- Si `a` divise `b` et `c`, il divise leur somme. Collège, 5e. -/
-theorem divisibilite_somme {a b c : Nat} (hb : a ∣ b) (hc : a ∣ c) : a ∣ (b + c) :=
+theorem divise_somme {a b c : Nat} (hb : a ∣ b) (hc : a ∣ c) : a ∣ (b + c) :=
   Nat.dvd_add hb hc
 ```
 
 Langue : tout le dépôt est rédigé **en français**, y compris les commentaires des
-fichiers `.lean` et les noms de théorèmes. Seuls les messages de commit et les workflows
-GitHub Actions sont en anglais.
+fichiers `.lean` et les noms de théorèmes. Seuls les messages de commit, les workflows
+GitHub Actions et les issues sont en anglais.
 
 Après chaque ajout ou suppression de fichier `.lean` :
 
 ```bash
-python3 tools/generate-lakefile.py && lake build
+python3 tools/generate-lakefile.py
 ```
 
-Pour ne reconstruire qu'un chapitre, ce qui évite de parcourir tout le graphe de
-dépendances, lui passer le nom de sa bibliothèque — celui qu'affiche
+Puis construire, en nommant la bibliothèque du chapitre touché — celle qu'affiche
 `generate-lakefile.py`, par exemple `CollegeGrandeursEtMesures` :
 
 ```bash
-lake build --wfail CollegeGrandeursEtMesures
+lake build CollegeGrandeursEtMesures
 ```
 
-Le `--wfail` est celui de la CI : un avertissement y fait échouer la construction.
+**Attention à la mémoire.** `lake build` sans argument prend les dix-huit bibliothèques et
+lance un processus par cœur ; or un processus Lean qui fait `import Mathlib` occupe environ
+1,8 Go avant même de démontrer quoi que ce soit. Sur une machine à huit cœurs et huit
+gigaoctets, il en réclame le double de ce qu'elle a, part en swap et tombe. Lake 5 n'a plus
+d'option de parallélisme : on borne la mémoire en ne demandant **qu'un module à la fois**.
+
+```bash
+lake build StructuresDeDonnees
+```
+
+La CI ne passe plus `--wfail`. Les énoncés que le programme demande et que ce dépôt ne
+démontre pas s'écrivent `sorry`, ce que Lean signale par un avertissement : garder
+`--wfail` aurait obligé soit à cacher ces manques, soit à faire échouer chaque
+construction. Le workflow en publie la liste à la place, de sorte qu'un `sorry` ajouté sans
+qu'on le veuille se voie dans le journal.
+
+Le serveur de langage, lui, ne coûte qu'un processus : c'est la façon la moins chère de
+vérifier un fichier pendant qu'on l'écrit. Il ne signale en revanche pas les dépréciations
+de Mathlib, que seule une construction fait apparaître.
 
 ## Lire les preuves hors de Lean
 
@@ -115,6 +140,63 @@ correspondance entre tactiques et rédaction française. Le script ne réécrit 
 `.tex` existant : les transcriptions sont conservées.
 
 Le document se compile avec `tectonic` ou `pdflatex` ; les PDF ne sont pas versionnés.
+
+Un chapitre qui reçoit un nouveau fichier `.lean` après coup voit sa section ajoutée à la
+fin du document ; le reste, transcriptions comprises, n'est pas touché. Les renvois
+`\source{…}{Fichier.lean#L42}` se remettent à jour tout seuls :
+
+```bash
+python3 tools/generate-tex.py --liens
+```
+
+Une preuve qui s'allonge décale toutes les lignes en dessous, et le site apparie alors des
+énoncés avec la démonstration de leur voisin sans que rien n'échoue. Un travail de la CI
+relance ce script et refuse toute différence.
+
+## Les démonstrations empruntées
+
+Une preuve qui tient en une ligne — `exact Nat.dvd_add hb hc` — est correcte et ne montre
+rien : le raisonnement est dans une bibliothèque que le lecteur n'ouvrira pas s'il faut la
+chercher. On lui en donne donc l'adresse.
+
+```bash
+python3 tools/liens-mathlib.py
+```
+
+Le script lit les sources de Mathlib, de Batteries et du noyau de Lean — une partie de
+l'arithmétique des entiers y est démontrée, et non dans Mathlib — puis écrit dans
+`courses/appuis.json` le fichier et la ligne de chaque résultat cité. Le site en fait une
+bande « s'appuie sur », sous l'en-tête du volet de code, qui mène à **la démonstration
+elle-même** et non à sa documentation. Quand la liste est vide, elle le dit aussi : c'est
+l'information la plus utile des deux.
+
+La résolution demande les sources de Mathlib, donc le script tourne en local et son
+résultat est versionné ; la construction du site ne lit que le JSON.
+
+Côté texte, la règle est dans la skill : une transcription ne dit pas « c'est un résultat
+de la bibliothèque », elle **ouvre cette démonstration et la rend en français**. Le nom de
+l'emprunt est mentionné une fois, pour qu'on puisse aller vérifier ; il ne porte jamais
+l'argument à lui seul. Restent assumés les emprunts qu'on ne refera pas — la construction
+de ℝ, la théorie de la mesure, la définition de `Real.exp` et de ses semblables : le texte
+dit alors sur quoi il s'appuie, sans faire croire qu'il l'a démontré.
+
+## Les figures
+
+Trente-deux figures, chacune écrite deux fois : en TikZ pour le livre, où elle est composée
+dans les polices du document, et en SVG pour le site, où elle suit la couleur du texte.
+
+    courses/<programme>/<chapitre>/figures/<nom_du_theoreme>.tex
+    courses/<programme>/<chapitre>/figures/<nom_du_theoreme>.svg
+
+Le nom du fichier est celui de la déclaration Lean : c'est par là que le site et le livre
+retrouvent la figure. Les coordonnées sont écrites **une fois**, en commentaire en tête du
+`.tex`, et recopiées dans le `.svg` — deux versions qui divergent seraient un défaut au même
+titre qu'une preuve fausse.
+
+On n'illustre pas tout : un calcul algébrique, une divisibilité, une identité remarquable
+n'ont pas de figure. Et jamais un énoncé admis — la figure ne comble pas le manque, et le
+lecteur qui la voit croira le contraire. Voir la skill
+[`illustrate-theorem`](.claude/skills/illustrate-theorem/SKILL.md).
 
 Les dossiers de chapitre portent des noms lisibles et ordonnés (`06-integration`), qui ne
 sont pas des identifiants Lean valides. Le lakefile les déclare donc en `srcDir` d'une
@@ -208,8 +290,12 @@ Ce sont ces schémas, plus que les théorèmes eux-mêmes, que la formalisation 
 
 ## Ce qu'on cherche à observer
 
-Les lignes qui finiront en `✗` sont le vrai résultat de l'exercice. Quelques catégories
-auxquelles on s'attend :
+Les lignes qui finiraient en `✗` seraient le vrai résultat de l'exercice. À ce jour il n'y
+en a aucune : tout ce que les programmes demandent a pu s'écrire en Lean, quitte à en
+admettre la démonstration. C'est déjà une réponse — la difficulté ne porte pas sur
+l'énonçable, mais sur le démontrable, et les dix-sept `sorry` disent où elle se trouve.
+
+Les catégories auxquelles on s'attendait, et qui se sont toutes laissé énoncer :
 
 - **Les constructions.** « Construire la médiatrice à la règle et au compas » est une
   procédure, pas une proposition : la formaliser suppose de modéliser le compas.
@@ -234,15 +320,14 @@ exercice différent, et pas toujours plus facile.
 
 ## Le site
 
-Le dépôt publie [lean.commutator.io](https://lean.commutator.io/), cinq onglets :
+Le dépôt publie [lean.commutator.io](https://lean.commutator.io/), quatre onglets :
 
 | Onglet | Contenu |
 |---|---|
 | Apprendre Lean | le cours à deux volets — le fichier Lean à gauche, sa transcription française à droite, défilement lié et identifiants cliquables |
 | Le livre | le même cours rédigé d'affilée, sans le code, et son PDF |
-| Méthode | comment on passe d'un énoncé de programme à un théorème vérifié, les outils, les deux skills |
+| Méthode | comment on passe d'un énoncé de programme à un théorème vérifié, la chaîne de construction, les trois skills |
 | Sujets d'examens | les annales de brevet et de baccalauréat, avec aperçu du PDF — le chantier suivant |
-| Dépôt | le code source |
 
 ```bash
 cd site && npm install && npm run dev
