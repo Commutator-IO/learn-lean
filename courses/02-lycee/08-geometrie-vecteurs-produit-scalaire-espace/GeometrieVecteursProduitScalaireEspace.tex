@@ -298,16 +298,16 @@ Théorème d'Al-Kashi :
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, à ceci près qu'elle l'énonce avec des produits
-$AC \times AC$ plutôt que des carrés, et avec la distance $CB$ là où le programme écrit
-$BC$. La symétrie de la distance permet de passer de l'une à l'autre, et le reste est une
-mise en forme.
-
-L'argument du théorème est le développement de
+L'argument est le développement de
 $\|\overrightarrow{BA} - \overrightarrow{BC}\|^{2}$, où le double produit fait apparaître
 $\langle \overrightarrow{BA}, \overrightarrow{BC}\rangle$, c'est-à-dire
 $AB \cdot BC \cos\widehat{ABC}$. Le théorème de Pythagore en est le cas particulier
 $\widehat{ABC} = \pi/2$.
+
+\medskip\noindent
+Mathlib l'énonce avec des produits $AC \times AC$ plutôt que des carrés, et avec la distance
+$CB$ là où le programme écrit $BC$ : la symétrie de la distance permet de passer de l'une à
+l'autre, et le reste est une mise en forme.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L177}{GeometrieVecteursProduitScalaireEspace.lean\#L177}
 
@@ -347,8 +347,9 @@ Loi des sinus :
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, cité tel quel. Sous la forme du programme, en divisant par le
-produit des deux longueurs, il s'écrit
+La loi des sinus s'obtient en calculant deux fois l'aire du triangle : $\tfrac12 AB \cdot AC
+\sin \widehat{A}$ et $\tfrac12 BA \cdot BC \sin \widehat{B}$ mesurent la même chose. Sous la
+forme du programme, en divisant par le produit des deux longueurs, cela s'écrit
 \[ \frac{\sin \widehat{A}}{BC} = \frac{\sin \widehat{B}}{CA} , \]
 le rapport commun étant l'inverse du diamètre du cercle circonscrit.
 \end{proof}

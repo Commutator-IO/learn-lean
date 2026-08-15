@@ -112,15 +112,16 @@ modulo $9$, et il est divisible par $9$ si et seulement si cette somme l'est.
 \end{theoreme}
 
 \begin{proof}
-Le premier point est le résultat de la bibliothèque sur l'écriture décimale : si la base
-$b'$ vérifie $b' \equiv 1$ modulo $b$, alors tout entier est congru modulo $b$ à la somme
-de ses chiffres en base $b'$. Ici $10 \equiv 1 \ [9]$, vérification numérique immédiate.
+Le premier point est le cas $b = 9$ d'un énoncé plus large : si la base $b'$ vérifie
+$b' \equiv 1$ modulo $b$, alors tout entier est congru modulo $b$ à la somme de ses chiffres
+en base $b'$. Ici $10 \equiv 1 \ [9]$, vérification numérique immédiate.
 
 L'argument est le suivant : un nombre écrit $\overline{c_k \dots c_0}$ vaut
 $\sum_i c_i 10^{i}$, et chaque $10^{i}$ est congru à $1^{i} = 1$ modulo $9$, de sorte que
 la somme est congrue à $\sum_i c_i$.
 
-Le critère de divisibilité s'en déduit, et la bibliothèque le donne également tel quel.
+Le critère de divisibilité s'en déduit : un nombre est divisible par $9$ exactement quand
+son reste modulo $9$ est nul, donc quand celui de la somme de ses chiffres l'est.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/Arithmetique.lean\#L37}{Arithmetique.lean\#L37}
 
@@ -175,13 +176,14 @@ Théorème de Gauss : si $a \mid bc$ et $\mathrm{pgcd}(a, b) = 1$, alors $a \mid
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, énoncé pour des éléments copremiers : si $a$ est copremier
-avec $b$ et divise le produit $bc$, il divise $c$. On y accède en traduisant l'hypothèse
-$\mathrm{pgcd}(a, b) = 1$ en coprimalité, par l'équivalence du théorème précédent.
-
-L'argument est d'ailleurs Bézout : de $ua + vb = 1$ on tire $uac + vbc = c$, et $a$ divise
+L'argument est Bézout : de $ua + vb = 1$ on tire $uac + vbc = c$, et $a$ divise
 les deux termes de gauche \textemdash{} le premier visiblement, le second parce que
 $a \mid bc$.
+
+\medskip\noindent
+L'énoncé formel est écrit pour des éléments \emph{copremiers} ; on y accède en traduisant
+l'hypothèse $\mathrm{pgcd}(a, b) = 1$ en coprimalité, par l'équivalence du théorème
+précédent.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/Arithmetique.lean\#L62}{Arithmetique.lean\#L62}
 
@@ -237,7 +239,7 @@ un.
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque. L'argument est celui d'Euclide : un facteur premier de
+L'argument est celui d'Euclide : un facteur premier de
 $n! + 1$ est nécessairement plus grand que $n$, puisque aucun entier compris entre $2$ et
 $n$ ne divise $n! + 1$ \textemdash{} chacun divise $n!$ et laisserait un reste $1$.
 \end{proof}
@@ -250,8 +252,7 @@ permutation de celle-là.
 \end{theoreme}
 
 \begin{proof}
-Les deux résultats sont ceux de la bibliothèque : la liste des facteurs premiers a bien
-$n$ pour produit, et l'unicité s'énonce comme une égalité de listes \emph{à l'ordre près},
+La liste des facteurs premiers a bien $n$ pour produit, et l'unicité s'énonce comme une égalité de listes \emph{à l'ordre près},
 ce qui est la formulation exacte du \og{} unique à l'ordre des facteurs près \fg{} du
 programme.
 
@@ -270,8 +271,7 @@ Petit théorème de Fermat : si $p$ est premier et si $a$ n'est pas nul modulo $
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, cité. L'énoncé y est écrit dans l'anneau
-$\mathbb{Z}/p\mathbb{Z}$ plutôt qu'avec des congruences d'entiers : \og{} $p$ ne divise
+L'énoncé formel est écrit dans l'anneau $\mathbb{Z}/p\mathbb{Z}$ plutôt qu'avec des congruences d'entiers : \og{} $p$ ne divise
 pas $a$ \fg{} devient \og{} $a \ne 0$ \fg{}, et \og{} $a^{p-1} \equiv 1 \ [p]$ \fg{}
 devient une égalité. C'est la même chose, dite dans le quotient plutôt que dans
 $\mathbb{Z}$, et c'est plus commode : $\mathbb{Z}/p\mathbb{Z}$ est un corps, dont le groupe
@@ -387,7 +387,7 @@ matrice est inversible :
 \end{theoreme}
 
 \begin{proof}
-La formule du déterminant en taille $2$ est celle de la bibliothèque.
+Le déterminant d'une matrice $2 \times 2$ est $ad - bc$ par définition.
 
 Pour l'inverse, on vérifie les deux produits, coefficient par coefficient. Par exemple,
 celui en haut à gauche du produit de $A$ par

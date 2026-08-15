@@ -66,9 +66,10 @@ $a = b = 0$ \textemdash{} et $i^{2} = -1$.
 \end{theoreme}
 
 \begin{proof}
-Les deux premiers points sont ceux de la bibliothèque : l'égalité
-$z = \mathrm{Re}(z) + i\,\mathrm{Im}(z)$ y est démontrée à partir de la construction de
-$\mathbb{C}$ comme couples de réels, et $i^{2} = -1$ de même.
+Les deux premiers points se lisent sur la construction de $\mathbb{C}$ comme couples de
+réels : $z$ y \emph{est} le couple $(\mathrm{Re}(z), \mathrm{Im}(z))$, et l'addition comme
+la multiplication sont posées coordonnée par coordonnée, ce qui donne à la fois
+$z = \mathrm{Re}(z) + i\,\mathrm{Im}(z)$ et $i^{2} = -1$.
 
 Pour l'unicité, on écrit que deux complexes sont égaux lorsque leurs parties réelles et
 leurs parties imaginaires le sont. L'hypothèse $a + ib = 0$ donne donc deux égalités de
@@ -96,9 +97,9 @@ qu'elle est par construction dans la bibliothèque.
 
 Pour la troisième, la bibliothèque donne $z \bar z = \mathrm{N}(z)$, où
 $\mathrm{N}(z) = \mathrm{Re}(z)^{2} + \mathrm{Im}(z)^{2}$ est la \emph{norme
-algébrique}, un réel. Il reste à savoir que cette quantité est le carré du module, ce
-qu'affirme un autre résultat de la bibliothèque, et à voir l'égalité de réels comme une
-égalité de complexes.
+algébrique}, un réel. Or le module est précisément défini comme la racine
+carrée de cette norme, de sorte que $\mathrm{N}(z) = |z|^{2}$ ; il reste à voir l'égalité de
+réels comme une égalité de complexes.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/07-nombres-complexes/NombresComplexes.lean\#L30}{NombresComplexes.lean\#L30}
 
@@ -189,10 +190,10 @@ Pour $z$ et $z'$ non nuls, l'argument d'un produit est la somme des arguments,
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, cité. L'énoncé mérite qu'on s'y arrête, parce que sa forme
-Lean est exactement celle du cours et pas celle qu'on écrirait naïvement.
+L'énoncé mérite qu'on s'y arrête, parce que sa forme Lean est exactement celle du cours et
+pas celle qu'on écrirait naïvement.
 
-L'argument de la bibliothèque est un réel choisi dans $]-\pi\,;\pi]$. Avec ce choix,
+L'argument est un réel choisi dans $]-\pi\,;\pi]$. Avec ce choix,
 l'égalité entre réels est fausse : pour $z = z' = e^{3i\pi/4}$, la somme des arguments vaut
 $3\pi/2$, qui sort de l'intervalle, tandis que $zz' = e^{3i\pi/2} = -i$ a pour argument
 $-\pi/2$. Le théorème est donc énoncé après passage au quotient par $2\pi$, dans le type
@@ -208,9 +209,9 @@ des angles réels, où l'égalité vaut sans restriction. C'est la traduction fi
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, qui l'obtient en regroupant les termes pairs et impairs de la
-série de l'exponentielle complexe : les premiers donnent la série du cosinus, les seconds
-celle du sinus.
+On regroupe les termes pairs et impairs de la série de l'exponentielle complexe : les
+premiers donnent la série du cosinus, les seconds celle du sinus, et le facteur $i$ sépare
+les deux.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/07-nombres-complexes/NombresComplexes.lean\#L78}{NombresComplexes.lean\#L78}
 
@@ -383,8 +384,8 @@ Dans les trois cas on calcule la différence des images.
 \emph{Translation :} $(z + b) - (z' + b) = z - z'$, donc les modules sont égaux.
 
 \emph{Rotation :} la différence vaut $e^{i\theta}(z - z')$, dont le module est
-$|e^{i\theta}|\,|z - z'|$. Or le module de $e^{i\theta}$ vaut $1$ pour $\theta$ réel
-\textemdash{} résultat de la bibliothèque \textemdash{} d'où la conservation des distances.
+$|e^{i\theta}|\,|z - z'|$. Or $|e^{i\theta}|^{2} = e^{i\theta}\,\overline{e^{i\theta}}
+= e^{i\theta}e^{-i\theta} = 1$ pour $\theta$ réel, d'où la conservation des distances.
 
 \emph{Homothétie :} la différence vaut $k(z - z')$, de module $|k|\,|z - z'|$, le module
 d'un réel étant sa valeur absolue.

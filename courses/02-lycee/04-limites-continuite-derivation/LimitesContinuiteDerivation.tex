@@ -129,9 +129,8 @@ positives ; l'axe des ordonnées est asymptote à l'hyperbole de la fonction inv
 \end{theoreme}
 
 \begin{proof}
-C'est un résultat de la bibliothèque sur les corps ordonnés : l'inverse tend vers
-$+\infty$ à droite de zéro. L'argument est immédiat : pour $A > 0$ donné, tout $x$ tel que
-$0 < x < 1/A$ vérifie $1/x > A$. Comme $1/x$ et $x^{-1}$ sont deux écritures de la même
+Pour $A > 0$ donné, tout $x$ tel que $0 < x < 1/A$ vérifie $1/x > A$ : l'inverse dépasse
+donc toute borne dès qu'on s'approche assez de zéro par la droite. Comme $1/x$ et $x^{-1}$ sont deux écritures de la même
 fonction, l'énoncé s'y ramène.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L56}{LimitesContinuiteDerivation.lean\#L56}
@@ -159,7 +158,9 @@ alors $f + g \to \ell + \ell'$.
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, que le programme admet. Si $|f(x) - \ell| < \varepsilon/2$ et
+Le programme du lycée admet ce résultat ; en voici l'argument.
+
+Si $|f(x) - \ell| < \varepsilon/2$ et
 $|g(x) - \ell'| < \varepsilon/2$ pour $x$ assez proche de $a$, alors l'inégalité
 triangulaire donne
 \[ \bigl|(f(x) + g(x)) - (\ell + \ell')\bigr|
@@ -213,8 +214,7 @@ L'exponentielle l'emporte sur toute puissance : pour tout entier $n$,
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, cité tel quel dans le fichier Lean. Il repose sur la
-minoration de l'exponentielle par un terme de sa série : pour $x \ge 0$,
+Tout repose sur la minoration de l'exponentielle par un terme de sa série : pour $x \ge 0$,
 \[ e^x \ge \frac{x^{n+1}}{(n+1)!} ,
    \qquad\text{d'où}\qquad \frac{e^x}{x^n} \ge \frac{x}{(n+1)!} \]
 dès que $x > 0$, et le membre de droite tend vers $+\infty$.
@@ -392,8 +392,8 @@ Dérivées des fonctions de référence :
 \end{theoreme}
 
 \begin{proof}
-Les sept dérivées sont celles de la bibliothèque, citées une à une ; deux d'entre elles
-demandent une mise en forme.
+Les sept dérivées sont celles du programme ; deux d'entre elles demandent une mise en
+forme avant d'y ressembler.
 
 \smallskip\noindent
 \emph{L'inverse.} Mathlib donne $(x^{-1})' = -(x^{2})^{-1}$ pour $x \ne 0$. C'est la même
@@ -422,8 +422,8 @@ les deux dernières là où $v$ ne s'annule pas.
 \end{theoreme}
 
 \begin{proof}
-La somme, le produit et le quotient sont les règles de la bibliothèque, citées
-directement.
+La somme, le produit et le quotient sont les trois règles usuelles, qui s'établissent en
+écrivant la dérivée comme limite du taux d'accroissement et en développant.
 
 L'inverse s'en déduit sans nouvelle règle : c'est le quotient de la fonction constante
 égale à $1$, de dérivée nulle, par $v$. La formule du quotient donne alors
@@ -541,11 +541,11 @@ $f$ est convexe sur $[a\,;b]$.
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, cité pour la partie convexe $[a\,;b]$. Son argument : une
-dérivée seconde positive rend $f'$ croissante, et une fonction dont la dérivée croît est
-convexe \textemdash{} sa courbe reste au-dessous de ses cordes. Les hypothèses du fichier
-sont celles du résultat cité, à ceci près qu'elles portent sur le segment fermé tout entier
-plutôt que sur son intérieur.
+Une dérivée seconde positive rend $f'$ croissante, et une fonction dont la dérivée croît
+est convexe \textemdash{} sa courbe reste au-dessous de ses cordes.
+
+Les hypothèses du fichier portent sur le segment fermé tout entier, là où l'énoncé général
+se contente de son intérieur : c'est plus fort qu'il ne faut, et sans conséquence ici.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L254}{LimitesContinuiteDerivation.lean\#L254}
 

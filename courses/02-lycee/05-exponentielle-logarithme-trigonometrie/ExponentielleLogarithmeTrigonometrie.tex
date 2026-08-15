@@ -68,7 +68,7 @@ dérivable, égale à sa dérivée, et vaut $1$ en zéro,
 \end{theoreme}
 
 \begin{proof}
-Les deux faits sont ceux de la bibliothèque, où $\exp$ est définie par la série
+Tout vient de la définition : $\exp$ est posée par la série
 \[ \exp(x) = \sum_{n \ge 0} \frac{x^{n}}{n!} , \]
 dont on dérive terme à terme pour obtenir $\exp' = \exp$, et dont le terme constant donne
 $\exp(0) = 1$. Le fichier ne fait que les citer côte à côte : leur intérêt est de dire que
@@ -108,8 +108,7 @@ L'exponentielle transforme les sommes en produits :
 \end{theoreme}
 
 \begin{proof}
-La première égalité est celle de la bibliothèque, obtenue du produit de Cauchy des séries.
-En écrivant $\exp(a) = \sum_n a^n/n!$ et de même pour $b$, le produit des deux séries se
+La première égalité vient du produit de Cauchy des deux séries. En écrivant $\exp(a) = \sum_n a^n/n!$ et de même pour $b$, le produit des deux séries se
 réordonne en
 \[ \sum_{n} \frac{1}{n!} \sum_{k=0}^{n} \binom{n}{k} a^{k} b^{n-k}
    = \sum_{n} \frac{(a+b)^n}{n!} = \exp(a + b) , \]
@@ -133,7 +132,7 @@ L'exponentielle est strictement positive et strictement croissante :
 \end{theoreme}
 
 \begin{proof}
-Deux résultats de la bibliothèque, cités. La positivité tient à l'identité
+La positivité tient à l'identité
 $\exp(x) = \exp(x/2)^{2}$, qui donne un carré, non nul puisque l'exponentielle ne s'annule
 jamais. La croissance stricte s'en déduit : pour $x < y$,
 \[ \exp(y) - \exp(x) = \exp(x)\bigl(\exp(y - x) - 1\bigr) > 0 , \]
@@ -149,8 +148,7 @@ le second facteur étant strictement positif dès que $y - x > 0$.
 \end{theoreme}
 
 \begin{proof}
-Les deux limites sont celles de la bibliothèque. La première vient de la minoration
-$\exp(x) \ge 1 + x$, valable pour tout $x$ ; la seconde s'en déduit par
+La première limite vient de la minoration $\exp(x) \ge 1 + x$, valable pour tout $x$ ; la seconde s'en déduit par
 $\exp(-x) = 1/\exp(x)$, l'inverse d'une quantité tendant vers $+\infty$ tendant vers zéro.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L61}{ExponentielleLogarithmeTrigonometrie.lean\#L61}
@@ -164,8 +162,8 @@ Le logarithme est la fonction réciproque de l'exponentielle :
 \end{theoreme}
 
 \begin{proof}
-Les deux identités sont celles de la bibliothèque, qui définit $\ln$ comme la réciproque de
-$\exp$ sur $\mathbb{R}_{+}^{*}$.
+Les deux identités disent que $\ln$ est la réciproque de $\exp$ sur $\mathbb{R}_{+}^{*}$ :
+c'est ainsi qu'elle est définie, et il n'y a rien d'autre à établir.
 
 \medskip\noindent
 L'asymétrie des hypothèses n'est pas un oubli : $\ln(e^{x}) = x$ vaut pour tout réel
@@ -191,14 +189,13 @@ Pour $a > 0$ et $b > 0$, le logarithme transforme les produits en sommes :
 \end{theoreme}
 
 \begin{proof}
-Les quatre identités sont citées à la bibliothèque, qui les énonce sous des hypothèses
-légèrement plus faibles : $a \ne 0$ et $b \ne 0$ suffisent, parce que le logarithme de Lean
-d'un négatif vaut celui de sa valeur absolue. La transcription retient les hypothèses du
-lycée, $a > 0$ et $b > 0$, qui sont celles sous lesquelles l'énoncé a un sens.
-
-\medskip\noindent
 Toutes découlent de la première par la réciprocité : $\ln(ab) = \ln a + \ln b$ est la
 traduction, par $\ln$, de $e^{u+v} = e^{u}e^{v}$.
+
+\medskip\noindent
+Sur les hypothèses, Mathlib demande moins : $a \ne 0$ et $b \ne 0$ suffisent, parce que le
+logarithme de Lean d'un négatif vaut celui de sa valeur absolue. La transcription retient
+celles du lycée, $a > 0$ et $b > 0$, qui sont celles sous lesquelles l'énoncé a un sens.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L75}{ExponentielleLogarithmeTrigonometrie.lean\#L75}
 
@@ -209,13 +206,13 @@ et il est strictement croissant sur $]0\,;+\infty[$.
 \end{theoreme}
 
 \begin{proof}
-La dérivée est celle de la bibliothèque, qui donne $x^{-1}$ et que l'on récrit $1/x$. Elle
-s'obtient par dérivation de la réciproque : en dérivant $e^{\ln x} = x$ on trouve
-$e^{\ln x} \times (\ln x)' = 1$, soit $x\,(\ln x)' = 1$.
+La dérivée s'obtient par dérivation de la réciproque : en dérivant $e^{\ln x} = x$ on
+trouve $e^{\ln x} \times (\ln x)' = 1$, soit $x\,(\ln x)' = 1$. Mathlib l'écrit $x^{-1}$,
+que l'on récrit $1/x$.
 
-La croissance stricte est le résultat de la bibliothèque affirmant que $\ln$ conserve les
-inégalités strictes entre réels strictement positifs. La transcription se contente
-d'appliquer ce résultat à deux points $x < y$ de $]0\,;+\infty[$ ; l'appartenance de $y$ à
+La croissance stricte tient à ce que $\ln$ est la réciproque d'une fonction strictement
+croissante : elle conserve donc les inégalités strictes entre réels strictement positifs.
+La transcription l'applique à deux points $x < y$ de $]0\,;+\infty[$ ; l'appartenance de $y$ à
 l'intervalle ne sert pas, seule celle de $x$ est requise.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/05-exponentielle-logarithme-trigonometrie/ExponentielleLogarithmeTrigonometrie.lean\#L85}{ExponentielleLogarithmeTrigonometrie.lean\#L85}
@@ -226,8 +223,7 @@ l'intervalle ne sert pas, seule celle de $x$ est requise.
 \end{theoreme}
 
 \begin{proof}
-Les deux limites sont celles de la bibliothèque, et elles se déduisent de celles de
-l'exponentielle par réciprocité.
+Elles se déduisent des limites de l'exponentielle par réciprocité.
 
 Le logarithme est défini comme la réciproque de $\exp$, laquelle est une bijection
 strictement croissante de $\mathbb{R}$ sur $\mathbb{R}_{+}^{*}$. Une bijection croissante et
@@ -297,8 +293,7 @@ Valeurs remarquables sur le premier quadrant :
 \end{theoreme}
 
 \begin{proof}
-Les dix valeurs sont celles de la bibliothèque, citées une à une. Elles ne se calculent pas
-à partir des séries mais des relations remarquables : $\cos(\pi/2) = 0$ tient à la
+Ces dix valeurs ne se calculent pas à partir des séries, mais des relations remarquables : $\cos(\pi/2) = 0$ tient à la
 définition de $\pi$, $\cos(\pi/3) = 1/2$ vient de la formule de duplication appliquée à
 $\pi/3$, et $\cos(\pi/4) = \sqrt{2}/2$ de $\cos^{2} + \sin^{2} = 1$ jointe à
 $\cos(\pi/4) = \sin(\pi/4)$.
@@ -314,8 +309,7 @@ Angles associés, qui se lisent par symétrie sur le cercle :
 \end{theoreme}
 
 \begin{proof}
-Les six identités sont celles de la bibliothèque, et toutes se déduisent des formules
-d'addition jointes aux valeurs remarquables.
+Toutes se déduisent des formules d'addition jointes aux valeurs remarquables.
 
 La parité du cosinus et l'imparité du sinus se lisent sur les séries, où le cosinus n'a que
 des puissances paires et le sinus que des impaires. Les quatre autres s'obtiennent en
@@ -341,8 +335,7 @@ coordonnées.
 \end{theoreme}
 
 \begin{proof}
-Les quatre formules sont citées à la bibliothèque, qui les obtient des séries. Le chemin le
-plus court passe par l'exponentielle complexe et l'identité $e^{i\theta} = \cos\theta +
+Le chemin le plus court passe par l'exponentielle complexe et l'identité $e^{i\theta} = \cos\theta +
 i\sin\theta$ : la relation $e^{ia}e^{ib} = e^{i(a+b)}$ s'écrit
 \[ (\cos a + i\sin a)(\cos b + i\sin b)
    = \cos(a+b) + i\sin(a+b) , \]

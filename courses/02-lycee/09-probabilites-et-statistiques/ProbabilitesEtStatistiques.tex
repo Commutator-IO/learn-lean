@@ -184,9 +184,9 @@ $\overline{x^{2}} - \bar x^{2}$.
 \end{theoreme}
 
 \begin{proof}
-Les deux égalités sont celles de la bibliothèque : l'additivité d'une mesure sur une
-réunion, comptée avec l'intersection, et le fait qu'un événement et son contraire
-partagent l'univers, dont la probabilité vaut $1$.
+La première égalité est l'additivité d'une mesure : compter $A \cup B$ revient à compter
+$A$ et $B$ séparément, puis à corriger l'intersection, comptée deux fois. La seconde tient à
+ce qu'un événement et son contraire partagent l'univers, dont la probabilité vaut $1$.
 
 \medskip\noindent
 La forme du programme, $P(A \cup B) = P(A) + P(B) - P(A \cap B)$, est écrite ici sans
@@ -239,8 +239,7 @@ Loi binomiale : pour $n$ épreuves de Bernoulli indépendantes de paramètre $p$
 \end{theoreme}
 
 \begin{proof}
-C'est le résultat de la bibliothèque, qui définit la loi binomiale comme la loi du cardinal
-d'une partie aléatoire de $\{0, \dots, n-1\}$ où chaque élément est retenu avec probabilité
+La loi binomiale est définie comme la loi du cardinal d'une partie aléatoire de $\{0, \dots, n-1\}$ où chaque élément est retenu avec probabilité
 $p$, indépendamment des autres \textemdash{} c'est-à-dire exactement le schéma de Bernoulli
 du programme. La formule des coefficients binomiaux en découle par dénombrement des parties
 à $k$ éléments.
@@ -307,8 +306,8 @@ Probabilité conditionnelle et probabilités composées :
 \end{theoreme}
 
 \begin{proof}
-Les deux égalités sont celles de la bibliothèque, qui définit la mesure conditionnée à $A$
-par la restriction à $A$ renormalisée. La première est la définition écrite avec l'inverse
+La mesure conditionnée à $A$ est définie comme la restriction à $A$, renormalisée par
+$P(A)$. La première égalité est cette définition, écrite avec l'inverse
 de $P(A)$ plutôt qu'une barre de fraction ; la seconde s'en déduit, à ceci près qu'elle
 reste vraie même si $P(A) = 0$, où les deux membres sont nuls.
 \end{proof}
@@ -388,8 +387,7 @@ et l'absence de mémoire s'écrit
 \end{theoreme}
 
 \begin{proof}
-La densité et la fonction de répartition sont celles de la bibliothèque, la seconde
-obtenue en primitivant la première : $\int_0^t r e^{-ru}\,du = 1 - e^{-rt}$. La condition
+La fonction de répartition s'obtient en primitivant la densité : $\int_0^t r e^{-ru}\,du = 1 - e^{-rt}$. La condition
 $t \ge 0$ est nécessaire : en deçà, la densité est nulle et la fonction de répartition
 aussi.
 
@@ -420,8 +418,8 @@ Loi normale $\mathcal{N}(m, v)$ : son espérance vaut $m$ et sa variance $v$.
 \end{theoreme}
 
 \begin{proof}
-Les deux résultats sont ceux de la bibliothèque, qui construit la loi normale par sa
-densité $\frac{1}{\sqrt{2\pi v}}\,e^{-(x-m)^{2}/(2v)}$ et calcule ses deux premiers moments
+La loi normale est construite par sa densité
+$\frac{1}{\sqrt{2\pi v}}\,e^{-(x-m)^{2}/(2v)}$, et ses deux premiers moments se calculent
 par les intégrales gaussiennes. La loi normale centrée réduite en est le cas $m = 0$,
 $v = 1$.
 

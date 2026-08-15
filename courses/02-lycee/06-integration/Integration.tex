@@ -170,8 +170,8 @@ avec l'ordre des bornes, exactement comme $F(b) - F(a)$.
 \end{theoreme}
 
 \begin{proof}
-Les deux règles sont celles de la bibliothèque. L'additivité réclame que $f$ et $g$ soient
-intégrables sur l'intervalle, ce que leur continuité assure ; l'homogénéité ne demande
+L'intégrale est linéaire parce qu'elle est construite comme une limite de sommes, et
+qu'une somme l'est. L'additivité réclame que $f$ et $g$ soient intégrables sur l'intervalle, ce que leur continuité assure ; l'homogénéité ne demande
 rien, la constante sortant de l'intégrale même lorsque celle-ci n'est pas définie.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L62}{Integration.lean\#L62}
@@ -183,8 +183,8 @@ rien, la constante sortant de l'intégrale même lorsque celle-ci n'est pas déf
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, sous l'hypothèse que $f$ est intégrable sur les deux
-premiers intervalles \textemdash{} vrai ici par continuité.
+La relation vaut dès que $f$ est intégrable sur les deux premiers intervalles, ce que la
+continuité assure ici.
 
 \medskip\noindent
 Aucune condition d'ordre sur $a$, $b$, $c$ : c'est justement l'intérêt de l'intégrale
@@ -202,8 +202,7 @@ Pour $a \le b$ :
 \end{theoreme}
 
 \begin{proof}
-Deux résultats de la bibliothèque, cités. La positivité vient de ce que l'intégrale d'une
-fonction positive est une limite de sommes de termes positifs ; la croissance s'en déduit
+La positivité vient de ce que l'intégrale d'une fonction positive est une limite de sommes de termes positifs ; la croissance s'en déduit
 en appliquant la positivité à $g - f$.
 
 \medskip\noindent
@@ -248,8 +247,7 @@ Si $u$ et $v$ sont dérivables sur $\mathbb{R}$, de dérivées $u'$ et $v'$ cont
 \end{theoreme}
 
 \begin{proof}
-Résultat de la bibliothèque, cité. Il découle du théorème fondamental appliqué au produit
-$uv$ : la dérivée de $uv$ est $u'v + uv'$, donc
+Tout découle du théorème fondamental appliqué au produit $uv$ : la dérivée de $uv$ est $u'v + uv'$, donc
 \[ \int_a^b \bigl(u'v + uv'\bigr) = u(b)v(b) - u(a)v(a) , \]
 et il ne reste qu'à séparer les deux termes par linéarité. Les hypothèses de continuité
 des dérivées servent à cette séparation, en assurant que chacune des deux intégrales
