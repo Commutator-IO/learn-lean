@@ -33,6 +33,24 @@ jobs:
             $(find courses -name '*.lean' | sort) | tee /tmp/admis.txt
           echo "::notice::$(wc -l < /tmp/admis.txt | tr -d ' ') admitted statements"
 
+  # The French documents point at their Lean twin by line number. Adding a line
+  # to a .lean file silently moves every anchor below it, and the site then pairs
+  # nothing: statements lose their proof without anything failing. This catches
+  # it, and needs neither Lean nor Mathlib.
+  anchors:
+    name: source anchors up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Refresh and compare
+        run: |
+          python3 tools/generate-tex.py --liens
+          if ! git diff --exit-code -- 'courses/**/*.tex'; then
+            echo "::error::a .tex points at stale line numbers - run 'python3 tools/generate-tex.py --liens' and commit the result."
+            exit 1
+          fi
+
   lakefile:
     name: lakefile up to date
     runs-on: ubuntu-latest
