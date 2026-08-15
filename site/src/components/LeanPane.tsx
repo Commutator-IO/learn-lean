@@ -65,6 +65,56 @@ function Infobulle({
   )
 }
 
+/** Le nom court du dépôt d'où vient un résultat emprunté. */
+const DEPOT: Record<string, string> = {
+  mathlib: 'Mathlib',
+  batteries: 'Batteries',
+  lean4: 'Lean',
+}
+
+/**
+ * Ce sur quoi s'appuie la démonstration courante.
+ *
+ * Une preuve d'une ligne — `exact Nat.dvd_add hb hc` — est correcte et ne montre
+ * rien : le raisonnement est ailleurs. On donne donc l'adresse de cet ailleurs, et
+ * l'on mène à la démonstration elle-même plutôt qu'à sa documentation — c'est la
+ * preuve qu'on veut pouvoir lire, pas la signature du théorème.
+ *
+ * Quand la liste est vide, on le dit aussi : c'est l'information la plus utile des
+ * deux, puisqu'elle signifie que le chapitre se suffit à lui-même.
+ */
+function Appuis({ declaration }: { declaration: Declaration }) {
+  const appuis = declaration.appuis ?? []
+  return (
+    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 border-t border-ink-100 px-4 py-1.5">
+      <span className="font-sans text-[10.5px] font-semibold tracking-wide text-ink-400 uppercase">
+        S'appuie sur
+      </span>
+      {appuis.length === 0 ? (
+        <span className="font-sans text-[11.5px] text-ink-400">
+          rien d'extérieur — la démonstration tient dans ce chapitre
+        </span>
+      ) : (
+        appuis.map((a) => (
+          <a
+            key={a.nom}
+            href={a.url}
+            target="_blank"
+            rel="noreferrer"
+            title={`démonstration de ${a.nom} dans ${DEPOT[a.paquet] ?? a.paquet}`}
+            className="rounded border border-ink-200 bg-white px-1.5 py-0.5 font-mono text-[11px] text-brand-700 hover:border-brand-300 hover:bg-brand-50"
+          >
+            {a.nom}
+            <span className="ml-1 font-sans text-[9.5px] text-ink-400">
+              {DEPOT[a.paquet] ?? a.paquet} ↗
+            </span>
+          </a>
+        ))
+      )}
+    </div>
+  )
+}
+
 /**
  * Le volet de gauche : le fichier Lean, entier.
  *
@@ -133,14 +183,19 @@ export function LeanPane({
 
   return (
     <div ref={conteneur} className="h-full overflow-auto bg-ink-50/60">
-      <div className="sticky top-0 z-10 flex items-center gap-2 border-b border-ink-200 bg-white px-4 py-2 text-[12px] text-ink-500">
-        <span className="font-mono text-ink-700">{module.nom}</span>
-        <a
-          className="ml-auto underline underline-offset-2 hover:text-ink-800"
-          href={`https://github.com/Commutator-IO/learn-lean/blob/main/courses/${chapitre}/${module.nom}`}
-        >
-          voir sur GitHub
-        </a>
+      {/* En-tête et appuis forment un seul bloc collant : le lecteur qui descend
+          dans le fichier garde sous les yeux ce que la démonstration emprunte. */}
+      <div className="sticky top-0 z-10 border-b border-ink-200 bg-white">
+        <div className="flex items-center gap-2 px-4 py-2 text-[12px] text-ink-500">
+          <span className="font-mono text-ink-700">{module.nom}</span>
+          <a
+            className="ml-auto underline underline-offset-2 hover:text-ink-800"
+            href={`https://github.com/Commutator-IO/learn-lean/blob/main/courses/${chapitre}/${module.nom}`}
+          >
+            voir sur GitHub
+          </a>
+        </div>
+        {courante && <Appuis declaration={courante} />}
       </div>
 
       <pre className="px-0 py-3 font-mono text-[12.5px] leading-[1.55]">

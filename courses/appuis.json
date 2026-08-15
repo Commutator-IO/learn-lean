@@ -1,0 +1,2817 @@
+{
+ "Affine.Simplex": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/AffineSpace/Simplex/Basic.lean",
+  "ligne": 48,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/AffineSpace/Simplex/Basic.lean#L48"
+ },
+ "Affine.Simplex.dist_incenter": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Incenter.lean",
+  "ligne": 854,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Incenter.lean#L854"
+ },
+ "Affine.Triangle": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/AffineSpace/Simplex/Basic.lean",
+  "ligne": 53,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/AffineSpace/Simplex/Basic.lean#L53"
+ },
+ "Affine.Triangle.orthocenter_mem_altitude": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/MongePoint.lean",
+  "ligne": 414,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/MongePoint.lean#L414"
+ },
+ "AffineSubspace.mem_mk'": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/AffineSpace/AffineSubspace/Defs.lean",
+  "ligne": 397,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/AffineSpace/AffineSubspace/Defs.lean#L397"
+ },
+ "AffineSubspace.mem_perpBisector_iff_dist_eq'": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/PerpBisector.lean",
+  "ligne": 99,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/PerpBisector.lean#L99"
+ },
+ "AffineSubspace.mk'": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/AffineSpace/AffineSubspace/Defs.lean",
+  "ligne": 388,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/AffineSpace/AffineSubspace/Defs.lean#L388"
+ },
+ "AffineSubspace.perpBisector": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/PerpBisector.lean",
+  "ligne": 41,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/PerpBisector.lean#L41"
+ },
+ "Bool.and_eq_true": {
+  "paquet": "lean4",
+  "fichier": "Init/SimpLemmas.lean",
+  "ligne": 366,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/SimpLemmas.lean#L366"
+ },
+ "Bool.or_eq_true": {
+  "paquet": "lean4",
+  "fichier": "Init/SimpLemmas.lean",
+  "ligne": 354,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/SimpLemmas.lean#L354"
+ },
+ "Classical.byContradiction": {
+  "paquet": "lean4",
+  "fichier": "Init/Classical.lean",
+  "ligne": 138,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Classical.lean#L138"
+ },
+ "Complex.I": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 240,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L240"
+ },
+ "Complex.I_ne_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 258,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L258"
+ },
+ "Complex.I_sq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 627,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L627"
+ },
+ "Complex.arg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean",
+  "ligne": 30,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean#L30"
+ },
+ "Complex.arg_mul_coe_angle": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean",
+  "ligne": 488,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean#L488"
+ },
+ "Complex.arg_real_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean",
+  "ligne": 185,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean#L185"
+ },
+ "Complex.conj_I": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 479,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L479"
+ },
+ "Complex.conj_im": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 471,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L471"
+ },
+ "Complex.conj_ofReal": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 475,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L475"
+ },
+ "Complex.conj_re": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 467,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L467"
+ },
+ "Complex.cos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 35,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L35"
+ },
+ "Complex.cos_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 318,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L318"
+ },
+ "Complex.dist_eq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Norm.lean",
+  "ligne": 232,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Norm.lean#L232"
+ },
+ "Complex.div_re": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 705,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L705"
+ },
+ "Complex.exp_mul_I": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 511,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L511"
+ },
+ "Complex.exp_nat_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Exponential.lean",
+  "ligne": 157,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Exponential.lean#L157"
+ },
+ "Complex.finrank_real_complex_fact": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/Complex/FiniteDimensional.lean",
+  "ligne": 42,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/Complex/FiniteDimensional.lean#L42"
+ },
+ "Complex.inv_def": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 683,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L683"
+ },
+ "Complex.mul_conj": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 586,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L586"
+ },
+ "Complex.neg_im": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 189,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L189"
+ },
+ "Complex.neg_re": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 185,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L185"
+ },
+ "Complex.normSq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 509,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L509"
+ },
+ "Complex.normSq_apply": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 517,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L517"
+ },
+ "Complex.normSq_eq_norm_sq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Norm.lean",
+  "ligne": 147,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Norm.lean#L147"
+ },
+ "Complex.normSq_pos.mpr": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 565,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L565",
+  "via": "Complex.normSq_pos"
+ },
+ "Complex.norm_exp_ofReal_mul_I": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 950,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L950"
+ },
+ "Complex.norm_real": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Norm.lean",
+  "ligne": 103,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Norm.lean#L103"
+ },
+ "Complex.orientation.oangle": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/Complex/Orientation.lean",
+  "ligne": 24,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/Complex/Orientation.lean#L24",
+  "via": "Complex.orientation"
+ },
+ "Complex.re_add_im": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 264,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L264"
+ },
+ "Complex.sin": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 30,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L30"
+ },
+ "Complex.sin_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 278,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L278"
+ },
+ "Complex.sub_im": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 657,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L657"
+ },
+ "Complex.sub_re": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Complex/Basic.lean",
+  "ligne": 653,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Complex/Basic.lean#L653"
+ },
+ "ENNReal.add_left_inj": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/ENNReal/Operations.lean",
+  "ligne": 272,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/ENNReal/Operations.lean#L272"
+ },
+ "ENNReal.mul_ne_top": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/ENNReal/Operations.lean",
+  "ligne": 199,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/ENNReal/Operations.lean#L199"
+ },
+ "ENNReal.ofReal": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/ENNReal/Basic.lean",
+  "ligne": 230,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/ENNReal/Basic.lean#L230"
+ },
+ "EuclideanGeometry.Sphere": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Sphere/Basic.lean",
+  "ligne": 53,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Sphere/Basic.lean#L53"
+ },
+ "EuclideanGeometry.Sphere.angle_eq_pi_div_two_iff_mem_sphere_ofDiameter.mp": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Sphere.lean",
+  "ligne": 103,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Sphere.lean#L103",
+  "via": "EuclideanGeometry.Sphere.angle_eq_pi_div_two_iff_mem_sphere_ofDiameter"
+ },
+ "EuclideanGeometry.Sphere.ofDiameter": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Sphere/Basic.lean",
+  "ligne": 338,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Sphere/Basic.lean#L338"
+ },
+ "EuclideanGeometry.Sphere.thales_theorem": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Sphere.lean",
+  "ligne": 107,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Sphere.lean#L107"
+ },
+ "EuclideanGeometry.angle": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/Affine.lean",
+  "ligne": 42,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/Affine.lean#L42"
+ },
+ "EuclideanGeometry.angle_add_angle_add_angle_eq_pi": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Triangle.lean",
+  "ligne": 317,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Triangle.lean#L317"
+ },
+ "EuclideanGeometry.angle_comm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/Affine.lean",
+  "ligne": 134,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/Affine.lean#L134"
+ },
+ "EuclideanGeometry.angle_eq_angle_of_dist_eq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Triangle.lean",
+  "ligne": 283,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Triangle.lean#L283"
+ },
+ "EuclideanGeometry.dist_eq_of_angle_eq_angle_of_angle_ne_pi": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Triangle.lean",
+  "ligne": 292,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Triangle.lean#L292"
+ },
+ "EuclideanGeometry.dist_sq_eq_dist_sq_add_dist_sq_iff_angle_eq_pi_div_two": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/RightAngle.lean",
+  "ligne": 328,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/RightAngle.lean#L328"
+ },
+ "EuclideanGeometry.law_cos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Triangle.lean",
+  "ligne": 253,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Triangle.lean#L253"
+ },
+ "EuclideanGeometry.law_sin": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Triangle.lean",
+  "ligne": 265,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Triangle.lean#L265"
+ },
+ "EuclideanSpace.dist_eq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/PiL2.lean",
+  "ligne": 160,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L160"
+ },
+ "Filter.Tendsto": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Filter/Defs.lean",
+  "ligne": 321,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Filter/Defs.lean#L321"
+ },
+ "Filter.atTop": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Filter/AtTopBot/Defs.lean",
+  "ligne": 39,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Filter/AtTopBot/Defs.lean#L39"
+ },
+ "Finset.card_univ": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fintype/Card.lean",
+  "ligne": 104,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fintype/Card.lean#L104"
+ },
+ "Finset.mul_sum": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/BigOperators/Ring/Finset.lean",
+  "ligne": 59,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/BigOperators/Ring/Finset.lean#L59"
+ },
+ "Finset.prod_range_succ": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean",
+  "ligne": 528,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean#L528"
+ },
+ "Finset.range": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Finset/Range.lean",
+  "ligne": 53,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Finset/Range.lean#L53"
+ },
+ "Finset.subset_univ": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fintype/Defs.lean",
+  "ligne": 113,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fintype/Defs.lean#L113"
+ },
+ "Finset.sum_range_id_mul_two": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/BigOperators/Intervals.lean",
+  "ligne": 177,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/BigOperators/Intervals.lean#L177"
+ },
+ "Finset.univ": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fintype/Defs.lean",
+  "ligne": 92,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fintype/Defs.lean#L92"
+ },
+ "Fintype.card": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fintype/Card.lean",
+  "ligne": 40,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fintype/Card.lean#L40"
+ },
+ "Fintype.card_fin": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fintype/Card.lean",
+  "ligne": 497,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fintype/Card.lean#L497"
+ },
+ "Fintype.linearIndependent_iff.mp": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/LinearIndependent/Defs.lean",
+  "ligne": 266,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/LinearIndependent/Defs.lean#L266",
+  "via": "Fintype.linearIndependent_iff"
+ },
+ "Function.Bijective": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Logic/Function/Defs.lean",
+  "ligne": 163,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Logic/Function/Defs.lean#L163"
+ },
+ "Function.iterate_succ_apply": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Logic/Function/Iterate.lean",
+  "ligne": 65,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Logic/Function/Iterate.lean#L65"
+ },
+ "Function.iterate_succ_apply'": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Logic/Function/Iterate.lean",
+  "ligne": 174,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Logic/Function/Iterate.lean#L174"
+ },
+ "Iff.rfl": {
+  "paquet": "lean4",
+  "fichier": "Init/Core.lean",
+  "ligne": 1036,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Core.lean#L1036"
+ },
+ "InnerProductGeometry.angle": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean",
+  "ligne": 41,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean#L41"
+ },
+ "InnerProductGeometry.angle_neg_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean",
+  "ligne": 77,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean#L77"
+ },
+ "InnerProductGeometry.angle_neg_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean",
+  "ligne": 94,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean#L94"
+ },
+ "InnerProductGeometry.angle_smul_left_of_pos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean",
+  "ligne": 141,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean#L141"
+ },
+ "InnerProductGeometry.angle_smul_right_of_pos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean",
+  "ligne": 134,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean#L134"
+ },
+ "InnerProductGeometry.cos_angle_mul_norm_mul_norm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean",
+  "ligne": 158,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean#L158"
+ },
+ "InnerProductGeometry.inner_eq_zero_iff_angle_eq_pi_div_two": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean",
+  "ligne": 211,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Geometry/Euclidean/Angle/Unoriented/Basic.lean#L211"
+ },
+ "Int.ModEq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Int/ModEq.lean",
+  "ligne": 30,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Int/ModEq.lean#L30"
+ },
+ "Int.Prime.dvd_pow'": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/RingTheory/Int/Basic.lean",
+  "ligne": 85,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/RingTheory/Int/Basic.lean#L85"
+ },
+ "Int.add_emod": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/DivMod/Bootstrap.lean",
+  "ligne": 231,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/DivMod/Bootstrap.lean#L231"
+ },
+ "Int.ediv_emod_unique''": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Int/Lemmas.lean",
+  "ligne": 117,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Int/Lemmas.lean#L117"
+ },
+ "Int.emod_add_mul_ediv": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/DivMod/Bootstrap.lean",
+  "ligne": 100,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/DivMod/Bootstrap.lean#L100"
+ },
+ "Int.emod_emod_of_dvd": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/DivMod/Bootstrap.lean",
+  "ligne": 259,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/DivMod/Bootstrap.lean#L259"
+ },
+ "Int.emod_eq_of_lt": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/DivMod/Lemmas.lean",
+  "ligne": 711,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/DivMod/Lemmas.lean#L711"
+ },
+ "Int.emod_lt_of_pos": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/DivMod/Bootstrap.lean",
+  "ligne": 203,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/DivMod/Bootstrap.lean#L203"
+ },
+ "Int.emod_nonneg": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/DivMod/Bootstrap.lean",
+  "ligne": 199,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/DivMod/Bootstrap.lean#L199"
+ },
+ "Int.floor_le": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Floor/Defs.lean",
+  "ligne": 301,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Floor/Defs.lean#L301"
+ },
+ "Int.gcd": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/Gcd.lean",
+  "ligne": 43,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/Gcd.lean#L43"
+ },
+ "Int.gcdA": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Int/GCD.lean",
+  "ligne": 162,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Int/GCD.lean#L162"
+ },
+ "Int.gcdB": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Int/GCD.lean",
+  "ligne": 167,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Int/GCD.lean#L167"
+ },
+ "Int.gcd_comm": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/Gcd.lean",
+  "ligne": 103,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/Gcd.lean#L103"
+ },
+ "Int.gcd_dvd_left": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/Gcd.lean",
+  "ligne": 50,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/Gcd.lean#L50"
+ },
+ "Int.gcd_dvd_right": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Int/Gcd.lean",
+  "ligne": 53,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Int/Gcd.lean#L53"
+ },
+ "Int.gcd_eq_gcd_ab": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Int/GCD.lean",
+  "ligne": 172,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Int/GCD.lean#L172"
+ },
+ "Int.isCoprime_iff_gcd_eq_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/RingTheory/Coprime/Lemmas.lean",
+  "ligne": 38,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/RingTheory/Coprime/Lemmas.lean#L38"
+ },
+ "Int.isCoprime_iff_gcd_eq_one.mpr": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/RingTheory/Coprime/Lemmas.lean",
+  "ligne": 38,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/RingTheory/Coprime/Lemmas.lean#L38",
+  "via": "Int.isCoprime_iff_gcd_eq_one"
+ },
+ "Int.log": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Int/Log.lean",
+  "ligne": 61,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Int/Log.lean#L61"
+ },
+ "Int.lt_floor_add_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Floor/Ring.lean",
+  "ligne": 129,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Floor/Ring.lean#L129"
+ },
+ "Int.lt_zpow_succ_log_self": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Int/Log.lean",
+  "ligne": 104,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Int/Log.lean#L104"
+ },
+ "Int.zpow_log_le_self": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Int/Log.lean",
+  "ligne": 96,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Int/Log.lean#L96"
+ },
+ "List.Perm.swap": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 1858,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L1858",
+  "via": "List.Perm"
+ },
+ "List.Perm.trans": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 1858,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L1858",
+  "via": "List.Perm"
+ },
+ "List.all_eq_true": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Lemmas.lean",
+  "ligne": 576,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Lemmas.lean#L576"
+ },
+ "List.append_assoc": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 636,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L636"
+ },
+ "List.cons_append": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 619,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L619"
+ },
+ "List.filter": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 492,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L492"
+ },
+ "List.getLast": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 312,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L312"
+ },
+ "List.length_append": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 631,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L631"
+ },
+ "List.length_cons": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 89,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L89"
+ },
+ "List.length_drop": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/TakeDrop.lean",
+  "ligne": 57,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/TakeDrop.lean#L57"
+ },
+ "List.length_map": {
+  "paquet": "lean4",
+  "fichier": "Init/Omega/IntList.lean",
+  "ligne": 64,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Omega/IntList.lean#L64"
+ },
+ "List.length_take": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Nat/TakeDrop.lean",
+  "ligne": 39,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Nat/TakeDrop.lean#L39"
+ },
+ "List.map_const'": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Lemmas.lean",
+  "ligne": 2294,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Lemmas.lean#L2294"
+ },
+ "List.map_id'": {
+  "paquet": "lean4",
+  "fichier": "Init/Omega/IntList.lean",
+  "ligne": 47,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Omega/IntList.lean#L47"
+ },
+ "List.mem_cons": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Lemmas.lean",
+  "ligne": 354,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Lemmas.lean#L354"
+ },
+ "List.mem_cons.mp": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Lemmas.lean",
+  "ligne": 354,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Lemmas.lean#L354",
+  "via": "List.mem_cons"
+ },
+ "List.mem_range": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Nat/Range.lean",
+  "ligne": 244,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Nat/Range.lean#L244"
+ },
+ "List.pairwise_append": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Pairwise.lean",
+  "ligne": 156,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Pairwise.lean#L156"
+ },
+ "List.pairwise_cons": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 1386,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L1386"
+ },
+ "List.perm_middle": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Perm.lean",
+  "ligne": 125,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Perm.lean#L125"
+ },
+ "List.range": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/Basic.lean",
+  "ligne": 2102,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/Basic.lean#L2102"
+ },
+ "List.take_append_drop": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/List/TakeDrop.lean",
+  "ligne": 52,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/List/TakeDrop.lean#L52"
+ },
+ "Matrix.cons_val_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fin/VecNotation.lean",
+  "ligne": 269,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fin/VecNotation.lean#L269"
+ },
+ "Matrix.cons_val_two": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fin/VecNotation.lean",
+  "ligne": 272,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fin/VecNotation.lean#L272"
+ },
+ "Matrix.cons_val_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fin/VecNotation.lean",
+  "ligne": 126,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fin/VecNotation.lean#L126"
+ },
+ "Matrix.det_fin_two_of": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+  "ligne": 814,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean#L814"
+ },
+ "Matrix.diagonal": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Matrix/Diagonal.lean",
+  "ligne": 50,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Diagonal.lean#L50"
+ },
+ "Matrix.diagonal_pow": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Matrix/Basic.lean",
+  "ligne": 180,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Basic.lean#L180"
+ },
+ "Matrix.head_cons": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fin/VecNotation.lean",
+  "ligne": 222,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fin/VecNotation.lean#L222"
+ },
+ "Matrix.mulVec_mulVec": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Matrix/Mul.lean",
+  "ligne": 879,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Mul.lean#L879"
+ },
+ "Matrix.mulVec_sub": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Matrix/Mul.lean",
+  "ligne": 1059,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Mul.lean#L1059"
+ },
+ "Matrix.mul_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Matrix/Mul.lean",
+  "ligne": 352,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Mul.lean#L352"
+ },
+ "Matrix.mul_apply": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Matrix/Mul.lean",
+  "ligne": 298,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Mul.lean#L298"
+ },
+ "Matrix.mul_assoc": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Matrix/Mul.lean",
+  "ligne": 482,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Mul.lean#L482"
+ },
+ "Matrix.mul_nonsing_inv": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean",
+  "ligne": 211,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L211"
+ },
+ "Matrix.mul_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Matrix/Mul.lean",
+  "ligne": 458,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Mul.lean#L458"
+ },
+ "Matrix.nonsing_inv_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean",
+  "ligne": 217,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean#L217"
+ },
+ "Matrix.one_mulVec": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Matrix/Mul.lean",
+  "ligne": 993,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Mul.lean#L993"
+ },
+ "Matrix.tail_cons": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Fin/VecNotation.lean",
+  "ligne": 226,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fin/VecNotation.lean#L226"
+ },
+ "MeasureTheory.Measure.volume_eq_prod": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/MeasureTheory/Measure/Prod.lean",
+  "ligne": 177,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/MeasureTheory/Measure/Prod.lean#L177"
+ },
+ "Metric.tendsto_atTop": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/MetricSpace/Pseudo/Defs.lean",
+  "ligne": 911,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L911"
+ },
+ "Metric.tendsto_atTop.trans": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/MetricSpace/Pseudo/Defs.lean",
+  "ligne": 911,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L911",
+  "via": "Metric.tendsto_atTop"
+ },
+ "Metric.tendsto_nhds_nhds": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/MetricSpace/Pseudo/Defs.lean",
+  "ligne": 870,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L870"
+ },
+ "Module.finrank": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/Dimension/Finrank.lean",
+  "ligne": 62,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/Dimension/Finrank.lean#L62"
+ },
+ "Nat.Coprime": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Coprime.lean",
+  "ligne": 25,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Coprime.lean#L25"
+ },
+ "Nat.Prime": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Prime/Defs.lean",
+  "ligne": 42,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Prime/Defs.lean#L42"
+ },
+ "Nat.Prime.dvd_of_dvd_pow": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Prime/Defs.lean",
+  "ligne": 42,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Prime/Defs.lean#L42",
+  "via": "Nat.Prime"
+ },
+ "Nat.add_comm": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 158,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L158"
+ },
+ "Nat.add_le_add_left": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 484,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L484"
+ },
+ "Nat.add_one_mul_choose_eq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Choose/Basic.lean",
+  "ligne": 131,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Choose/Basic.lean#L131"
+ },
+ "Nat.add_sub_add_right": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 994,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L994"
+ },
+ "Nat.add_sub_cancel": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 1002,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L1002"
+ },
+ "Nat.cast_ne_zero.mpr": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/CharZero/Defs.lean",
+  "ligne": 74,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/CharZero/Defs.lean#L74",
+  "via": "Nat.cast_ne_zero"
+ },
+ "Nat.cast_nonneg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Cast/Order/Ring.lean",
+  "ligne": 30,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Cast/Order/Ring.lean#L30"
+ },
+ "Nat.choose": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Choose/Basic.lean",
+  "ligne": 50,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Choose/Basic.lean#L50"
+ },
+ "Nat.choose_succ_succ": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Choose/Basic.lean",
+  "ligne": 63,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Choose/Basic.lean#L63"
+ },
+ "Nat.clog": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Log.lean",
+  "ligne": 335,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Log.lean#L335"
+ },
+ "Nat.clog_mono_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Log.lean",
+  "ligne": 445,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Log.lean#L445"
+ },
+ "Nat.clog_of_two_le": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Log.lean",
+  "ligne": 413,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Log.lean#L413"
+ },
+ "Nat.coprime_div_gcd_div_gcd": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Coprime.lean",
+  "ligne": 63,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Coprime.lean#L63"
+ },
+ "Nat.digits": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Digits/Defs.lean",
+  "ligne": 78,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Digits/Defs.lean#L78"
+ },
+ "Nat.digits_lt_base": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Digits/Defs.lean",
+  "ligne": 363,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Digits/Defs.lean#L363"
+ },
+ "Nat.digits_ofDigits": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Digits/Defs.lean",
+  "ligne": 216,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Digits/Defs.lean#L216"
+ },
+ "Nat.div_add_mod": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Div/Basic.lean",
+  "ligne": 233,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Div/Basic.lean#L233"
+ },
+ "Nat.div_lt_self": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Div/Basic.lean",
+  "ligne": 85,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Div/Basic.lean#L85"
+ },
+ "Nat.div_mod_unique": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Lemmas.lean",
+  "ligne": 1506,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Lemmas.lean#L1506"
+ },
+ "Nat.div_pos": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Div/Lemmas.lean",
+  "ligne": 96,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Div/Lemmas.lean#L96"
+ },
+ "Nat.dvd_add": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 49,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L49"
+ },
+ "Nat.dvd_gcd": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Gcd.lean",
+  "ligne": 100,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Gcd.lean#L100"
+ },
+ "Nat.dvd_of_mod_eq_zero": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 91,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L91"
+ },
+ "Nat.dvd_refl": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 19,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L19"
+ },
+ "Nat.dvd_sub": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 128,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L128"
+ },
+ "Nat.dvd_trans": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 26,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L26"
+ },
+ "Nat.eq_one_of_dvd_one": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 86,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L86"
+ },
+ "Nat.eq_zero_of_zero_dvd": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 43,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L43"
+ },
+ "Nat.eq_zero_or_pos": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 328,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L328"
+ },
+ "Nat.exists_infinite_primes": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Prime/Infinite.lean",
+  "ligne": 33,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Prime/Infinite.lean#L33"
+ },
+ "Nat.factorial": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Factorial/Basic.lean",
+  "ligne": 36,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Factorial/Basic.lean#L36"
+ },
+ "Nat.gcd": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Gcd.lean",
+  "ligne": 35,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Gcd.lean#L35"
+ },
+ "Nat.gcd_dvd_left": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Gcd.lean",
+  "ligne": 92,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Gcd.lean#L92"
+ },
+ "Nat.gcd_dvd_right": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Gcd.lean",
+  "ligne": 94,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Gcd.lean#L94"
+ },
+ "Nat.gcd_pos_of_pos_right": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Gcd.lean",
+  "ligne": 150,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Gcd.lean#L150"
+ },
+ "Nat.gcd_rec": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Gcd.lean",
+  "ligne": 74,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Gcd.lean#L74"
+ },
+ "Nat.getLast_digit_ne_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Digits/Lemmas.lean",
+  "ligne": 81,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Digits/Lemmas.lean#L81"
+ },
+ "Nat.le_of_dvd": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 65,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L65"
+ },
+ "Nat.length_digits": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Digits/Lemmas.lean",
+  "ligne": 53,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Digits/Lemmas.lean#L53"
+ },
+ "Nat.log": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Log.lean",
+  "ligne": 62,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Log.lean#L62"
+ },
+ "Nat.log_div_base": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Log.lean",
+  "ligne": 280,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Log.lean#L280"
+ },
+ "Nat.log_mono_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Log.lean",
+  "ligne": 247,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Log.lean#L247"
+ },
+ "Nat.log_pos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Log.lean",
+  "ligne": 131,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Log.lean#L131"
+ },
+ "Nat.log_pow": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Log.lean",
+  "ligne": 219,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Log.lean#L219"
+ },
+ "Nat.lt_of_le_of_ne": {
+  "paquet": "lean4",
+  "fichier": "Init/Prelude.lean",
+  "ligne": 2027,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Prelude.lean#L2027"
+ },
+ "Nat.modEq_digits_sum": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Digits/Lemmas.lean",
+  "ligne": 285,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Digits/Lemmas.lean#L285"
+ },
+ "Nat.mod_eq_of_lt": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Div/Basic.lean",
+  "ligne": 178,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Div/Basic.lean#L178"
+ },
+ "Nat.mod_eq_sub_mod": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Div/Basic.lean",
+  "ligne": 197,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Div/Basic.lean#L197"
+ },
+ "Nat.mod_eq_zero_of_dvd": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 88,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L88"
+ },
+ "Nat.mod_lt": {
+  "paquet": "lean4",
+  "fichier": "Init/Prelude.lean",
+  "ligne": 2286,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Prelude.lean#L2286"
+ },
+ "Nat.mod_mul_right_div_self": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Mod.lean",
+  "ligne": 57,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Mod.lean#L57"
+ },
+ "Nat.mod_two_eq_zero_or_one": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Lemmas.lean",
+  "ligne": 780,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Lemmas.lean#L780"
+ },
+ "Nat.mul_assoc": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 243,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L243"
+ },
+ "Nat.mul_comm": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 215,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L215"
+ },
+ "Nat.mul_div_cancel'": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Dvd.lean",
+  "ligne": 106,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Dvd.lean#L106"
+ },
+ "Nat.mul_le_mul_left": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 751,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L751"
+ },
+ "Nat.mul_lt_mul_right": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Mod.lean",
+  "ligne": 40,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Mod.lean#L40"
+ },
+ "Nat.nine_dvd_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Digits/Div.lean",
+  "ligne": 48,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Digits/Div.lean#L48"
+ },
+ "Nat.ofDigits": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Digits/Defs.lean",
+  "ligne": 145,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Digits/Defs.lean#L145"
+ },
+ "Nat.ofDigits_digits": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Digits/Defs.lean",
+  "ligne": 242,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Digits/Defs.lean#L242"
+ },
+ "Nat.pos_of_ne_zero": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 332,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L332"
+ },
+ "Nat.pow_le_pow_right": {
+  "paquet": "lean4",
+  "fichier": "Init/Data/Nat/Basic.lean",
+  "ligne": 808,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Data/Nat/Basic.lean#L808"
+ },
+ "Nat.primeFactorsList": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Factors.lean",
+  "ligne": 38,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Factors.lean#L38"
+ },
+ "Nat.primeFactorsList_unique": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Factors.lean",
+  "ligne": 168,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Factors.lean#L168"
+ },
+ "Nat.prime_def.symm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Prime/Defs.lean",
+  "ligne": 98,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Prime/Defs.lean#L98",
+  "via": "Nat.prime_def"
+ },
+ "Nat.prime_three": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Prime/Defs.lean",
+  "ligne": 173,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Prime/Defs.lean#L173"
+ },
+ "Nat.prod_primeFactorsList": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Factors.lean",
+  "ligne": 70,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Factors.lean#L70"
+ },
+ "Nat.strongRecOn": {
+  "paquet": "lean4",
+  "fichier": "Init/WF.lean",
+  "ligne": 246,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/WF.lean#L246"
+ },
+ "Nat.strong_induction_on": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Init.lean",
+  "ligne": 260,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Init.lean#L260"
+ },
+ "Nat.zero_le": {
+  "paquet": "lean4",
+  "fichier": "Init/Prelude.lean",
+  "ligne": 1932,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Prelude.lean#L1932"
+ },
+ "Ne.symm": {
+  "paquet": "lean4",
+  "fichier": "Init/Core.lean",
+  "ligne": 892,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Core.lean#L892"
+ },
+ "Odd.strictMono_pow": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Ring/Basic.lean",
+  "ligne": 177,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Ring/Basic.lean#L177"
+ },
+ "OfNat.ofNat_ne_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/CharZero/Defs.lean",
+  "ligne": 93,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/CharZero/Defs.lean#L93"
+ },
+ "Pi.inv_def": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Notation/Pi/Defs.lean",
+  "ligne": 95,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Notation/Pi/Defs.lean#L95"
+ },
+ "PiLp.add_apply": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Normed/Lp/PiLp.lean",
+  "ligne": 116,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Normed/Lp/PiLp.lean#L116"
+ },
+ "PiLp.ext": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Normed/Lp/PiLp.lean",
+  "ligne": 97,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Normed/Lp/PiLp.lean#L97"
+ },
+ "PiLp.inner_apply": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/PiL2.lean",
+  "ligne": 103,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/PiL2.lean#L103"
+ },
+ "PiLp.smul_apply": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Normed/Lp/PiLp.lean",
+  "ligne": 124,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Normed/Lp/PiLp.lean#L124"
+ },
+ "PiLp.sub_apply": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Normed/Lp/PiLp.lean",
+  "ligne": 120,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Normed/Lp/PiLp.lean#L120"
+ },
+ "RCLike.inner_apply": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 911,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L911"
+ },
+ "Real.Angle": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Angle.lean",
+  "ligne": 31,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Angle.lean#L31"
+ },
+ "Real.abs_cos_le_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 677,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L677"
+ },
+ "Real.abs_sin_le_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 674,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L674"
+ },
+ "Real.arccos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.lean",
+  "ligne": 275,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.lean#L275"
+ },
+ "Real.arcsin": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.lean",
+  "ligne": 33,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.lean#L33"
+ },
+ "Real.cos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 79,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L79"
+ },
+ "Real.cos_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 604,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L604"
+ },
+ "Real.cos_add_int_mul_two_pi": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 353,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L353"
+ },
+ "Real.cos_add_two_pi": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 321,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L321"
+ },
+ "Real.cos_arccos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.lean",
+  "ligne": 292,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.lean#L292"
+ },
+ "Real.cos_eq_cos_iff.mp": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Complex.lean",
+  "ligne": 309,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Complex.lean#L309",
+  "via": "Real.cos_eq_cos_iff"
+ },
+ "Real.cos_eq_cos_iff.mpr": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Complex.lean",
+  "ligne": 309,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Complex.lean#L309",
+  "via": "Real.cos_eq_cos_iff"
+ },
+ "Real.cos_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 598,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L598"
+ },
+ "Real.cos_pi_div_four": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 716,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L716"
+ },
+ "Real.cos_pi_div_six": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 788,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L788"
+ },
+ "Real.cos_pi_div_three": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 774,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L774"
+ },
+ "Real.cos_pi_div_two": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 134,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L134"
+ },
+ "Real.cos_pi_div_two_sub": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 454,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L454"
+ },
+ "Real.cos_pi_sub": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 333,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L333"
+ },
+ "Real.cos_sq_add_sin_sq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 666,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L666"
+ },
+ "Real.cos_two_mul'": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 695,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L695"
+ },
+ "Real.cos_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 595,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L595"
+ },
+ "Real.dist_eq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/MetricSpace/Pseudo/Defs.lean",
+  "ligne": 1131,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L1131"
+ },
+ "Real.exp": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Exponential.lean",
+  "ligne": 80,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Exponential.lean#L80"
+ },
+ "Real.exp_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Exponential.lean",
+  "ligne": 211,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Exponential.lean#L211"
+ },
+ "Real.exp_log": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 59,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L59"
+ },
+ "Real.exp_nat_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Exponential.lean",
+  "ligne": 233,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Exponential.lean#L233"
+ },
+ "Real.exp_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Exponential.lean",
+  "ligne": 240,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Exponential.lean#L240"
+ },
+ "Real.exp_pos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Exponential.lean",
+  "ligne": 284,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Exponential.lean#L284"
+ },
+ "Real.exp_strictMono": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Exponential.lean",
+  "ligne": 300,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Exponential.lean#L300"
+ },
+ "Real.exp_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Exponential.lean",
+  "ligne": 209,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Exponential.lean#L209"
+ },
+ "Real.hasDerivAt_cos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Deriv.lean",
+  "ligne": 360,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Deriv.lean#L360"
+ },
+ "Real.hasDerivAt_exp": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/ExpDeriv.lean",
+  "ligne": 267,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/ExpDeriv.lean#L267"
+ },
+ "Real.hasDerivAt_log": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Deriv.lean",
+  "ligne": 52,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Deriv.lean#L52"
+ },
+ "Real.hasDerivAt_sin": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Deriv.lean",
+  "ligne": 320,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Deriv.lean#L320"
+ },
+ "Real.hasDerivAt_sqrt": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Sqrt.lean",
+  "ligne": 68,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Sqrt.lean#L68"
+ },
+ "Real.isLittleO_log_id_atTop.tendsto_div_nhds_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 450,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L450",
+  "via": "Real.isLittleO_log_id_atTop"
+ },
+ "Real.log": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 44,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L44"
+ },
+ "Real.log_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 138,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L138"
+ },
+ "Real.log_exp": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 75,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L75"
+ },
+ "Real.log_lt_log": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 155,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L155"
+ },
+ "Real.log_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 133,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L133"
+ },
+ "Real.log_pow": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 288,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L288"
+ },
+ "Real.log_sqrt": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 303,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L303"
+ },
+ "Real.mul_self_sqrt": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 149,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L149"
+ },
+ "Real.norm_eq_abs": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Normed/Group/Real.lean",
+  "ligne": 56,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Normed/Group/Real.lean#L56"
+ },
+ "Real.pi": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 127,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L127"
+ },
+ "Real.rpow_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Pow/Real.lean",
+  "ligne": 148,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean#L148"
+ },
+ "Real.sin": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 74,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L74"
+ },
+ "Real.sin_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 591,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L591"
+ },
+ "Real.sin_add_int_mul_two_pi": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 270,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L270"
+ },
+ "Real.sin_add_two_pi": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 238,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L238"
+ },
+ "Real.sin_arcsin": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.lean",
+  "ligne": 61,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.lean#L61"
+ },
+ "Real.sin_eq_sin_iff.mp": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Complex.lean",
+  "ligne": 312,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Complex.lean#L312",
+  "via": "Real.sin_eq_sin_iff"
+ },
+ "Real.sin_eq_sin_iff.mpr": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Complex.lean",
+  "ligne": 312,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Complex.lean#L312",
+  "via": "Real.sin_eq_sin_iff"
+ },
+ "Real.sin_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 589,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L589"
+ },
+ "Real.sin_nonneg_of_nonneg_of_le_pi": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 421,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L421"
+ },
+ "Real.sin_pi_div_four": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 723,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L723"
+ },
+ "Real.sin_pi_div_six": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 799,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L799"
+ },
+ "Real.sin_pi_div_three": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 813,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L813"
+ },
+ "Real.sin_pi_div_two": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 437,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L437"
+ },
+ "Real.sin_pi_div_two_sub": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 448,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L448"
+ },
+ "Real.sin_pi_sub": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+  "ligne": 250,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean#L250"
+ },
+ "Real.sin_two_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 701,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L701"
+ },
+ "Real.sin_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 586,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L586"
+ },
+ "Real.sq_sqrt": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 178,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L178"
+ },
+ "Real.sqrt": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 112,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L112"
+ },
+ "Real.sqrt_div'": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 382,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L382"
+ },
+ "Real.sqrt_le_sqrt": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 209,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L209"
+ },
+ "Real.sqrt_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 366,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L366"
+ },
+ "Real.sqrt_nonneg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 144,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L144"
+ },
+ "Real.sqrt_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 195,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L195"
+ },
+ "Real.sqrt_pos.mpr": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 286,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L286",
+  "via": "Real.sqrt_pos"
+ },
+ "Real.sqrt_sq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 181,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L181"
+ },
+ "Real.sqrt_sq_eq_abs": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 189,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L189"
+ },
+ "Real.tan_eq_sin_div_cos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Complex/Trigonometric.lean",
+  "ligne": 637,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Complex/Trigonometric.lean#L637"
+ },
+ "Real.tendsto_exp_atBot": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Exp.lean",
+  "ligne": 230,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Exp.lean#L230"
+ },
+ "Real.tendsto_exp_atTop": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Exp.lean",
+  "ligne": 208,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Exp.lean#L208"
+ },
+ "Real.tendsto_exp_div_pow_atTop": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Exp.lean",
+  "ligne": 248,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Exp.lean#L248"
+ },
+ "Real.tendsto_log_atTop": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 351,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L351"
+ },
+ "Real.tendsto_log_nhdsGT_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+  "ligne": 354,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean#L354"
+ },
+ "Real.tendsto_sqrt_atTop.comp": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Real/Sqrt.lean",
+  "ligne": 140,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Real/Sqrt.lean#L140",
+  "via": "Real.tendsto_sqrt_atTop"
+ },
+ "Relation.ReflTransGen": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Logic/Relation.lean",
+  "ligne": 332,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Logic/Relation.lean#L332"
+ },
+ "Set.Icc": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Interval/Set/Defs.lean",
+  "ligne": 76,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Interval/Set/Defs.lean#L76"
+ },
+ "Set.Iic": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Interval/Set/Defs.lean",
+  "ligne": 44,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Interval/Set/Defs.lean#L44"
+ },
+ "Set.Ioc": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Interval/Set/Defs.lean",
+  "ligne": 63,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Interval/Set/Defs.lean#L63"
+ },
+ "Set.Ioo": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Interval/Set/Defs.lean",
+  "ligne": 51,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Interval/Set/Defs.lean#L51"
+ },
+ "Set.insert_subset_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Set/Insert.lean",
+  "ligne": 83,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Set/Insert.lean#L83"
+ },
+ "Set.inter_comm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Set/Basic.lean",
+  "ligne": 756,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Set/Basic.lean#L756"
+ },
+ "Set.mem_Iic": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Interval/Set/Defs.lean",
+  "ligne": 46,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Interval/Set/Defs.lean#L46"
+ },
+ "Set.sdiff_eq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Set/Operations.lean",
+  "ligne": 120,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Set/Operations.lean#L120"
+ },
+ "Set.singleton_subset_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Set/Insert.lean",
+  "ligne": 215,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Set/Insert.lean#L215"
+ },
+ "Submodule.span": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/Span/Defs.lean",
+  "ligne": 48,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/Span/Defs.lean#L48"
+ },
+ "Units.inv_mul_cancel_left": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Units/Defs.lean",
+  "ligne": 220,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Units/Defs.lean#L220"
+ },
+ "Units.mul_inv_cancel_left": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Units/Defs.lean",
+  "ligne": 216,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Units/Defs.lean#L216"
+ },
+ "ZMod.pow_card_sub_one_eq_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/FieldTheory/Finite/Basic.lean",
+  "ligne": 608,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/FieldTheory/Finite/Basic.lean#L608"
+ },
+ "abs_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Field/Basic.lean",
+  "ligne": 671,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Field/Basic.lean#L671"
+ },
+ "abs_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Ring/Abs.lean",
+  "ligne": 49,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Ring/Abs.lean#L49"
+ },
+ "abs_real_inner_le_norm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 465,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L465"
+ },
+ "abs_sub_round": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Round.lean",
+  "ligne": 193,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Round.lean#L193"
+ },
+ "add_comm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/CategoryTheory/Abelian/NonPreadditive.lean",
+  "ligne": 367,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/CategoryTheory/Abelian/NonPreadditive.lean#L367"
+ },
+ "add_pow": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Data/Nat/Choose/Sum.lean",
+  "ligne": 76,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Nat/Choose/Sum.lean#L76"
+ },
+ "bne_iff_ne": {
+  "paquet": "lean4",
+  "fichier": "Init/SimpLemmas.lean",
+  "ligne": 420,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/SimpLemmas.lean#L420"
+ },
+ "by_cases": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Logic/Basic.lean",
+  "ligne": 228,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Logic/Basic.lean#L228"
+ },
+ "by_contra": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Logic/Basic.lean",
+  "ligne": 231,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Logic/Basic.lean#L231"
+ },
+ "conj_trivial": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Star/Basic.lean",
+  "ligne": 376,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Star/Basic.lean#L376"
+ },
+ "const_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Normed/Lp/lpSpace.lean",
+  "ligne": 322,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Normed/Lp/lpSpace.lean#L322"
+ },
+ "decide_eq_true_eq": {
+  "paquet": "lean4",
+  "fichier": "Init/SimpLemmas.lean",
+  "ligne": 400,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/SimpLemmas.lean#L400"
+ },
+ "dif_neg": {
+  "paquet": "lean4",
+  "fichier": "Init/Core.lean",
+  "ligne": 1200,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Core.lean#L1200"
+ },
+ "dif_pos": {
+  "paquet": "lean4",
+  "fichier": "Init/Core.lean",
+  "ligne": 1195,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Core.lean#L1195"
+ },
+ "dist_add_dist_eq_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Convex/StrictConvexBetween.lean",
+  "ligne": 93,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Convex/StrictConvexBetween.lean#L93"
+ },
+ "dist_comm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/MetricSpace/Pseudo/Defs.lean",
+  "ligne": 206,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L206"
+ },
+ "dist_eq_norm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Normed/Group/Basic.lean",
+  "ligne": 765,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Normed/Group/Basic.lean#L765"
+ },
+ "dist_triangle": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/MetricSpace/Pseudo/Defs.lean",
+  "ligne": 213,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/MetricSpace/Pseudo/Defs.lean#L213"
+ },
+ "div_add_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Field/Basic.lean",
+  "ligne": 154,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Field/Basic.lean#L154"
+ },
+ "div_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Basic.lean",
+  "ligne": 539,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Basic.lean#L539"
+ },
+ "div_div_eq_mul_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Basic.lean",
+  "ligne": 492,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Basic.lean#L492"
+ },
+ "div_eq_div_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/GroupWithZero/Units/Basic.lean",
+  "ligne": 468,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/GroupWithZero/Units/Basic.lean#L468"
+ },
+ "div_eq_inv_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Basic.lean",
+  "ligne": 516,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Basic.lean#L516"
+ },
+ "div_eq_mul_inv": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 1110,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L1110"
+ },
+ "div_le_div_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 1430,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L1430"
+ },
+ "div_le_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 1138,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L1138"
+ },
+ "div_lt_div_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 1463,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L1463"
+ },
+ "div_lt_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 1146,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L1146"
+ },
+ "div_mul_cancel": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 1285,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L1285"
+ },
+ "div_mul_div_comm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Basic.lean",
+  "ligne": 575,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Basic.lean#L575"
+ },
+ "div_mul_eq_mul_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Basic.lean",
+  "ligne": 554,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Basic.lean#L554"
+ },
+ "div_neg_of_neg_of_pos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Field/Basic.lean",
+  "ligne": 335,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Field/Basic.lean#L335"
+ },
+ "div_pos_iff_of_pos_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Field/Basic.lean",
+  "ligne": 154,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Field/Basic.lean#L154"
+ },
+ "div_pos_of_neg_of_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Field/Basic.lean",
+  "ligne": 332,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Field/Basic.lean#L332"
+ },
+ "div_self": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/GroupWithZero/Units/Basic.lean",
+  "ligne": 294,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/GroupWithZero/Units/Basic.lean#L294"
+ },
+ "dvd_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Ring/Divisibility/Basic.lean",
+  "ligne": 69,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Ring/Divisibility/Basic.lean#L69"
+ },
+ "eq_div_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/GroupWithZero/Units/Basic.lean",
+  "ligne": 348,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/GroupWithZero/Units/Basic.lean#L348"
+ },
+ "eq_or_lt_of_le": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Basic.lean",
+  "ligne": 257,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Basic.lean#L257"
+ },
+ "exists_between": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Basic.lean",
+  "ligne": 977,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Basic.lean#L977"
+ },
+ "geom_sum_eq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Field/GeomSum.lean",
+  "ligne": 43,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Field/GeomSum.lean#L43"
+ },
+ "if_neg": {
+  "paquet": "lean4",
+  "fichier": "Init/Core.lean",
+  "ligne": 1183,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Core.lean#L1183"
+ },
+ "if_pos": {
+  "paquet": "lean4",
+  "fichier": "Init/Core.lean",
+  "ligne": 1178,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/Core.lean#L1178"
+ },
+ "inner_add_left": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 72,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L72"
+ },
+ "inner_neg_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 236,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L236"
+ },
+ "inner_smul_left": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 105,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L105"
+ },
+ "inner_sub_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 243,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L243"
+ },
+ "integral_id": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/SpecialFunctions/Integrals/Basic.lean",
+  "ligne": 201,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/SpecialFunctions/Integrals/Basic.lean#L201"
+ },
+ "inv_mul_eq_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Basic.lean",
+  "ligne": 519,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Basic.lean#L519"
+ },
+ "irrational_sqrt_two": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/NumberTheory/Real/Irrational.lean",
+  "ligne": 145,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/NumberTheory/Real/Irrational.lean#L145"
+ },
+ "le_div_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 1134,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L1134"
+ },
+ "le_of_lt": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Defs/PartialOrder.lean",
+  "ligne": 82,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Defs/PartialOrder.lean#L82"
+ },
+ "le_of_tendsto": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/Order/OrderClosed.lean",
+  "ligne": 133,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/Order/OrderClosed.lean#L133"
+ },
+ "le_trans": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Defs/PartialOrder.lean",
+  "ligne": 70,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Defs/PartialOrder.lean#L70"
+ },
+ "lt_div_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 1142,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L1142"
+ },
+ "lt_of_le_of_lt": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Defs/PartialOrder.lean",
+  "ligne": 96,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Defs/PartialOrder.lean#L96"
+ },
+ "lt_of_le_of_ne": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Defs/PartialOrder.lean",
+  "ligne": 201,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Defs/PartialOrder.lean#L201"
+ },
+ "lt_of_lt_of_le": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Defs/PartialOrder.lean",
+  "ligne": 92,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Defs/PartialOrder.lean#L92"
+ },
+ "lt_or_gt_of_ne": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Defs/LinearOrder.lean",
+  "ligne": 110,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Defs/LinearOrder.lean#L110"
+ },
+ "map_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/GroupTheory/FreeAbelianGroup.lean",
+  "ligne": 236,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/FreeAbelianGroup.lean#L236"
+ },
+ "map_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/RingTheory/FractionalIdeal/Operations.lean",
+  "ligne": 480,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/RingTheory/FractionalIdeal/Operations.lean#L480"
+ },
+ "map_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/RingTheory/Ideal/Maps.lean",
+  "ligne": 648,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/RingTheory/Ideal/Maps.lean#L648"
+ },
+ "map_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/Algebra/Module/Equiv.lean",
+  "ligne": 1002,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/Algebra/Module/Equiv.lean#L1002"
+ },
+ "midpoint_eq_smul_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/LinearAlgebra/AffineSpace/Midpoint.lean",
+  "ligne": 203,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/AffineSpace/Midpoint.lean#L203"
+ },
+ "mul_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 656,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L656"
+ },
+ "mul_comm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/RingTheory/PiTensorProduct.lean",
+  "ligne": 246,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/RingTheory/PiTensorProduct.lean#L246"
+ },
+ "mul_const": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean",
+  "ligne": 366,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean#L366"
+ },
+ "mul_div_assoc": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 1119,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L1119"
+ },
+ "mul_div_mul_left": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/GroupWithZero/Units/Basic.lean",
+  "ligne": 461,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/GroupWithZero/Units/Basic.lean#L461"
+ },
+ "mul_eq_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/GroupWithZero/Defs.lean",
+  "ligne": 304,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/GroupWithZero/Defs.lean#L304"
+ },
+ "mul_le_mul_of_nonneg_left": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/GCongr/Core.lean",
+  "ligne": 64,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/GCongr/Core.lean#L64"
+ },
+ "mul_le_mul_of_nonneg_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/GCongr/Core.lean",
+  "ligne": 68,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/GCongr/Core.lean#L68"
+ },
+ "mul_le_mul_of_nonpos_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Ring/Unbundled/Basic.lean",
+  "ligne": 75,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Ring/Unbundled/Basic.lean#L75"
+ },
+ "mul_left_cancel": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 127,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L127"
+ },
+ "mul_ne_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/GroupWithZero/Basic.lean",
+  "ligne": 84,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/GroupWithZero/Basic.lean#L84"
+ },
+ "mul_neg_of_pos_of_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 46,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L46"
+ },
+ "mul_nonneg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/NumberTheory/Zsqrtd/Basic.lean",
+  "ligne": 723,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/NumberTheory/Zsqrtd/Basic.lean#L723"
+ },
+ "mul_nonpos_of_nonpos_of_nonneg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 77,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L77"
+ },
+ "mul_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 596,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L596"
+ },
+ "mul_pos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/NumberTheory/Zsqrtd/Basic.lean",
+  "ligne": 835,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/NumberTheory/Zsqrtd/Basic.lean#L835"
+ },
+ "mul_pos_of_neg_of_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Ring/Unbundled/Basic.lean",
+  "ligne": 228,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Ring/Unbundled/Basic.lean#L228"
+ },
+ "mul_pow": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 892,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L892"
+ },
+ "mul_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 654,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L654"
+ },
+ "ne_eq": {
+  "paquet": "lean4",
+  "fichier": "Init/SimpLemmas.lean",
+  "ligne": 235,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/SimpLemmas.lean#L235"
+ },
+ "neg_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 722,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L722"
+ },
+ "neg_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Ring/Basic.lean",
+  "ligne": 273,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Ring/Basic.lean#L273"
+ },
+ "neg_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 700,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L700"
+ },
+ "neg_mul_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Ring/Defs.lean",
+  "ligne": 294,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Ring/Defs.lean#L294"
+ },
+ "neg_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 720,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L720"
+ },
+ "norm_add_sq_real": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 409,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L409"
+ },
+ "norm_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Normed/Group/Basic.lean",
+  "ligne": 108,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Normed/Group/Basic.lean#L108"
+ },
+ "norm_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/QuadraticAlgebra/Basic.lean",
+  "ligne": 233,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/QuadraticAlgebra/Basic.lean#L233"
+ },
+ "norm_nonneg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/NumberTheory/Padics/PadicNumbers.lean",
+  "ligne": 257,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/NumberTheory/Padics/PadicNumbers.lean#L257"
+ },
+ "norm_smul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/Normed/MulAction.lean",
+  "ligne": 98,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/Normed/MulAction.lean#L98"
+ },
+ "norm_sub_sq_real": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 435,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L435"
+ },
+ "not_false_eq_true": {
+  "paquet": "lean4",
+  "fichier": "Init/SimpLemmas.lean",
+  "ligne": 282,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/SimpLemmas.lean#L282"
+ },
+ "not_le": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Order/Defs/LinearOrder.lean",
+  "ligne": 119,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Order/Defs/LinearOrder.lean#L119"
+ },
+ "not_or": {
+  "paquet": "lean4",
+  "fichier": "Init/PropLemmas.lean",
+  "ligne": 149,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/PropLemmas.lean#L149"
+ },
+ "nsmul_eq_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Int/Defs.lean",
+  "ligne": 83,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Int/Defs.lean#L83"
+ },
+ "one_div": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 1123,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L1123"
+ },
+ "one_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 594,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L594"
+ },
+ "one_pos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/ZeroLEOne.lean",
+  "ligne": 63,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/ZeroLEOne.lean#L63"
+ },
+ "one_pow": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 889,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L889"
+ },
+ "pow_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 1035,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L1035"
+ },
+ "pow_eq_zero_iff": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/GroupWithZero/Basic.lean",
+  "ligne": 253,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/GroupWithZero/Basic.lean#L253"
+ },
+ "pow_le_pow_of_le_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 393,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L393"
+ },
+ "pow_le_pow_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 457,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L457"
+ },
+ "pow_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 740,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L740"
+ },
+ "pow_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 849,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L849"
+ },
+ "pow_pos": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 541,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L541"
+ },
+ "pow_succ": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 696,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L696"
+ },
+ "pow_succ'": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 702,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L702"
+ },
+ "pow_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 1032,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L1032"
+ },
+ "real_inner_comm": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 59,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L59"
+ },
+ "real_inner_self_eq_norm_sq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 396,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L396"
+ },
+ "real_inner_smul_left": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 108,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L108"
+ },
+ "real_inner_smul_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Analysis/InnerProductSpace/Basic.lean",
+  "ligne": 118,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Analysis/InnerProductSpace/Basic.lean#L118"
+ },
+ "smul_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/RingTheory/HahnSeries/Multiplication.lean",
+  "ligne": 257,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/RingTheory/HahnSeries/Multiplication.lean#L257"
+ },
+ "smul_eq_mul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Basic.lean",
+  "ligne": 350,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Basic.lean#L350"
+ },
+ "smul_smul": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Action/Defs.lean",
+  "ligne": 413,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Action/Defs.lean#L413"
+ },
+ "smul_sub": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/GroupWithZero/Action/Defs.lean",
+  "ligne": 415,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/GroupWithZero/Action/Defs.lean#L415"
+ },
+ "sq_abs": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Ring/Abs.lean",
+  "ligne": 81,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Ring/Abs.lean#L81"
+ },
+ "sq_eq_sq": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/GroupWithZero/Basic.lean",
+  "ligne": 705,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/GroupWithZero/Basic.lean#L705"
+ },
+ "sq_nonneg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Ring/Unbundled/Basic.lean",
+  "ligne": 606,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Ring/Unbundled/Basic.lean#L606"
+ },
+ "sub_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/CategoryTheory/Abelian/NonPreadditive.lean",
+  "ligne": 338,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/CategoryTheory/Abelian/NonPreadditive.lean#L338"
+ },
+ "tendsto_const_nhds": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/Neighborhoods.lean",
+  "ligne": 191,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/Neighborhoods.lean#L191"
+ },
+ "tendsto_nhds_unique": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/Separation/Hausdorff.lean",
+  "ligne": 180,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/Separation/Hausdorff.lean#L180"
+ },
+ "tendsto_of_tendsto_of_tendsto_of_le_of_le": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Topology/Order/Basic.lean",
+  "ligne": 236,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Topology/Order/Basic.lean#L236"
+ },
+ "true_and": {
+  "paquet": "lean4",
+  "fichier": "Init/SimpLemmas.lean",
+  "ligne": 251,
+  "url": "https://github.com/leanprover/lean4/blob/v4.33.0/src/Init/SimpLemmas.lean#L251"
+ },
+ "zero_le_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/ZeroLEOne.lean",
+  "ligne": 28,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/ZeroLEOne.lean#L28"
+ },
+ "zero_lt_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/ZeroLEOne.lean",
+  "ligne": 51,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/ZeroLEOne.lean#L51"
+ },
+ "zero_pow": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Tactic/Ring/Common.lean",
+  "ligne": 985,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Tactic/Ring/Common.lean#L985"
+ },
+ "zpow_add": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Basic.lean",
+  "ligne": 811,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Basic.lean#L811"
+ },
+ "zpow_lt_zpow_iff_right": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Order/Group/Basic.lean",
+  "ligne": 61,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Order/Group/Basic.lean#L61"
+ },
+ "zpow_neg": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Basic.lean",
+  "ligne": 422,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Basic.lean#L422"
+ },
+ "zpow_one": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 1127,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L1127"
+ },
+ "zpow_sub": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Basic.lean",
+  "ligne": 827,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Basic.lean#L827"
+ },
+ "zpow_zero": {
+  "paquet": "mathlib",
+  "fichier": "Mathlib/Algebra/Group/Defs.lean",
+  "ligne": 1071,
+  "url": "https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Algebra/Group/Defs.lean#L1071"
+ }
+}

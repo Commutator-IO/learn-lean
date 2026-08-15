@@ -129,6 +129,36 @@ function sansTitres(tex) {
 }
 
 /**
+ * Les résultats empruntés par une démonstration, avec l'adresse de leur source.
+ *
+ * Une preuve qui tient en une ligne — `exact Nat.dvd_add hb hc` — ne montre
+ * rien : le raisonnement est dans une bibliothèque que le lecteur n'ouvrira pas
+ * s'il faut la chercher. On lui en donne le lien, vers la démonstration
+ * elle-même et non vers sa documentation.
+ *
+ * L'index est produit hors ligne par `tools/liens-mathlib.py`, qui a besoin des
+ * sources de Mathlib ; il est versionné pour que ce script n'en dépende pas.
+ */
+function appuisDeLaPreuve(code, index) {
+  // Ce qui suit le premier `:=` est la démonstration ; ce qui précède est
+  // l'énoncé, dont les noms nomment des objets et non des raisonnements.
+  const coupe = code.indexOf(':=');
+  const preuve = coupe === -1 ? '' : code.slice(coupe + 2);
+  const vus = new Set();
+  const out = [];
+  for (const mot of preuve.match(/[A-Za-z_][A-Za-z0-9_'.]*/g) ?? []) {
+    // `Object.hasOwn`, et non `index[mot]` : sans cela `constructor`,
+    // `toString` et `valueOf` remontent du prototype et passent pour des
+    // résultats empruntés, avec une adresse indéfinie.
+    if (!Object.hasOwn(index, mot) || vus.has(mot)) continue;
+    const source = index[mot];
+    vus.add(mot);
+    out.push({ nom: mot, url: source.url, paquet: source.paquet });
+  }
+  return out;
+}
+
+/**
  * Retire les environnements `figure`, corps et légende compris.
  *
  * Le site n'a pas à les rendre : il insère le SVG lui-même, à partir du champ
@@ -186,6 +216,19 @@ function blocsTex(source) {
     });
   }
   return blocs;
+}
+
+let _appuis = null;
+/** L'index des sources empruntées, lu une seule fois. */
+async function indexDesAppuis() {
+  if (_appuis) return _appuis;
+  try {
+    _appuis = JSON.parse(await readFile(join(COURS, 'appuis.json'), 'utf8'));
+  } catch {
+    // Absent : le site se construit quand même, sans les liens vers les sources.
+    _appuis = {};
+  }
+  return _appuis;
 }
 
 /** Le titre d'un chapitre, l'état et la liste de ses énoncés, lus dans son index. */
@@ -258,6 +301,7 @@ async function chapitre(chemin) {
     const tex = fichiers.find((f) => f.endsWith('.tex'));
     const blocs = tex ? blocsTex(await readFile(join(dossier, tex), 'utf8')) : new Map();
     const figures = await figuresDuChapitre(dossier);
+    const appuis = await indexDesAppuis();
 
     const modules = [];
     for (const lean of leans) {
@@ -270,6 +314,7 @@ async function chapitre(chemin) {
           remarqueHtml: '',
         }),
         ...(figures.get(d.nom) ? { figure: figures.get(d.nom) } : {}),
+        appuis: appuisDeLaPreuve(d.code, appuis),
       }));
       modules.push({
         nom: lean,

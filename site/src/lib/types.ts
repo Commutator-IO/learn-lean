@@ -33,6 +33,11 @@ export type Declaration = {
    * Elle porte le nom de la déclaration : voir la skill `illustrate-theorem`.
    */
   figure?: string
+  /**
+   * Les résultats que la démonstration emprunte, avec l'adresse de leur source.
+   * Une preuve d'une ligne ne montre rien ; le lien mène à celle qui montre.
+   */
+  appuis?: { nom: string; url: string; paquet: string }[]
 }
 
 export type Module = {
