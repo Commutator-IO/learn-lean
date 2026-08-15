@@ -64,10 +64,15 @@ jobs:
           sudo mv tectonic /usr/local/bin/
           tectonic --version
 
+      # A rolling key, not a fixed one. A cache entry is immutable: with a fixed
+      # key the first run stores whatever it happened to have and no later run
+      # ever adds to it, so every build kept re-downloading the LaTeX packages —
+      # and one refused download is enough to lose the book.
       - uses: actions/cache@v4
         with:
           path: ~/.cache/Tectonic
-          key: tectonic-${{ runner.os }}-v1
+          key: tectonic-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: tectonic-${{ runner.os }}-
 
       # Le livre est *construit*, pas stocké : il dérive des documents de
       # chapitre, et le committer mettrait un binaire recompilé dans
@@ -80,7 +85,12 @@ jobs:
         run: |
           cd ..
           python3 tools/generate-book.py
-          tectonic book/cours-complet.tex || true
+          # The package server answers 429 under load, and a missing .sty stops
+          # the compilation dead. One pause and one retry cover it; whatever the
+          # first attempt did download stays in the cache for the second.
+          tectonic book/cours-complet.tex \
+            || { echo "::notice::first attempt failed, retrying in 45 s"; sleep 45; tectonic book/cours-complet.tex; } \
+            || true
           if [ -f book/cours-complet.pdf ]; then
             cp book/cours-complet.pdf site/dist/cours-complet.pdf
             ls -la site/dist/cours-complet.pdf

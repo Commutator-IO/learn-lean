@@ -32,7 +32,9 @@ export function BookPage() {
   const [index, setIndex] = useState<Index | null>(null);
   const [livre, setLivre] = useState<Livre | null>(null);
   const [chapitre, setChapitre] = useState<Chapitre | null>(null);
-  const [pdf, setPdf] = useState<number | null>(null);
+  // `null` tant qu'on ne sait pas, `"absent"` quand la réponse est tombée et
+  // que le fichier n'est pas là : les deux ne se disent pas de la même façon.
+  const [pdf, setPdf] = useState<number | "absent" | null>(null);
   const [menu, setMenu] = useState(false);
 
   useEffect(() => {
@@ -42,10 +44,21 @@ export function BookPage() {
     donnees<Livre>("/book.json")
       .then(setLivre)
       .catch(() => setLivre(null));
-    // Le PDF est compilé par le workflow : le bouton n'apparaît que s'il est là.
+    // Le PDF est compilé par le workflow, et sa compilation peut échouer sans
+    // emporter le déploiement. On dit alors qu'il manque : un bouton disparu
+    // sans un mot se lit comme une régression du site.
     fetch("/cours-complet.pdf", { method: "HEAD" })
-      .then((r) => r.ok && setPdf(Number(r.headers.get("content-length") ?? 0)))
-      .catch(() => {});
+      .then((r) => {
+        // Un serveur qui ne trouve pas le fichier peut répondre 200 avec sa
+        // page d'accueil — c'est ce que fait le serveur de développement. Le
+        // type du contenu est donc la seule réponse fiable.
+        const estPdf =
+          r.ok && (r.headers.get("content-type") ?? "").includes("pdf");
+        setPdf(
+          estPdf ? Number(r.headers.get("content-length") ?? 0) : "absent",
+        );
+      })
+      .catch(() => setPdf("absent"));
   }, []);
 
   const charger = useCallback(async (id: string) => {
@@ -151,13 +164,22 @@ export function BookPage() {
             <span className="min-w-0 truncate font-serif text-[15px] text-ink-900">
               Mathématiques du secondaire
             </span>
-            {pdf !== null && (
-              <a
-                href="/cours-complet.pdf"
-                className="ml-auto shrink-0 rounded-md border border-ink-300 px-2.5 py-1 text-[12.5px] text-ink-700 hover:bg-ink-50"
+            {pdf === "absent" ? (
+              <span
+                className="ml-auto shrink-0 text-[12.5px] text-ink-400"
+                title="la compilation du livre a échoué lors du dernier déploiement"
               >
-                PDF{pdf > 0 ? ` · ${(pdf / 1e6).toFixed(1)} Mo` : ""}
-              </a>
+                PDF indisponible
+              </span>
+            ) : (
+              pdf !== null && (
+                <a
+                  href="/cours-complet.pdf"
+                  className="ml-auto shrink-0 rounded-md border border-ink-300 px-2.5 py-1 text-[12.5px] text-ink-700 hover:bg-ink-50"
+                >
+                  PDF{pdf > 0 ? ` · ${(pdf / 1e6).toFixed(1)} Mo` : ""}
+                </a>
+              )
             )}
           </div>
 
