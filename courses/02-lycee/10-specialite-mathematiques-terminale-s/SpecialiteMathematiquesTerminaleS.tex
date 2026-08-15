@@ -301,7 +301,7 @@ Le produit matriciel est associatif et distributif sur l'addition :
 \begin{proof}
 Les deux règles sont celles de la bibliothèque, où les matrices carrées forment un anneau.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L17}{MatricesEtGraphes.lean\#L17}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/Arithmetique.lean\#L147}{Arithmetique.lean\#L147}
 
 \begin{exemple}
 Mais il n'est pas commutatif :
@@ -320,7 +320,7 @@ haut à gauche le seraient aussi ; or le premier vaut $1$ et le second $0$. Le c
 deux coefficients se fait en développant la somme sur les deux indices, et
 $1 \ne 0$ conclut.
 \end{explication}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L22}{MatricesEtGraphes.lean\#L22}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L17}{MatricesEtGraphes.lean\#L17}
 
 \subsection{Matrice inversible}
 
@@ -344,7 +344,7 @@ Les quatre coefficients de chacun des deux produits se calculent ainsi, et l'on 
 la matrice identité. Toutes ces simplifications réclament $ad - bc \ne 0$, qui est
 l'hypothèse.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L33}{MatricesEtGraphes.lean\#L33}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L22}{MatricesEtGraphes.lean\#L22}
 
 \subsection{Écriture matricielle d'un système}
 
@@ -367,7 +367,7 @@ toute matrice, et ne se comporte bien que lorsque le déterminant est inversible
 hypothèse, $A^{-1}$ existe encore comme notation, mais $AA^{-1} = I$ est faux : c'est une
 valeur de remplissage, pas un inverse.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L50}{MatricesEtGraphes.lean\#L50}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L33}{MatricesEtGraphes.lean\#L33}
 
 \subsection{Puissances d'une matrice}
 
@@ -381,7 +381,7 @@ Puissances d'une matrice diagonale :
 Résultat de la bibliothèque : le produit de deux matrices diagonales est diagonal, de
 coefficients les produits, et la récurrence sur $k$ suit.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L62}{MatricesEtGraphes.lean\#L62}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L50}{MatricesEtGraphes.lean\#L50}
 
 \begin{theoreme}
 Puissances par diagonalisation : si $P$ est inversible, alors pour tout $k$,
@@ -403,7 +403,7 @@ où l'on a simplifié $P^{-1}P = I$ au milieu. C'est tout l'intérêt de la diag
 les $P^{-1}P$ intermédiaires se télescopent, et il ne reste que les puissances de $D$, qui
 se calculent coefficient par coefficient d'après l'énoncé précédent.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L68}{MatricesEtGraphes.lean\#L68}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L62}{MatricesEtGraphes.lean\#L62}
 
 \subsection{Suites de matrices colonnes}
 
@@ -429,7 +429,7 @@ C'est la méthode du programme : on ramène une suite affine à une suite géom�
 retranchant l'état stable. La forme explicite $U_n = A^{n}(U_0 - U^{*}) + U^{*}$ s'en
 déduit immédiatement.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L84}{MatricesEtGraphes.lean\#L84}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L68}{MatricesEtGraphes.lean\#L68}
 
 \subsection{Graphe probabiliste}
 
@@ -466,7 +466,7 @@ $b > 0$ et $a + b < 2$.
 par la constante $u_0 - \pi_0$, la limite reste nulle. L'écart à l'état stable tend donc
 vers zéro, quel que soit l'état initial : c'est la convergence que le programme admet.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L104}{MatricesEtGraphes.lean\#L104}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L84}{MatricesEtGraphes.lean\#L84}
 
 \subsection{Énoncés admis}
 
@@ -479,7 +479,7 @@ $ed \equiv 1 \pmod{(p-1)(q-1)}$, alors élever un message à la puissance $e$ pu
 puissance $d$ le ramène à lui-même modulo $pq$.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/Arithmetique.lean\#L147}{Arithmetique.lean\#L147}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L104}{MatricesEtGraphes.lean\#L104}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

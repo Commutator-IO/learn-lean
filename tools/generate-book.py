@@ -18,7 +18,7 @@ lui-même devient un `\chapter`. Un chapitre dont tout tient en un seul fichier
 Lean ne montre pas ce niveau intermédiaire, qui ne dirait rien.
 """
 
-import json, os, re, sys
+import json, os, re, sys, unicodedata
 
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COURS = os.path.join(RACINE, "courses")
@@ -173,6 +173,76 @@ def liaison(identifiant):
     return open(chemin, encoding="utf-8").read().strip()
 
 
+def index(corpus):
+    r"""Marque les mots clés du livre, et rend l'index qui les rassemble.
+
+    Deux sources, et pas une troisième : le terme défini par chaque définition,
+    qui est en italique dans le texte français, et le titre de chaque section.
+    Ce sont les mots qu'un lecteur cherchera — « aire du disque », « théorème de
+    Thalès » — et ils sont déjà écrits, donc rien n'est à baliser à la main.
+
+    Le renvoi se fait par `\pageref` plutôt que par `makeindex` : deux passes de
+    compilation suffisent, et le livre n'a pas besoin d'un outil de plus dans la
+    chaîne d'intégration.
+    """
+    entrees = {}
+    marques = []
+
+    def normaliser(terme):
+        s = unicodedata.normalize("NFD", terme.lower())
+        return "".join(c for c in s if unicodedata.category(c) != "Mn")
+
+    def nettoyer(brut):
+        s = re.sub(r"\\(?:texttt|emph|textbf|textit)\{([^{}]*)\}", r"\1", brut)
+        s = re.sub(r"\$[^$]*\$", "", s)
+        s = re.sub(r"\\[a-zA-Z]+\{\}", "", s)
+        s = re.sub(r"\\[a-zA-Z]+", "", s)
+        s = s.replace("{", "").replace("}", "")
+        s = re.sub(r"\s+", " ", s).strip(" .,;:")
+        return s
+
+    def poser(position, terme):
+        """Enregistre un mot clé et rend le repère à insérer à cet endroit."""
+        cle = normaliser(terme)
+        n = len(marques)
+        marques.append(position)
+        entrees.setdefault(cle, (terme, []))[1].append(n)
+        return f"\\reperage{{idx:{n}}}"
+
+    # Les termes définis : le premier \emph d'une définition.
+    def sur_definition(m):
+        bloc = m.group(0)
+        e = re.search(r"\\emph\{([^{}]+)\}", bloc)
+        if not e:
+            return bloc
+        terme = nettoyer(e.group(1))
+        if not (2 < len(terme) <= 45):
+            return bloc
+        repere = poser(m.start(), terme)
+        return bloc[: e.end()] + repere + bloc[e.end() :]
+
+    corpus = re.sub(r"\\begin\{definition\}[\s\S]*?\\end\{definition\}",
+                    sur_definition, corpus)
+
+    # Les titres de section, tels qu'ils sont écrits.
+    def sur_section(m):
+        terme = nettoyer(m.group(1))
+        if not (2 < len(terme) <= 45):
+            return m.group(0)
+        return m.group(0) + poser(m.start(), terme)
+
+    corpus = re.sub(r"\\(?:sub)?section\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}",
+                    sur_section, corpus)
+
+    lignes = [r"\begin{theindex}", r"\addcontentsline{toc}{chapter}{Index}"]
+    for cle in sorted(entrees):
+        terme, reperes = entrees[cle]
+        pages = ", ".join(f"\\pageref{{idx:{n}}}" for n in reperes)
+        lignes.append(r"\item " + terme + ", " + pages)
+    lignes += [r"\end{theindex}", ""]
+    return corpus, "\n".join(lignes)
+
+
 def assembler():
     manquants = []
     out = [open(os.path.join(LIVRE, "preambule.tex"), encoding="utf-8").read().rstrip()]
@@ -218,10 +288,11 @@ def assembler():
     if os.path.exists(biblio):
         out += [open(biblio, encoding="utf-8").read().strip(), ""]
 
-    out += [r"\end{document}", ""]
+    corpus, indexe = index("\n".join(out))
+    corpus += "\n" + indexe + "\n" + r"\end{document}" + "\n"
 
     cible = os.path.join(LIVRE, "cours-complet.tex")
-    open(cible, "w", encoding="utf-8").write("\n".join(out))
+    open(cible, "w", encoding="utf-8").write(corpus)
     return cible, manquants
 
 

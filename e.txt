@@ -1,0 +1,4 @@
+error: primary input not available (?!)
+error: something bad happened inside XeTeX, but no output was logged
+error: the XeTeX engine had an unrecoverable error
+caused by: failed to open input file "proto.tex"

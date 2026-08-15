@@ -1,24 +1,52 @@
 % Préambule du livre. Assemblé par tools/generate-book.py avec les documents de
 % chapitre et les textes de liaison de book/textes/.
 %
-% Il reprend, à la classe près, celui des documents de chapitre : mêmes
-% environnements, mêmes conventions typographiques. Un énoncé se compose donc
-% exactement de la même façon dans le livre et dans le document isolé — ce qui
-% est la moindre des choses puisque c'est le même texte.
-\documentclass[11pt,a4paper,openany]{book}
+% La mise en page vise celle d'un livre technique : format 17 × 24 cm, texte en
+% serif et titres en sans-serif, encadrés à icônes pour les notes et les mises
+% en garde. Les documents de chapitre, eux, gardent leur composition d'article :
+% ils se lisent seuls, à côté de leur fichier Lean, et n'ont pas à faire livre.
+%
+% Le document se compile avec XeTeX (donc avec tectonic), et non plus avec
+% pdfLaTeX : fontspec et awesomebox l'exigent.
+\documentclass[11pt,DIV=12,BCOR=6mm,open=any,numbers=noenddot,chapterprefix=false]{scrbook}
 
-% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-\else
-  \usepackage{fontspec}
-\fi
+% Format 17 × 24 cm, celui des livres scientifiques français.
+\usepackage[paperwidth=17cm,paperheight=24cm,
+  inner=2.1cm,outer=1.9cm,top=2.2cm,bottom=2.4cm]{geometry}
+
+% Le texte en XCharter — un Charter, lisible en petit corps — et les titres en
+% Fira Sans. L'ordre compte : les paquets de polices avant fontspec.
+\usepackage{XCharter}
+\usepackage[scaled=0.94]{FiraSans}
+\usepackage{fontspec}
+% La chasse fixe porte les identifiants Lean, pleins d'exposants et d'indices
+% Unicode (`aᵐ⁺ⁿ`, `uₙ`) : Latin Modern Mono ne les a pas et les laisse tomber
+% sans bruit. DejaVu les couvre tous, et sa chasse réduite fait tenir les noms
+% longs dans une page de 17 cm.
+\setmonofont{DejaVuSansMono.ttf}[Scale=0.82]
 \usepackage[french]{babel}
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage[margin=2.6cm]{geometry}
+\usepackage{microtype}
+
+% Les encadrés à icônes : note, astuce, mise en garde, avertissement.
+\usepackage{awesomebox}
+
 \usepackage[hidelinks]{hyperref}
+
+% Les identifiants Lean en machine à écrire ne se coupent pas : mieux vaut des
+% espacements plus lâches que des lignes qui débordent dans la marge.
+\emergencystretch=2em
+
+% Titres et en-têtes en sans-serif, comme dans un manuel technique.
+\setkomafont{disposition}{\sffamily}
+\setkomafont{descriptionlabel}{\sffamily\bfseries}
+\addtokomafont{caption}{\small}
+\usepackage[automark]{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+\automark[section]{chapter}
+\ihead*{\small\sffamily\headmark}
+\ohead*{\small\sffamily\pagemark}
 
 % Numérotation par chapitre : « Théorème 4.3 » se retrouve dans un livre de
 % trois cents pages, « Théorème 137 » non.
@@ -32,14 +60,21 @@
 % Un exemple ne se démontre pas : on explique ce qu'il montre.
 \newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
 
-% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
-\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`. La mise en
+% garde à icône dit ce qu'un paragraphe en italique disait plus discrètement.
+\newcommand{\admis}{\warningbox{\textbf{Admis.} L'énoncé est écrit en Lean, sa
+démonstration reste à faire.}}
 
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à
 % droite. C'est le seul lien entre le livre et le dépôt : il permet d'aller
 % vérifier, ligne par ligne, que la démonstration lue est bien celle que la
 % machine accepte.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+% Les repères de l'index. Ils sont posés par generate-book.py sur les termes
+% définis et les titres de section, et relus par \pageref à la fin du livre :
+% aucun outil extérieur n'est nécessaire, deux passes de compilation suffisent.
+\newcommand{\reperage}[1]{\phantomsection\label{#1}}
 
 \title{%
   Mathématiques du secondaire\\
