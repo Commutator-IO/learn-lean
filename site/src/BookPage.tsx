@@ -302,7 +302,9 @@ export function BookPage() {
                               {d.preuveHtml && (
                                 <div className="mt-3 border-l-2 border-ink-200 pl-4">
                                   <div className="font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
-                                    Démonstration
+                                    {d.sorte === "example"
+                                      ? "Explication"
+                                      : "Démonstration"}
                                   </div>
                                   <div
                                     className="prose-cours text-[15px] text-ink-700"

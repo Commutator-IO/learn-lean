@@ -22,6 +22,9 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -182,10 +185,10 @@ Deux rectangles de même aire peuvent avoir des périmètres différents : $1 \t
 $3 \times 4$ ont pour aire $12$, et pour périmètres $26$ et $14$.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 On calcule les quatre nombres : $1 \times 12 = 3 \times 4 = 12$, tandis que
 $2(1 + 12) = 26$ et $2(3 + 4) = 14$. L'aire ne détermine donc pas le périmètre.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L90}{GrandeursEtMesures.lean\#L90}
 
 \begin{exemple}
@@ -193,9 +196,9 @@ Réciproquement, deux rectangles de même périmètre peuvent avoir des aires di
 $1 \times 5$ et $3 \times 3$ ont pour périmètre $12$, et pour aires $5$ et $9$.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 Mêmes calculs : $2(1+5) = 2(3+3) = 12$, alors que $1 \times 5 = 5$ et $3 \times 3 = 9$.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L97}{GrandeursEtMesures.lean\#L97}
 
 \subsection{Volumes}

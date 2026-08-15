@@ -190,6 +190,9 @@ ENTETE = r"""%% Fichier engendré par tools/generate-tex.py à partir de %(sourc
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+%% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
 %% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 

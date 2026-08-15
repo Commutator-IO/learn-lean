@@ -22,6 +22,9 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -48,11 +51,11 @@ vaut \texttt{14}, et non \texttt{20}. La priorité est une convention d'écritur
 ce qui se démontre, c'est que les deux expressions diffèrent.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 Les deux calculs sont menés à leur terme et comparés : $2 + 3 \times 4 = 14$ tandis
 que $(2+3) \times 4 = 20$. La priorité de la multiplication est une convention d'écriture,
 pas un théorème ; ce qui se démontre, c'est que les deux résultats diffèrent.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L14}{CalculsEtCalculLitteral.lean\#L14}
 
 \subsection{Addition et soustraction des relatifs ; \texttt{a − b = a + (−b)}}
@@ -373,10 +376,10 @@ résoudre deux équations du premier degré.
 Tester une valeur : \texttt{2} est solution de \texttt{x² − 5x + 6 = 0}, \texttt{1} ne l'est pas.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 Les deux calculs sont menés : $2^2 - 5 \times 2 + 6 = 0$, donc $2$ est solution ;
 $1^2 - 5 \times 1 + 6 = 2 \ne 0$, donc $1$ ne l'est pas.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/CalculsEtCalculLitteral.lean\#L137}{CalculsEtCalculLitteral.lean\#L137}
 
 \begin{theoreme}
@@ -643,10 +646,10 @@ Même argument avec un quotient.
 La racine d'une somme n'est pas la somme des racines : \texttt{\(\sqrt{}\)2 \(\ne\) 2}.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 Si l'on avait $\sqrt{1+1} = \sqrt1 + \sqrt1 = 2$, alors en élevant au carré on
 obtiendrait $2 = 4$. La racine d'une somme n'est donc pas la somme des racines.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EcrituresDesNombres.lean\#L183}{EcrituresDesNombres.lean\#L183}
 
 \subsection{Rationnels et irrationnels : \texttt{\(\sqrt{}\)2} n'est pas rationnel}
@@ -1040,12 +1043,12 @@ $d = n$ par primalité, ce qui contredit $2 \le d < n$.
 Crible d'Ératosthène : les nombres premiers inférieurs à 100.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 Par calcul : le noyau évalue la liste $0, 1, \dots, 99$, la filtre par le test et compare
 le résultat à la liste annoncée. Le crible est donc exécuté, et pas seulement décrit —
 c'est le théorème précédent qui garantit que ce que le test retient est bien la
 primalité.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/01-nombres-et-calculs/EntiersDivisibilite.lean\#L250}{EntiersDivisibilite.lean\#L250}
 
 \subsection{Décomposition en produit de facteurs premiers}

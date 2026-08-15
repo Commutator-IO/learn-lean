@@ -22,6 +22,9 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -125,10 +128,10 @@ Il manque toujours $xp^2$, quel que soit le taux $p$ non nul.
 Sur un exemple : $+20\,\%$ puis $-20\,\%$ appliqués à $100$ laissent $96$.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 $100 \times 1{,}2 = 120$, puis $120 \times 0{,}8 = 96$. On a bien perdu
 $100 \times 0{,}2^2 = 4$.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L60}{ProportionnaliteEtFonctions.lean\#L60}
 
 \subsection{Une image est unique, un antécédent ne l'est pas nécessairement}
@@ -149,9 +152,9 @@ Un nombre peut en revanche avoir plusieurs antécédents : par la fonction carr�
 pour antécédents $2$ et $-2$.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 $2^2 = 4$ et $(-2)^2 = 4$, et $2 \ne -2$.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/05-proportionnalite-et-fonctions/ProportionnaliteEtFonctions.lean\#L74}{ProportionnaliteEtFonctions.lean\#L74}
 
 \subsection{Fonction linéaire : traduit exactement la proportionnalité}

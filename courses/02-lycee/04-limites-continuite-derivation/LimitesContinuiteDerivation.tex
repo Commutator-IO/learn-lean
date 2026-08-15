@@ -22,6 +22,9 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -478,7 +481,7 @@ La réciproque est fausse : la fonction cube a un nombre dérivé nul en zéro,
 sans y présenter de maximum local.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 Le nombre dérivé se lit sur la formule $(x^n)' = n x^{n-1}$ prise en $n = 3$ et $x = 0$ :
 il vaut $3 \times 0^{2} = 0$.
 
@@ -486,7 +489,7 @@ Supposons maintenant que zéro soit un maximum local : on aurait $x^{3} \le 0^{3
 tout $x$ assez proche de zéro. Cette propriété resterait vraie en n'approchant zéro que par
 la droite ; or tout voisinage de zéro à droite contient un $x > 0$, et un tel $x$ vérifie
 $x^{3} > 0$. Les deux inégalités $x^3 \le 0$ et $x^3 > 0$ se contredisent.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/04-limites-continuite-derivation/LimitesContinuiteDerivation.lean\#L237}{LimitesContinuiteDerivation.lean\#L237}
 
 \subsection{Dérivée seconde, convexité, point d'inflexion}

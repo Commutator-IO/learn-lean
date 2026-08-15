@@ -1,30 +1,65 @@
-% Références du livre, et leurs entrées BibTeX.
+% Références du livre : les programmes, les logiciels, et leurs entrées BibTeX.
 %
-% Les deux logiciels dont dépend ce travail demandent à être cités : Lean pour
-% l'assistant de preuve, Mathlib pour la bibliothèque de mathématiques. Les
-% entrées sont reproduites telles quelles pour qu'on puisse les reprendre.
+% Un seul chapitre, et un seul titre. La liste est composée à la main plutôt
+% qu'avec `thebibliography`, qui ouvre son propre en-tête « Bibliographie » —
+% le livre affichait alors deux titres de chapitre à la suite pour une seule
+% page de références. Rien n'est cité dans le texte : la liste n'a donc pas
+% besoin d'être un environnement de bibliographie.
 \chapter*{Références}
 \addcontentsline{toc}{chapter}{Références}
 
+\section*{Les programmes}
+
+Le corpus démontré dans ce livre est tiré des programmes de mathématiques du secondaire.
+Ceux-ci ont été réécrits en 2026 ; les arrêtés ci-dessous sont les textes en vigueur, dont
+l'application s'échelonne de la rentrée 2026 à celle de 2028.
+
+\begin{itemize}
+\item Arrêté du 18 février 2026, \emph{Programmes d'enseignement de français et de
+mathématiques du cycle des approfondissements (cycle 4)}, NOR MENE2602912A,
+\emph{Bulletin officiel de l'éducation nationale} n\textsuperscript{o} 10 du 5 mars 2026,
+\href{https://www.education.gouv.fr/bo/2026/Hebdo10/MENE2602912A}{en ligne}.
+
+\item Arrêté du 26 février 2026, \emph{Programme d'enseignement de mathématiques de la
+classe de seconde générale et technologique}, NOR MENE2602914A, \emph{Bulletin officiel}
+n\textsuperscript{o} 14 du 2 avril 2026,
+\href{https://www.education.gouv.fr/bo/2026/Hebdo14/MENE2602914A}{en ligne}.
+
+\item Arrêté du 26 février 2026, \emph{Programme d'enseignement de spécialité de
+mathématiques de la classe de première de la voie générale}, NOR MENE2602917A,
+\emph{Bulletin officiel} n\textsuperscript{o} 14 du 2 avril 2026,
+\href{https://www.education.gouv.fr/bo/2026/Hebdo14/MENE2602917A}{en ligne}.
+
+\item Arrêté du 26 février 2026, \emph{Programme de l'enseignement de spécialité de
+mathématiques de la classe terminale de la voie générale}, NOR MENE2602919A,
+\emph{Bulletin officiel} n\textsuperscript{o} 14 du 2 avril 2026,
+\href{https://www.education.gouv.fr/bo/2026/Hebdo14/MENE2602919A}{en ligne}.
+\end{itemize}
+
+\noindent
+Une précision s'impose sur ce que ces textes recouvrent ici. Les énoncés du livre ont été
+relevés sur les programmes qui précèdent cette réécriture, et la partie lycée suit le
+découpage de l'ancienne filière S, dont le contenu se retrouve pour l'essentiel dans les
+spécialités actuelles. Les arrêtés de 2026 sont donc cités comme la référence en vigueur,
+non comme la source dont ce livre a été tiré.
+
+\section*{Les logiciels}
+
 Ce livre repose sur deux logiciels libres, dont les auteurs demandent à être cités.
 
-\begin{thebibliography}{9}
-
-\bibitem{demoura2021lean}
-Leonardo de Moura et Sebastian Ullrich,
+\begin{itemize}
+\item Leonardo de Moura et Sebastian Ullrich,
 \emph{The Lean 4 Theorem Prover and Programming Language},
 dans \emph{Automated Deduction --- CADE 28}, Lecture Notes in Computer Science 12699,
-Springer, 2021, p.~625--635.
+Springer, 2021, p.~625--635,
 \href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.
 
-\bibitem{mathlib2020}
-The mathlib Community,
+\item The mathlib Community,
 \emph{The Lean Mathematical Library},
 dans \emph{Proceedings of the 9th ACM SIGPLAN International Conference on Certified
-Programs and Proofs (CPP 2020)}, ACM, 2020, p.~367--381.
+Programs and Proofs (CPP 2020)}, ACM, 2020, p.~367--381,
 \href{https://doi.org/10.1145/3372885.3373824}{doi:10.1145/3372885.3373824}.
-
-\end{thebibliography}
+\end{itemize}
 
 \section*{Entrées BibTeX}
 

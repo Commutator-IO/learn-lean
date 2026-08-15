@@ -154,7 +154,9 @@ function blocsTex(source) {
     const cle = `${fichier}#${m[2]}`;
 
     const enonce = /\\begin\{(theoreme|lemme|definition|exemple)\}([\s\S]*?)\\end\{\1\}/.exec(corps);
-    const preuve = /\\begin\{proof\}([\s\S]*?)\\end\{proof\}/.exec(corps);
+    // La démonstration d'un exemple s'appelle une explication : deux
+    // environnements, un seul champ — le libellé se décide à l'affichage.
+    const preuve = /\\begin\{(?:proof|explication)\}([\s\S]*?)\\end\{(?:proof|explication)\}/.exec(corps);
     // Ce qui précède l'énoncé dans le bloc : les remarques libres du fichier
     // Lean, qui appartiennent au fil du texte et non à un théorème.
     const avant = enonce ? corps.slice(0, enonce.index) : corps;

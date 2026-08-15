@@ -22,6 +22,9 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -308,12 +311,12 @@ Mais il n'est pas commutatif :
    = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix} . \]
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 Réfutation par contre-exemple. Si les deux produits étaient égaux, leurs coefficients en
 haut à gauche le seraient aussi ; or le premier vaut $1$ et le second $0$. Le calcul des
 deux coefficients se fait en développant la somme sur les deux indices, et
 $1 \ne 0$ conclut.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/MatricesEtGraphes.lean\#L22}{MatricesEtGraphes.lean\#L22}
 
 \subsection{Matrice inversible}

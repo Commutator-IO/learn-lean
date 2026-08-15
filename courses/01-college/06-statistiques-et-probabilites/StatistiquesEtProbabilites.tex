@@ -22,6 +22,9 @@
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
 
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
 \newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
 
@@ -133,11 +136,11 @@ La moyenne de plusieurs moyennes n'est pas la moyenne de la série globale :
 \[ \overline{\bigl(\overline{(0,0,0)},\ \overline{(6)}\bigr)} \ne \overline{(0,0,0,6)} . \]
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 Les deux groupes ont pour moyennes $0$ et $6$, dont la moyenne vaut $3$. La série
 réunie, elle, a pour moyenne $\tfrac{0+0+0+6}{4} = 1{,}5$. Moyenner des moyennes revient
 à donner le même poids à des groupes de tailles différentes.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L90}{StatistiquesEtProbabilites.lean\#L90}
 
 \subsection{Médiane : au moins la moitié des valeurs lui sont inférieures ou égales}
@@ -146,11 +149,11 @@ réunie, elle, a pour moyenne $\tfrac{0+0+0+6}{4} = 1{,}5$. Moyenner des moyenne
 Sur la série $(1, 2, 3, 4, 5)$, la valeur centrale $3$ est bien une médiane.
 \end{exemple}
 
-\begin{proof}
+\begin{explication}
 Trois valeurs sur cinq lui sont inférieures ou égales ($1$, $2$, $3$) et trois lui sont
 supérieures ou égales ($3$, $4$, $5$) : dans les deux cas, plus de la moitié des cinq
 valeurs.
-\end{proof}
+\end{explication}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/06-statistiques-et-probabilites/StatistiquesEtProbabilites.lean\#L98}{StatistiquesEtProbabilites.lean\#L98}
 
 \begin{theoreme}

@@ -29,6 +29,9 @@
 \newtheorem{theoreme}[definition]{Théorème}
 \newtheorem{lemme}[definition]{Lemme}
 
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
 % Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à
 % droite. C'est le seul lien entre le livre et le dépôt : il permet d'aller
 % vérifier, ligne par ligne, que la démonstration lue est bien celle que la
