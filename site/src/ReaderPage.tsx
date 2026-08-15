@@ -208,41 +208,77 @@ export function ReaderPage() {
                   const actif = chapitre?.id === c.id;
                   const complet = c.statuts.demontres === c.statuts.total;
                   return (
-                    <button
-                      key={c.id}
-                      onClick={() => void charger(c.id)}
-                      className={[
-                        "flex w-full items-center gap-1.5 rounded px-1.5 py-1 text-left text-[12.5px]",
-                        actif
-                          ? "bg-brand-50 text-ink-900"
-                          : "text-ink-600 hover:bg-ink-100",
-                      ].join(" ")}
-                    >
-                      <span
-                        className="min-w-0 flex-1 truncate"
-                        title={`${c.titre} — ${c.niveau}`}
-                      >
-                        <span
-                          aria-hidden
-                          className={
-                            c.niveau === "collège"
-                              ? "mr-1.5 inline-block size-1.5 rounded-full bg-ink-300 align-middle"
-                              : "mr-1.5 inline-block size-1.5 rounded-full bg-brand-400 align-middle"
-                          }
-                        />
-                        {c.titre}
-                      </span>
-                      <span
+                    <div key={c.id}>
+                      <button
+                        onClick={() => void charger(c.id)}
                         className={[
-                          "shrink-0 rounded px-1 py-0.5 font-mono text-[10px]",
-                          complet
-                            ? "bg-prouve-50 text-prouve-700"
-                            : "bg-encours-50 text-encours-600",
+                          "flex w-full items-center gap-1.5 rounded px-1.5 py-1 text-left text-[12.5px]",
+                          actif
+                            ? "bg-brand-50 text-ink-900"
+                            : "text-ink-600 hover:bg-ink-100",
                         ].join(" ")}
                       >
-                        {c.statuts.demontres}/{c.statuts.total}
-                      </span>
-                    </button>
+                        <span
+                          className="min-w-0 flex-1 truncate"
+                          title={`${c.titre} — ${c.niveau}`}
+                        >
+                          <span
+                            aria-hidden
+                            className={
+                              c.niveau === "collège"
+                                ? "mr-1.5 inline-block size-1.5 rounded-full bg-ink-300 align-middle"
+                                : "mr-1.5 inline-block size-1.5 rounded-full bg-brand-400 align-middle"
+                            }
+                          />
+                          {c.titre}
+                        </span>
+                        <span
+                          className={[
+                            "shrink-0 rounded px-1 py-0.5 font-mono text-[10px]",
+                            complet
+                              ? "bg-prouve-50 text-prouve-700"
+                              : "bg-encours-50 text-encours-600",
+                          ].join(" ")}
+                        >
+                          {c.statuts.demontres}/{c.statuts.total}
+                        </span>
+                      </button>
+
+                      {/* Les fichiers du chapitre ouvert, dans le sommaire et non
+                        dans une liste déroulante : un chapitre se lit fichier par
+                        fichier, et le découpage fait partie de la table des
+                        matières. */}
+                      {actif && chapitre && chapitre.modules.length > 1 && (
+                        <div className="mt-0.5 mb-1 ml-3 border-l border-ink-200 pl-2">
+                          {chapitre.modules.map((x) => (
+                            <button
+                              key={x.nom}
+                              onClick={() => {
+                                setModule(x.nom);
+                                setCourante(null);
+                                setCible(null);
+                              }}
+                              className={[
+                                "flex w-full items-baseline gap-1.5 rounded px-1.5 py-0.5 text-left font-mono text-[11px]",
+                                x.nom === module
+                                  ? "bg-brand-50 text-brand-800"
+                                  : "text-ink-500 hover:bg-ink-100",
+                              ].join(" ")}
+                            >
+                              <span
+                                className="min-w-0 flex-1 truncate"
+                                title={x.nom}
+                              >
+                                {x.nom.replace(/\.lean$/, "")}
+                              </span>
+                              <span className="shrink-0 text-[10px] text-ink-300">
+                                {x.declarations.length}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
               </div>
@@ -270,23 +306,6 @@ export function ReaderPage() {
               />
               défilement lié
             </label>
-            {chapitre && chapitre.modules.length > 1 && (
-              <select
-                value={module ?? ""}
-                onChange={(e) => {
-                  setModule(e.target.value);
-                  setCourante(null);
-                  setCible(null);
-                }}
-                className="rounded border border-ink-200 px-2 py-1 font-mono text-[12px] text-ink-600"
-              >
-                {chapitre.modules.map((x) => (
-                  <option key={x.nom} value={x.nom}>
-                    {x.nom}
-                  </option>
-                ))}
-              </select>
-            )}
           </div>
 
           {m && chapitre ? (

@@ -59,6 +59,45 @@ lemme, jamais tenir lieu d'argument. Même chose pour les notations : `Nat`, `In
 `Real` s'écrivent ℕ, ℤ, ℚ, ℝ, et `a ∣ b`, `a % b`, `a / b` deviennent respectivement
 « `a` divise `b` », `a \bmod b` et `\lfloor a/b \rfloor` sur les entiers.
 
+## Ouvrir la démonstration empruntée
+
+Quand la preuve Lean tient en une ligne parce qu'elle nomme un résultat de la
+bibliothèque, la transcription ne peut pas se contenter de dire ce que ce résultat
+affirme : il faut dire **comment il se démontre**. Sans quoi le lecteur reste devant un
+énoncé vrai dont la raison est ailleurs — et c'est précisément le défaut que ce dépôt
+cherche à ne pas avoir.
+
+Ces bibliothèques sont ouvertes. `courses/appuis.json`, produit par
+`python3 tools/liens-mathlib.py`, donne pour chaque nom cité le fichier et la ligne de sa
+démonstration, dans Mathlib, dans Batteries ou dans le noyau de Lean. Le site en fait un
+lien ; la transcription, elle, doit **lire cette démonstration et la rendre en français**.
+
+    python3 -c "import json; print(json.load(open('courses/appuis.json'))['Nat.dvd_add'])"
+
+**Ce qu'on écrit à la place.** Non pas « c'est un résultat de la bibliothèque », mais le
+raisonnement lui-même :
+
+> `Nat.dvd_add` : on écrit `b = ad` et `c = ae` ; alors `b + c = a(d + e)`, donc `a`
+> divise `b + c`. C'est la distributivité, et rien d'autre.
+
+Le nom de l'emprunt reste mentionné une fois, entre parenthèses ou en tête de phrase, pour
+que le lecteur puisse aller vérifier. Il ne porte jamais l'argument à lui seul.
+
+**Ce qu'on ne fait pas.** Recopier le terme Lean de la bibliothèque : il est écrit pour le
+compilateur, pas pour un élève, et sa forme (`⟨d + e, by simp [Nat.left_distrib, hd, he]⟩`)
+n'apprend rien. On lit ce terme, on comprend l'idée, on écrit l'idée.
+
+**Où s'arrêter.** Certaines démonstrations empruntées reposent sur une construction qu'on
+ne refera pas : la construction de ℝ et sa complétude, la théorie de la mesure, la
+définition de `Real.exp` et de ses amies. Le dire en une phrase, nommer ce sur quoi l'on
+s'appuie, et passer — c'est un emprunt assumé, pas un trou. La règle est de ne jamais
+laisser croire qu'on a démontré ce qu'on a cité.
+
+**Licence.** Mathlib est sous Apache-2.0, ce dépôt sous MIT. Interpréter une démonstration
+en français n'est pas la recopier, et ne demande rien. Recopier un script Lean de Mathlib
+dans un fichier `.lean` d'ici, en revanche, exige un commentaire nommant le fichier
+d'origine et sa licence.
+
 Exhiber un objet ne se dit pas « le témoin est `w` », calque de la logique formelle : en
 français on écrit « il suffit de prendre `w` », « on prend `w` », « `w` convient ». Même
 principe pour le reste du vocabulaire : préférer la tournure qu'emploierait un manuel à
