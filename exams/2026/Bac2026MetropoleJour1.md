@@ -12,7 +12,7 @@ La distinction entre ☐ et ✗ est celle qui compte. ☐ signale une question q
 devenir un théorème et qui ne l'est pas encore ; ✗ signale une question qui ne le
 deviendra pas — lire une pente sur un graphique, compléter un arbre, écrire un programme.
 
-## Exercice 1 — probabilités, espérance, Bienaymé-Tchebychev (5 points)
+## Exercice 1 — probabilités, espérance, Bienaymé-Tchebychev (5 points, page 1)
 
 | Question | Notions | Thème | Théorème | Statut |
 |---|---|---|---|---|
@@ -30,7 +30,7 @@ deviendra pas — lire une pente sur un graphique, compléter un arbre, écrire 
 La question B.2a demande de *justifier* une modélisation : une remise de `40 %` porte sur
 la somme des deux montants. C'est une phrase, pas un calcul.
 
-## Exercice 2 — vrai ou faux : espace et dénombrement (4 points)
+## Exercice 2 — vrai ou faux : espace et dénombrement (4 points, page 3)
 
 | Question | Notions | Thème | Théorème | Statut |
 |---|---|---|---|---|
@@ -43,7 +43,7 @@ L'exercice se formalise entièrement, et c'est le seul du sujet dans ce cas. Deu
 affirmations sont vraies, deux fausses — et la démonstration d'une affirmation fausse est
 la construction du contre-exemple, ici l'absence de solution d'un système.
 
-## Exercice 3 — équation différentielle et suite (6 points)
+## Exercice 3 — équation différentielle et suite (6 points, page 4)
 
 | Question | Notions | Thème | Théorème | Statut |
 |---|---|---|---|---|
@@ -62,7 +62,7 @@ La question A.1 demande la forme générale des solutions de `y' = ay + b` : c'e
 théorème du cours, que le chapitre « Limites, continuité, dérivation » ne contient pas
 encore.
 
-## Exercice 4 — une fonction avec un logarithme (5 points)
+## Exercice 4 — une fonction avec un logarithme (5 points, page 6)
 
 | Question | Notions | Thème | Théorème | Statut |
 |---|---|---|---|---|

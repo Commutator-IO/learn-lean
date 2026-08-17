@@ -128,7 +128,6 @@ export function Questions({ questions }: { questions: Question[] }) {
           titre: "Formalisation",
           de: (e: Question) => e.statut,
         },
-        { cle: "notion", titre: "Notion", de: null },
       ] as const,
     [],
   );
@@ -163,8 +162,7 @@ export function Questions({ questions }: { questions: Question[] }) {
         if (a.cle === sauf) continue;
         const choisies = filtres[a.cle];
         if (!choisies?.size) continue;
-        const valeurs = a.de ? [a.de(e)] : e.notions;
-        if (!valeurs.some((v) => choisies.has(v))) return false;
+        if (!choisies.has(a.de(e))) return false;
       }
       return true;
     };
@@ -175,14 +173,11 @@ export function Questions({ questions }: { questions: Question[] }) {
     [questions, passe, tri],
   );
 
-  const compter = (cle: string, de: ((e: Question) => string) | null) => {
+  const compter = (cle: string, de: (e: Question) => string) => {
     const n = new Map<string, number>();
-    for (const e of questions) {
-      const valeurs = de ? [de(e)] : e.notions;
-      for (const v of valeurs) if (!n.has(v)) n.set(v, 0);
-    }
+    for (const e of questions) if (!n.has(de(e))) n.set(de(e), 0);
     for (const e of questions.filter((x) => passe(x, cle))) {
-      for (const v of de ? [de(e)] : e.notions) n.set(v, (n.get(v) ?? 0) + 1);
+      n.set(de(e), (n.get(de(e)) ?? 0) + 1);
     }
     return [...n]
       .map(([valeur, k]) => ({ valeur, n: k }))
@@ -309,10 +304,24 @@ export function Questions({ questions }: { questions: Question[] }) {
                       {g.points} points
                     </span>
                   )}
-                  <span className="ml-auto font-mono text-[11px] text-ink-400">
+                  <span
+                    className="ml-auto font-mono text-[11px] text-ink-400"
+                    title="questions démontrées sur le total du problème"
+                  >
                     {g.items.filter((x) => x.statut === "démontré").length}/
                     {g.items.length}
                   </span>
+                  {g.sujet && (
+                    <a
+                      href={g.sujet}
+                      target="_blank"
+                      rel="noreferrer"
+                      title="ouvrir le sujet à la page où commence ce problème"
+                      className="text-[11px] text-ink-500 underline underline-offset-2 hover:text-ink-800"
+                    >
+                      sujet ↗
+                    </a>
+                  )}
                 </header>
                 <ul className="divide-y divide-ink-100">
                   {g.items.map((e) => {
@@ -365,16 +374,6 @@ export function Questions({ questions }: { questions: Question[] }) {
                               {t}
                             </a>
                           ))}
-                          {e.sujet && (
-                            <a
-                              href={e.sujet}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="ml-auto text-[11px] text-ink-400 underline underline-offset-2 hover:text-ink-700"
-                            >
-                              sujet ↗
-                            </a>
-                          )}
                         </div>
                       </li>
                     );

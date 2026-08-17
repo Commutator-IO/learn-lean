@@ -8,7 +8,7 @@
 Statuts : ☑ démontré · ◐ énoncé écrit, preuve en cours · ☐ proposition non encore écrite ·
 ✗ pas une proposition.
 
-## Exercice 1 — géométrie dans l'espace (5 points)
+## Exercice 1 — géométrie dans l'espace (5 points, page 1)
 
 | Question | Notions | Thème | Théorème | Statut |
 |---|---|---|---|---|
@@ -29,7 +29,7 @@ l'orthogonalité s'y écrit avec un produit scalaire nul. La question 6b est la 
 le volume ne dépend pas de la face choisie comme base, ce qui détermine l'aire cherchée
 sans la calculer directement.
 
-## Exercice 2 — pollution d'un bassin (5 points)
+## Exercice 2 — pollution d'un bassin (5 points, page 2)
 
 | Question | Notions | Thème | Théorème | Statut |
 |---|---|---|---|---|
@@ -48,7 +48,7 @@ Les deux parties modélisent le même phénomène, l'une par une suite, l'autre 
 fonction — et donnent la même limite, `1 200` litres. Le rapprochement n'est demandé nulle
 part dans le sujet, mais il saute aux yeux une fois les questions mises côte à côte.
 
-## Exercice 3 — vrai ou faux : probabilités et dénombrement (4 points)
+## Exercice 3 — vrai ou faux : probabilités et dénombrement (4 points, page 3)
 
 | Question | Notions | Thème | Théorème | Statut |
 |---|---|---|---|---|
@@ -62,7 +62,7 @@ somme de `341` coefficients binomiaux de rang `5 000`, calcul que le sujet fait 
 calculatrice et que ni `decide` ni `norm_num` ne mènent. C'est un cas intéressant — la
 proposition est parfaitement claire, et c'est l'arithmétique qui bloque.
 
-## Exercice 4 — la fonction du logo (6 points)
+## Exercice 4 — la fonction du logo (6 points, page 4)
 
 | Question | Notions | Thème | Théorème | Statut |
 |---|---|---|---|---|

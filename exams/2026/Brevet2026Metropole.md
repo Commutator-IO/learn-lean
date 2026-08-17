@@ -16,7 +16,7 @@ assistant de preuve ne sait pas dire.
 
 Statuts : ☑ démontré · ◐ énoncé écrit, preuve en cours · ✗ pas une proposition.
 
-## Première partie — automatismes (6 points)
+## Première partie — automatismes (6 points, page 1)
 
 QCM, neuf questions, sans justification demandée.
 
@@ -36,7 +36,7 @@ La question 7 demande de lire un angle sur un diagramme circulaire : la donnée 
 l'image, et l'énoncé écrit ne la contient pas. Rien à formaliser tant que la figure n'est
 pas elle-même un objet mathématique.
 
-## Exercice 1 — statistiques (3 points)
+## Exercice 1 — statistiques (3 points, page 3)
 
 Tableau des médailles de neuf pays aux Jeux paralympiques de Paris 2024.
 
@@ -53,7 +53,7 @@ La question 4b demande d'interpréter : « la moitié des pays ont obtenu moins 
 médailles ». C'est une phrase en français sur le sens d'un nombre, et elle n'a pas de
 contenu qui se démontre.
 
-## Exercice 2 — Thalès et triangles semblables (4 points)
+## Exercice 2 — Thalès et triangles semblables (4 points, page 4)
 
 Deux droites sécantes en `A`, deux parallèles, quatre longueurs données.
 
@@ -72,7 +72,7 @@ pour ses propres énoncés, mais qui dépasse ce qu'un exercice de brevet met en
 est formalisé ici est l'arithmétique qui en découle, la configuration étant prise en
 hypothèse.
 
-## Exercice 3 — volume d'une boule (3 points)
+## Exercice 3 — volume d'une boule (3 points, page 5)
 
 | Question | Notions | Thème | Théorème | Statut |
 |---|---|---|---|---|
@@ -90,7 +90,7 @@ La formule `V = 4πR³/3` est donnée par le sujet, et le dépôt ne la démontr
 elle figure parmi les énoncés admis du chapitre « Grandeurs et mesures ». Ce qui est
 vérifié ici, c'est le calcul et son arrondi.
 
-## Exercice 4 — sachets de bonbons (2 points)
+## Exercice 4 — sachets de bonbons (2 points, page 5)
 
 `112` bonbons à la fraise, `140` au caramel, des sachets identiques.
 

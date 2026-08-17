@@ -81,12 +81,16 @@ function questions(md, contexte) {
   const out = [];
   let probleme = null;
   let points = null;
+  let page = null;
 
   for (const ligne of md.split('\n')) {
-    const titre = /^## (.+?)(?:\s*\((\d+) points?\))?\s*$/.exec(ligne);
+    // « ## Exercice 2 — Thalès (4 points, page 4) » : le barème et la page du
+    // sujet, pour que le lien ouvre le PDF là où le problème commence.
+    const titre = /^## (.+?)(?:\s*\((\d+) points?(?:,\s*page (\d+))?\))?\s*$/.exec(ligne);
     if (titre) {
       probleme = titre[1].trim();
       points = titre[2] ? Number(titre[2]) : null;
+      page = titre[3] ? Number(titre[3]) : null;
       continue;
     }
     if (!ligne.startsWith('| ') || ligne.startsWith('|---') || !probleme) continue;
@@ -106,6 +110,8 @@ function questions(md, contexte) {
       ...contexte,
       probleme,
       points,
+      // Le fragment `#page=` est compris par les lecteurs PDF des navigateurs.
+      sujet: page && contexte.sujet ? `${contexte.sujet}#page=${page}` : contexte.sujet,
       numero: m ? m[1] : question,
       intitule: (m ? m[2] : question).replace(/`/g, ''),
       notions: notions.split(',').map((x) => x.trim()).filter(Boolean),
