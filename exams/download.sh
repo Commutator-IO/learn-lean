@@ -125,5 +125,7 @@ dl 2025 "Sujet_0_pour_2026_sujet_B.pdf" "https://www.apmep.fr/IMG/pdf/Brevet_0_B
 dl 2025 "M_tropole_Antilles_Guyane_26_juin_2025.pdf" "https://www.apmep.fr/IMG/pdf/Brevet_Me_tropole_26_06_2025_FK.pdf"
 dl 2025 "M_tropole_Antilles_Guyane_10_septembre_2025.pdf" "https://www.apmep.fr/IMG/pdf/Brevet_Metropole_sept_2025_DV.pdf"
 dl 2026 "M_tropole_30_juin_2026.pdf" "https://www.apmep.fr/IMG/pdf/DNB_generale_Sujet_2026-06-30_Metropole_FK-v2.pdf"
+dl 2026 "bac_j1.pdf" "https://www.apmep.fr/IMG/pdf/BAC_General_Specialite_Sujet_J1_metropole_FK-v2.pdf"
+dl 2026 "bac_j2.pdf" "https://www.apmep.fr/IMG/pdf/BAC_generale_specialite_J2_2026-06-17_Metropole_FK-v4.pdf"
 
 echo "Terminé : $(find pdf -name '*.pdf' | wc -l | tr -d ' ') fichiers dans exams/pdf/."

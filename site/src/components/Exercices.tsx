@@ -26,6 +26,11 @@ const STATUTS: Record<string, { court: string; classe: string; aide: string }> =
       classe: "bg-encours-50 text-encours-600",
       aide: "l'énoncé est écrit, sa démonstration reste à faire",
     },
+    "à écrire": {
+      court: "à écrire",
+      classe: "bg-brand-50 text-brand-700",
+      aide: "la question est une proposition, mais elle n'est pas encore écrite en Lean",
+    },
     "non formalisable": {
       court: "sans énoncé",
       classe: "bg-ink-100 text-ink-500",
@@ -116,16 +121,7 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
     () =>
       [
         { cle: "epreuve", titre: "Épreuve", de: (e: Exercice) => e.epreuve },
-        {
-          cle: "annee",
-          titre: "Session",
-          de: (e: Exercice) => String(e.annee),
-        },
-        {
-          cle: "partie",
-          titre: "Partie du sujet",
-          de: (e: Exercice) => e.partie,
-        },
+        { cle: "session", titre: "Session", de: (e: Exercice) => e.session },
         { cle: "theme", titre: "Thème", de: (e: Exercice) => e.theme },
         {
           cle: "statut",
@@ -193,6 +189,37 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
       .sort((a, b) => b.n - a.n || a.valeur.localeCompare(b.valeur));
   };
 
+  // Une question isolée ne veut rien dire : un sujet se lit par problèmes, dont
+  // les questions s'enchaînent. On regroupe donc sans casser l'ordre du tri —
+  // chaque groupe prend le rang de sa première question retenue.
+  const problemes = useMemo(() => {
+    const m = new Map<
+      string,
+      {
+        annee: number;
+        epreuve: string;
+        partie: string;
+        points: number | null;
+        sujet: string | null;
+        items: Exercice[];
+      }
+    >();
+    for (const e of resultats) {
+      const cle = `${e.session}|${e.partie}`;
+      if (!m.has(cle))
+        m.set(cle, {
+          annee: e.annee,
+          epreuve: e.epreuve,
+          partie: e.partie,
+          points: e.points,
+          sujet: e.sujet,
+          items: [],
+        });
+      m.get(cle)!.items.push(e);
+    }
+    return [...m.entries()].map(([cle, g]) => ({ cle, ...g }));
+  }, [resultats]);
+
   const actifs = Object.values(filtres).reduce((a, s) => a + s.size, 0);
 
   return (
@@ -223,7 +250,13 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
               valeurs={compter(a.cle, a.de)}
               choisies={filtres[a.cle] ?? new Set()}
               libelle={
-                a.cle === "statut" ? (v) => STATUTS[v]?.court ?? v : undefined
+                a.cle === "statut"
+                  ? (v) => STATUTS[v]?.court ?? v
+                  : a.cle === "session"
+                    ? // Le nom complet d'une session tient sur deux lignes : la
+                      // date suffit à la reconnaître, l'épreuve ayant sa facette.
+                      (v) => v.split(",").pop()?.trim() ?? v
+                    : undefined
               }
               onBasculer={(v) => basculer(a.cle, v)}
             />
@@ -261,72 +294,93 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
               Aucun exercice ne répond à ces critères.
             </p>
           ) : (
-            <ul className="divide-y divide-ink-100">
-              {resultats.map((e) => {
-                const st = STATUTS[e.statut];
-                return (
-                  <li key={e.id} className="px-4 py-3">
-                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <span className="font-mono text-[11px] text-ink-400">
-                        {e.annee} · {e.partie.replace(/ —.*$/, "")} · {e.numero}
-                      </span>
-                      <span
-                        className={`rounded px-1.5 py-0.5 font-sans text-[10px] font-semibold tracking-wide uppercase ${st.classe}`}
-                        title={st.aide}
-                      >
-                        {st.court}
-                      </span>
-                      <span className="ml-auto font-sans text-[11px] text-ink-400">
-                        {e.theme}
-                      </span>
-                    </div>
+            problemes.map((g) => (
+              <section key={g.cle}>
+                <header className="sticky top-0 z-10 flex flex-wrap items-baseline gap-x-2 border-y border-ink-200 bg-ink-50/95 px-4 py-1.5">
+                  <span className="font-mono text-[11px] text-ink-400">
+                    {g.annee} · {g.epreuve}
+                  </span>
+                  <span className="font-serif text-[14px] text-ink-900">
+                    {g.partie}
+                  </span>
+                  {g.points !== null && (
+                    <span className="font-sans text-[11px] text-ink-400">
+                      {g.points} points
+                    </span>
+                  )}
+                  <span className="ml-auto font-mono text-[11px] text-ink-400">
+                    {g.items.filter((x) => x.statut === "démontré").length}/
+                    {g.items.length}
+                  </span>
+                </header>
+                <ul className="divide-y divide-ink-100">
+                  {g.items.map((e) => {
+                    const st = STATUTS[e.statut];
+                    return (
+                      <li key={e.id} className="px-4 py-3">
+                        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                          <span className="font-mono text-[11px] text-ink-400">
+                            {e.numero}
+                          </span>
+                          <span
+                            className={`rounded px-1.5 py-0.5 font-sans text-[10px] font-semibold tracking-wide uppercase ${st.classe}`}
+                            title={st.aide}
+                          >
+                            {st.court}
+                          </span>
+                          <span className="ml-auto font-sans text-[11px] text-ink-400">
+                            {e.theme}
+                          </span>
+                        </div>
 
-                    <div className="mt-1 font-serif text-[15px] text-ink-900">
-                      {e.intitule}
-                    </div>
+                        <div className="mt-1 font-serif text-[15px] text-ink-900">
+                          {e.intitule}
+                        </div>
 
-                    <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                      {e.notions.map((n) => (
-                        <span
-                          key={n}
-                          className="rounded bg-ink-100 px-1.5 py-0.5 font-sans text-[10.5px] text-ink-600"
-                        >
-                          {n}
-                        </span>
-                      ))}
-                      {e.theoremes.map((t, i) => (
-                        <a
-                          key={t}
-                          href={
-                            e.source
-                              ? `https://github.com/Commutator-IO/learn-lean/blob/main/${e.source}${
-                                  e.lignes[i] ? `#L${e.lignes[i]}` : ""
-                                }`
-                              : undefined
-                          }
-                          target="_blank"
-                          rel="noreferrer"
-                          className="font-mono text-[11px] text-brand-700 underline decoration-dotted underline-offset-2"
-                          title="l'énoncé Lean dérivé de cette question"
-                        >
-                          {t}
-                        </a>
-                      ))}
-                      {e.sujet && (
-                        <a
-                          href={e.sujet}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="ml-auto text-[11px] text-ink-400 underline underline-offset-2 hover:text-ink-700"
-                        >
-                          sujet ↗
-                        </a>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
+                        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                          {e.notions.map((n) => (
+                            <span
+                              key={n}
+                              className="rounded bg-ink-100 px-1.5 py-0.5 font-sans text-[10.5px] text-ink-600"
+                            >
+                              {n}
+                            </span>
+                          ))}
+                          {e.theoremes.map((t, i) => (
+                            <a
+                              key={t}
+                              href={
+                                e.source
+                                  ? `https://github.com/Commutator-IO/learn-lean/blob/main/${e.source}${
+                                      e.lignes[i] ? `#L${e.lignes[i]}` : ""
+                                    }`
+                                  : undefined
+                              }
+                              target="_blank"
+                              rel="noreferrer"
+                              className="font-mono text-[11px] text-brand-700 underline decoration-dotted underline-offset-2"
+                              title="l'énoncé Lean dérivé de cette question"
+                            >
+                              {t}
+                            </a>
+                          ))}
+                          {e.sujet && (
+                            <a
+                              href={e.sujet}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="ml-auto text-[11px] text-ink-400 underline underline-offset-2 hover:text-ink-700"
+                            >
+                              sujet ↗
+                            </a>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            ))
           )}
         </div>
       </div>

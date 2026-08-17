@@ -111,8 +111,17 @@ function exercices(md, contexte) {
       notions: notions.split(',').map((x) => x.trim()).filter(Boolean),
       theme,
       theoremes: noms,
-      // ☑ démontré, ◐ en cours, ✗ pas une proposition mathématique.
-      statut: statut === '☑' ? 'démontré' : statut === '◐' ? 'en cours' : 'non formalisable',
+      // ☑ démontré · ◐ énoncé écrit, preuve en cours · ☐ proposition pas encore
+      // écrite · ✗ pas une proposition mathématique. La distinction entre les deux
+      // dernières est celle que la page cherche à rendre visible.
+      statut:
+        statut === '☑'
+          ? 'démontré'
+          : statut === '◐'
+            ? 'en cours'
+            : statut === '☐'
+              ? 'à écrire'
+              : 'non formalisable',
     });
   }
   return out;
@@ -142,32 +151,33 @@ async function annales() {
 
   for (const annee of dossiers) {
     const fichiers = await readdir(join(EXAMS, annee));
-    if (!fichiers.includes('README.md')) continue;
-    const md = await readFile(join(EXAMS, annee, 'README.md'), 'utf8');
+    // Un index par session ; `README.md` n'est que le sommaire de l'année.
+    for (const index of fichiers.filter((f) => f.endsWith('.md') && f !== 'README.md')) {
+      const md = await readFile(join(EXAMS, annee, index), 'utf8');
+      const lean = index.replace(/\.md$/, '.lean');
+      const lignes = fichiers.includes(lean)
+        ? lignesDesTheoremes(await readFile(join(EXAMS, annee, lean), 'utf8'))
+        : {};
 
-    const lean = fichiers.find((f) => f.endsWith('.lean'));
-    const lignes = lean
-      ? lignesDesTheoremes(await readFile(join(EXAMS, annee, lean), 'utf8'))
-      : {};
+      // L'en-tête de l'index porte la session et l'adresse du sujet.
+      const titre = /^# (.+)$/m.exec(md)?.[1] ?? index;
+      const session = /^\*(.+?)\*/m.exec(md)?.[1] ?? titre;
+      const sujet = /\[sujet\]\(([^)]+)\)/.exec(md)?.[1] ?? null;
+      const epreuve = /brevet/i.test(titre) ? 'brevet' : 'bac';
 
-    // L'en-tête de l'index porte la session et l'adresse du sujet.
-    const titre = /^# (.+)$/m.exec(md)?.[1] ?? annee;
-    const session = /^\*(.+?)\*/m.exec(md)?.[1] ?? titre;
-    const sujet = /\[sujet\]\(([^)]+)\)/.exec(md)?.[1] ?? null;
-    const epreuve = /brevet/i.test(titre) ? 'brevet' : 'bac';
-
-    out.push(
-      ...exercices(md, {
-        annee: Number(annee),
-        epreuve,
-        session,
-        sujet,
-        source: lean ? `exams/${annee}/${lean}` : null,
-      }).map((e) => ({
-        ...e,
-        lignes: e.theoremes.map((n) => lignes[n] ?? null),
-      })),
-    );
+      out.push(
+        ...exercices(md, {
+          annee: Number(annee),
+          epreuve,
+          session,
+          sujet,
+          source: fichiers.includes(lean) ? `exams/${annee}/${lean}` : null,
+        }).map((e) => ({
+          ...e,
+          lignes: e.theoremes.map((n) => lignes[n] ?? null),
+        })),
+      );
+    }
   }
   return out;
 }

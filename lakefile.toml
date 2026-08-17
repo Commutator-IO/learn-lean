@@ -103,4 +103,4 @@ globs = ["AlgorithmesSurLesTableaux", "CorrectionEtTerminaisonDesProgrammes", "R
 [[lean_lib]]
 name = "Annales2026"
 srcDir = "exams/2026"
-globs = ["Brevet2026Metropole"]
+globs = ["Bac2026MetropoleJour1", "Bac2026MetropoleJour2", "Brevet2026Metropole"]
