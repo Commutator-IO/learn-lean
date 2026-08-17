@@ -88,3 +88,32 @@ export type Index = {
     }[]
   }[]
 }
+
+/**
+ * Une question d'un sujet d'examen, telle que l'index de la session la découpe.
+ *
+ * `theoremes` est vide quand la question n'est pas une proposition mathématique
+ * — une lecture graphique, une interprétation. C'est le renseignement que la
+ * page cherche à rendre visible, autant que les énoncés démontrés.
+ */
+export type Exercice = {
+  id: string
+  /** L'ordre dans le sujet, pour trier comme on lit. */
+  rang: number
+  annee: number
+  epreuve: string
+  session: string
+  sujet: string | null
+  /** Le fichier Lean de la session, relatif à la racine du dépôt. */
+  source: string | null
+  partie: string
+  points: number | null
+  numero: string
+  intitule: string
+  notions: string[]
+  theme: string
+  theoremes: string[]
+  /** La ligne de chaque théorème dans le fichier source, quand on la connaît. */
+  lignes: (number | null)[]
+  statut: string
+}

@@ -11,7 +11,7 @@
  * archive les annales et à qui elles appartiennent.
  */
 
-import { readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 
 const SITE = resolve(import.meta.dirname, '..');
@@ -66,6 +66,112 @@ function sessions(md) {
   return out;
 }
 
+/**
+ * Les exercices d'une session, lus dans l'index de son dossier.
+ *
+ * Un sujet d'examen n'est pas un chapitre : il mêle les notions, et ses
+ * questions ne sont pas toutes des propositions. L'index le découpe question par
+ * question, en disant pour chacune la notion, le thème, et l'énoncé Lean qui en
+ * dérive — ou l'absence d'énoncé, qui est le renseignement le plus intéressant.
+ *
+ * Le tableau markdown reste la source : il se lit sur GitHub, et l'on n'a pas
+ * deux listes à tenir d'accord.
+ */
+function exercices(md, contexte) {
+  const out = [];
+  let partie = null;
+  let points = null;
+
+  for (const ligne of md.split('\n')) {
+    const titre = /^## (.+?)(?:\s*\((\d+) points?\))?\s*$/.exec(ligne);
+    if (titre) {
+      partie = titre[1].trim();
+      points = titre[2] ? Number(titre[2]) : null;
+      continue;
+    }
+    if (!ligne.startsWith('| ') || ligne.startsWith('|---') || !partie) continue;
+
+    const c = ligne.split('|').map((x) => x.trim());
+    if (c.length < 7 || c[1] === 'Question') continue;
+    const [, question, notions, theme, theoreme, statut] = c;
+
+    // « 4a. Médiane des totaux » : le numéro sert au tri, l'intitulé au texte.
+    const m = /^([\dA-Za-z.]+)\.\s*(.+)$/.exec(question);
+    const noms = theoreme
+      .split(',')
+      .map((x) => x.replace(/`/g, '').trim())
+      .filter((x) => x && x !== '—');
+
+    out.push({
+      ...contexte,
+      partie,
+      points,
+      numero: m ? m[1] : question,
+      intitule: (m ? m[2] : question).replace(/`/g, ''),
+      notions: notions.split(',').map((x) => x.trim()).filter(Boolean),
+      theme,
+      theoremes: noms,
+      // ☑ démontré, ◐ en cours, ✗ pas une proposition mathématique.
+      statut: statut === '☑' ? 'démontré' : statut === '◐' ? 'en cours' : 'non formalisable',
+    });
+  }
+  return out;
+}
+
+/** La ligne où chaque théorème est déclaré, pour pouvoir y renvoyer. */
+function lignesDesTheoremes(source) {
+  const out = {};
+  source.split('\n').forEach((ligne, i) => {
+    const m = /^(?:theorem|lemma) ([^\s({[:]+)/.exec(ligne);
+    if (m) out[m[1]] = i + 1;
+  });
+  return out;
+}
+
+async function annales() {
+  const out = [];
+  let dossiers = [];
+  try {
+    dossiers = (await readdir(EXAMS, { withFileTypes: true }))
+      .filter((d) => d.isDirectory() && /^\d{4}$/.test(d.name))
+      .map((d) => d.name)
+      .sort();
+  } catch {
+    return out;
+  }
+
+  for (const annee of dossiers) {
+    const fichiers = await readdir(join(EXAMS, annee));
+    if (!fichiers.includes('README.md')) continue;
+    const md = await readFile(join(EXAMS, annee, 'README.md'), 'utf8');
+
+    const lean = fichiers.find((f) => f.endsWith('.lean'));
+    const lignes = lean
+      ? lignesDesTheoremes(await readFile(join(EXAMS, annee, lean), 'utf8'))
+      : {};
+
+    // L'en-tête de l'index porte la session et l'adresse du sujet.
+    const titre = /^# (.+)$/m.exec(md)?.[1] ?? annee;
+    const session = /^\*(.+?)\*/m.exec(md)?.[1] ?? titre;
+    const sujet = /\[sujet\]\(([^)]+)\)/.exec(md)?.[1] ?? null;
+    const epreuve = /brevet/i.test(titre) ? 'brevet' : 'bac';
+
+    out.push(
+      ...exercices(md, {
+        annee: Number(annee),
+        epreuve,
+        session,
+        sujet,
+        source: lean ? `exams/${annee}/${lean}` : null,
+      }).map((e) => ({
+        ...e,
+        lignes: e.theoremes.map((n) => lignes[n] ?? null),
+      })),
+    );
+  }
+  return out;
+}
+
 async function main() {
   const examens = [];
   for (const s of SOURCES) {
@@ -74,7 +180,23 @@ async function main() {
     examens.push({ id: s.id, titre: s.titre, fichier: s.fichier, sessions: liste });
     console.log(`${s.fichier} : ${liste.length} sessions`);
   }
-  await writeFile(join(SORTIE, 'exams.json'), JSON.stringify({ examens }));
+  // Un identifiant stable et un rang, pour la clé de liste et le tri « ordre du
+  // sujet » — l'index du fichier est cet ordre.
+  const exos = (await annales()).map((e, i) => ({
+    ...e,
+    rang: i,
+    id: `${e.epreuve}-${e.annee}-${e.partie}-${e.numero}`
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^A-Za-z0-9]+/g, '-')
+      .toLowerCase(),
+  }));
+  console.log(
+    `exercices : ${exos.length} — ` +
+      `${exos.filter((e) => e.statut === 'démontré').length} démontrés, ` +
+      `${exos.filter((e) => e.statut === 'non formalisable').length} sans énoncé`,
+  );
+  await writeFile(join(SORTIE, 'exams.json'), JSON.stringify({ examens, exercices: exos }));
 }
 
 await main();

@@ -1,4 +1,4 @@
-"""Régénère lakefile.toml à partir de l'arborescence de courses/.
+"""Régénère lakefile.toml à partir de courses/ et de exams/.
 
 Les dossiers de chapitre portent des noms lisibles et ordonnés
 (`courses/lycee/06-integration`), qui ne sont pas des identifiants Lean valides.
@@ -40,17 +40,37 @@ def chapitres():
             yield (camel(programme) + camel(chapitre),
                    f"courses/{programme}/{chapitre}", modules)
 
+def annales():
+    """Les sujets d'examen décomposés, une bibliothèque par année.
+
+    Ils ne sont pas des chapitres de cours : un exercice de brevet n'a pas de
+    place dans une progression. Mais leurs énoncés se démontrent de la même
+    façon, et se compilent donc de la même façon.
+    """
+    racine = ROOT + "/exams"
+    if not os.path.isdir(racine):
+        return
+    for annee in sorted(os.listdir(racine)):
+        dossier = f"{racine}/{annee}"
+        if not os.path.isdir(dossier):
+            continue
+        modules = sorted(f[:-5] for f in os.listdir(dossier) if f.endswith(".lean"))
+        if modules:
+            yield f"Annales{annee}", f"exams/{annee}", modules
+
+
 def requires_existants():
     if not os.path.exists(LAKEFILE):
         return []
     contenu = open(LAKEFILE, encoding="utf-8").read()
     return re.findall(r"^\[\[require\]\].*?(?=^\[\[|\Z)", contenu, re.S | re.M)
 
-libs = list(chapitres())
+libs = list(chapitres()) + list(annales())
 noms = [n for n, _, _ in libs]
 
 out = ["# Fichier généré par tools/generate-lakefile.py — à régénérer après avoir",
-       "# ajouté un fichier .lean dans courses/. Les blocs [[require]] sont conservés.",
+       "# ajouté un fichier .lean dans courses/ ou exams/. Les blocs [[require]] sont",
+       "# conservés.",
        "",
        'name = "learn-lean"',
        f"defaultTargets = [{', '.join(chr(34) + n + chr(34) for n in noms)}]",

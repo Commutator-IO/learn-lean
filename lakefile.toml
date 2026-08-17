@@ -1,8 +1,9 @@
 # Fichier généré par tools/generate-lakefile.py — à régénérer après avoir
-# ajouté un fichier .lean dans courses/. Les blocs [[require]] sont conservés.
+# ajouté un fichier .lean dans courses/ ou exams/. Les blocs [[require]] sont
+# conservés.
 
 name = "learn-lean"
-defaultTargets = ["CollegeNombresEtCalculs", "CollegeGeometriePlane", "CollegeTransformationsDuPlan", "CollegeGrandeursEtMesures", "CollegeProportionnaliteEtFonctions", "CollegeStatistiquesEtProbabilites", "CollegeAlgorithmiqueEtProgrammation", "LyceeNombresCalculAlgebrique", "LyceeFonctionsSecondDegre", "LyceeSuites", "LyceeLimitesContinuiteDerivation", "LyceeExponentielleLogarithmeTrigonometrie", "LyceeIntegration", "LyceeNombresComplexes", "LyceeGeometrieVecteursProduitScalaireEspace", "LyceeProbabilitesEtStatistiques", "LyceeSpecialiteMathematiquesTerminaleS", "LyceeInformatiqueNsi"]
+defaultTargets = ["CollegeNombresEtCalculs", "CollegeGeometriePlane", "CollegeTransformationsDuPlan", "CollegeGrandeursEtMesures", "CollegeProportionnaliteEtFonctions", "CollegeStatistiquesEtProbabilites", "CollegeAlgorithmiqueEtProgrammation", "LyceeNombresCalculAlgebrique", "LyceeFonctionsSecondDegre", "LyceeSuites", "LyceeLimitesContinuiteDerivation", "LyceeExponentielleLogarithmeTrigonometrie", "LyceeIntegration", "LyceeNombresComplexes", "LyceeGeometrieVecteursProduitScalaireEspace", "LyceeProbabilitesEtStatistiques", "LyceeSpecialiteMathematiquesTerminaleS", "LyceeInformatiqueNsi", "Annales2026"]
 
 [[require]]
 name = "mathlib"
@@ -98,3 +99,8 @@ globs = ["Arithmetique", "MatricesEtGraphes"]
 name = "LyceeInformatiqueNsi"
 srcDir = "courses/02-lycee/11-informatique-nsi"
 globs = ["AlgorithmesSurLesTableaux", "CorrectionEtTerminaisonDesProgrammes", "RecursiviteEtDiviserPourRegner", "RepresentationDesDonnees", "StructuresDeDonnees"]
+
+[[lean_lib]]
+name = "Annales2026"
+srcDir = "exams/2026"
+globs = ["Brevet2026Metropole"]
