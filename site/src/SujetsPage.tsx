@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Footer, Header } from "./components/Frame.tsx";
-import { Exercices } from "./components/Exercices.tsx";
+import { Questions } from "./components/Questions.tsx";
 import { donnees } from "./lib/donnees.ts";
-import type { Exercice } from "./lib/types.ts";
+import type { Question } from "./lib/types.ts";
 
 /**
  * Les sujets d'examens : les annales, en consultation seulement.
@@ -41,21 +41,27 @@ type Examen = {
 
 export function SujetsPage() {
   const [examens, setExamens] = useState<Examen[] | null>(null);
-  const [exercices, setExercices] = useState<Exercice[]>([]);
-  const [mode, setMode] = useState<"sessions" | "exercices">("sessions");
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [mode, setMode] = useState<"sessions" | "problemes">("sessions");
   const [choisi, setChoisi] = useState("brevet");
   const [annee, setAnnee] = useState<number | "toutes">("toutes");
   const [ouvert, setOuvert] = useState<Session | null>(null);
   const [menu, setMenu] = useState(false);
 
   useEffect(() => {
-    donnees<{ examens: Examen[]; exercices?: Exercice[] }>("/exams.json")
+    donnees<{ examens: Examen[]; questions?: Question[] }>("/exams.json")
       .then((d) => {
         setExamens(d.examens);
-        setExercices(d.exercices ?? []);
+        setQuestions(d.questions ?? []);
       })
       .catch(() => setExamens([]));
   }, []);
+
+  // Le nombre de problèmes, et non de questions : c'est ce que l'onglet nomme.
+  const problemes = useMemo(
+    () => new Set(questions.map((q) => `${q.session}|${q.probleme}`)).size,
+    [questions],
+  );
 
   const examen = examens?.find((e) => e.id === choisi) ?? null;
   const annees = useMemo(
@@ -78,7 +84,7 @@ export function SujetsPage() {
 
       <div className="flex items-center gap-3 border-b border-ink-200 px-4 py-2">
         <div className="flex rounded-lg border border-ink-200 p-0.5">
-          {(["sessions", "exercices"] as const).map((m) => (
+          {(["sessions", "problemes"] as const).map((m) => (
             <button
               key={m}
               onClick={() => setMode(m)}
@@ -89,10 +95,10 @@ export function SujetsPage() {
                   : "text-ink-600 hover:bg-ink-100",
               ].join(" ")}
             >
-              {m}
-              {m === "exercices" && exercices.length > 0 && (
+              {m === "problemes" ? "problèmes" : m}
+              {m === "problemes" && problemes > 0 && (
                 <span className="ml-1.5 font-mono text-[10.5px] opacity-70">
-                  {exercices.length}
+                  {problemes}
                 </span>
               )}
             </button>
@@ -101,16 +107,16 @@ export function SujetsPage() {
         <span className="min-w-0 truncate font-sans text-[12.5px] text-ink-500">
           {mode === "sessions"
             ? "les sujets tels qu'ils sont passés"
-            : "les mêmes sujets, découpés question par question"}
+            : "les mêmes sujets, problème par problème et question par question"}
         </span>
         <span className="ml-auto shrink-0 rounded-full bg-encours-50 px-2 py-0.5 font-sans text-[10.5px] font-semibold tracking-wide text-encours-600 uppercase">
           chantier ouvert
         </span>
       </div>
 
-      {mode === "exercices" ? (
+      {mode === "problemes" ? (
         <div className="flex flex-1 flex-col lg:flex-row">
-          <Exercices exercices={exercices} />
+          <Questions questions={questions} />
         </div>
       ) : (
         <div className="flex flex-1 flex-col lg:flex-row">

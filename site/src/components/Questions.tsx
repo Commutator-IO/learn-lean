@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import type { Exercice } from "../lib/types.ts";
+import type { Question } from "../lib/types.ts";
 
 /**
- * Parcourir les exercices d'examen.
+ * Parcourir les questions des sujets d'examen.
  *
  * Un sujet se lit page à page, mais on cherche rarement une page : on cherche
  * une notion, un thème, ou — c'est le propre de ce dépôt — ce qui se formalise
@@ -106,13 +106,13 @@ function Facette({
 }
 
 /** Les axes de tri proposés, et la comparaison correspondante. */
-const TRIS: Record<string, (a: Exercice, b: Exercice) => number> = {
+const TRIS: Record<string, (a: Question, b: Question) => number> = {
   "ordre du sujet": (a, b) => b.annee - a.annee || a.rang - b.rang,
   thème: (a, b) => a.theme.localeCompare(b.theme) || a.rang - b.rang,
   statut: (a, b) => a.statut.localeCompare(b.statut) || a.rang - b.rang,
 };
 
-export function Exercices({ exercices }: { exercices: Exercice[] }) {
+export function Questions({ questions }: { questions: Question[] }) {
   const [q, setQ] = useState("");
   const [tri, setTri] = useState<keyof typeof TRIS>("ordre du sujet");
   const [filtres, setFiltres] = useState<Record<string, Set<string>>>({});
@@ -120,13 +120,13 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
   const axes = useMemo(
     () =>
       [
-        { cle: "epreuve", titre: "Épreuve", de: (e: Exercice) => e.epreuve },
-        { cle: "session", titre: "Session", de: (e: Exercice) => e.session },
-        { cle: "theme", titre: "Thème", de: (e: Exercice) => e.theme },
+        { cle: "epreuve", titre: "Épreuve", de: (e: Question) => e.epreuve },
+        { cle: "session", titre: "Session", de: (e: Question) => e.session },
+        { cle: "theme", titre: "Thème", de: (e: Question) => e.theme },
         {
           cle: "statut",
           titre: "Formalisation",
-          de: (e: Exercice) => e.statut,
+          de: (e: Question) => e.statut,
         },
         { cle: "notion", titre: "Notion", de: null },
       ] as const,
@@ -146,7 +146,7 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
   // on restreint.
   const passe = useMemo(() => {
     const mots = pliage(q).split(/\s+/).filter(Boolean);
-    return (e: Exercice, sauf?: string) => {
+    return (e: Question, sauf?: string) => {
       if (mots.length) {
         const texte = pliage(
           [
@@ -171,17 +171,17 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
   }, [q, filtres, axes]);
 
   const resultats = useMemo(
-    () => exercices.filter((e) => passe(e)).sort(TRIS[tri]),
-    [exercices, passe, tri],
+    () => questions.filter((e) => passe(e)).sort(TRIS[tri]),
+    [questions, passe, tri],
   );
 
-  const compter = (cle: string, de: ((e: Exercice) => string) | null) => {
+  const compter = (cle: string, de: ((e: Question) => string) | null) => {
     const n = new Map<string, number>();
-    for (const e of exercices) {
+    for (const e of questions) {
       const valeurs = de ? [de(e)] : e.notions;
       for (const v of valeurs) if (!n.has(v)) n.set(v, 0);
     }
-    for (const e of exercices.filter((x) => passe(x, cle))) {
+    for (const e of questions.filter((x) => passe(x, cle))) {
       for (const v of de ? [de(e)] : e.notions) n.set(v, (n.get(v) ?? 0) + 1);
     }
     return [...n]
@@ -198,19 +198,19 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
       {
         annee: number;
         epreuve: string;
-        partie: string;
+        probleme: string;
         points: number | null;
         sujet: string | null;
-        items: Exercice[];
+        items: Question[];
       }
     >();
     for (const e of resultats) {
-      const cle = `${e.session}|${e.partie}`;
+      const cle = `${e.session}|${e.probleme}`;
       if (!m.has(cle))
         m.set(cle, {
           annee: e.annee,
           epreuve: e.epreuve,
-          partie: e.partie,
+          probleme: e.probleme,
           points: e.points,
           sujet: e.sujet,
           items: [],
@@ -228,7 +228,8 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
       <aside className="shrink-0 border-b border-ink-200 p-3 lg:w-64 lg:border-r lg:border-b-0">
         <div className="flex items-baseline justify-between">
           <span className="font-sans text-[12px] text-ink-500">
-            {resultats.length} exercice{resultats.length > 1 ? "s" : ""}
+            {resultats.length} question{resultats.length > 1 ? "s" : ""} ·{" "}
+            {problemes.length} problème{problemes.length > 1 ? "s" : ""}
           </span>
           {(actifs > 0 || q) && (
             <button
@@ -291,7 +292,7 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
         <div className="max-h-[70dvh] overflow-auto lg:max-h-[calc(100dvh-9.5rem)]">
           {resultats.length === 0 ? (
             <p className="px-6 py-10 text-[14px] text-ink-500">
-              Aucun exercice ne répond à ces critères.
+              Aucune question ne répond à ces critères.
             </p>
           ) : (
             problemes.map((g) => (
@@ -301,7 +302,7 @@ export function Exercices({ exercices }: { exercices: Exercice[] }) {
                     {g.annee} · {g.epreuve}
                   </span>
                   <span className="font-serif text-[14px] text-ink-900">
-                    {g.partie}
+                    {g.probleme}
                   </span>
                   {g.points !== null && (
                     <span className="font-sans text-[11px] text-ink-400">

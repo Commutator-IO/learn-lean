@@ -65,6 +65,8 @@ courses/        les deux programmes et un dossier par chapitre
                 (les mêmes énoncés rédigés en français) et son dossier
                 figures/, et produit un PDF
 exams/          annales du brevet et du baccalauréat (2000-2026)
+  <année>/        les sujets décomposés : un index par session, chacun apparié
+                  à ses énoncés Lean
 tools/          generate-courses.py (index), generate-lakefile.py (bibliothèques),
                 generate-tex.py (un document LaTeX par chapitre),
                 generate-book.py (le livre entier), liens-mathlib.py (les emprunts)
@@ -327,7 +329,7 @@ Le dépôt publie [lean.commutator.io](https://lean.commutator.io/), quatre ongl
 | Apprendre Lean | le cours à deux volets — le fichier Lean à gauche, sa transcription française à droite, défilement lié et identifiants cliquables |
 | Le livre | le même cours rédigé d'affilée, sans le code, et son PDF |
 | Méthode | comment on passe d'un énoncé de programme à un théorème vérifié, la chaîne de construction, les trois skills |
-| Sujets d'examens | les annales de brevet et de baccalauréat, avec aperçu du PDF — le chantier suivant |
+| Sujets d'examens | deux lectures : les sessions telles qu'elles sont passées, avec aperçu du PDF ; et les mêmes sujets découpés en problèmes puis en questions, avec recherche et facettes |
 
 ```bash
 cd site && npm install && npm run dev

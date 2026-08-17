@@ -1,4 +1,4 @@
-# Baccalauréat 2026, jour 1 — décomposition en exercices
+# Baccalauréat 2026, jour 1 — décomposition en questions
 
 *Spécialité mathématiques, voie générale, Métropole, 16 juin 2026* —
 [sujet](https://www.apmep.fr/IMG/pdf/BAC_General_Specialite_Sujet_J1_metropole_FK-v2.pdf) ·

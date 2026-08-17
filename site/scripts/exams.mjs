@@ -67,7 +67,7 @@ function sessions(md) {
 }
 
 /**
- * Les exercices d'une session, lus dans l'index de son dossier.
+ * Les questions d'une session, lues dans l'index de son dossier.
  *
  * Un sujet d'examen n'est pas un chapitre : il mêle les notions, et ses
  * questions ne sont pas toutes des propositions. L'index le découpe question par
@@ -77,19 +77,19 @@ function sessions(md) {
  * Le tableau markdown reste la source : il se lit sur GitHub, et l'on n'a pas
  * deux listes à tenir d'accord.
  */
-function exercices(md, contexte) {
+function questions(md, contexte) {
   const out = [];
-  let partie = null;
+  let probleme = null;
   let points = null;
 
   for (const ligne of md.split('\n')) {
     const titre = /^## (.+?)(?:\s*\((\d+) points?\))?\s*$/.exec(ligne);
     if (titre) {
-      partie = titre[1].trim();
+      probleme = titre[1].trim();
       points = titre[2] ? Number(titre[2]) : null;
       continue;
     }
-    if (!ligne.startsWith('| ') || ligne.startsWith('|---') || !partie) continue;
+    if (!ligne.startsWith('| ') || ligne.startsWith('|---') || !probleme) continue;
 
     const c = ligne.split('|').map((x) => x.trim());
     if (c.length < 7 || c[1] === 'Question') continue;
@@ -104,7 +104,7 @@ function exercices(md, contexte) {
 
     out.push({
       ...contexte,
-      partie,
+      probleme,
       points,
       numero: m ? m[1] : question,
       intitule: (m ? m[2] : question).replace(/`/g, ''),
@@ -166,7 +166,7 @@ async function annales() {
       const epreuve = /brevet/i.test(titre) ? 'brevet' : 'bac';
 
       out.push(
-        ...exercices(md, {
+        ...questions(md, {
           annee: Number(annee),
           epreuve,
           session,
@@ -191,22 +191,23 @@ async function main() {
     console.log(`${s.fichier} : ${liste.length} sessions`);
   }
   // Un identifiant stable et un rang, pour la clé de liste et le tri « ordre du
-  // sujet » — l'index du fichier est cet ordre.
-  const exos = (await annales()).map((e, i) => ({
+  // sujet » — l'ordre du fichier est celui du sujet.
+  const qs = (await annales()).map((e, i) => ({
     ...e,
     rang: i,
-    id: `${e.epreuve}-${e.annee}-${e.partie}-${e.numero}`
+    id: `${e.epreuve}-${e.annee}-${e.probleme}-${e.numero}`
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^A-Za-z0-9]+/g, '-')
       .toLowerCase(),
   }));
+  const problemes = new Set(qs.map((q) => `${q.session}|${q.probleme}`)).size;
   console.log(
-    `exercices : ${exos.length} — ` +
-      `${exos.filter((e) => e.statut === 'démontré').length} démontrés, ` +
-      `${exos.filter((e) => e.statut === 'non formalisable').length} sans énoncé`,
+    `questions : ${qs.length} en ${problemes} problèmes — ` +
+      `${qs.filter((q) => q.statut === 'démontré').length} démontrées, ` +
+      `${qs.filter((q) => q.statut === 'non formalisable').length} sans énoncé`,
   );
-  await writeFile(join(SORTIE, 'exams.json'), JSON.stringify({ examens, exercices: exos }));
+  await writeFile(join(SORTIE, 'exams.json'), JSON.stringify({ examens, questions: qs }));
 }
 
 await main();

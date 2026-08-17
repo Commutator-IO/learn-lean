@@ -1,9 +1,9 @@
 # Sujets 2026, décomposés
 
-Une session par fichier. Chaque index découpe son sujet question par question, en donnant
-pour chacune les notions en jeu, le thème du dépôt auquel elle se rattache, et l'énoncé
-Lean qui en est dérivé — ou l'absence d'énoncé, qui est le renseignement le plus
-intéressant.
+Une session par fichier. Chaque index découpe son sujet en **problèmes** — « Exercice 1 »,
+« Première partie » — et chaque problème en **questions**, en donnant pour chacune les
+notions en jeu, le thème du dépôt auquel elle se rattache, et l'énoncé Lean qui en est
+dérivé — ou l'absence d'énoncé, qui est le renseignement le plus intéressant.
 
 | Session | Index | Énoncés Lean |
 |---|---|---|

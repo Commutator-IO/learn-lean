@@ -1,4 +1,4 @@
-# Brevet 2026 — décomposition en exercices
+# Brevet 2026 — décomposition en questions
 
 *Série générale, Métropole, 30 juin 2026* —
 [sujet](https://www.apmep.fr/IMG/pdf/DNB_generale_Sujet_2026-06-30_Metropole_FK-v2.pdf) ·
