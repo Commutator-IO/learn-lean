@@ -6,8 +6,9 @@ recense ce que le programme demande, y compris les énoncés qui résistent à l
 formalisation — constructions à la règle et au compas, lectures graphiques, définitions
 de grandeurs, modélisation probabiliste, algorithmique.
 
-Se prolonge par le [programme du lycée](lycee.md). Statuts et conventions : voir le
-[README](../README.md). Les fiches détaillées sont dans [`courses/college/`](01-college/README.md).
+Se prolonge par le [programme du lycée](lycee.md). Les mêmes énoncés, reformulés dans le
+vocabulaire de Grothendieck : [college-grothendieck.md](college-grothendieck.md).
+Statuts et conventions : voir le [README](../README.md). Les fiches détaillées sont dans [`courses/college/`](01-college/README.md).
 
 Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 

@@ -8,6 +8,18 @@ des énoncés à démontrer et accueille les fichiers `.lean` au fur et à mesur
 | Programme du collège | [`01-college/`](01-college/README.md) | [college.md](college.md) | 90/93 |
 | Programme du lycée (filière S) | [`02-lycee/`](02-lycee/README.md) | [lycee.md](lycee.md) | 123/178 |
 
+## Une lecture parallèle
+
+Les mêmes énoncés, reformulés dans le vocabulaire d'Alexandre Grothendieck — propriété
+universelle, torseur, faisceau, spectre, image directe. Ces deux fichiers ne portent
+aucun statut et ne servent pas de plan de travail : ce sont des dictionnaires, à lire à
+côté des listes de référence.
+
+| Programme | Version fonctorielle |
+|---|---|
+| Programme du collège | [college-grothendieck.md](college-grothendieck.md) |
+| Programme du lycée | [lycee-grothendieck.md](lycee-grothendieck.md) |
+
 ## Écrire les preuves
 
 Un fichier `.lean` par section d'un chapitre, nommé dans l'index du chapitre

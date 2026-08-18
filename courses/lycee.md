@@ -20,6 +20,8 @@ Colonnes *Niveau* : **2de**, **1S**, **TS**, **Spé** (spécialité de terminale
 Colonne *Démontré* : mêmes symboles que dans le [README](../README.md) — ☐ à faire, ◐ en
 cours (`sorry`), ☑ démontré, ✗ non formalisable en l'état. Les fiches détaillées sont
 dans [`courses/lycee/`](02-lycee/README.md).
+Les mêmes énoncés, reformulés dans le vocabulaire de Grothendieck :
+[lycee-grothendieck.md](lycee-grothendieck.md).
 
 La colonne *Admis* signale les énoncés que le programme du lycée **admet** sans
 démonstration (théorème des valeurs intermédiaires, propriétés de l'intégrale, théorème
