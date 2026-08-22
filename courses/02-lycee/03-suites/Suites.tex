@@ -403,17 +403,19 @@ d'avoir établi \emph{par ailleurs} que la suite converge, ce que ce théorème 
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L223}{Suites.lean\#L223}
 
-\subsection{Énoncés admis}
-
-\noindent
-Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
+\subsection{Suites adjacentes, énoncé du programme}
 
 \begin{theoreme}
-Deux suites adjacentes \textemdash{} l'une croissante, l'autre décroissante, leur
-différence tendant vers zéro \textemdash{} convergent vers une même limite.
+La même chose, énoncée avec les trois hypothèses du programme séparées plutôt
+qu'empaquetées dans \texttt{Adjacentes} : conséquence immédiate du théorème précédent.
 \end{theoreme}
-\admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L239}{Suites.lean\#L239}
+
+\begin{proof}
+Les trois hypothèses \textemdash{} $u$ croissante, $v$ décroissante, $v_n - u_n \to 0$
+\textemdash{} sont exactement celles qui définissent \texttt{Adjacentes u v}. Il suffit
+donc de les rassembler et d'appliquer le théorème précédent.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/03-suites/Suites.lean\#L235}{Suites.lean\#L235}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par
