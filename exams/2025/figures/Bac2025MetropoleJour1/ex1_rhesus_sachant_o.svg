@@ -1,0 +1,28 @@
+<svg viewBox="0 0 330 260" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Arbre pondéré des quatre groupes sanguins et du rhésus ; la branche cherchée est marquée d'un point d'interrogation</title>
+  <path d="M24,130 L130,22 M24,130 L130,94 M24,130 L130,166 M24,130 L130,238" />
+  <path d="M162,22 L262,0 M162,22 L262,44 M162,94 L262,72 M162,94 L262,116
+           M162,166 L262,144 M162,166 L262,188 M162,238 L262,216 M162,238 L262,255" />
+  <g fill="currentColor" stroke="none" font-size="13">
+    <text x="140" y="27" font-style="italic">A</text>
+    <text x="140" y="99" font-style="italic">B</text>
+    <text x="136" y="171" font-style="italic">AB</text>
+    <text x="140" y="243" font-style="italic">O</text>
+    <text x="268" y="5" font-style="italic">R</text>
+    <text x="268" y="49" font-style="italic">R̄</text>
+    <text x="268" y="77" font-style="italic">R</text>
+    <text x="268" y="121" font-style="italic">R̄</text>
+    <text x="268" y="149" font-style="italic">R</text>
+    <text x="268" y="193" font-style="italic">R̄</text>
+    <text x="268" y="221" font-style="italic">R</text>
+    <text x="268" y="260" font-style="italic">R̄</text>
+    <text x="62" y="70" font-size="12">0,45</text>
+    <text x="62" y="106" font-size="12">0,10</text>
+    <text x="62" y="160" font-size="12">0,03</text>
+    <text x="62" y="196" font-size="12">0,42</text>
+    <text x="196" y="6" font-size="12">0,85</text>
+    <text x="196" y="78" font-size="12">0,84</text>
+    <text x="196" y="150" font-size="12">0,82</text>
+    <text x="206" y="222" font-size="12">?</text>
+  </g>
+</svg>

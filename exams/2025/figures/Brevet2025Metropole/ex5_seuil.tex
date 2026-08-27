@@ -1,0 +1,16 @@
+% Construction : abscisse = mois/16, ordonnée = euros/9 000.
+% Achat : y = 22 400 + 75x, de (0 ; 2,49) à (96 ; 3,29).
+% Location : y = 425x, de (0 ; 0) à (96 ; 4,53).
+% Les deux droites se croisent en x = 64 mois, y = 27 200 euros.
+\begin{tikzpicture}[xscale=0.85, yscale=0.85]
+  \draw[->] (0, 0) -- (6.6, 0) node[below left] {\small mois};
+  \draw[->] (0, 0) -- (0, 5.2) node[above left] {\small euros};
+  \draw (0, 2.489) -- (6, 3.289);
+  \draw[dashed] (0, 0) -- (6, 4.533);
+  \draw[dotted] (4, 0) -- (4, 3.022) -- (0, 3.022);
+  \fill (4, 3.022) circle (1.6pt);
+  \node[below] at (4, -0.05) {\small $64$};
+  \node[left]  at (-0.05, 3.022) {\small $27\,200$};
+  \node[right] at (6, 3.289) {\small Achat};
+  \node[right] at (6, 4.533) {\small Location};
+\end{tikzpicture}

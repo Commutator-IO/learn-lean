@@ -11,5 +11,13 @@ l'absence d'énoncé, qui est le renseignement le plus intéressant.
 | Baccalauréat, spécialité, Métropole, 17 juin 2025 (jour 1) | [Bac2025MetropoleJour1.md](Bac2025MetropoleJour1.md) | [`.lean`](Bac2025MetropoleJour1.lean) |
 | Baccalauréat, spécialité, Métropole, 18 juin 2025 (jour 2) | [Bac2025MetropoleJour2.md](Bac2025MetropoleJour2.md) | [`.lean`](Bac2025MetropoleJour2.lean) |
 
+Les réponses aux questions démontrées, et leurs démonstrations, sont rédigées en
+français dans [`Sujets2025Decomposes.tex`](Sujets2025Decomposes.tex), un document pour
+l'année entière, avec les figures de `figures/` :
+
+```bash
+tectonic exams/2025/Sujets2025Decomposes.tex
+```
+
 Le site les présente à plat, avec une recherche et des facettes, dans l'onglet
 [Sujets d'examens](https://lean.commutator.io/sujets/).

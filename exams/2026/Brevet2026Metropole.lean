@@ -1,10 +1,11 @@
 /-
 Brevet des collèges — série générale, Métropole, 30 juin 2026.
 
-Chaque question du sujet qui porte une proposition mathématique devient ici un
-théorème. Celles qui n'en portent pas — une lecture graphique, une interprétation
-à rédiger — n'ont pas d'énoncé, et l'index du dossier dit lesquelles et pourquoi :
-c'est une des choses que ce dépôt cherche à mesurer.
+Chaque question du sujet qui porte une proposition mathématique devient un théorème
+Lean, dont le document jumeau donne la réponse rédigée en français. Celles qui n'en
+portent pas — une lecture graphique, une interprétation à rédiger — n'ont pas d'énoncé,
+et l'index du dossier dit lesquelles et pourquoi : c'est une des choses que ce dépôt
+cherche à mesurer.
 
 Les énoncés sont ceux du sujet, pas leur généralisation. Quand la configuration
 géométrique est donnée par une figure, ce qu'elle établit — l'égalité des rapports

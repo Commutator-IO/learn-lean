@@ -1,0 +1,14 @@
+<svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Triangle DEF rectangle en E : le côté DE mesure 6 cm, EF 8 cm et l'hypoténuse DF 10 cm</title>
+  <polygon points="40,190 176,190 40,88" />
+  <path d="M40,177 h13 v13" />
+  <path d="M40,110 a22,22 0 0 1 17,11" />
+  <g fill="currentColor" stroke="none" font-size="13">
+    <text x="28" y="206" font-style="italic">E</text>
+    <text x="180" y="206" font-style="italic">F</text>
+    <text x="28" y="82" font-style="italic">D</text>
+    <text x="0" y="145">6 cm</text>
+    <text x="90" y="207">8 cm</text>
+    <text x="112" y="130">10 cm</text>
+  </g>
+</svg>

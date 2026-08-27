@@ -1,0 +1,18 @@
+<svg viewBox="0 0 320 210" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Le point S, le plan (ABC), son projeté orthogonal H et un point M quelconque du plan : SM est toujours plus long que SH</title>
+  <polygon points="20,180 200,180 248,120 68,120" />
+  <path d="M116,42 V153" stroke-dasharray="6 4" />
+  <path d="M116,42 L182,135" />
+  <path d="M116,153 L182,135" stroke-dasharray="4 3" />
+  <path d="M116,145 h9 v8" />
+  <circle cx="116" cy="42" r="2.6" fill="currentColor" />
+  <circle cx="116" cy="153" r="2.6" fill="currentColor" />
+  <circle cx="182" cy="135" r="2.6" fill="currentColor" />
+  <g fill="currentColor" stroke="none" font-size="13">
+    <text x="110" y="34" font-style="italic">S</text>
+    <text x="98" y="168" font-style="italic">H</text>
+    <text x="188" y="150" font-style="italic">M</text>
+    <text x="60" y="100">√21 / 2</text>
+    <text x="252" y="172" font-style="italic">(ABC)</text>
+  </g>
+</svg>

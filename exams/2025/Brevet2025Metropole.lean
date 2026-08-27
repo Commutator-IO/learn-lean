@@ -1,10 +1,11 @@
 /-
 Brevet des collèges — série générale, Métropole–Antilles–Guyane, 26 juin 2025.
 
-Chaque question du sujet qui porte une proposition mathématique devient ici un
-théorème. Celles qui n'en portent pas — reconnaître une transformation sur une
-figure, compléter un programme Scratch, écrire une formule de tableur — n'ont pas
-d'énoncé, et l'index du dossier dit lesquelles et pourquoi.
+Chaque question du sujet qui porte une proposition mathématique devient un théorème
+Lean, dont le document jumeau donne la réponse rédigée en français. Celles qui n'en
+portent pas — reconnaître une transformation sur une figure, compléter un programme
+Scratch, écrire une formule de tableur — n'ont pas d'énoncé, et l'index du dossier dit
+lesquelles et pourquoi.
 
 Les énoncés sont ceux du sujet, pas leur généralisation. Quand la configuration
 géométrique est donnée par une figure, ce qu'elle établit — l'angle droit, les

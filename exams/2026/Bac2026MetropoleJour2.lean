@@ -2,7 +2,7 @@
 Baccalauréat, épreuve de spécialité — voie générale, Métropole, 17 juin 2026 (jour 2).
 
 Même principe que le jour 1 : chaque question qui porte une proposition devient un
-théorème, et l'index du dossier dit lesquelles n'en portent pas.
+théorème Lean, et l'index du dossier dit lesquelles n'en portent pas.
 
 La géométrie dans l'espace est traitée en coordonnées, comme le sujet la traite : les
 points sont des triplets, l'orthogonalité un produit scalaire nul. C'est fidèle à ce

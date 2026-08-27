@@ -1,0 +1,1235 @@
+% Fichier engendré par tools/generate-tex.py à partir de 2026.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+% Les figures : TikZ, pour que leurs étiquettes soient composées dans les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\newtheorem{exemple}{Exemple}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Un sujet pose des questions, non des théorèmes : voir exams/README.md.
+\theoremstyle{definition}
+\newtheorem*{reponse}{Réponse}
+%% Ce qui n'est pas démontré : la déclaration Lean porte un `sorry`.
+\newtheorem*{enonceadmis}{Énoncé admis}
+
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Sujets 2026, décomposés}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{Bac2026MetropoleJour1}
+
+\noindent
+Baccalauréat, épreuve de spécialité \textemdash{} voie générale, Métropole, 16 juin 2026 (jour 1).
+
+Chaque question du sujet qui porte une proposition mathématique devient un théorème
+Lean, dont la réponse est rédigée ci-dessous en français. Celles qui n'en portent pas \textemdash{} compléter un arbre, lire une pente sur un
+graphique, écrire un programme \textemdash{} n'ont pas d'énoncé, et l'index du dossier dit
+lesquelles et pourquoi.
+
+Les probabilités sont traitées comme le sujet les traite : sur les nombres. La
+construction de l'espace probabilisé n'apporterait rien à des calculs qui portent
+sur une loi donnée par un tableau, et le chapitre \og{} Probabilités et statistiques \fg{}
+du cours fait ce travail-là pour ses propres énoncés.
+
+\subsection{Exercice 1 \textemdash{} probabilités conditionnelles, espérance, Bienaymé-Tchebychev}
+
+\begin{reponse}
+Partie A, question 1a : la probabilité de l'évènement contraire est le
+complément à \texttt{1} \textemdash{} si \texttt{75 \%} des familles réservent une cabine, \texttt{25 \%} n'en
+réservent pas.
+\end{reponse}
+\begin{proof}
+La probabilité d'un évènement et celle de son contraire ont pour somme $1$ :
+\[ 1 - 0{,}75 = 0{,}25 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L23}{Bac2026MetropoleJour1.lean\#L23}
+
+\begin{reponse}
+Partie A, question 2 : \texttt{P(V \(\cap\) C) = P(V) \(\times\) P\_V(C) = 0,3 \(\times\) 0,8 = 0,24}. C'est la
+lecture d'un chemin de l'arbre : les probabilités s'y multiplient.
+\end{reponse}
+\begin{proof}
+Les probabilités se multiplient le long d'un chemin de l'arbre :
+\[ P(V \cap C) = P(V) \times P_V(C) = 0{,}3 \times 0{,}8 = 0{,}24 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L28}{Bac2026MetropoleJour1.lean\#L28}
+
+\begin{reponse}
+Partie A, question 3 : \texttt{P\_C(V) = P(V \(\cap\) C) / P(C) = 0,24 / 0,75 = 0,32}.
+\end{reponse}
+\begin{proof}
+Par définition d'une probabilité conditionnelle :
+\[ P_C(V) = \frac{P(V \cap C)}{P(C)} = \frac{0{,}24}{0{,}75} = 0{,}32 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L31}{Bac2026MetropoleJour1.lean\#L31}
+
+\begin{reponse}
+Partie A, question 4 : \texttt{P\_\(\overline{V}\)(C) = (P(C) − P(V \(\cap\) C)) / P(\(\overline{V}\))}, soit \texttt{0,51/0,7},
+c'est-à-dire \texttt{0,73} à \texttt{10\(^{-2}\)} près.
+
+La formule des probabilités totales donne \texttt{P(\(\overline{V}\) \(\cap\) C) = P(C) − P(V \(\cap\) C)} : une famille
+qui réserve une cabine réserve ou non un véhicule, et les deux cas s'excluent.
+\end{reponse}
+\begin{proof}
+Les évènements $V$ et $\bar{V}$ forment une partition : une famille qui réserve une cabine
+réserve ou non un véhicule, et les deux cas s'excluent. La formule des probabilités
+totales donne donc
+\[ P(\bar{V} \cap C) = P(C) - P(V \cap C) = 0{,}75 - 0{,}24 = 0{,}51 , \]
+puis, en divisant par $P(\bar{V}) = 0{,}7$,
+\[ P_{\bar{V}}(C) = \frac{0{,}51}{0{,}7} = 0{,}7285714\ldots \]
+
+L'écart à $0{,}73$ vaut $0{,}00142\ldots$, inférieur à $0{,}005$ : l'arrondi au centième
+est bien $0{,}73$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L38}{Bac2026MetropoleJour1.lean\#L38}
+
+\begin{reponse}
+Partie B, question 1 : \texttt{E(X) = 96} et \texttt{V(X) = 3 114}.
+
+L'espérance est la moyenne des valeurs pondérée par leurs probabilités ; la variance
+s'obtient par König\textendash{}Huygens, \texttt{V(X) = E(X\(^{2}\)) − E(X)\(^{2}\)}, ici \texttt{12 330 − 9 216}.
+\end{reponse}
+\begin{proof}
+L'espérance est la moyenne des valeurs pondérée par leurs probabilités :
+\[ E(X) = 0 \times 0{,}19 + 70 \times 0{,}06 + 100 \times 0{,}51 + 170 \times 0{,}24
+   = 0 + 4{,}2 + 51 + 40{,}8 = 96 . \]
+
+La variance s'obtient par la formule de König–Huygens, $V(X) = E(X^2) - E(X)^2$. Le moment
+d'ordre deux vaut
+\[ E(X^2) = 4\,900 \times 0{,}06 + 10\,000 \times 0{,}51 + 28\,900 \times 0{,}24
+   = 294 + 5\,100 + 6\,936 = 12\,330 , \]
+d'où
+\[ V(X) = 12\,330 - 96^2 = 12\,330 - 9\,216 = 3\,114 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L46}{Bac2026MetropoleJour1.lean\#L46}
+
+\begin{reponse}
+Partie B, question 2b : \texttt{E(Z) = 120} et \texttt{V(Z) = 1 728}.
+
+L'espérance est linéaire, donc se multiplie par \texttt{0,6} ; la variance, quadratique, se
+multiplie par \texttt{0,6\(^{2}\) = 0,36}. Les variables \texttt{X} et \texttt{Y} étant indépendantes, leurs
+variances s'ajoutent \textemdash{} c'est là que l'hypothèse d'indépendance sert, et nulle part
+ailleurs.
+\end{reponse}
+\begin{proof}
+L'espérance est linéaire, donc se multiplie par $0{,}6$ et s'ajoute :
+\[ E(Z) = 0{,}6\,\bigl(E(X) + E(Y)\bigr) = 0{,}6 \times (96 + 104) = 0{,}6 \times 200 = 120 . \]
+
+La variance, elle, est quadratique : elle se multiplie par $0{,}6^2 = 0{,}36$. Et les
+variables $X$ et $Y$ étant indépendantes, leurs variances s'ajoutent \textemdash{} c'est
+là que l'hypothèse d'indépendance sert, et nulle part ailleurs :
+\[ V(Z) = 0{,}36 \times (3\,114 + 1\,686) = 0{,}36 \times 4\,800 = 1\,728 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L57}{Bac2026MetropoleJour1.lean\#L57}
+
+\begin{reponse}
+Partie B, question 3a : la moyenne de \texttt{n} variables indépendantes de même loi a
+pour espérance celle de la loi, et pour variance la sienne divisée par \texttt{n}. C'est ce
+qui fait qu'une moyenne se resserre quand l'échantillon grandit.
+\end{reponse}
+\begin{proof}
+La somme de $n$ variables de même espérance $120$ a pour espérance $120n$ ; diviser par $n$
+donne
+\[ E(M_n) = \frac{n \times 120}{n} = 120 . \]
+
+Les variables étant indépendantes, leurs variances s'ajoutent : la somme a pour variance
+$1\,728\,n$. Diviser par $n$, c'est multiplier par $\dfrac{1}{n}$, donc multiplier la
+variance par $\dfrac{1}{n^2}$ :
+\[ V(M_n) = \frac{n \times 1\,728}{n^2} = \frac{1\,728}{n} . \]
+
+Les deux simplifications demandent $n \ne 0$. C'est ce quotient par $n$ qui fait qu'une
+moyenne se resserre quand l'échantillon grandit.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L64}{Bac2026MetropoleJour1.lean\#L64}
+
+\begin{reponse}
+Partie B, question 3b : l'inégalité de Bienaymé-Tchebychev donne
+\texttt{P(|M\(_{n}\) − 120| \(\ge\) 6) \(\le\) V(M\(_{n}\))/6\(^{2}\) = 48/n}. Pour que la probabilité complémentaire
+atteigne \texttt{0,85}, il faut \texttt{48/n \(\le\) 0,15}, c'est-à-dire \texttt{n \(\ge\) 320}.
+\end{reponse}
+\begin{proof}
+Comme $n$ est un entier strictement positif, $n \times 6^2 > 0$ : on peut multiplier les
+deux membres par cette quantité sans changer le sens de l'inégalité, qui devient
+\[ 1\,728 \le 0{,}15 \times 36 \times n = 5{,}4\,n . \]
+
+Or $\dfrac{1\,728}{5{,}4} = 320$ exactement, donc cette inégalité équivaut à
+$320 \le n$ \textemdash{} et comme $320$ est entier, l'équivalence passe telle quelle des
+rationnels aux entiers, dans les deux sens.
+
+Le seuil est ici atteint, non dépassé : $n = 320$ convient.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L73}{Bac2026MetropoleJour1.lean\#L73}
+
+\subsection{Exercice 2 \textemdash{} vrai ou faux : espace et dénombrement}
+
+\begin{reponse}
+Affirmation 1, \textbf{vraie}. Le plan a pour vecteur normal \texttt{(−1 ; 1 ; −5)}, qui est
+exactement le vecteur \texttt{AB} : le plan est donc orthogonal à la droite \texttt{(AB)}. Et le
+milieu de \texttt{[AB]}, de coordonnées \texttt{(2,5 ; 0,5 ; −0,5)}, vérifie son équation. C'est
+le plan médiateur de \texttt{[AB]}.
+\end{reponse}
+\begin{proof}
+Deux vérifications.
+
+D'abord, le vecteur normal du plan, lu sur les coefficients de son équation, est
+$(-1 ; 1 ; -5)$ ; et
+\[ \vec{AB} = (2 - 3 ;\ 1 - 0 ;\ -3 - 2) = (-1 ;\ 1 ;\ -5) . \]
+Les deux coïncident : le plan est orthogonal à la droite $(AB)$.
+
+Ensuite, le milieu de $[AB]$ a pour coordonnées les demi-sommes,
+$\left(\dfrac{5}{2} ; \dfrac{1}{2} ; -\dfrac{1}{2}\right)$, et il vérifie l'équation :
+\[ -\frac{5}{2} + \frac{1}{2} - 5 \times \left(-\frac{1}{2}\right) - \frac{1}{2}
+   = -\frac{5}{2} + \frac{1}{2} + \frac{5}{2} - \frac{1}{2} = 0 . \]
+
+Orthogonal à $(AB)$ et passant par le milieu de $[AB]$ : c'est le plan médiateur de
+$[AB]$, et l'affirmation est vraie.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L91}{Bac2026MetropoleJour1.lean\#L91}
+
+\begin{reponse}
+Affirmation 2, \textbf{fausse}. Chercher un point commun aux deux droites revient à
+résoudre un système de trois équations à deux inconnues. Les première et troisième
+donnent \texttt{s = 6/7} ; la deuxième est alors fausse. Les droites ne se coupent pas \textemdash{}
+elles ne sont pas non plus parallèles, donc elles sont non coplanaires.
+\end{reponse}
+\begin{proof}
+Raisonnons par l'absurde et supposons qu'il existe des paramètres $t$ et $s$ donnant un
+point commun. Les trois coordonnées fournissent trois équations à deux inconnues.
+
+La troisième, $2 - 2t = 2 - 5s$, donne $2t = 5s$, c'est-à-dire $t = 2{,}5\,s$. En la
+portant dans la première, $t = 3 - s$, il vient $2{,}5\,s = 3 - s$, donc $s = \dfrac{6}{7}$
+et $t = \dfrac{15}{7}$.
+
+La deuxième équation, $-1{,}5 - t = s$, devrait alors être satisfaite ; or
+\[ -1{,}5 - \frac{15}{7} = -\frac{51}{14} \ne \frac{6}{7} . \]
+
+Contradiction : les deux droites ne se coupent pas. Leurs vecteurs directeurs n'étant pas
+colinéaires, elles ne sont pas non plus parallèles : elles sont non coplanaires, et
+l'affirmation est fausse.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L100}{Bac2026MetropoleJour1.lean\#L100}
+
+\begin{reponse}
+Affirmation 3, \textbf{vraie}. Les vecteurs \texttt{CA} et \texttt{CB} ont la même norme, \texttt{4,5}, et
+leur produit scalaire vaut \texttt{6,75} : le cosinus de l'angle en \texttt{C} vaut donc \texttt{1/3}, et
+\texttt{arccos(1/3)} vaut \texttt{70,5\(^\circ\)} à un dixième près.
+
+Ce qui se démontre ici est le cosinus ; la conversion en degrés arrondis est une
+évaluation numérique, que le sujet demande à la calculatrice.
+\end{reponse}
+\begin{proof}
+Le produit scalaire est la somme des produits des coordonnées :
+\[ \vec{CA} \cdot \vec{CB} = 1{,}5 \times 0{,}5 + 3 \times 4 + 3 \times (-2)
+   = 0{,}75 + 12 - 6 = 6{,}75 . \]
+
+Les deux vecteurs ont le même carré scalaire, donc la même norme :
+\[ \|\vec{CA}\|^2 = 1{,}5^2 + 3^2 + 3^2 = 20{,}25 , \qquad
+   \|\vec{CB}\|^2 = 0{,}5^2 + 4^2 + 2^2 = 20{,}25 . \]
+
+Le cosinus de l'angle en $C$ est le quotient du produit scalaire par le produit des
+normes, c'est-à-dire ici par ce carré commun :
+\[ \cos \widehat{C} = \frac{6{,}75}{20{,}25} = \frac{1}{3} . \]
+
+La conversion $\arccos\left(\tfrac{1}{3}\right) \approx 70{,}5^\circ$ est une évaluation
+numérique, que le sujet demande à la calculatrice ; ce qui est démontré ici est le cosinus.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L112}{Bac2026MetropoleJour1.lean\#L112}
+
+\begin{reponse}
+Affirmation 4, \textbf{vraie}. Le code de la porte \texttt{A} est un arrangement de \texttt{3}
+symboles parmi \texttt{8}, soit \texttt{8 \(\times\) 7 \(\times\) 6 = 336} possibilités ; celui de la porte \texttt{B} est
+une combinaison de \texttt{4} parmi \texttt{8}, soit \texttt{70}. Titouan a une chance sur \texttt{70}, Clotilde
+une sur \texttt{336}.
+
+L'ordre est ce qui sépare les deux comptages, et c'est tout l'objet de la question.
+\end{reponse}
+\begin{proof}
+Le code de la porte $A$ est un arrangement : les symboles sont distincts et l'ordre
+compte. Il y a $8$ choix pour le premier, $7$ pour le deuxième, $6$ pour le troisième,
+soit
+\[ 8 \times 7 \times 6 = 336 . \]
+
+Celui de la porte $B$ est une combinaison : les symboles sont distincts et l'ordre ne
+compte pas. Il y en a
+\[ \binom{8}{4} = \frac{8 \times 7 \times 6 \times 5}{4 \times 3 \times 2 \times 1} = 70 . \]
+
+Chaque code étant équiprobable, Titouan a une chance sur $70$ et Clotilde une sur $336$ ;
+comme $\dfrac{1}{70} > \dfrac{1}{336}$, Titouan a la meilleure chance.
+
+L'ordre est ce qui sépare les deux comptages, et c'est tout l'objet de la question.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L125}{Bac2026MetropoleJour1.lean\#L125}
+
+\subsection{Exercice 3 \textemdash{} équation différentielle et suite}
+
+\begin{reponse}
+Partie A, question 2 : la fonction \texttt{T(t) = 26 − 8e\textasciicircum{}\{−0,035t\}} est solution de
+l'équation différentielle \texttt{y' = −0,035y + 0,91}, et vaut \texttt{18} en \texttt{0}.
+
+En dérivant, \texttt{T'(t) = 0,28 e\textasciicircum{}\{−0,035t\}} ; et
+\texttt{−0,035 T(t) + 0,91 = −0,91 + 0,28 e\textasciicircum{}\{−0,035t\} + 0,91}, qui est la même chose.
+\end{reponse}
+\begin{proof}
+La fonction $s \mapsto -0{,}035s$ a pour dérivée $-0{,}035$, donc $s \mapsto
+\mathrm{e}^{-0{,}035s}$ a pour dérivée $-0{,}035\,\mathrm{e}^{-0{,}035s}$. En dérivant
+terme à terme,
+\[ T'(t) = 0 - 8 \times (-0{,}035)\,\mathrm{e}^{-0{,}035t}
+   = 0{,}28\,\mathrm{e}^{-0{,}035t} . \]
+
+Il reste à voir que c'est bien le second membre de l'équation :
+\[ -0{,}035\,T(t) + 0{,}91
+   = -0{,}91 + 0{,}28\,\mathrm{e}^{-0{,}035t} + 0{,}91
+   = 0{,}28\,\mathrm{e}^{-0{,}035t} . \]
+
+La condition initiale se lit directement : $T(0) = 26 - 8 = 18$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L136}{Bac2026MetropoleJour1.lean\#L136}
+
+\begin{reponse}
+Partie A, question 4 : la température ne dépassera jamais \texttt{28 \(^\circ\)C}, ni même
+\texttt{26 \(^\circ\)C} : l'exponentielle est strictement positive, donc \texttt{26 − 8e\textasciicircum{}\{−0,035t\} < 26}.
+
+La valeur \texttt{26} est la limite du modèle, et le système n'y arrive jamais.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Bac2026MetropoleJour1/ex3_majoration}
+\caption{La température croît vers son asymptote \(26\,^\circ\mathrm{C}\), toujours en deçà du plafond \(28\,^\circ\mathrm{C}\).}
+\end{figure}
+\begin{proof}
+L'exponentielle est strictement positive, donc $8\,\mathrm{e}^{-0{,}035t} > 0$ et
+\[ 26 - 8\,\mathrm{e}^{-0{,}035t} < 26 < 28 . \]
+
+La température ne dépasse donc jamais $28\,^\circ\mathrm{C}$, ni même
+$26\,^\circ\mathrm{C}$ : cette dernière valeur est la limite du modèle, et le système n'y
+arrive jamais.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L151}{Bac2026MetropoleJour1.lean\#L151}
+
+\begin{reponse}
+Partie B, question 1 : \texttt{u\(_{1}\) = 19,72}.
+\end{reponse}
+\begin{proof}
+On applique la relation de récurrence au rang $0$, où $u_0 = 20$ et
+$\mathrm{e}^{0} = 1$ :
+\[ u_1 = 0{,}965 \times 20 + 0{,}35 + 0{,}07 = 19{,}3 + 0{,}35 + 0{,}07 = 19{,}72 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L156}{Bac2026MetropoleJour1.lean\#L156}
+
+\begin{reponse}
+Partie B, question 2 : par récurrence, \texttt{u\(_{n}\) > 10} pour tout \texttt{n}.
+
+L'hérédité tient à ce que \texttt{0,965 \(\times\) 10 + 0,35 = 10} exactement : la borne \texttt{10} est le
+point fixe de la partie affine de la récurrence, et le terme exponentiel, positif, ne
+peut que l'écarter vers le haut.
+\end{reponse}
+\begin{proof}
+Par récurrence sur $n$.
+
+\emph{Initialisation.} $u_0 = 20 > 10$.
+
+\emph{Hérédité.} Supposons $u_k > 10$. L'exponentielle étant strictement positive,
+\[ u_{k+1} = 0{,}965\,u_k + 0{,}35 + 0{,}07\,\mathrm{e}^{-0{,}1k}
+   > 0{,}965 \times 10 + 0{,}35 = 9{,}65 + 0{,}35 = 10 . \]
+
+L'hérédité tient à ce que $0{,}965 \times 10 + 0{,}35 = 10$ exactement : la borne $10$ est
+le point fixe de la partie affine de la récurrence, et le terme exponentiel, positif, ne
+peut qu'écarter la suite vers le haut.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L164}{Bac2026MetropoleJour1.lean\#L164}
+
+\begin{reponse}
+Partie B, question 4 : la limite vérifie \texttt{x = 0,965x + 0,35}, donc vaut \texttt{10}.
+
+La suite étant décroissante et minorée par \texttt{10}, elle converge ; sa limite est point
+fixe de la relation de récurrence, dont le terme exponentiel tend vers zéro.
+\end{reponse}
+\begin{proof}
+Si la suite converge, sa limite $l$ est point fixe de la partie affine de la récurrence,
+le terme exponentiel tendant vers zéro : $l = 0{,}965\,l + 0{,}35$. En regroupant,
+$0{,}035\,l = 0{,}35$, donc
+\[ l = \frac{0{,}35}{0{,}035} = 10 . \]
+
+Ce raisonnement suppose la convergence, que la décroissance et la minoration par $10$
+établissent \textemdash{} le sujet la fait démontrer à la question précédente.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L179}{Bac2026MetropoleJour1.lean\#L179}
+
+\subsection{Exercice 4 \textemdash{} une fonction avec un logarithme}
+
+\begin{reponse}
+Partie A, question 1 : la courbe passe par \texttt{A(0 ; 1)}, et \texttt{f(0) = a} puisque
+\texttt{ln 1 = 0} : donc \texttt{a = 1}.
+\end{reponse}
+\begin{proof}
+La courbe passe par $A(0 ; 1)$, donc $f(0) = 1$. Or $\ln(0 + 1) = \ln 1 = 0$, de sorte que
+le second terme s'annule :
+\[ f(0) = a + b \times \frac{0}{1} = a . \]
+Donc $a = 1$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L185}{Bac2026MetropoleJour1.lean\#L185}
+
+\begin{reponse}
+Partie A, question 3a : \texttt{f'(x) = b(1 − ln(x+1))/(x+1)\(^{2}\)}.
+
+C'est la dérivée d'un quotient : \texttt{(u/v)' = (u'v − uv')/v\(^{2}\)} avec \texttt{u = b ln(x+1)} et
+\texttt{v = x+1}, ce qui donne \texttt{(b/(x+1) \(\times\) (x+1) − b ln(x+1))/(x+1)\(^{2}\)}.
+\end{reponse}
+\begin{proof}
+Sur $]-1 ; +\infty[$, on a $x + 1 > 0$, ce qui autorise la division et le logarithme.
+
+La fonction $t \mapsto t + 1$ a pour dérivée $1$, donc $t \mapsto \ln(t+1)$ a pour dérivée
+$\dfrac{1}{x+1}$, par dérivation d'une composée.
+
+La dérivée d'un quotient, $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}$, avec
+$u = b\ln(x+1)$ et $v = x+1$, donne alors
+\[ f'(x) = \frac{\dfrac{b}{x+1} \times (x+1) - b\ln(x+1) \times 1}{(x+1)^2}
+   = \frac{b\,\bigl(1 - \ln(x+1)\bigr)}{(x+1)^2} , \]
+la constante $1$ ajoutée n'ayant pas de dérivée.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L192}{Bac2026MetropoleJour1.lean\#L192}
+
+\begin{reponse}
+Partie A, question 3b : la valeur \texttt{b = 4} se lit sur la tangente en \texttt{A}, puisque
+\texttt{f'(0) = b(1 − ln 1)/1\(^{2}\) = b}. La pente, elle, est lue sur le graphique.
+\end{reponse}
+\begin{proof}
+En $x = 0$, le logarithme vaut $\ln 1 = 0$ et le dénominateur vaut $1$, de sorte que
+\[ f'(0) = \frac{b\,(1 - 0)}{1} = b . \]
+La pente de la tangente en $A$ étant lue $4$ sur le graphique, on en tire $b = 4$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L210}{Bac2026MetropoleJour1.lean\#L210}
+
+\begin{reponse}
+Partie B, question 2 : sur \texttt{]−1 ; +\(\infty\)[}, l'inéquation \texttt{1 − ln(x+1) > 0} équivaut à
+\texttt{x < e − 1}. Le logarithme étant strictement croissant, il suffit de composer par
+l'exponentielle.
+\end{reponse}
+\begin{proof}
+Sur $]-1 ; +\infty[$, on a $x + 1 > 0$. L'inéquation $1 - \ln(x+1) > 0$ s'écrit
+$\ln(x+1) < 1$.
+
+Le logarithme et l'exponentielle sont réciproques l'un de l'autre et strictement
+croissants : pour $x + 1 > 0$, l'inégalité $\ln(x+1) < 1$ équivaut à
+$x + 1 < \mathrm{e}^1$, c'est-à-dire à
+\[ x < \mathrm{e} - 1 . \]
+
+Chacun des deux sens s'obtient en composant par la fonction réciproque, ce qui conserve
+l'inégalité stricte.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L216}{Bac2026MetropoleJour1.lean\#L216}
+
+\begin{reponse}
+Partie B, question 5a : \texttt{\(\int\)\(_{0}\)\(^{2}\) ln(x+1)/(x+1) dx = (ln 3)\(^{2}\)/2}.
+
+L'intégrande est de la forme \texttt{u'u} avec \texttt{u = ln(x+1)} : une primitive est \texttt{u\(^{2}\)/2}, et
+il ne reste qu'à évaluer entre les bornes, où \texttt{ln 1 = 0} et \texttt{ln 3} restent.
+\end{reponse}
+\begin{proof}
+L'intégrande est de la forme $u'u$ avec $u(x) = \ln(x+1)$ : une primitive est
+$\dfrac{u^2}{2}$.
+
+Vérifions-le. Sur $[0 ; 2]$, on a $x + 1 > 0$, et la dérivée de $t \mapsto \ln(t+1)$ vaut
+$\dfrac{1}{x+1}$. La dérivée d'un produit donne alors, pour
+$F(t) = \dfrac{\ln(t+1) \times \ln(t+1)}{2}$,
+\[ F'(x) = \frac{\dfrac{1}{x+1}\ln(x+1) + \ln(x+1)\,\dfrac{1}{x+1}}{2}
+   = \frac{\ln(x+1)}{x+1} . \]
+
+La fonction intégrée est continue sur $[0 ; 2]$, donc intégrable. Le théorème fondamental
+de l'analyse donne
+\[ \int_0^2 \frac{\ln(x+1)}{x+1}\,\mathrm{d}x = F(2) - F(0)
+   = \frac{(\ln 3)^2}{2} - \frac{(\ln 1)^2}{2} = \frac{(\ln 3)^2}{2} , \]
+puisque $\ln 1 = 0$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour1.lean\#L233}{Bac2026MetropoleJour1.lean\#L233}
+
+\section{Bac2026MetropoleJour2}
+
+\noindent
+Baccalauréat, épreuve de spécialité \textemdash{} voie générale, Métropole, 17 juin 2026 (jour 2).
+
+Même principe que le jour 1 : chaque question qui porte une proposition devient un
+théorème Lean, et l'index du dossier dit lesquelles n'en portent pas.
+
+La géométrie dans l'espace est traitée en coordonnées, comme le sujet la traite : les
+points sont des triplets, l'orthogonalité un produit scalaire nul. C'est fidèle à ce
+que l'élève écrit, et suffisant pour tout ce que l'exercice demande.
+
+\subsection{Exercice 1 \textemdash{} géométrie dans l'espace}
+
+\begin{reponse}
+Question 2a : le vecteur \texttt{n(1 ; −1 ; 4)} est normal au plan \texttt{(ABC)}, car il est
+orthogonal à \texttt{AB(1 ; −3 ; −1)} et à \texttt{AC(−2 ; −2 ; 0)}.
+
+Deux produits scalaires nuls suffisent : \texttt{AB} et \texttt{AC} ne sont pas colinéaires, donc ils
+engendrent la direction du plan.
+\end{reponse}
+\begin{proof}
+Le produit scalaire est, dans un repère orthonormé, la somme des produits des coordonnées.
+Avec $\vec{n}(1 ; -1 ; 4)$ :
+\[ \vec{n} \cdot \vec{AB} = 1 \times 1 + (-1) \times (-3) + 4 \times (-1) = 1 + 3 - 4 = 0 , \]
+\[ \vec{n} \cdot \vec{AC} = 1 \times (-2) + (-1) \times (-2) + 4 \times 0 = -2 + 2 + 0 = 0 . \]
+
+Les vecteurs $\vec{AB}$ et $\vec{AC}$ ne sont pas colinéaires, donc ils engendrent la
+direction du plan : orthogonal à tous deux, $\vec{n}$ est normal à $(ABC)$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L22}{Bac2026MetropoleJour2.lean\#L22}
+
+\begin{reponse}
+Question 2b : l'équation cartésienne du plan est \texttt{x − y + 4z − 5 = 0}.
+
+Les coefficients sont ceux du vecteur normal ; la constante se règle pour que \texttt{A} soit
+sur le plan, et l'on vérifie que \texttt{B} et \texttt{C} y sont aussi.
+\end{reponse}
+\begin{proof}
+Un plan de vecteur normal $(1 ; -1 ; 4)$ a une équation de la forme $x - y + 4z + d = 0$ ;
+la constante se règle pour que $A$ soit sur le plan, ce qui donne $d = -5$. Les trois
+points la vérifient :
+\[ 2 - 1 + 4 - 5 = 0 , \qquad 3 + 2 + 0 - 5 = 0 , \qquad 0 + 1 + 4 - 5 = 0 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L30}{Bac2026MetropoleJour2.lean\#L30}
+
+\begin{reponse}
+Question 4 : le projeté orthogonal de \texttt{D(0 ; 0 ; 2)} sur \texttt{(ABC)} est
+\texttt{H(−1/6 ; 1/6 ; 4/3)}.
+
+Deux choses à vérifier, et deux seulement : \texttt{H} appartient au plan, et le vecteur \texttt{DH}
+est colinéaire au vecteur normal \textemdash{} ici \texttt{DH = −(1/6) n}.
+\end{reponse}
+\begin{proof}
+Deux choses à vérifier, et deux seulement.
+
+D'abord $H$ appartient au plan :
+\[ -\frac{1}{6} - \frac{1}{6} + 4 \times \frac{4}{3} - 5
+   = -\frac{1}{3} + \frac{16}{3} - 5 = 5 - 5 = 0 . \]
+
+Ensuite $\vec{DH}$ est colinéaire au vecteur normal :
+\[ \vec{DH} = \left(-\frac{1}{6} ;\ \frac{1}{6} ;\ \frac{4}{3} - 2\right)
+   = \left(-\frac{1}{6} ;\ \frac{1}{6} ;\ -\frac{2}{3}\right)
+   = -\frac{1}{6}\,(1 ;\ -1 ;\ 4) . \]
+
+Un point du plan tel que la droite qui le joint à $D$ soit orthogonale au plan est le
+projeté orthogonal de $D$, et il est unique.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L40}{Bac2026MetropoleJour2.lean\#L40}
+
+\begin{reponse}
+Question 5a : le triangle \texttt{ABC} est isocèle en \texttt{B}, car \texttt{BA} et \texttt{BC} ont le même
+carré scalaire, \texttt{11}.
+\end{reponse}
+\begin{proof}
+Un triangle est isocèle en $B$ quand $BA = BC$, ce qui revient à comparer les carrés
+scalaires, tous deux positifs :
+\[ BA^2 = (2-3)^2 + (1+2)^2 + (1-0)^2 = 1 + 9 + 1 = 11 , \]
+\[ BC^2 = (0-3)^2 + (-1+2)^2 + (1-0)^2 = 9 + 1 + 1 = 11 . \]
+Ils sont égaux, donc $BA = BC$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L48}{Bac2026MetropoleJour2.lean\#L48}
+
+\begin{reponse}
+Question 5b : l'aire du triangle \texttt{ABC} vaut \texttt{3\(\sqrt{2}\)}.
+
+Elle est la moitié de la norme du produit vectoriel \texttt{AB \(\land\) AC = (−2 ; 2 ; −8)}, dont le
+carré scalaire vaut \texttt{72} ; et \texttt{\(\sqrt{72}\) = 6\(\sqrt{2}\)}.
+\end{reponse}
+\begin{proof}
+L'aire d'un triangle est la moitié de la norme du produit vectoriel de deux de ses côtés.
+Ici $\vec{AB} \wedge \vec{AC} = (-2 ; 2 ; -8)$, de carré scalaire
+\[ (-2)^2 + 2^2 + (-8)^2 = 4 + 4 + 64 = 72 . \]
+
+L'aire vaut donc $\dfrac{\sqrt{72}}{2}$, qu'on simplifie en écrivant $72 = 6^2 \times 2$ :
+la racine d'un produit de facteurs positifs est le produit des racines, et la racine du
+carré d'un nombre positif est ce nombre, donc $\sqrt{72} = 6\sqrt{2}$ et
+\[ \frac{\sqrt{72}}{2} = \frac{6\sqrt{2}}{2} = 3\sqrt{2} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L57}{Bac2026MetropoleJour2.lean\#L57}
+
+\begin{reponse}
+Question 6a : le volume du tétraèdre \texttt{ABCD} vaut \texttt{1}.
+
+La hauteur issue de \texttt{D} est la distance \texttt{DH}, de norme \texttt{(1/6)\(\sqrt{18}\) = \(\sqrt{2}\)/2}, et la base
+\texttt{ABC} a pour aire \texttt{3\(\sqrt{2}\)} : le produit \texttt{(1/3) \(\times\) 3\(\sqrt{2}\) \(\times\) (\(\sqrt{2}\)/2)} vaut bien \texttt{1}.
+\end{reponse}
+\begin{proof}
+Le volume d'un tétraèdre est le tiers du produit de l'aire d'une base par la hauteur
+correspondante. En prenant pour base $ABC$, d'aire $3\sqrt{2}$, et pour hauteur la distance
+$DH = \dfrac{\sqrt{2}}{2}$ :
+\[ \frac{1}{3} \times 3\sqrt{2} \times \frac{\sqrt{2}}{2}
+   = \frac{\sqrt{2} \times \sqrt{2}}{2} = \frac{2}{2} = 1 , \]
+où l'on a utilisé $\sqrt{2} \times \sqrt{2} = 2$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L69}{Bac2026MetropoleJour2.lean\#L69}
+
+\begin{reponse}
+Question 6b : l'aire du triangle \texttt{BCD} vaut \texttt{3\(\sqrt{2}\)/2}.
+
+Le volume ne dépend pas de la face choisie comme base : en prenant \texttt{BCD} et la hauteur
+issue de \texttt{A}, qui vaut \texttt{\(\sqrt{2}\)}, on retrouve \texttt{1}, ce qui détermine l'aire.
+\end{reponse}
+\begin{proof}
+Le volume ne dépend pas de la face choisie comme base. En prenant $BCD$, d'aire $a$, et la
+hauteur issue de $A$, qui vaut $\sqrt{2}$, on retrouve $1$ :
+\[ \frac{1}{3}\,a\,\sqrt{2} = 1 . \]
+
+Comme $\sqrt{2} > 0$, on peut diviser :
+\[ a = \frac{3}{\sqrt{2}} = \frac{3\sqrt{2}}{\sqrt{2} \times \sqrt{2}}
+     = \frac{3\sqrt{2}}{2} , \]
+en multipliant haut et bas par $\sqrt{2}$ pour chasser le radical du dénominateur.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L77}{Bac2026MetropoleJour2.lean\#L77}
+
+\begin{reponse}
+Question 7a : les points \texttt{A}, \texttt{B}, \texttt{C} et \texttt{D\(_{k}\)(0 ; 0 ; k)} sont coplanaires pour
+\texttt{k = 5/4} \textemdash{} c'est la valeur qui place \texttt{D\(_{k}\)} sur le plan \texttt{(ABC)}. Le projeté orthogonal
+de \texttt{D\(_{k}\)} est alors \texttt{D\(_{k}\)} lui-même.
+\end{reponse}
+\begin{proof}
+Le point $D_k(0 ; 0 ; k)$ est coplanaire avec $A$, $B$ et $C$ exactement quand il vérifie
+l'équation du plan $(ABC)$ :
+\[ 0 - 0 + 4k - 5 = 0 , \]
+d'où $4k = 5$ et $k = \dfrac{5}{4}$.
+
+Le projeté orthogonal de $D_k$ sur le plan est alors $D_k$ lui-même.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L87}{Bac2026MetropoleJour2.lean\#L87}
+
+\subsection{Exercice 2 \textemdash{} pollution d'un bassin : modèle discret et modèle continu}
+
+\begin{reponse}
+Partie A, question 1 : \texttt{V\(_{1}\) = 6} et \texttt{V\(_{2}\) = 11,97}.
+\end{reponse}
+\begin{proof}
+On applique deux fois la relation de récurrence, en partant de $V_0 = 0$ :
+\[ V_1 = 0{,}995 \times 0 + 6 = 6 , \qquad
+   V_2 = 0{,}995 \times 6 + 6 = 5{,}97 + 6 = 11{,}97 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L92}{Bac2026MetropoleJour2.lean\#L92}
+
+\begin{reponse}
+Partie A, question 3 : par récurrence, \texttt{V\(_{n}\) \(\le\) V\(_{n+1}\) \(\le\) 1 200}.
+
+L'encadrement est stable parce que \texttt{1 200} est le point fixe de la récurrence :
+\texttt{0,995 \(\times\) 1 200 + 6 = 1 200}. Et l'écart \texttt{V\(_{n+1}\) − V\(_{n}\) = 6 − 0,005 V\(_{n}\)} reste positif tant
+que \texttt{V\(_{n}\)} ne dépasse pas \texttt{1 200}.
+\end{reponse}
+\begin{proof}
+On démontre d'abord l'encadrement $0 \le V_n \le 1\,200$, par récurrence.
+
+\emph{Initialisation.} $V_0 = 0$, qui est bien entre $0$ et $1\,200$.
+
+\emph{Hérédité.} Supposons $0 \le V_k \le 1\,200$. Alors $V_{k+1} = 0{,}995\,V_k + 6 \ge 6
+\ge 0$ ; et
+\[ V_{k+1} \le 0{,}995 \times 1\,200 + 6 = 1\,194 + 6 = 1\,200 , \]
+puisque $1\,200$ est précisément le point fixe de la récurrence.
+
+L'encadrement acquis, les trois inégalités demandées suivent. La positivité est immédiate.
+La croissance vient de
+\[ V_{n+1} - V_n = 6 - 0{,}005\,V_n \ge 6 - 0{,}005 \times 1\,200 = 0 , \]
+écart qui reste positif tant que $V_n$ ne dépasse pas $1\,200$. Et la majoration de
+$V_{n+1}$ est celle qu'on vient d'établir.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L100}{Bac2026MetropoleJour2.lean\#L100}
+
+\begin{reponse}
+Partie B, question 1b : la fonction \texttt{v(t) = 1 200(1 − e\textasciicircum{}\{−0,005t\})} est solution de
+\texttt{y' = −0,005y + 6}.
+
+En dérivant, \texttt{v'(t) = 6 e\textasciicircum{}\{−0,005t\}} ; et \texttt{−0,005 v(t) + 6 = −6 + 6e\textasciicircum{}\{−0,005t\} + 6}.
+\end{reponse}
+\begin{proof}
+La fonction $s \mapsto -0{,}005s$ a pour dérivée $-0{,}005$, donc $s \mapsto
+\mathrm{e}^{-0{,}005s}$ a pour dérivée $-0{,}005\,\mathrm{e}^{-0{,}005s}$. En dérivant,
+\[ v'(t) = 1\,200 \times 0{,}005\,\mathrm{e}^{-0{,}005t}
+   = 6\,\mathrm{e}^{-0{,}005t} . \]
+
+Et le second membre de l'équation vaut la même chose :
+\[ -0{,}005\,v(t) + 6 = -6 + 6\,\mathrm{e}^{-0{,}005t} + 6 = 6\,\mathrm{e}^{-0{,}005t} . \]
+
+La condition initiale se lit directement : $v(0) = 1\,200\,(1 - 1) = 0$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L119}{Bac2026MetropoleJour2.lean\#L119}
+
+\begin{reponse}
+Partie B, question 2 : le taux de substance polluante plafonne à
+\texttt{1 200 / 30 000 = 4 \%}, en deçà des \texttt{5 \%} qui imposeraient un nettoyage complet.
+
+Le volume ne dépasse jamais \texttt{1 200} litres, puisque l'exponentielle est positive.
+\end{reponse}
+\begin{proof}
+L'exponentielle étant strictement positive, $1 - \mathrm{e}^{-0{,}005t} < 1$ et le volume
+ne dépasse jamais $1\,200$ litres. Rapporté aux $30\,000$ litres du bassin, le taux
+plafonne donc à
+\[ \frac{1\,200}{30\,000} = \frac{4}{100} , \]
+soit $4\,\%$ ; et $\dfrac{4}{100} < \dfrac{5}{100}$, donc le seuil qui imposerait un
+nettoyage complet n'est jamais atteint.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L134}{Bac2026MetropoleJour2.lean\#L134}
+
+\begin{reponse}
+Partie B, question 3 : le volume dépasse \texttt{50} litres à partir de
+\texttt{t = 200 ln(24/23)} heures.
+
+L'équation \texttt{1 200(1 − e\textasciicircum{}\{−0,005t\}) = 50} donne \texttt{e\textasciicircum{}\{−0,005t\} = 23/24}, d'où le
+logarithme.
+\end{reponse}
+\begin{proof}
+De $1\,200\,(1 - \mathrm{e}^{-0{,}005t}) = 50$ on tire $1 - \mathrm{e}^{-0{,}005t} =
+\dfrac{50}{1\,200} = \dfrac{1}{24}$, c'est-à-dire
+\[ \mathrm{e}^{-0{,}005\,t} = \frac{23}{24} . \]
+
+Le logarithme est réciproque de l'exponentielle : en le prenant des deux côtés,
+\[ -0{,}005\,t = \ln\frac{23}{24} = -\ln\frac{24}{23} , \]
+la dernière égalité venant de $\ln\left(u^{-1}\right) = -\ln u$. En divisant par
+$-0{,}005$,
+\[ t = 200\,\ln\frac{24}{23} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L142}{Bac2026MetropoleJour2.lean\#L142}
+
+\subsection{Exercice 3 \textemdash{} vrai ou faux : probabilités et dénombrement}
+
+\begin{reponse}
+Affirmation 1, \textbf{vraie}. La formule de Bayes donne
+\texttt{P\_F(O) = P(O) \(\times\) P\_O(F) / P(F) = 0,52 \(\times\) 0,32 / 0,20 = 0,832}.
+\end{reponse}
+\begin{proof}
+La formule de Bayes renverse le conditionnement :
+\[ P_F(O) = \frac{P(O) \times P_O(F)}{P(F)}
+   = \frac{0{,}52 \times 0{,}32}{0{,}20} = \frac{0{,}1664}{0{,}20} = 0{,}832 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L154}{Bac2026MetropoleJour2.lean\#L154}
+
+\begin{reponse}
+Affirmation 2, \textbf{fausse} : la valeur vraie est proche de \texttt{0,96}, non de \texttt{0,4}.
+
+L'espérance vaut \texttt{310} et l'écart type environ \texttt{17} ; le seuil \texttt{340} est donc à près de
+deux écarts types au-dessus de la moyenne, ce qui laisse largement plus de \texttt{40 \%} en
+dessous.
+
+Énoncé admis. Le vérifier demande d'évaluer une somme de \texttt{341} coefficients binomiaux
+de rang \texttt{5 000} : c'est un calcul numérique que ni \texttt{decide} ni \texttt{norm\_num} ne mènent, et
+que le sujet fait faire à la calculatrice.
+\end{reponse}
+\begin{enonceadmis}
+La déclaration Lean porte un \texttt{sorry} : rien n'est vérifié ici. Ce qui resterait à
+établir est l'encadrement de
+\[ P(X \le 340) = \sum_{k=0}^{340} \binom{5\,000}{k}\,0{,}062^{\,k}\,0{,}938^{\,5\,000-k} , \]
+somme de $341$ coefficients binomiaux de rang $5\,000$ qu'aucune tactique de calcul ne
+mène, et que le sujet fait évaluer à la calculatrice.
+
+L'argument d'ordre de grandeur donné plus haut suffit à répondre à la question posée ; il
+ne démontre pas l'inégalité écrite en Lean, et c'est pourquoi elle reste admise.
+\end{enonceadmis}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L165}{Bac2026MetropoleJour2.lean\#L165}
+
+\begin{reponse}
+Affirmation 3, \textbf{vraie}. Avec \texttt{E(X) = 310} et
+\texttt{V(X) = 5 000 \(\times\) 0,062 \(\times\) 0,938 = 290,78}, l'inégalité de Bienaymé-Tchebychev majore
+\texttt{P(|X − 310| \(\ge\) 80)} par \texttt{290,78/6 400 \(\approx\) 0,045}, donc en deçà de \texttt{5 \%}.
+\end{reponse}
+\begin{proof}
+La loi de $X$ étant binomiale de paramètres $5\,000$ et $0{,}062$, son espérance vaut
+$np = 310$ et sa variance
+\[ V(X) = 5\,000 \times 0{,}062 \times 0{,}938 = 290{,}78 . \]
+
+L'inégalité de Bienaymé-Tchebychev majore alors
+\[ P\bigl(|X - 310| \ge 80\bigr) \le \frac{V(X)}{80^2} = \frac{290{,}78}{6\,400}
+   = 0{,}04543\ldots , \]
+qui est bien inférieur à $\dfrac{5}{100}$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L173}{Bac2026MetropoleJour2.lean\#L173}
+
+\begin{reponse}
+Affirmation 4, \textbf{vraie}. Constituer une équipe, c'est choisir \texttt{2} musiciens parmi
+\texttt{4} et \texttt{3} non-musiciens parmi \texttt{6}, soit \texttt{6 \(\times\) 20 = 120} équipes.
+
+L'ordre ne compte pas : ce sont bien des combinaisons.
+\end{reponse}
+\begin{proof}
+Constituer une équipe, c'est faire deux choix indépendants : $2$ musiciens parmi $4$, puis
+$3$ non-musiciens parmi $6$. L'ordre ne compte pas dans une équipe, ce sont donc des
+combinaisons, et les deux comptages se multiplient :
+\[ \binom{4}{2} \times \binom{6}{3} = 6 \times 20 = 120 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L180}{Bac2026MetropoleJour2.lean\#L180}
+
+\subsection{Exercice 4 \textemdash{} la fonction du logo}
+
+\begin{reponse}
+Partie B, question 1a : \texttt{f(x) = (2x − 1)e\textasciicircum{}\{−2x+3\}} s'écrit aussi
+\texttt{e\(^{2}\) \(\times\) (2x − 1)/e\textasciicircum{}\{2x−1\}}.
+
+C'est la même chose lue autrement : \texttt{e\textasciicircum{}\{−2x+3\} = e\(^{2}\) \(\times\) e\textasciicircum{}\{−(2x−1)\}}. Cette écriture est
+celle qui donne la limite, en faisant apparaître le quotient d'un polynôme par une
+exponentielle.
+\end{reponse}
+\begin{proof}
+C'est la même expression lue autrement. La propriété
+$\mathrm{e}^{a-b} = \dfrac{\mathrm{e}^a}{\mathrm{e}^b}$, appliquée à
+$-2x + 3 = 2 - (2x - 1)$, donne
+\[ \mathrm{e}^{-2x+3} = \frac{\mathrm{e}^{2}}{\mathrm{e}^{2x-1}} , \]
+d'où
+\[ (2x - 1)\,\mathrm{e}^{-2x+3}
+   = \mathrm{e}^{2} \times \frac{2x - 1}{\mathrm{e}^{2x-1}} . \]
+
+Cette écriture est celle qui donne la limite en $+\infty$, en faisant apparaître le
+quotient d'un polynôme par une exponentielle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L190}{Bac2026MetropoleJour2.lean\#L190}
+
+\begin{reponse}
+Partie B, question 2a : \texttt{f'(x) = (−4x + 4)e\textasciicircum{}\{−2x+3\}}.
+
+C'est la dérivée d'un produit : \texttt{2 e\textasciicircum{}\{−2x+3\} + (2x − 1)(−2)e\textasciicircum{}\{−2x+3\}}, dont le facteur
+commun se met en évidence. Le signe de \texttt{f'} est donc celui de \texttt{1 − x}.
+\end{reponse}
+\begin{proof}
+La fonction $t \mapsto 2t - 1$ a pour dérivée $2$, et $t \mapsto -2t + 3$ a pour dérivée
+$-2$, donc $t \mapsto \mathrm{e}^{-2t+3}$ a pour dérivée $-2\,\mathrm{e}^{-2t+3}$.
+
+La dérivée d'un produit donne alors
+\[ f'(x) = 2\,\mathrm{e}^{-2x+3} + (2x - 1) \times (-2)\,\mathrm{e}^{-2x+3}
+   = \bigl(2 - 4x + 2\bigr)\mathrm{e}^{-2x+3}
+   = (-4x + 4)\,\mathrm{e}^{-2x+3} . \]
+
+L'exponentielle étant strictement positive, le signe de $f'$ est celui de $4 - 4x$,
+c'est-à-dire celui de $1 - x$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L204}{Bac2026MetropoleJour2.lean\#L204}
+
+\begin{reponse}
+Partie C, question 1 : l'intégrale de \texttt{f} entre \texttt{0,5} et \texttt{3,3} vaut
+\texttt{0,5 e\(^{2}\) − 3,3 e\textasciicircum{}\{−3,6\}}, soit \texttt{3,6} au dixième.
+
+L'intégration par parties que demande le sujet revient à reconnaître la primitive
+\texttt{F(x) = −x e\textasciicircum{}\{−2x+3\}} : en dérivant, \texttt{−e\textasciicircum{}\{−2x+3\} + 2x e\textasciicircum{}\{−2x+3\} = (2x − 1)e\textasciicircum{}\{−2x+3\}}.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Bac2026MetropoleJour2/ex4_integrale}
+\caption{La courbe du logo, et l'aire qu'elle délimite entre \(0{,}5\) et \(3{,}3\).}
+\end{figure}
+\begin{proof}
+L'intégration par parties que demande le sujet revient à reconnaître la primitive
+$F(x) = -x\,\mathrm{e}^{-2x+3}$, ce qu'une dérivation vérifie :
+\[ F'(x) = -\Bigl(\mathrm{e}^{-2x+3} + x \times (-2)\,\mathrm{e}^{-2x+3}\Bigr)
+   = (2x - 1)\,\mathrm{e}^{-2x+3} . \]
+
+La fonction intégrée est continue, donc intégrable sur le segment, et le théorème
+fondamental de l'analyse donne
+\[ \int_{0{,}5}^{3{,}3} (2x - 1)\,\mathrm{e}^{-2x+3}\,\mathrm{d}x = F(3{,}3) - F(0{,}5) . \]
+
+Or $-2 \times 0{,}5 + 3 = 2$ et $-2 \times 3{,}3 + 3 = -3{,}6$, donc
+\[ F(3{,}3) - F(0{,}5) = -3{,}3\,\mathrm{e}^{-3{,}6} + 0{,}5\,\mathrm{e}^{2} . \]
+
+La valeur numérique, $3{,}6$ au dixième, se lit à la calculatrice.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Bac2026MetropoleJour2.lean\#L222}{Bac2026MetropoleJour2.lean\#L222}
+
+\section{Brevet2026Metropole}
+
+\noindent
+Brevet des collèges \textemdash{} série générale, Métropole, 30 juin 2026.
+
+Chaque question du sujet qui porte une proposition mathématique devient un théorème
+Lean, dont la réponse est rédigée ci-dessous en français. Celles qui n'en portent pas \textemdash{} une lecture graphique, une interprétation
+à rédiger \textemdash{} n'ont pas d'énoncé, et l'index du dossier dit lesquelles et pourquoi :
+c'est une des choses que ce dépôt cherche à mesurer.
+
+Les énoncés sont ceux du sujet, pas leur généralisation. Quand la configuration
+géométrique est donnée par une figure, ce qu'elle établit \textemdash{} l'égalité des rapports
+de Thalès, le parallélisme \textemdash{} devient une hypothèse : la figure n'est pas
+formalisée, l'arithmétique qui en découle l'est.
+
+\subsection{Première partie \textemdash{} automatismes}
+
+\begin{reponse}
+Question 1 : \texttt{0,75} s'écrit \texttt{3/4}. Passer d'une écriture décimale à une
+fraction, c'est simplifier \texttt{75/100} par \texttt{25}.
+\end{reponse}
+\begin{proof}
+Une écriture décimale se lit comme une fraction de dénominateur une puissance de dix, puis
+se simplifie :
+\[ 0{,}75 = \frac{75}{100} = \frac{25 \times 3}{25 \times 4} = \frac{3}{4} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L23}{Brevet2026Metropole.lean\#L23}
+
+\begin{reponse}
+Question 2 : \texttt{−4,7 + 3,5 = −1,2}. La somme de deux relatifs de signes
+contraires a le signe du plus grand en valeur absolue.
+\end{reponse}
+\begin{proof}
+Les deux nombres sont de signes contraires : on soustrait les distances à zéro et l'on
+garde le signe du plus éloigné.
+\[ -4{,}7 + 3{,}5 = -(4{,}7 - 3{,}5) = -1{,}2 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L27}{Brevet2026Metropole.lean\#L27}
+
+\begin{reponse}
+Question 3 : dans un tableau de proportionnalité où \texttt{6} a pour image \texttt{18},
+l'image de \texttt{12} est \texttt{36}. L'égalité des produits en croix suffit à la déterminer.
+\end{reponse}
+\begin{proof}
+Dans un tableau de proportionnalité, les produits en croix sont égaux : $6a = 18 \times 12
+= 216$, donc
+\[ a = \frac{216}{6} = 36 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L31}{Brevet2026Metropole.lean\#L31}
+
+\begin{reponse}
+Question 4 : dans un sac de \texttt{10} boules rouges, \texttt{4} bleues et \texttt{6} vertes,
+toutes équiprobables, la probabilité de tirer une bleue est \texttt{4/20}, soit \texttt{1/5}.
+\end{reponse}
+\begin{proof}
+Le sac contient $10 + 4 + 6 = 20$ boules, toutes de même chance. La probabilité est le
+quotient du nombre de cas favorables par le nombre de cas possibles :
+\[ \frac{4}{20} = \frac{4 \times 1}{4 \times 5} = \frac{1}{5} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L35}{Brevet2026Metropole.lean\#L35}
+
+\begin{reponse}
+Question 5 : la solution de \texttt{10x + 16 = −64} est \texttt{−8}.
+\end{reponse}
+\begin{proof}
+De $10x + 16 = -64$ on tire $10x = -80$, puis $x = -8$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L38}{Brevet2026Metropole.lean\#L38}
+
+\begin{reponse}
+Question 6 : la notation scientifique de \texttt{0,004 58} est \texttt{4,58 \(\times\) 10\(^{-3}\)}. Elle
+est unique : le facteur est compris entre \texttt{1} et \texttt{10}.
+\end{reponse}
+\begin{proof}
+La notation scientifique écrit le nombre comme le produit d'un facteur compris entre $1$
+et $10$ par une puissance de dix :
+\[ 0{,}00458 = \frac{4{,}58}{1\,000} = 4{,}58 \times 10^{-3} . \]
+Le facteur $4{,}58$ est bien entre $1$ et $10$, ce qui rend l'écriture unique.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L42}{Brevet2026Metropole.lean\#L42}
+
+\begin{reponse}
+Question 8 : le périmètre d'un rectangle de \texttt{10 mm} sur \texttt{5 mm} vaut \texttt{30 mm}.
+La réponse est une longueur, non une aire : c'est ce que les deux réponses en
+\texttt{mm\(^{2}\)} proposées cherchent à faire confondre.
+\end{reponse}
+\begin{proof}
+Le périmètre d'un rectangle est le double de la somme de sa longueur et de sa largeur :
+\[ 2 \times (10 + 5) = 2 \times 15 = 30 . \]
+Le résultat est une longueur, en millimètres, et non une aire.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L48}{Brevet2026Metropole.lean\#L48}
+
+\begin{reponse}
+Question 9 : dans un triangle rectangle en \texttt{E} où l'hypoténuse \texttt{DF} mesure
+\texttt{10 cm} et le côté adjacent \texttt{DE} mesure \texttt{6 cm}, le cosinus de l'angle en \texttt{D} vaut
+\texttt{3/5}.
+
+Le cosinus d'un angle aigu est le quotient du côté adjacent par l'hypoténuse : la
+question est de reconnaître lequel des trois côtés est l'hypoténuse, et le triangle
+\texttt{6, 8, 10} est là pour qu'on puisse se tromper.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Brevet2026Metropole/qcm_cosinus}
+\caption{Le triangle \(DEF\), rectangle en \(E\) : l'hypoténuse est \([DF]\), et non le plus grand des deux autres côtés.}
+\end{figure}
+\begin{proof}
+Le triangle est rectangle en $E$, donc son hypoténuse est $[DF]$ \textemdash{} le côté
+opposé à l'angle droit. Le cosinus de l'angle en $D$ est le quotient du côté adjacent par
+l'hypoténuse :
+\[ \cos \widehat{D} = \frac{DE}{DF} = \frac{6}{10} = \frac{3}{5} . \]
+
+Toute la question est de reconnaître lequel des trois côtés est l'hypoténuse ; le triangle
+$6$, $8$, $10$ est là pour qu'on puisse se tromper.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L58}{Brevet2026Metropole.lean\#L58}
+
+\subsection{Exercice 1 \textemdash{} statistiques}
+
+\begin{reponse}
+Le nombre total de médailles étant la somme des trois colonnes, celle qui
+manque s'obtient par soustraction : les Pays-Bas ont \texttt{27} médailles d'or.
+\end{reponse}
+\begin{proof}
+Le total est la somme des trois colonnes : $\text{or} + 17 + 12 = 56$. En retranchant,
+\[ \text{or} = 56 - 29 = 27 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L65}{Brevet2026Metropole.lean\#L65}
+
+\begin{reponse}
+De même pour l'Australie, qui en a \texttt{18}.
+\end{reponse}
+\begin{proof}
+De même : $\text{or} + 17 + 28 = 63$, donc $\text{or} = 63 - 45 = 18$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L68}{Brevet2026Metropole.lean\#L68}
+
+\begin{reponse}
+Plus de \texttt{20 \%} des médailles de la Grande-Bretagne sont en bronze : la
+proportion vaut \texttt{31/124}, c'est-à-dire exactement un quart.
+\end{reponse}
+\begin{proof}
+La proportion de médailles de bronze est $\dfrac{31}{124}$. Elle dépasse $20\,\% =
+\dfrac{1}{5}$, car les produits en croix donnent
+\[ 1 \times 124 = 124 < 155 = 5 \times 31 . \]
+
+Et comme $124 = 4 \times 31$, cette proportion vaut exactement
+\[ \frac{31}{124} = \frac{31}{4 \times 31} = \frac{1}{4} , \]
+c'est-à-dire un quart.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L72}{Brevet2026Metropole.lean\#L72}
+
+\begin{reponse}
+La médiane des neuf totaux est \texttt{82} : quatre pays en ont moins, quatre en ont
+plus. C'est la définition même de la médiane pour un effectif impair, et elle ne
+demande pas de trier la série pour être vérifiée.
+\end{reponse}
+\begin{proof}
+Les neuf totaux sont
+\[ 220 ;\ 124 ;\ 105 ;\ 56 ;\ 89 ;\ 71 ;\ 82 ;\ 75 ;\ 63 . \]
+On compte ceux qui sont strictement inférieurs à $82$ : $56$, $71$, $75$ et $63$, soit
+quatre. Puis ceux qui lui sont strictement supérieurs : $220$, $124$, $105$ et $89$, soit
+quatre également.
+
+L'effectif étant impair, la valeur qui laisse autant de pays de part et d'autre est la
+médiane : $82$. Ce comptage ne demande pas de trier la série.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L78}{Brevet2026Metropole.lean\#L78}
+
+\begin{reponse}
+Le Brésil passe de \texttt{20} à \texttt{26} médailles d'argent : une augmentation de
+\texttt{30 \%}. Le taux se lit sur l'écart rapporté à la valeur de départ, non à celle
+d'arrivée.
+\end{reponse}
+\begin{proof}
+Le taux d'évolution est l'écart rapporté à la valeur de départ :
+\[ \frac{26 - 20}{20} = \frac{6}{20} = \frac{30}{100} , \]
+soit une augmentation de $30\,\%$. C'est bien la valeur de départ qui sert de référence,
+non celle d'arrivée.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L86}{Brevet2026Metropole.lean\#L86}
+
+\subsection{Exercice 2 \textemdash{} Thalès, triangles semblables, aire}
+
+\begin{reponse}
+Question 1 : le triangle \texttt{ABC} de côtés \texttt{6,4}, \texttt{4,8} et \texttt{8} est rectangle en
+\texttt{A}, par la réciproque du théorème de Pythagore \textemdash{} \texttt{6,4\(^{2}\) + 4,8\(^{2}\) = 40,96 + 23,04 = 64}.
+\end{reponse}
+\begin{proof}
+On calcule les deux membres :
+\[ AB^2 + AC^2 = 6{,}4^2 + 4{,}8^2 = 40{,}96 + 23{,}04 = 64 \]
+et $BC^2 = 8^2 = 64$. Ils sont égaux.
+
+Par la réciproque du théorème de Pythagore, le triangle $ABC$ est donc rectangle, et son
+angle droit est en $A$ \textemdash{} le sommet opposé au plus grand côté.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L92}{Brevet2026Metropole.lean\#L92}
+
+\begin{reponse}
+Question 2 : \texttt{DE = 6 cm} et \texttt{AE = 3,6 cm}.
+
+Les droites \texttt{(BC)} et \texttt{(DE)} étant parallèles et les points alignés, le théorème
+de Thalès donne l'égalité des trois rapports ; c'est elle qu'on prend en
+hypothèse, la figure n'étant pas formalisée. Le rapport vaut \texttt{4,8/6,4 = 0,75}, et
+il ne reste qu'à multiplier.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Brevet2026Metropole/ex2_thales}
+\caption{La configuration de Thalès : \(D\) sur \([AB]\), \(E\) sur \([AC]\), et \((DE)\) parallèle à \((BC)\).}
+\end{figure}
+\begin{proof}
+Les droites $(BC)$ et $(DE)$ étant parallèles et les points alignés, le théorème de
+Thalès donne l'égalité des trois rapports ; c'est elle qu'on prend en hypothèse, la figure
+n'étant pas formalisée.
+
+Le rapport se calcule sur les deux longueurs connues :
+\[ \frac{AD}{AB} = \frac{4{,}8}{6{,}4} = \frac{3}{4} = 0{,}75 . \]
+
+Il ne reste qu'à multiplier. De $\dfrac{AE}{AC} = 0{,}75$ avec $AC = 4{,}8$ on tire
+\[ AE = 0{,}75 \times 4{,}8 = 3{,}6 , \]
+et de $\dfrac{DE}{BC} = 0{,}75$ avec $BC = 8$ on tire $DE = 0{,}75 \times 8 = 6$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L102}{Brevet2026Metropole.lean\#L102}
+
+\begin{reponse}
+Question 5 : l'aire du quadrilatère \texttt{BCDE} vaut \texttt{24 cm\(^{2}\)}.
+
+Il se découpe en deux triangles rectangles en \texttt{A} : \texttt{ABC}, de côtés de l'angle
+droit \texttt{6,4} et \texttt{4,8}, et \texttt{ADE}, de côtés \texttt{4,8} et \texttt{3,6}. Leurs aires valent
+\texttt{15,36} et \texttt{8,64}.
+\end{reponse}
+\begin{proof}
+Le quadrilatère se découpe en deux triangles rectangles en $A$, dont l'aire est le
+demi-produit des côtés de l'angle droit :
+\[ \frac{6{,}4 \times 4{,}8}{2} + \frac{4{,}8 \times 3{,}6}{2}
+   = 15{,}36 + 8{,}64 = 24 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L115}{Brevet2026Metropole.lean\#L115}
+
+\subsection{Exercice 3 \textemdash{} volume d'une boule}
+
+\begin{reponse}
+Partie B, question 1 : le volume d'une boule de rayon \texttt{2,5 cm} vaut \texttt{65 cm\(^{3}\)}
+à l'unité près.
+
+L'énoncé donne la formule \texttt{V = 4\(\pi\)R\(^{3}\)/3} : le sujet ne demande pas de la démontrer,
+et ce dépôt ne la démontre pas non plus \textemdash{} c'est un des énoncés admis du chapitre
+\og{} Grandeurs et mesures \fg{}. Ce qui se vérifie ici est le calcul, et l'arrondi :
+\texttt{4\(\pi\)(2,5)\(^{3}\)/3} vaut environ \texttt{65,45}, dont l'arrondi à l'unité est bien \texttt{65}.
+\end{reponse}
+\begin{proof}
+La formule $V = \dfrac{4\pi R^3}{3}$ est donnée par l'énoncé : c'est un résultat admis, ici
+comme au chapitre \og{} Grandeurs et mesures \fg{}. Ce qui se démontre est le calcul et
+l'arrondi.
+
+Avec $R = 2{,}5$, on a $R^3 = 15{,}625$, donc
+\[ V = \frac{4 \times 15{,}625}{3}\,\pi = \frac{62{,}5}{3}\,\pi . \]
+
+L'encadrement $3{,}1415 < \pi < 3{,}1416$ donne alors
+\[ 65{,}447\ldots < V < 65{,}450 , \]
+donc $|V - 65| < 0{,}5$ : l'arrondi à l'unité est bien $65$ centimètres cubes.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L129}{Brevet2026Metropole.lean\#L129}
+
+\begin{reponse}
+Partie B, question 2 : avec \texttt{1 000 cm\(^{3}\)} de plastique et des boules de \texttt{65 cm\(^{3}\)},
+on en fabrique \texttt{15} au maximum. Le nombre cherché est un quotient euclidien, non
+un quotient décimal : \texttt{15,38} boules n'a pas de sens.
+\end{reponse}
+\begin{proof}
+Le nombre de boules est un quotient euclidien : chaque boule consomme $65$ centimètres
+cubes, et il n'y a pas de boule fractionnaire. Or
+\[ 15 \times 65 = 975 \le 1\,000 \quad\text{et}\quad 1\,000 < 1\,040 = 16 \times 65 . \]
+Quinze boules tiennent donc dans les $1\,000$ centimètres cubes, seize non.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L138}{Brevet2026Metropole.lean\#L138}
+
+\begin{reponse}
+Partie B, question 3 : à \texttt{0,9 g/cm\(^{3}\)}, une boule de \texttt{65 cm\(^{3}\)} pèse \texttt{58,5 g}.
+La masse volumique est un coefficient de proportionnalité entre volume et masse.
+\end{reponse}
+\begin{proof}
+La masse volumique est un coefficient de proportionnalité entre volume et masse :
+\[ 0{,}9 \times 65 = 58{,}5 \text{ grammes} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L142}{Brevet2026Metropole.lean\#L142}
+
+\subsection{Exercice 4 \textemdash{} sachets de bonbons}
+
+\begin{reponse}
+Question 1 : on ne peut pas constituer \texttt{16} sachets, car \texttt{16} ne divise pas
+\texttt{140} \textemdash{} il en resterait des bonbons au caramel.
+\end{reponse}
+\begin{proof}
+On effectue la division euclidienne : $140 = 16 \times 8 + 12$. Le reste vaut $12$, qui
+n'est pas nul, donc $16$ ne divise pas $140$.
+
+Il resterait douze bonbons au caramel : les sachets ne pourraient pas être identiques.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L148}{Brevet2026Metropole.lean\#L148}
+
+\begin{reponse}
+Question 2 : la décomposition en facteurs premiers de \texttt{140} est \texttt{2\(^{2}\) \(\times\) 5 \(\times\) 7}.
+\end{reponse}
+\begin{proof}
+On divise successivement par les nombres premiers :
+\[ 140 = 2 \times 70 = 2 \times 2 \times 35 = 2^2 \times 5 \times 7 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L151}{Brevet2026Metropole.lean\#L151}
+
+\begin{reponse}
+Question 3 : le nombre maximal de sachets est \texttt{28}, et chacun contient alors
+\texttt{4} bonbons à la fraise et \texttt{5} au caramel.
+
+Le nombre de sachets doit diviser \texttt{112} et \texttt{140} : c'est un diviseur commun, et le
+plus grand possible est leur PGCD. Les décompositions \texttt{112 = 2\(^{4}\) \(\times\) 7} et
+\texttt{140 = 2\(^{2}\) \(\times\) 5 \(\times\) 7} donnent \texttt{2\(^{2}\) \(\times\) 7 = 28}.
+\end{reponse}
+\begin{proof}
+Le nombre de sachets doit diviser à la fois $112$ et $140$, puisque les bonbons de chaque
+sorte se répartissent également : c'est un diviseur commun, et le plus grand possible est
+leur PGCD.
+
+L'algorithme d'Euclide le calcule : $140 = 1 \times 112 + 28$, puis $112 = 4 \times 28 +
+0$. Le dernier reste non nul est $28$, donc
+\[ \mathrm{PGCD}(112, 140) = 28 . \]
+
+On peut le retrouver sur les décompositions $112 = 2^4 \times 7$ et $140 = 2^2 \times 5
+\times 7$, en gardant les facteurs communs avec leur plus petit exposant : $2^2 \times 7 =
+28$.
+
+Chaque sachet contient alors $\dfrac{112}{28} = 4$ bonbons à la fraise et
+$\dfrac{140}{28} = 5$ bonbons au caramel.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L159}{Brevet2026Metropole.lean\#L159}
+
+\begin{reponse}
+Et \texttt{28} est bien maximal parmi les diviseurs communs : tout diviseur commun de
+\texttt{112} et \texttt{140} divise \texttt{28}, donc ne le dépasse pas.
+\end{reponse}
+\begin{proof}
+Soit $d$ un diviseur commun de $112$ et $140$. Deux résultats sur les entiers concluent.
+
+Le premier : tout diviseur commun de deux entiers divise leur PGCD
+(\texttt{Nat.dvd\_gcd}). C'est la propriété qui fait du PGCD un \emph{plus grand} diviseur
+commun au sens de la divisibilité, et elle se lit sur l'algorithme d'Euclide : à chaque
+étape, $\mathrm{PGCD}(a, b) = \mathrm{PGCD}(b, a \bmod b)$, et $d$ qui divise $a$ et $b$
+divise aussi $a \bmod b = a - \lfloor a/b \rfloor \, b$ ; le dernier reste non nul, qui est
+le PGCD, est donc lui aussi divisible par $d$.
+
+Le second : un diviseur d'un entier strictement positif ne le dépasse pas
+(\texttt{Nat.le\_of\_dvd}). En effet, si $28 = d \times k$ avec $28 > 0$, alors $k \ge 1$,
+donc $d \times k \ge d$, c'est-à-dire $d \le 28$.
+
+En composant les deux : $d$ divise $\mathrm{PGCD}(112, 140) = 28$, donc $d \le 28$. Aucun
+diviseur commun ne dépasse $28$, qui est donc bien le nombre maximal de sachets.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2026/Brevet2026Metropole.lean\#L164}{Brevet2026Metropole.lean\#L164}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

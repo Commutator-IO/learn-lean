@@ -1,0 +1,1613 @@
+% Fichier engendré par tools/generate-tex.py à partir de 2025.
+% Ne pas éditer à la main : tout le texte provient des commentaires du fichier Lean.
+\documentclass[11pt,a4paper]{article}
+
+% Compile aussi bien avec pdflatex qu'avec xelatex ou tectonic.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=2.5cm]{geometry}
+% Les figures : TikZ, pour que leurs étiquettes soient composées dans les
+% polices du document. Voir la skill `illustrate-theorem`.
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}
+\newtheorem{exemple}{Exemple}
+\theoremstyle{plain}
+\newtheorem{theoreme}{Théorème}
+\newtheorem{lemme}[theoreme]{Lemme}
+
+% Un sujet pose des questions, non des théorèmes : voir exams/README.md.
+\theoremstyle{definition}
+\newtheorem*{reponse}{Réponse}
+%% Ce qui remplace une démonstration quand il n'y en a pas : la déclaration Lean
+%% porte un `sorry`, et ce qui suit dit pourquoi. Ce n'est pas une preuve.
+\newtheorem*{enonceadmis}{Énoncé admis}
+
+% Un exemple ne se démontre pas : on explique ce qu'il montre.
+\newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
+
+% Un énoncé écrit mais non démontré : la preuve Lean est un `sorry`.
+\newcommand{\admis}{\par\smallskip\noindent\textit{Admis : l'énoncé est écrit en Lean, sa démonstration reste à faire.}\par}
+
+% Renvoi à la déclaration Lean, une ligne après la démonstration, aligné à droite.
+\newcommand{\source}[2]{\par\smallskip\noindent\hfill{\footnotesize\href{#1}{\texttt{#2}}}\par\smallskip}
+
+\title{Sujets 2025, décomposés}
+\date{}
+
+\begin{document}
+\maketitle
+% Les identifiants Lean en machine à écrire ne se coupent pas : on tolère des
+% espacements plus lâches plutôt que des lignes qui débordent.
+\sloppy
+
+\section{Bac2025MetropoleJour1}
+
+\noindent
+Baccalauréat, épreuve de spécialité \textemdash{} voie générale, Métropole, 17 juin 2025 (jour 1).
+
+Chaque question du sujet qui porte une proposition mathématique devient un théorème
+Lean, dont la réponse est rédigée ci-dessous en français. Celles qui n'en portent pas \textemdash{} compléter un arbre pondéré, lire un nombre
+dérivé sur un graphique, compléter un algorithme, interpréter un résultat \textemdash{} n'ont pas
+d'énoncé, et l'index du dossier dit lesquelles et pourquoi.
+
+Les probabilités sont traitées comme le sujet les traite : sur les nombres. La
+construction de l'espace probabilisé n'apporterait rien à des calculs qui portent sur
+des probabilités données, et le chapitre \og{} Probabilités et statistiques \fg{} du cours
+fait ce travail-là pour ses propres énoncés.
+
+\subsection{Exercice 1 \textemdash{} groupes sanguins, loi binomiale, Bienaymé-Tchebychev}
+
+\begin{reponse}
+Question 2 : \texttt{p(B \(\cap\) R) = p(B) \(\times\) p\_B(R) = 0,10 \(\times\) 0,84 = 0,084}.
+
+C'est la lecture d'un chemin de l'arbre : les probabilités s'y multiplient.
+\end{reponse}
+\begin{proof}
+On multiplie les probabilités portées par le chemin \og{} groupe $B$, puis rhésus
+positif \fg{} :
+\[ p(B \cap R) = 0{,}10 \times 0{,}84 = 0{,}084 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L24}{Bac2025MetropoleJour1.lean\#L24}
+
+\begin{reponse}
+Question 3 : \texttt{p\_O(R) = 0,83}.
+
+Le groupe \texttt{O} est le complémentaire des trois autres, donc \texttt{p(O) = 1 − 0,45 − 0,10 −
+0,03 = 0,42}. La formule des probabilités totales décompose \texttt{p(R)} sur les quatre
+groupes : \texttt{p(O \(\cap\) R) = 0,839 7 − 0,45 \(\times\) 0,85 − 0,10 \(\times\) 0,84 − 0,03 \(\times\) 0,82 = 0,348 6}, et
+il ne reste qu'à diviser par \texttt{p(O)}.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Bac2025MetropoleJour1/ex1_rhesus_sachant_o}
+\caption{L'arbre pondéré des quatre groupes sanguins ; la branche cherchée porte le point d'interrogation.}
+\end{figure}
+\begin{proof}
+Les quatre groupes forment une partition, donc leurs probabilités ont pour somme $1$ :
+\[ p(O) = 1 - 0{,}45 - 0{,}10 - 0{,}03 = 0{,}42 . \]
+
+La formule des probabilités totales décompose $p(R)$ sur cette partition,
+\[ p(R) = p(A \cap R) + p(B \cap R) + p(AB \cap R) + p(O \cap R) , \]
+d'où
+\[ p(O \cap R) = 0{,}8397 - 0{,}45 \times 0{,}85 - 0{,}10 \times 0{,}84
+   - 0{,}03 \times 0{,}82 = 0{,}8397 - 0{,}4911 = 0{,}3486 . \]
+
+Enfin, par définition d'une probabilité conditionnelle,
+\[ p_O(R) = \frac{p(O \cap R)}{p(O)} = \frac{0{,}3486}{0{,}42} = 0{,}83 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L32}{Bac2025MetropoleJour1.lean\#L32}
+
+\begin{reponse}
+Question 4 : la probabilité d'être donneur universel vaut \texttt{0,071 4}.
+
+Un donneur universel est du groupe \texttt{O} et de rhésus négatif : \texttt{p(O \(\cap\) \(\overline{R}\)) = p(O) \(\times\)
+(1 − p\_O(R)) = 0,42 \(\times\) 0,17}.
+\end{reponse}
+\begin{proof}
+Un donneur universel est du groupe $O$ et de rhésus négatif. Les deux conditions se
+composent le long d'un chemin de l'arbre :
+\[ p(O \cap \bar{R}) = p(O) \times \bigl(1 - p_O(R)\bigr)
+   = 0{,}42 \times 0{,}17 = 0{,}0714 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L41}{Bac2025MetropoleJour1.lean\#L41}
+
+\begin{reponse}
+Question 5c : \texttt{E(X) = 7,14} et \texttt{V(X) = 6,63} à \texttt{10\(^{-2}\)} près.
+
+Pour une loi binomiale de paramètres \texttt{n} et \texttt{p}, l'espérance vaut \texttt{np} et la variance
+\texttt{np(1 − p)} : ce sont les deux formules du cours, et le sujet ne demande que de les
+appliquer. La variance exacte est \texttt{6,629 604}, dont l'arrondi au centième est \texttt{6,63}.
+\end{reponse}
+\begin{proof}
+Pour une loi binomiale de paramètres $n$ et $p$, l'espérance vaut $np$ et la variance
+$np(1-p)$. Ici $n = 100$ et $p = 0{,}0714$, donc
+\[ E(X) = 100 \times 0{,}0714 = 7{,}14 \]
+et
+\[ V(X) = 100 \times 0{,}0714 \times 0{,}9286 = 6{,}629604 . \]
+
+L'arrondi au centième se lit sur l'écart à $6{,}63$ :
+\[ |6{,}629604 - 6{,}63| = 0{,}000396 < 0{,}005 , \]
+ce qui est exactement la définition de l'arrondi au centième.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L48}{Bac2025MetropoleJour1.lean\#L48}
+
+\begin{reponse}
+Question 6b : \texttt{E(M\_N) = 7,14}, quel que soit le nombre \texttt{N} de villes.
+
+L'espérance est linéaire : celle d'une moyenne de variables de même espérance est
+cette espérance. Grouper les villes ne change donc rien à ce qu'on attend en
+moyenne.
+\end{reponse}
+\begin{proof}
+La moyenne des $N$ variables a pour espérance $\dfrac{1}{N}$ fois la somme de leurs
+espérances, toutes égales à $7{,}14$ :
+\[ \frac{N \times 7{,}14}{N} = 7{,}14 . \]
+La simplification demande $N \ne 0$, ce que l'hypothèse fournit \textemdash{} et qui va de
+soi, une moyenne sur zéro ville n'ayant pas de sens.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L59}{Bac2025MetropoleJour1.lean\#L59}
+
+\begin{reponse}
+Question 6c : \texttt{V(M\_N) = 6,63/N}.
+
+Les variables étant indépendantes, leurs variances s'ajoutent ; la division par \texttt{N}
+étant une multiplication par \texttt{1/N}, elle divise la variance par \texttt{N\(^{2}\)}. C'est là que
+l'hypothèse d'indépendance sert, et nulle part ailleurs \textemdash{} et c'est ce quotient par
+\texttt{N} qui fait que la moyenne se resserre quand on multiplie les villes.
+\end{reponse}
+\begin{proof}
+Les $N$ variables étant indépendantes, leurs variances s'ajoutent : la somme a pour
+variance $N \times 6{,}63$. Diviser par $N$, c'est multiplier par $\dfrac{1}{N}$, ce qui
+multiplie la variance par $\dfrac{1}{N^2}$. D'où
+\[ V(M_N) = \frac{N \times 6{,}63}{N^2} = \frac{6{,}63}{N} , \]
+la simplification étant licite puisque $N \ne 0$.
+
+C'est ce quotient par $N$ qui fait que la moyenne se resserre quand on multiplie les
+villes ; l'espérance, elle, ne bouge pas.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L68}{Bac2025MetropoleJour1.lean\#L68}
+
+\begin{reponse}
+Question 6d : la plus petite valeur de \texttt{N} convenable est \texttt{6 766}.
+
+L'inégalité de Bienaymé-Tchebychev majore \texttt{P(|M\_N − 7,14| \(\ge\) 0,14)} par
+\texttt{V(M\_N)/0,14\(^{2}\) = 6,63/(0,019 6 N)}. Pour que l'évènement contraire \textemdash{} c'est-à-dire
+\texttt{7 < M\_N < 7,28} \textemdash{} ait une probabilité au moins \texttt{0,95}, il suffit que cette majoration
+descende à \texttt{0,05}, soit \texttt{N \(\ge\) 6 765,3\(\dots\)}.
+
+L'inégalité obtenue sur les rationnels est stricte à \texttt{6 765} et vraie à \texttt{6 766} : le
+seuil n'est pas entier, et c'est le passage à l'entier supérieur qui donne la
+réponse.
+\end{reponse}
+\begin{proof}
+Comme $N$ est un entier strictement positif, $N > 0$ et $N \times 0{,}14^2 > 0$ : on peut
+multiplier les deux membres par cette quantité sans changer le sens de l'inégalité. La
+condition s'écrit donc
+\[ 6{,}63 \le 0{,}05 \times 0{,}0196 \times N = 0{,}00098\,N . \]
+
+\emph{Sens direct.} Si cette inégalité a lieu, alors $N \ge \dfrac{6{,}63}{0{,}00098}
+= 6\,765{,}30\ldots$, donc $N > 6\,765$ ; un entier strictement supérieur à $6\,765$ vaut
+au moins $6\,766$.
+
+\emph{Réciproque.} Si $N \ge 6\,766$, alors $0{,}00098 \times N \ge 0{,}00098 \times
+6\,766 = 6{,}63068 \ge 6{,}63$.
+
+Le seuil exact n'étant pas entier, c'est le passage à l'entier supérieur qui donne la
+réponse $6\,766$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L81}{Bac2025MetropoleJour1.lean\#L81}
+
+\subsection{Exercice 2 \textemdash{} une fonction avec un logarithme}
+
+\begin{definition}
+La fonction de l'exercice : \texttt{f(x) = x[2(ln x)\(^{2}\) − 3 ln x + 2]}, sur \texttt{]0 ; +\(\infty\)[}.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L97}{Bac2025MetropoleJour1.lean\#L97}
+
+\begin{reponse}
+Partie B, question 1 : l'équation \texttt{2X\(^{2}\) − 3X + 2 = 0} n'a pas de solution réelle,
+et la courbe de \texttt{f} ne coupe donc pas l'axe des abscisses.
+
+Le discriminant vaut \texttt{9 − 16 = −7 < 0}. Ce qui se démontre le plus directement est
+la mise sous forme canonique : \texttt{2X\(^{2}\) − 3X + 2 = 2(X − 3/4)\(^{2}\) + 7/8 \(\ge\) 7/8 > 0}. Le
+crochet ne s'annulant pas et \texttt{x} étant strictement positif, \texttt{f(x)} ne s'annule pas
+non plus.
+\end{reponse}
+\begin{proof}
+On met le trinôme sous forme canonique :
+\[ 2\left(X - \frac{3}{4}\right)^2 + \frac{7}{8}
+   = 2X^2 - 3X + \frac{9}{8} + \frac{7}{8} = 2X^2 - 3X + 2 . \]
+Un carré est positif ou nul, donc $2\bigl(X - \tfrac{3}{4}\bigr)^2 \ge 0$ et
+\[ 2X^2 - 3X + 2 \ge \frac{7}{8} . \]
+
+C'est la traduction du discriminant $9 - 16 = -7 < 0$, sous une forme qui donne en prime
+une minoration explicite.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L106}{Bac2025MetropoleJour1.lean\#L106}
+
+\begin{reponse}
+Le corollaire : \texttt{f} ne s'annule sur \texttt{]0 ; +\(\infty\)[}.
+\end{reponse}
+\begin{proof}
+Appliquons la minoration précédente à $X = \ln x$ : le crochet
+$2(\ln x)^2 - 3\ln x + 2$ vaut au moins $\dfrac{7}{8}$, donc il est strictement positif.
+
+Par définition, $f(x)$ est le produit de $x$, strictement positif par hypothèse, et de ce
+crochet. Un produit de deux facteurs strictement positifs est strictement positif, donc
+$f(x) > 0$ et en particulier $f(x) \ne 0$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L110}{Bac2025MetropoleJour1.lean\#L110}
+
+\begin{reponse}
+Partie B, question 2 : \texttt{f} tend vers \texttt{+\(\infty\)} en \texttt{+\(\infty\)}.
+
+Le sujet passe par la forme \texttt{x[2(ln x)\(^{2}\) − 3 ln x + 2]} et le fait que le crochet tend
+vers \texttt{+\(\infty\)}. La minoration de la question précédente suffit et dit davantage : le
+crochet reste au-dessus de \texttt{7/8}, donc \texttt{f(x) \(\ge\) 7x/8}, et une fonction minorée par une
+fonction qui tend vers \texttt{+\(\infty\)} tend vers \texttt{+\(\infty\)}.
+\end{reponse}
+\begin{proof}
+Pour tout $x > 0$, la minoration du crochet donne, en multipliant par $x \ge 0$,
+\[ f(x) = \bigl(2(\ln x)^2 - 3\ln x + 2\bigr) \, x \ge \frac{7}{8}\,x . \]
+
+Or $x \mapsto \dfrac{7}{8}x$ tend vers $+\infty$ en $+\infty$, comme produit d'une
+constante strictement positive par l'identité. Une fonction minorée à partir d'un certain
+rang par une fonction qui tend vers $+\infty$ tend elle-même vers $+\infty$ : c'est le
+théorème de comparaison, et il conclut.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L123}{Bac2025MetropoleJour1.lean\#L123}
+
+\begin{reponse}
+Partie B, question 3a : \texttt{f''(x) = (4 ln x + 1)/x} sur \texttt{]0 ; +\(\infty\)[}.
+
+Le sujet admet \texttt{f'(x) = 2(ln x)\(^{2}\) + ln x − 1} ; la dérivée seconde s'en déduit en
+dérivant terme à terme, \texttt{(ln x)\(^{2}\)} donnant \texttt{2 ln x / x}.
+\end{reponse}
+\begin{proof}
+Sur $]0 ; +\infty[$, la dérivée du logarithme est $\dfrac{1}{x}$. On dérive terme à
+terme la fonction admise $f'(t) = 2(\ln t)^2 + \ln t - 1$ :
+
+\begin{itemize}
+\item $(\ln t)^2$ a pour dérivée $2 \ln x \times \dfrac{1}{x}$, par dérivation d'une
+      composée ;
+\item $\ln t$ a pour dérivée $\dfrac{1}{x}$ ;
+\item la constante $-1$ a une dérivée nulle.
+\end{itemize}
+
+En sommant,
+\[ f''(x) = 2 \times \frac{2 \ln x}{x} + \frac{1}{x}
+   = \frac{4 \ln x + 1}{x} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L140}{Bac2025MetropoleJour1.lean\#L140}
+
+\begin{reponse}
+Partie B, question 3b : la dérivée seconde est positive si et seulement si
+\texttt{x \(\ge\) e\textasciicircum{}(−1/4)}.
+
+C'est le signe de \texttt{4 ln x + 1}, le dénominateur \texttt{x} étant positif. La fonction est
+donc concave avant \texttt{e\textasciicircum{}(−1/4)}, convexe après, et ce point est son point d'inflexion :
+l'abscisse exacte est \texttt{e\textasciicircum{}(−1/4)}, non une valeur décimale.
+
+Ce qui est démontré est le signe ; la convexité s'en déduit par le critère du cours,
+qui n'est pas repris ici.
+\end{reponse}
+\begin{proof}
+Le dénominateur $x$ étant strictement positif, l'inégalité $0 \le \dfrac{4 \ln x + 1}{x}$
+équivaut à $0 \le 4 \ln x + 1$, c'est-à-dire à
+\[ \ln x \ge -\frac{1}{4} . \]
+
+Le logarithme et l'exponentielle sont deux bijections réciproques croissantes : pour
+$x > 0$, l'inégalité $-\tfrac{1}{4} \le \ln x$ équivaut à $\mathrm{e}^{-1/4} \le x$.
+
+C'est le signe de $f''$ qui est établi ici ; la concavité avant
+$\mathrm{e}^{-1/4}$ et la convexité après s'en déduisent par le critère du cours, qui
+n'est pas repris.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L158}{Bac2025MetropoleJour1.lean\#L158}
+
+\begin{reponse}
+Partie C, question 1 : la tangente à la courbe au point \texttt{B(e ; e)} a pour
+équation réduite \texttt{y = 2x − e}.
+
+En \texttt{x = e}, le logarithme vaut \texttt{1} : \texttt{f(e) = e(2 − 3 + 2) = e} et
+\texttt{f'(e) = 2 + 1 − 1 = 2}. L'équation de la tangente est
+\texttt{y = f'(e)(x − e) + f(e) = 2x − e}.
+\end{reponse}
+\begin{proof}
+En $x = \mathrm{e}$, le logarithme vaut $1$ puisque logarithme et exponentielle sont
+réciproques l'un de l'autre. Donc
+\[ f(\mathrm{e}) = \mathrm{e}\,(2 - 3 + 2) = \mathrm{e} \]
+et
+\[ f'(\mathrm{e}) = 2 \times 1^2 + 1 - 1 = 2 . \]
+
+L'équation réduite de la tangente au point d'abscisse $\mathrm{e}$ est alors
+\[ y = f'(\mathrm{e})(x - \mathrm{e}) + f(\mathrm{e}) = 2x - 2\mathrm{e} + \mathrm{e}
+   = 2x - \mathrm{e} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L169}{Bac2025MetropoleJour1.lean\#L169}
+
+\begin{reponse}
+Partie C, question 3 : l'aire du domaine hachuré vaut \texttt{(3e\(^{2}\) − 4e − 5)/4} unités
+d'aire.
+
+Le domaine est compris entre la courbe et sa tangente, entre \texttt{x = 1} et \texttt{x = e} :
+son aire est \texttt{\(\int\)\(_{1}\)\textasciicircum{}e (f(x) − (2x − e)) dx}, et l'intégrande se simplifie en
+\texttt{2x(ln x)\(^{2}\) − 3x ln x + e}. Les deux intégrales sont celles de la question 2 et de
+l'énoncé \textemdash{} \texttt{(e\(^{2}\) + 1)/4} et \texttt{(e\(^{2}\) − 1)/4} \textemdash{} et sont ici prises en hypothèse, comme le
+sujet les admet. Reste \texttt{2(e\(^{2}\)−1)/4 − 3(e\(^{2}\)+1)/4 + e(e−1)}.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Bac2025MetropoleJour1/ex2_aire}
+\caption{Le domaine compris entre la courbe de \(f\) et sa tangente en \(B\), de \(x = 1\) à \(x = \mathrm{e}\).}
+\end{figure}
+\begin{proof}
+On remplace $I$ et $J$ par les valeurs admises et l'on réduit au même dénominateur :
+\[
+\begin{aligned}
+2J - 3I + \mathrm{e}(\mathrm{e} - 1)
+ &= \frac{2(\mathrm{e}^2 - 1)}{4} - \frac{3(\mathrm{e}^2 + 1)}{4}
+    + \mathrm{e}^2 - \mathrm{e} \\
+ &= \frac{2\mathrm{e}^2 - 2 - 3\mathrm{e}^2 - 3}{4} + \mathrm{e}^2 - \mathrm{e} \\
+ &= \frac{-\mathrm{e}^2 - 5 + 4\mathrm{e}^2 - 4\mathrm{e}}{4}
+  = \frac{3\mathrm{e}^2 - 4\mathrm{e} - 5}{4} .
+\end{aligned}
+\]
+
+Les deux intégrales $I$ et $J$ sont ici prises en hypothèse, comme le sujet les admet :
+ce qui est démontré est la combinaison, non leur calcul.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L182}{Bac2025MetropoleJour1.lean\#L182}
+
+\subsection{Exercice 3 \textemdash{} vrai ou faux dans l'espace}
+
+\begin{reponse}
+Affirmation 1, \textbf{vraie}. Le vecteur directeur proposé est \texttt{(−2 ; −1 ; 3)}, et
+\texttt{AB = (4 ; 2 ; −6) = −2 \(\times\) (−2 ; −1 ; 3)} : il est colinéaire à \texttt{AB}. Le point obtenu
+pour \texttt{t = 0} est \texttt{B(3 ; 2 ; −1)}, qui appartient à la droite. La représentation
+paramétrique est donc bien celle de \texttt{(AB)}.
+\end{reponse}
+\begin{proof}
+On calcule les coordonnées du vecteur $\vec{AB}$, différence des coordonnées de $B$ et de
+$A$ :
+\[ \vec{AB} = (3 - (-1) ;\ 2 - 0 ;\ -1 - 5) = (4 ;\ 2 ;\ -6) , \]
+et
+\[ -2 \times (-2 ;\ -1 ;\ 3) = (4 ;\ 2 ;\ -6) . \]
+
+Les deux triplets coïncident : le vecteur directeur proposé est colinéaire à $\vec{AB}$.
+Comme la valeur $t = 0$ du paramètre donne le point $B$, la représentation paramétrique
+est bien celle de la droite $(AB)$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L194}{Bac2025MetropoleJour1.lean\#L194}
+
+\begin{reponse}
+Affirmation 2, \textbf{fausse}. Le vecteur \texttt{n = (5 ; −2 ; 1)} est bien orthogonal à
+\texttt{OA} \textemdash{} le produit scalaire vaut \texttt{−5 + 0 + 5 = 0} \textemdash{} mais pas à \texttt{OB}, où il vaut
+\texttt{15 − 4 − 1 = 10}. Un vecteur normal à un plan doit être orthogonal à deux vecteurs
+non colinéaires du plan : une seule orthogonalité ne suffit pas, et c'est le piège de
+l'affirmation.
+\end{reponse}
+\begin{proof}
+Le produit scalaire est, dans un repère orthonormé, la somme des produits des coordonnées.
+Pour $\vec{n}(5 ; -2 ; 1)$ et $\vec{OA}(-1 ; 0 ; 5)$ :
+\[ 5 \times (-1) + (-2) \times 0 + 1 \times 5 = -5 + 0 + 5 = 0 . \]
+Pour $\vec{n}$ et $\vec{OB}(3 ; 2 ; -1)$ :
+\[ 5 \times 3 + (-2) \times 2 + 1 \times (-1) = 15 - 4 - 1 = 10 \ne 0 . \]
+
+Un vecteur normal à un plan doit être orthogonal à deux vecteurs non colinéaires de ce
+plan : la première orthogonalité ne suffit pas, et la seconde est en défaut. L'affirmation
+est fausse.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L203}{Bac2025MetropoleJour1.lean\#L203}
+
+\begin{reponse}
+Affirmation 3, \textbf{fausse} : les droites \texttt{d} et \texttt{d'} sont sécantes, donc
+coplanaires.
+
+Le système donné par les deux premières coordonnées a pour solution \texttt{s = 5/2} et
+\texttt{k = −4}, et la troisième coordonnée est alors satisfaite aussi : les deux droites
+passent par \texttt{(−9 ; 12 ; −14)}. Démontrer qu'une affirmation d'existence est fausse
+c'est exhiber le point, et c'est plus court que de raisonner sur les vecteurs.
+\end{reponse}
+\begin{proof}
+Démontrer qu'une affirmation de non-existence est fausse, c'est exhiber un contre-exemple.
+Prenons $k = -4$ et $s = \dfrac{5}{2}$, et vérifions les trois coordonnées :
+\[ 15 + (-4) = 11 = 1 + 4 \times \frac{5}{2} , \qquad
+   8 - (-4) = 12 = 2 + 4 \times \frac{5}{2} , \]
+\[ -6 + 2 \times (-4) = -14 = 1 - 6 \times \frac{5}{2} . \]
+
+Les deux droites passent donc toutes deux par le point $(-9 ; 12 ; -14)$ : elles sont
+sécantes, donc coplanaires, et l'affirmation est fausse.
+
+Les deux premières équations suffisaient à déterminer le couple $(k, s)$ ; c'est la
+troisième, satisfaite \og{} par surcroît \fg{}, qui fait la conclusion.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L214}{Bac2025MetropoleJour1.lean\#L214}
+
+\begin{reponse}
+Affirmation 4, \textbf{vraie} : la distance de \texttt{C(2 ; −1 ; 2)} au plan
+\texttt{x − y + z + 1 = 0} vaut \texttt{2\(\sqrt{3}\)}.
+
+La formule donne \texttt{|2 + 1 + 2 + 1|/\(\sqrt{1 + 1 + 1}\) = 6/\(\sqrt{3}\)}, et \texttt{6/\(\sqrt{3}\) = 2\(\sqrt{3}\)} \textemdash{} c'est la
+même valeur écrite sans radical au dénominateur.
+\end{reponse}
+\begin{proof}
+La distance d'un point à un plan d'équation $ax + by + cz + d = 0$ est
+$\dfrac{|ax_0 + by_0 + cz_0 + d|}{\sqrt{a^2 + b^2 + c^2}}$. Ici le numérateur vaut
+\[ |2 - (-1) + 2 + 1| = |6| = 6 , \]
+et le dénominateur $\sqrt{1 + 1 + 1} = \sqrt{3}$.
+
+Reste à voir que $\dfrac{6}{\sqrt{3}} = 2\sqrt{3}$. Comme $\sqrt{3} > 0$, il revient au
+même de vérifier, après multiplication par $\sqrt{3}$,
+\[ 6 = 2\sqrt{3} \times \sqrt{3} = 2 \times 3 , \]
+où l'on a utilisé $\sqrt{3} \times \sqrt{3} = 3$ \textemdash{} la racine carrée d'un réel
+positif est le réel positif dont le carré vaut ce réel.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L223}{Bac2025MetropoleJour1.lean\#L223}
+
+\subsection{Exercice 4 \textemdash{} la posidonie}
+
+\begin{definition}
+La suite du modèle discret : \texttt{u\(_{0}\) = 1} et \texttt{u\_\{n+1\} = −0,02u\_n\(^{2}\) + 1,3u\_n}.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L234}{Bac2025MetropoleJour1.lean\#L234}
+
+\begin{reponse}
+La relation de récurrence, sous la forme où les preuves l'utilisent.
+\end{reponse}
+\begin{proof}
+Les deux membres sont le même énoncé : c'est la seconde clause de la définition récursive
+de $u$, celle qui donne $u_{n+1}$ à partir de $u_n$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L239}{Bac2025MetropoleJour1.lean\#L239}
+
+\begin{reponse}
+Partie A, question 1 : au premier juillet 2025, la posidonie recouvre
+\texttt{1,28 hectare}.
+\end{reponse}
+\begin{proof}
+On applique la relation de récurrence à $n = 0$, avec $u_0 = 1$ :
+\[ u_1 = -0{,}02 \times 1^2 + 1{,}3 \times 1 = -0{,}02 + 1{,}3 = 1{,}28 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L243}{Bac2025MetropoleJour1.lean\#L243}
+
+\begin{reponse}
+Partie A, question 2a : pour tout \texttt{n}, \texttt{1 \(\le\) u\_n \(\le\) u\_\{n+1\} \(\le\) 20}.
+
+La récurrence porte sur les trois inégalités à la fois, et c'est nécessaire : la
+croissance de \texttt{n} à \texttt{n+1} se déduit de celle de \texttt{n−1} à \texttt{n} en appliquant \texttt{h}, non
+d'un raisonnement sur le point fixe \textemdash{} la fonction \texttt{h(x) = −0,02x\(^{2}\) + 1,3x} est
+croissante sur \texttt{[0 ; 20]}, ce que le sujet admet et que les inégalités polynomiales
+retrouvent directement. Sans le majorant \texttt{20}, cette monotonie tomberait : \texttt{h}
+décroît au-delà de \texttt{32,5}.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Bac2025MetropoleJour1/ex4_encadrement}
+\caption{L'escalier de la suite : partie de \(u_0 = 1\), elle croît en restant sous \(20\), vers le point fixe \(15\).}
+\end{figure}
+\begin{proof}
+Posons $h(x) = -0{,}02x^2 + 1{,}3x$, de sorte que $u_{n+1} = h(u_n)$. Deux propriétés de
+$h$ servent, et il faut les établir avant la récurrence.
+
+\emph{$h$ est croissante sur $[0 ; 20]$.} Pour $0 \le a \le b \le 20$,
+\[ h(b) - h(a) = (b - a)\bigl(1{,}3 - 0{,}02\,(a + b)\bigr) . \]
+Le premier facteur est positif ou nul ; le second aussi, puisque $a + b \le 40$ donne
+$0{,}02\,(a+b) \le 0{,}8 \le 1{,}3$. Donc $h(a) \le h(b)$.
+
+\emph{$h$ ne dépasse pas $20$ sur $[1 ; 20]$.} Pour $1 \le b \le 20$,
+\[ 20 - h(b) = 0{,}02\,b^2 - 1{,}3\,b + 20 = 0{,}02\,(25 - b)(40 - b) , \]
+produit de deux facteurs positifs puisque $b \le 20 < 25 < 40$. Donc $h(b) \le 20$.
+
+\emph{Récurrence.} Au rang $0$ : $u_0 = 1$, donc $1 \le u_0$ ; et $u_1 = 1{,}28$, donc
+$u_0 \le u_1$ et $u_1 \le 20$.
+
+Supposons $1 \le u_n \le u_{n+1} \le 20$. Alors $1 \le u_{n+1}$ par transitivité. Ensuite,
+la croissance de $h$ appliquée à $0 \le u_n \le u_{n+1} \le 20$ donne
+\[ u_{n+1} = h(u_n) \le h(u_{n+1}) = u_{n+2} , \]
+et la majoration appliquée à $1 \le u_{n+1} \le 20$ donne $u_{n+2} = h(u_{n+1}) \le 20$.
+Les trois inégalités sont vraies au rang $n+1$.
+
+Il fallait porter la récurrence sur les trois inégalités à la fois : la croissance d'un
+rang au suivant se déduit de celle du rang précédent, et le majorant $20$ est ce qui
+maintient la suite dans la zone où $h$ est croissante \textemdash{} $h$ décroît au-delà de
+$32{,}5$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L255}{Bac2025MetropoleJour1.lean\#L255}
+
+\begin{reponse}
+Partie A, question 2c : la limite de la suite vaut \texttt{15 hectares}.
+
+Si la suite converge vers \texttt{L}, la limite vérifie \texttt{L = −0,02L\(^{2}\) + 1,3L}, c'est-à-dire
+\texttt{0,02L\(^{2}\) = 0,3L} : les points fixes sont \texttt{0} et \texttt{15}. La suite étant minorée par \texttt{1},
+sa limite l'est aussi, et \texttt{L = 15}. La zone étudiée fait \texttt{20 hectares} : le modèle
+prévoit donc que la posidonie n'en recouvrira jamais toute la surface.
+\end{reponse}
+\begin{proof}
+Si la suite converge vers $L$, alors $L$ est un point fixe de la relation de récurrence :
+$L = -0{,}02L^2 + 1{,}3L$. En regroupant, $0{,}02L^2 = 0{,}3L$, c'est-à-dire, après
+division par $0{,}02$,
+\[ L(L - 15) = 0 . \]
+
+Un produit est nul quand l'un de ses facteurs l'est. Le cas $L = 0$ est exclu par
+l'hypothèse $L \ge 1$ ; reste $L = 15$.
+
+La zone étudiée faisant $20$ hectares, le modèle prévoit que la posidonie n'en recouvrira
+jamais toute la surface.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L283}{Bac2025MetropoleJour1.lean\#L283}
+
+\begin{reponse}
+Partie B, question 1 : \texttt{g = 1/f} est solution de \texttt{y' = −0,3y + 0,02}.
+
+C'est le changement de fonction qui rend l'équation linéaire : la dérivée de \texttt{1/f}
+vaut \texttt{−f'/f\(^{2}\)}, et en remplaçant \texttt{f'} par \texttt{0,02f(15 − f)} il reste
+\texttt{−0,02(15 − f)/f = −0,3/f + 0,02}, soit \texttt{−0,3g + 0,02}. C'est le seul endroit où
+l'hypothèse \og{} \texttt{f} ne s'annule pas \fg{} sert.
+\end{reponse}
+\begin{proof}
+La dérivée d'un quotient de la fonction constante $1$ par $F$ est
+\[ \left(\frac{1}{F}\right)'(t)
+   = \frac{0 \times F(t) - 1 \times F'(t)}{F(t)^2} = -\frac{F'(t)}{F(t)^2} , \]
+ce qui suppose $F(t) \ne 0$ : c'est le seul endroit où cette hypothèse sert.
+
+En y remplaçant $F'(t)$ par $0{,}02\,F(t)\,(15 - F(t))$, le facteur $F(t)$ se simplifie :
+\[ -\frac{0{,}02\,F(t)\,(15 - F(t))}{F(t)^2}
+   = -\frac{0{,}02\,(15 - F(t))}{F(t)}
+   = -\frac{0{,}3}{F(t)} + 0{,}02 . \]
+
+C'est bien $-0{,}3\,g(t) + 0{,}02$ avec $g = \dfrac{1}{F}$ : le changement de fonction a
+rendu l'équation linéaire.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L295}{Bac2025MetropoleJour1.lean\#L295}
+
+\begin{reponse}
+Partie B, question 3 : \texttt{f(t) = 15/(14e\textasciicircum{}(−0,3t) + 1)}.
+
+Les solutions de \texttt{(E\(_{2}\))} sont les \texttt{t \(\mapsto\) Ce\textasciicircum{}(−0,3t) + 1/15}, et \texttt{g(0) = 1/f(0) = 1}
+donne \texttt{C = 14/15}. Il ne reste qu'à inverser : \texttt{f = 1/g}, et le dénominateur ne
+s'annule pas puisque l'exponentielle est positive.
+\end{reponse}
+\begin{proof}
+Le dénominateur $14\mathrm{e}^{-0{,}3t} + 1$ est strictement positif, l'exponentielle
+l'étant toujours ; on peut donc écrire l'égalité sous forme de produit et multiplier haut
+et bas par $15$ :
+\[ \frac{1}{\frac{14}{15}\mathrm{e}^{-0{,}3t} + \frac{1}{15}}
+   = \frac{15}{14\mathrm{e}^{-0{,}3t} + 1} . \]
+C'est la même fraction, écrite sans dénominateur au dénominateur.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L310}{Bac2025MetropoleJour1.lean\#L310}
+
+\begin{reponse}
+Partie B, question 4 : la superficie tend vers \texttt{15 hectares}.
+
+L'exponentielle \texttt{e\textasciicircum{}(−0,3t)} tend vers \texttt{0}, donc le dénominateur vers \texttt{1}. Le modèle
+continu et le modèle discret donnent la même limite, ce qui est le seul point commun
+qu'on leur demande.
+\end{reponse}
+\begin{proof}
+La fonction $t \mapsto 0{,}3t$ tend vers $+\infty$, et l'exponentielle tend vers $0$ en
+$-\infty$ : par composition, $\mathrm{e}^{-0{,}3t}$ tend vers $0$.
+
+Donc le dénominateur $14\mathrm{e}^{-0{,}3t} + 1$ tend vers $14 \times 0 + 1 = 1$. Comme
+cette limite n'est pas nulle, son inverse tend vers $\dfrac{1}{1} = 1$, et le produit par
+$15$ tend vers $15$.
+
+Le modèle continu donne donc la même limite que le modèle discret, $15$ hectares.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L321}{Bac2025MetropoleJour1.lean\#L321}
+
+\begin{reponse}
+Partie B, question 5 : la superficie dépasse \texttt{14 hectares} après
+\texttt{t > (10/3) ln 196}, soit environ \texttt{17,6} années \textemdash{} donc dans le courant de l'année
+2042.
+
+L'inéquation \texttt{15/(14e\textasciicircum{}(−0,3t) + 1) > 14} équivaut à \texttt{e\textasciicircum{}(−0,3t) < 1/196}, c'est-à-dire
+\texttt{−0,3t < −ln 196}. Le seuil exact est \texttt{(ln 196)/0,3} : la valeur décimale ne se lit
+qu'à la calculatrice, mais l'équivalence est exacte.
+\end{reponse}
+\begin{proof}
+Le dénominateur $14\mathrm{e}^{-0{,}3t} + 1$ est strictement positif, donc l'inéquation
+\[ \frac{15}{14\mathrm{e}^{-0{,}3t} + 1} > 14 \]
+équivaut à $15 > 14\,(14\mathrm{e}^{-0{,}3t} + 1)$, c'est-à-dire à
+$196\,\mathrm{e}^{-0{,}3t} < 1$, ou encore
+\[ \mathrm{e}^{-0{,}3t} < \frac{1}{196} . \]
+
+Le logarithme est strictement croissant et réciproque de l'exponentielle : cette dernière
+inégalité équivaut à
+\[ -0{,}3\,t < \ln\frac{1}{196} = -\ln 196 , \]
+puis, en divisant par $0{,}3 > 0$, à $\dfrac{\ln 196}{0{,}3} < t$.
+
+Le seuil exact est donc $\dfrac{\ln 196}{0{,}3} = \dfrac{10}{3}\ln 196 \approx 17{,}6$
+années : la valeur décimale se lit à la calculatrice, l'équivalence est exacte.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour1.lean\#L340}{Bac2025MetropoleJour1.lean\#L340}
+
+\section{Bac2025MetropoleJour2}
+
+\noindent
+Baccalauréat, épreuve de spécialité \textemdash{} voie générale, Métropole, 18 juin 2025 (jour 2).
+
+Chaque question du sujet qui porte une proposition mathématique devient un théorème
+Lean, dont la réponse est rédigée ci-dessous en français. Celles qui n'en portent pas \textemdash{} représenter un arbre pondéré, lire une durée
+ou une asymptote sur un graphique, justifier une modélisation \textemdash{} n'ont pas d'énoncé, et
+l'index du dossier dit lesquelles et pourquoi.
+
+Les probabilités sont traitées comme le sujet les traite : sur les nombres. La
+géométrie de l'espace, elle, est traitée sur les coordonnées : c'est ce que le repère
+orthonormé permet, et le produit scalaire y est la somme des produits des coordonnées.
+
+\subsection{Exercice 1 \textemdash{} chutes au roller, temps d'attente}
+
+\begin{reponse}
+Partie A, question 2 : \texttt{P(Ā \(\cap\) \(\overline{B}\)) = 0,4 \(\times\) 0,6 = 0,24}.
+
+C'est la lecture d'un chemin de l'arbre : \texttt{24 \%} des personnes ne chutent à aucune des
+deux séances.
+\end{reponse}
+\begin{proof}
+Les probabilités se multiplient le long d'un chemin de l'arbre :
+\[ P(\bar{A} \cap \bar{B}) = 0{,}4 \times 0{,}6 = 0{,}24 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L24}{Bac2025MetropoleJour2.lean\#L24}
+
+\begin{reponse}
+Partie A, question 3 : \texttt{P(B) = 0,34}.
+
+La formule des probabilités totales décompose \texttt{B} selon qu'il y a eu chute ou non à la
+première séance : \texttt{0,6 \(\times\) 0,3 + 0,4 \(\times\) 0,4}. Les deux chemins ne s'excluent pas par
+hasard : \texttt{A} et \texttt{Ā} forment une partition.
+\end{reponse}
+\begin{proof}
+Les évènements $A$ et $\bar{A}$ forment une partition : toute personne a chuté ou non à la
+première séance, et pas les deux. La formule des probabilités totales décompose $B$ sur
+cette partition :
+\[ P(B) = P(A) \times P_A(B) + P(\bar{A}) \times P_{\bar{A}}(B)
+   = 0{,}6 \times 0{,}3 + 0{,}4 \times 0{,}4 = 0{,}18 + 0{,}16 = 0{,}34 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L31}{Bac2025MetropoleJour2.lean\#L31}
+
+\begin{reponse}
+Partie A, question 4 : \texttt{P\_\(\overline{B}\)(Ā) = 0,24/0,66 = 4/11}, soit \texttt{0,364} au millième près.
+
+La probabilité conditionnelle renverse le conditionnement : on connaît la probabilité
+de chuter sachant qu'on a chuté avant, on cherche celle de n'avoir pas chuté avant
+sachant qu'on ne chute pas maintenant.
+\end{reponse}
+\begin{proof}
+Par définition d'une probabilité conditionnelle, et puisque
+$P(\bar{B}) = 1 - P(B) = 0{,}66$ :
+\[ P_{\bar{B}}(\bar{A}) = \frac{P(\bar{A} \cap \bar{B})}{P(\bar{B})}
+   = \frac{0{,}24}{0{,}66} = \frac{24}{66} = \frac{4}{11} . \]
+
+L'arrondi au millième se lit sur l'écart :
+\[ \left|\frac{4}{11} - 0{,}364\right| = |0{,}363636\ldots - 0{,}364|
+   = 0{,}000363\ldots < 0{,}0005 . \]
+
+Le conditionnement est renversé : on connaît la probabilité de chuter sachant qu'on a
+chuté, on cherche celle de n'avoir pas chuté sachant qu'on ne chute pas.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L38}{Bac2025MetropoleJour2.lean\#L38}
+
+\begin{reponse}
+Partie A, question 5c : \texttt{E(X) = 100 \(\times\) 0,24 = 24}.
+
+Sur un échantillon de \texttt{100} personnes, on en attend \texttt{24} qui ne chutent à aucune des
+deux séances : l'espérance d'une loi binomiale est \texttt{np}, et c'est la proportion
+retrouvée à l'échelle de l'échantillon.
+\end{reponse}
+\begin{proof}
+L'espérance d'une loi binomiale de paramètres $n$ et $p$ vaut $np$ :
+\[ E(X) = 100 \times 0{,}24 = 24 . \]
+La proportion se retrouve à l'échelle de l'échantillon.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L49}{Bac2025MetropoleJour2.lean\#L49}
+
+\begin{reponse}
+Partie B, question 1 : \texttt{E(T) = E(T\(_{1}\)) + E(T\(_{2}\)) = 100} minutes.
+
+L'espérance est additive sans autre hypothèse : l'indépendance ne sert pas ici.
+\end{reponse}
+\begin{proof}
+L'espérance est additive, sans aucune hypothèse sur les deux variables :
+\[ E(T) = E(T_1) + E(T_2) = 40 + 60 = 100 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L54}{Bac2025MetropoleJour2.lean\#L54}
+
+\begin{reponse}
+Partie B, question 2 : \texttt{V(T) = 10\(^{2}\) + 16\(^{2}\) = 356}.
+
+Les variances s'ajoutent parce que les deux variables sont indépendantes, et ce sont
+les variances qui s'ajoutent, non les écarts-types : \texttt{10 + 16 = 26} n'a pas de sens
+ici, et \texttt{\(\sqrt{356}\) \(\approx\) 18,9} est l'écart-type de la somme.
+\end{reponse}
+\begin{proof}
+Les deux variables étant indépendantes, leurs variances s'ajoutent \textemdash{} et ce
+sont les variances, non les écarts-types :
+\[ V(T) = 10^2 + 16^2 = 100 + 256 = 356 . \]
+L'écart-type de la somme est $\sqrt{356} \approx 18{,}9$, et non $10 + 16 = 26$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L61}{Bac2025MetropoleJour2.lean\#L61}
+
+\begin{reponse}
+Partie B, question 3 : \texttt{P(60 < T < 140) > 0,77}.
+
+L'évènement \texttt{60 < T < 140} est exactement \texttt{|T − 100| < 40}. Bienaymé-Tchebychev majore
+la probabilité contraire par \texttt{V(T)/40\(^{2}\) = 356/1 600 = 0,222 5}, donc minore celle
+cherchée par \texttt{0,777 5}, qui dépasse \texttt{0,77}.
+
+L'inégalité est très large \textemdash{} la vraie probabilité est sans doute bien plus grande \textemdash{}
+mais elle ne demande aucune hypothèse sur la loi, et c'est là son intérêt.
+\end{reponse}
+\begin{proof}
+L'évènement $60 < T < 140$ s'écrit $|T - 100| < 40$, puisque $E(T) = 100$. L'inégalité de
+Bienaymé-Tchebychev majore la probabilité de l'évènement contraire :
+\[ P(|T - 100| \ge 40) \le \frac{V(T)}{40^2} = \frac{356}{1\,600} = 0{,}2225 . \]
+
+En passant au complémentaire,
+\[ P(60 < T < 140) \ge 1 - 0{,}2225 = 0{,}7775 > 0{,}77 . \]
+
+La majoration est très large \textemdash{} la vraie probabilité est sans doute bien plus
+grande \textemdash{} mais elle ne suppose rien sur la loi de $T$, et c'est là son intérêt.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L71}{Bac2025MetropoleJour2.lean\#L71}
+
+\subsection{Exercice 2 \textemdash{} droites, plan et projeté orthogonal}
+
+\begin{reponse}
+Partie A, question 1 : les droites \texttt{d} et \texttt{d'} sont sécantes au point
+\texttt{S(−1/2 ; 1 ; 4)}.
+
+Le paramètre \texttt{t = −1} place le point de \texttt{d} en \texttt{S}, le paramètre \texttt{s = −1/2} place celui
+de \texttt{d'} au même endroit : le point est commun. Les vecteurs directeurs \texttt{(2 ; 1 ; −1)} et
+\texttt{(1 ; 1 ; −2)} n'étant pas colinéaires, les droites sont bien sécantes et non
+confondues.
+\end{reponse}
+\begin{proof}
+Il suffit d'exhiber les deux paramètres. Pour $t = -1$, le point de $d$ est
+\[ \left(\frac{3}{2} + 2 \times (-1) ;\ 2 + (-1) ;\ 3 - (-1)\right)
+   = \left(-\frac{1}{2} ;\ 1 ;\ 4\right) , \]
+et pour $s = -\dfrac{1}{2}$, le point de $d'$ est
+\[ \left(-\frac{1}{2} ;\ \frac{3}{2} - \frac{1}{2} ;\ 3 - 2 \times \left(-\frac{1}{2}\right)\right)
+   = \left(-\frac{1}{2} ;\ 1 ;\ 4\right) . \]
+
+Les deux droites passent donc par $S\left(-\tfrac{1}{2} ; 1 ; 4\right)$. Leurs vecteurs
+directeurs $(2 ; 1 ; -1)$ et $(1 ; 1 ; -2)$ n'étant pas colinéaires, elles sont sécantes
+et non confondues.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L84}{Bac2025MetropoleJour2.lean\#L84}
+
+\begin{reponse}
+Partie A, question 2a : le vecteur \texttt{n(1 ; 2 ; 4)} est normal au plan \texttt{(ABC)}.
+
+Il est orthogonal à \texttt{AB(2 ; −3 ; 1)} et à \texttt{AC(2 ; −1 ; 0)}, qui ne sont pas colinéaires :
+deux orthogonalités à deux vecteurs non colinéaires du plan, c'est la définition d'un
+vecteur normal.
+\end{reponse}
+\begin{proof}
+Le produit scalaire est la somme des produits des coordonnées. Avec
+$\vec{n}(1 ; 2 ; 4)$ :
+\[ \vec{n} \cdot \vec{AB} = 1 \times 2 + 2 \times (-3) + 4 \times 1 = 2 - 6 + 4 = 0 , \]
+\[ \vec{n} \cdot \vec{AC} = 1 \times 2 + 2 \times (-1) + 4 \times 0 = 2 - 2 + 0 = 0 . \]
+
+Les vecteurs $\vec{AB}(2 ; -3 ; 1)$ et $\vec{AC}(2 ; -1 ; 0)$ ne sont pas colinéaires :
+orthogonal à deux vecteurs non colinéaires du plan, $\vec{n}$ en est un vecteur normal.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L94}{Bac2025MetropoleJour2.lean\#L94}
+
+\begin{reponse}
+Partie A, question 2b : une équation cartésienne du plan \texttt{(ABC)} est
+\texttt{x + 2y + 4z − 7 = 0}.
+
+Les coefficients sont les coordonnées du vecteur normal ; le terme constant se
+détermine en écrivant qu'un point du plan vérifie l'équation. Les trois points la
+vérifient, ce qui la confirme.
+\end{reponse}
+\begin{proof}
+Un plan de vecteur normal $(1 ; 2 ; 4)$ a une équation de la forme $x + 2y + 4z + d = 0$ ;
+le terme constant se détermine en écrivant qu'un point du plan la vérifie. Les trois
+points la vérifient avec $d = -7$ :
+\[ -1 + 2 \times 2 + 4 \times 1 - 7 = 0, \qquad
+   1 + 2 \times (-1) + 4 \times 2 - 7 = 0, \]
+\[ 1 + 2 \times 1 + 4 \times 1 - 7 = 0 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L104}{Bac2025MetropoleJour2.lean\#L104}
+
+\begin{reponse}
+Partie A, question 3 : les points \texttt{A}, \texttt{B}, \texttt{C} et \texttt{S} ne sont pas coplanaires.
+
+Il suffit que \texttt{S} ne vérifie pas l'équation du plan \texttt{(ABC)} : la valeur \texttt{21/2} obtenue
+est l'écart, non nul. Les quatre points forment donc un tétraèdre.
+\end{reponse}
+\begin{proof}
+Il suffit de reporter les coordonnées de $S$ dans l'équation du plan :
+\[ -\frac{1}{2} + 2 \times 1 + 4 \times 4 - 7 = \frac{21}{2} \ne 0 . \]
+Le point $S$ n'appartient donc pas au plan $(ABC)$, et les quatre points forment un
+tétraèdre.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L113}{Bac2025MetropoleJour2.lean\#L113}
+
+\begin{reponse}
+Partie A, question 4a : \texttt{H(−1 ; 0 ; 2)} est le projeté orthogonal de \texttt{S} sur le
+plan \texttt{(ABC)}.
+
+Deux vérifications : \texttt{H} appartient au plan, et \texttt{SH(−1/2 ; −1 ; −2)} est colinéaire au
+vecteur normal \textemdash{} c'est \texttt{−1/2 \(\times\) n}. Le projeté orthogonal est le seul point du plan tel
+que la droite \texttt{(SH)} soit orthogonale au plan.
+\end{reponse}
+\begin{proof}
+Deux vérifications suffisent, car le projeté orthogonal est le seul point du plan tel que
+la droite qui le joint à $S$ soit orthogonale au plan.
+
+D'abord $H(-1 ; 0 ; 2)$ appartient au plan :
+\[ -1 + 2 \times 0 + 4 \times 2 - 7 = 0 . \]
+
+Ensuite $\vec{SH}$ est colinéaire au vecteur normal :
+\[ \vec{SH} = \left(-1 + \frac{1}{2} ;\ 0 - 1 ;\ 2 - 4\right)
+   = \left(-\frac{1}{2} ;\ -1 ;\ -2\right) = -\frac{1}{2}\,(1 ;\ 2 ;\ 4) . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L121}{Bac2025MetropoleJour2.lean\#L121}
+
+\begin{reponse}
+Partie A, question 4b : aucun point \texttt{M} du plan \texttt{(ABC)} ne vérifie \texttt{SM < \(\sqrt{21}\)/2}.
+
+La distance de \texttt{S} au plan est \texttt{SH = \(\sqrt{1/4 + 1 + 4}\) = \(\sqrt{21}\)/2}, et le projeté orthogonal
+réalise le minimum. Plutôt que d'invoquer ce minimum, on le démontre : pour tout point
+\texttt{M(x ; y ; z)} du plan, l'inégalité de Cauchy-Schwarz appliquée à
+\texttt{(x + 1/2) + 2(y − 1) + 4(z − 4) = −21/2} donne \texttt{(21/2)\(^{2}\) \(\le\) 21 \(\times\) SM\(^{2}\)}, soit
+\texttt{SM\(^{2}\) \(\ge\) 21/4}.
+
+C'est le carré de la distance qui est comparé, jamais la distance elle-même : la
+racine carrée n'apparaît pas dans la démonstration.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Bac2025MetropoleJour2/ex2_distance_minimale}
+\caption{Le projeté orthogonal \(H\) réalise la plus courte distance de \(S\) au plan : tout autre point \(M\) est plus loin.}
+\end{figure}
+\begin{proof}
+Posons $a = x + \dfrac{1}{2}$, $b = y - 1$, $c = z - 4$, de sorte que $SM^2 = a^2 + b^2 +
+c^2$. L'hypothèse $x + 2y + 4z = 7$ se récrit
+\[ a + 2b + 4c = (x + 2y + 4z) - \frac{35}{2} = 7 - \frac{35}{2} = -\frac{21}{2} . \]
+
+L'identité de Lagrange, pour les triplets $(1 ; 2 ; 4)$ et $(a ; b ; c)$, s'écrit
+\[ (1 + 4 + 16)(a^2 + b^2 + c^2) - (a + 2b + 4c)^2
+   = (b - 2a)^2 + (c - 4a)^2 + (2c - 4b)^2 \ge 0 , \]
+somme de trois carrés. C'est l'inégalité de Cauchy-Schwarz, démontrée plutôt qu'invoquée.
+
+D'où $\left(\dfrac{21}{2}\right)^2 \le 21\,(a^2 + b^2 + c^2)$, c'est-à-dire
+\[ SM^2 = a^2 + b^2 + c^2 \ge \frac{441}{4 \times 21} = \frac{21}{4} . \]
+
+Aucun point du plan n'est donc à une distance de $S$ inférieure à
+$\sqrt{21}/2$, distance réalisée par le projeté $H$. C'est le carré de la distance qui est
+comparé d'un bout à l'autre : la racine carrée n'intervient jamais.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L136}{Bac2025MetropoleJour2.lean\#L136}
+
+\begin{reponse}
+Partie B, question 1 : le point \texttt{M} de \texttt{[CS]} tel que \texttt{CM = k CS} a pour
+coordonnées \texttt{(1 − 3k/2 ; 1 ; 1 + 3k)}.
+
+L'ordonnée ne dépend pas de \texttt{k} : \texttt{C} et \texttt{S} ont la même, et le segment est donc
+contenu dans le plan \texttt{y = 1}.
+\end{reponse}
+\begin{proof}
+Les coordonnées de $M$ s'obtiennent en ajoutant à celles de $C$ le vecteur
+$k\,\vec{CS}$, et il n'y a plus qu'à développer :
+\[ 1 + k\left(-\frac{1}{2} - 1\right) = 1 - \frac{3}{2}k , \qquad
+   1 + k\,(1 - 1) = 1 , \qquad
+   1 + k\,(4 - 1) = 1 + 3k . \]
+
+L'ordonnée ne dépend pas de $k$ : $C$ et $S$ ont la même, donc le segment est contenu dans
+le plan d'équation $y = 1$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L146}{Bac2025MetropoleJour2.lean\#L146}
+
+\begin{reponse}
+Partie B, question 2 : oui, il existe un point \texttt{M} de \texttt{[CS]} tel que le triangle
+\texttt{MAB} soit rectangle en \texttt{M}.
+
+Le produit scalaire \texttt{MA \(\cdot\) MB} vaut \texttt{11,25k\(^{2}\) − 6k − 2}. Il s'annule pour
+\texttt{k = (12 + 2\(\sqrt{126}\))/45 \(\approx\) 0,766}, qui appartient bien à \texttt{[0 ; 1]} \textemdash{} l'autre racine est
+négative, donc hors du segment. Le point cherché existe et il est unique.
+
+La racine est irrationnelle : le sujet demande une existence, non une valeur, et c'est
+tout l'intérêt de la question.
+\end{reponse}
+\begin{proof}
+En développant, le produit scalaire $\vec{MA} \cdot \vec{MB}$ vaut
+\[ (-2 + 1{,}5k)(1{,}5k) + 1 \times (-2) + (-3k)(1 - 3k) = 11{,}25\,k^2 - 6k - 2 . \]
+
+Le discriminant de ce trinôme vaut $36 + 90 = 126$, et ses racines sont
+$\dfrac{6 \pm \sqrt{126}}{11{,}25 \times 2} = \dfrac{12 \pm 2\sqrt{126}}{45}$.
+
+Prenons $k = \dfrac{12 + 2\sqrt{126}}{45}$ et vérifions qu'il appartient bien à
+$[0 ; 1]$. D'une part $\sqrt{126} \ge 0$, donc $k \ge \dfrac{12}{45} > 0$. D'autre part
+$126 \le 144$ donne $\sqrt{126} \le 12$, donc
+\[ k \le \frac{12 + 24}{45} = \frac{36}{45} < 1 . \]
+
+Il reste à voir que ce $k$ annule le trinôme, ce qui est un calcul où
+$\sqrt{126}^{\,2} = 126$ est la seule chose à savoir.
+
+Le point cherché existe donc, et il est unique : l'autre racine est négative, donc hors du
+segment. Le sujet demande une existence, non une valeur, et c'est tout l'intérêt de la
+question \textemdash{} la racine est irrationnelle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L159}{Bac2025MetropoleJour2.lean\#L159}
+
+\subsection{Exercice 3 \textemdash{} vrai ou faux : suites, convexité, logarithme}
+
+\begin{reponse}
+Affirmation 1, \textbf{vraie} : la suite \texttt{u\_n = (1 + 5n)/(2 + 3n)} converge vers \texttt{5/3}.
+
+La forme \texttt{5/3 − 7/(9n + 6)} rend la limite immédiate : l'écart à \texttt{5/3} est un quotient
+de constante par une quantité qui tend vers \texttt{+\(\infty\)}. C'est le rapport des coefficients
+dominants, et l'écriture le démontre au lieu de l'invoquer.
+\end{reponse}
+\begin{proof}
+On récrit le terme général en isolant l'écart à la limite. Pour tout entier $n$, le
+dénominateur $2 + 3n$ est strictement positif, et
+\[ \frac{5}{3} - \frac{7}{9n + 6}
+  = \frac{5(9n + 6) - 21}{3\,(9n + 6)}
+  = \frac{45n + 9}{27n + 18}
+  = \frac{9\,(5n + 1)}{9\,(3n + 2)}
+  = \frac{1 + 5n}{2 + 3n} . \]
+
+Or $9n + 6$ tend vers $+\infty$, donc $\dfrac{7}{9n + 6}$ tend vers $0$ : le quotient
+d'une constante par une quantité qui tend vers $+\infty$ tend vers $0$.
+
+Par différence, $u_n$ tend vers $\dfrac{5}{3} - 0 = \dfrac{5}{3}$.
+
+C'est le rapport des coefficients dominants, mais l'écriture le démontre au lieu de
+l'invoquer.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L176}{Bac2025MetropoleJour2.lean\#L176}
+
+\begin{definition}
+La suite de l'affirmation 2 : \texttt{w\(_{0}\) = 0} et \texttt{w\_\{n+1\} = 3w\_n − 2n + 3}.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L197}{Bac2025MetropoleJour2.lean\#L197}
+
+\begin{reponse}
+La relation de récurrence, sous la forme où la preuve l'utilise.
+\end{reponse}
+\begin{proof}
+Les deux membres sont le même énoncé : c'est la seconde clause de la définition récursive
+de $w$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L202}{Bac2025MetropoleJour2.lean\#L202}
+
+\begin{reponse}
+Affirmation 2, \textbf{vraie} : pour tout entier naturel \texttt{n}, \texttt{w\_n \(\ge\) n}.
+
+La récurrence est immédiate et instructive : de \texttt{w\_n \(\ge\) n} on tire
+\texttt{w\_\{n+1\} \(\ge\) 3n − 2n + 3 = n + 3}, qui dépasse \texttt{n + 1} de deux unités. La marge grandit,
+ce qui est le signe qu'une minoration bien plus forte serait vraie \textemdash{} mais celle-ci
+suffit à répondre.
+\end{reponse}
+\begin{proof}
+Par récurrence sur $n$.
+
+\emph{Initialisation.} $w_0 = 0$, donc $0 \le w_0$.
+
+\emph{Hérédité.} Supposons $n \le w_n$. Alors
+\[ w_{n+1} = 3w_n - 2n + 3 \ge 3n - 2n + 3 = n + 3 \ge n + 1 . \]
+
+La marge grandit de deux unités à chaque rang, signe qu'une minoration bien plus forte
+serait vraie ; celle-ci suffit à répondre.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L210}{Bac2025MetropoleJour2.lean\#L210}
+
+\begin{reponse}
+Affirmation 4, \textbf{vraie} : pour tout réel \texttt{x > 0}, \texttt{ln x − x + 1 \(\le\) 0}.
+
+C'est l'inégalité de concavité du logarithme, \texttt{ln x \(\le\) x − 1}, avec égalité en \texttt{1}
+seulement : la courbe du logarithme est sous sa tangente en \texttt{1}.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Bac2025MetropoleJour2/ex3_affirmation_4}
+\caption{La courbe du logarithme reste sous sa tangente au point d'abscisse \(1\).}
+\end{figure}
+\begin{proof}
+C'est l'inégalité $\ln x \le x - 1$, valable pour tout $x > 0$, qu'il reste à réorganiser.
+
+Cette inégalité s'obtient elle-même de la convexité de l'exponentielle, sous la forme
+$1 + u \le \mathrm{e}^u$ : la fonction $u \mapsto \mathrm{e}^u - u - 1$ a pour dérivée
+$\mathrm{e}^u - 1$, qui est négative avant $0$ et positive après ; son minimum est donc
+atteint en $0$ et vaut $0$. En appliquant cela à $u = \ln x$, licite puisque $x > 0$ :
+\[ 1 + \ln x \le \mathrm{e}^{\ln x} = x , \]
+c'est-à-dire $\ln x - x + 1 \le 0$.
+
+Géométriquement, la courbe du logarithme est sous sa tangente en $1$, avec égalité en ce
+seul point.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L222}{Bac2025MetropoleJour2.lean\#L222}
+
+\subsection{Exercice 4 \textemdash{} le freinage du chariot}
+
+\begin{reponse}
+Partie B, question 1b : \texttt{g(t) = te\textasciicircum{}(−0,6t)} est solution de
+\texttt{(E) : y' + 0,6y = e\textasciicircum{}(−0,6t)}.
+
+La dérivée d'un produit donne \texttt{g'(t) = e\textasciicircum{}(−0,6t) − 0,6te\textasciicircum{}(−0,6t)}, c'est-à-dire
+\texttt{e\textasciicircum{}(−0,6t) − 0,6g(t)} : l'équation est vérifiée telle quelle.
+\end{reponse}
+\begin{proof}
+La fonction $s \mapsto -0{,}6s$ a pour dérivée $-0{,}6$, donc $s \mapsto
+\mathrm{e}^{-0{,}6s}$ a pour dérivée $-0{,}6\,\mathrm{e}^{-0{,}6s}$.
+
+La dérivée d'un produit donne alors
+\[ g'(t) = 1 \times \mathrm{e}^{-0{,}6t} + t \times (-0{,}6)\,\mathrm{e}^{-0{,}6t}
+   = \mathrm{e}^{-0{,}6t} - 0{,}6\,t\,\mathrm{e}^{-0{,}6t} , \]
+c'est-à-dire $g'(t) = \mathrm{e}^{-0{,}6t} - 0{,}6\,g(t)$ : l'équation
+$y' + 0{,}6y = \mathrm{e}^{-0{,}6t}$ est vérifiée telle quelle.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L233}{Bac2025MetropoleJour2.lean\#L233}
+
+\begin{reponse}
+Partie B, question 2a : \texttt{v'(t) = (−6,2 − 0,6t)e\textasciicircum{}(−0,6t)}, où
+\texttt{v(t) = (12 + t)e\textasciicircum{}(−0,6t)}.
+
+C'est encore la dérivée d'un produit : \texttt{e\textasciicircum{}(−0,6t) − 0,6(12 + t)e\textasciicircum{}(−0,6t)}, et
+\texttt{1 − 7,2 = −6,2}.
+\end{reponse}
+\begin{proof}
+Même dérivation d'un produit, avec le facteur $12 + s$ dont la dérivée vaut $1$ :
+\[ v'(t) = \mathrm{e}^{-0{,}6t} + (12 + t) \times (-0{,}6)\,\mathrm{e}^{-0{,}6t}
+   = \bigl(1 - 7{,}2 - 0{,}6t\bigr)\mathrm{e}^{-0{,}6t}
+   = (-6{,}2 - 0{,}6t)\,\mathrm{e}^{-0{,}6t} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L247}{Bac2025MetropoleJour2.lean\#L247}
+
+\begin{reponse}
+Partie B, question 1d : \texttt{v(t) = (12 + t)e\textasciicircum{}(−0,6t)} est bien la solution cherchée \textemdash{}
+elle vérifie l'équation et la condition initiale \texttt{v(0) = 12}.
+
+La vérification de l'équation est algébrique : \texttt{−6,2 − 0,6t + 0,6(12 + t) = 1}. La
+condition initiale est ce qui détermine la constante, et donc ce qui rend la solution
+unique.
+\end{reponse}
+\begin{proof}
+La vérification de l'équation est algébrique : l'exponentielle se met en facteur et il
+reste
+\[ (-6{,}2 - 0{,}6t) + 0{,}6\,(12 + t) = -6{,}2 - 0{,}6t + 7{,}2 + 0{,}6t = 1 , \]
+de sorte que $v'(t) + 0{,}6\,v(t) = \mathrm{e}^{-0{,}6t}$.
+
+La condition initiale se lit directement, $\mathrm{e}^0 = 1$ :
+\[ v(0) = (12 + 0)\,\mathrm{e}^{0} = 12 . \]
+C'est elle qui détermine la constante, donc qui rend la solution unique.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L264}{Bac2025MetropoleJour2.lean\#L264}
+
+\begin{reponse}
+Partie B, question 2c : la vitesse est strictement décroissante sur \texttt{[0 ; +\(\infty\)[}.
+
+La dérivée est le produit de \texttt{−6,2 − 0,6t}, négatif dès que \texttt{t \(\ge\) 0}, par une
+exponentielle, toujours positive. Le chariot ralentit sans jamais s'arrêter : c'est
+pourquoi un dispositif mécanique est nécessaire.
+\end{reponse}
+\begin{proof}
+Pour $t \ge 0$, le facteur $-6{,}2 - 0{,}6t$ est strictement négatif, puisque
+$0{,}6t \ge 0$. L'exponentielle, elle, est toujours strictement positive. Le produit d'un
+nombre strictement négatif par un nombre strictement positif est strictement négatif :
+$v'(t) < 0$.
+
+La vitesse décroît donc strictement, sans jamais s'annuler : c'est pourquoi un dispositif
+mécanique d'arrêt est nécessaire.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L275}{Bac2025MetropoleJour2.lean\#L275}
+
+\begin{reponse}
+Partie B, question 2b : la vitesse tend vers \texttt{0} en \texttt{+\(\infty\)}.
+
+L'exponentielle l'emporte sur le terme linéaire, ce que le sujet fait admettre en
+récrivant \texttt{te\textasciicircum{}(−0,6t)} sous la forme \texttt{(1/0,6)(0,6t)/e\textasciicircum{}(0,6t)}. La croissance comparée
+est ici invoquée sous sa forme mathlib : \texttt{x e\textasciicircum{}(−x)} tend vers \texttt{0}.
+\end{reponse}
+\begin{proof}
+On sépare les deux termes :
+\[ (12 + t)\,\mathrm{e}^{-0{,}6t}
+   = 12\,\mathrm{e}^{-0{,}6t} + \frac{1}{0{,}6}\,(0{,}6t)\,\mathrm{e}^{-0{,}6t} . \]
+
+Le premier tend vers $0$, l'exponentielle tendant vers $0$ en $-\infty$ et $0{,}6t$ vers
+$+\infty$.
+
+Le second aussi, par croissance comparée : $x\,\mathrm{e}^{-x}$ tend vers $0$ en
+$+\infty$, l'exponentielle l'emportant sur le terme linéaire. Ce résultat est emprunté
+\textemdash{} il repose sur la définition analytique de l'exponentielle et sa minoration
+par $\dfrac{x^2}{2}$ \textemdash{} et le sujet le fait admettre de même, en récrivant
+$t\,\mathrm{e}^{-0{,}6t}$ sous la forme $\dfrac{1}{0{,}6} \dfrac{0{,}6t}{\mathrm{e}^{0{,}6t}}$.
+
+La somme tend donc vers $0$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L284}{Bac2025MetropoleJour2.lean\#L284}
+
+\begin{reponse}
+Partie C, question 1 : la distance parcourue entre les instants \texttt{0} et \texttt{t} vaut
+\texttt{e\textasciicircum{}(−0,6t)(−5t/3 − 205/9) + 205/9}.
+
+Le sujet demande une intégration par parties ; ce qui se vérifie ici est le résultat,
+en dérivant la primitive proposée : sa dérivée est bien \texttt{(12 + t)e\textasciicircum{}(−0,6t)}, et elle
+s'annule en \texttt{0}. Le théorème fondamental de l'analyse fait le reste.
+
+La limite de cette expression en \texttt{+\(\infty\)} est \texttt{205/9 \(\approx\) 22,8} : c'est la longueur minimale
+de la zone de freinage, celle que la partie A faisait lire sur l'asymptote.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Bac2025MetropoleJour2/ex4_distance}
+\caption{L'aire sous la courbe de la vitesse, de \(0\) à \(t\), est la distance parcourue pendant le freinage.}
+\end{figure}
+\begin{proof}
+Posons $F(s) = \mathrm{e}^{-0{,}6s}\left(-\dfrac{5}{3}s - \dfrac{205}{9}\right) +
+\dfrac{205}{9}$ et vérifions que $F$ est une primitive de la vitesse.
+
+La dérivée d'un produit donne
+\[ F'(s) = -0{,}6\,\mathrm{e}^{-0{,}6s}\left(-\frac{5}{3}s - \frac{205}{9}\right)
+        + \mathrm{e}^{-0{,}6s}\left(-\frac{5}{3}\right)
+   = \mathrm{e}^{-0{,}6s}\left(s + \frac{41}{3} - \frac{5}{3}\right)
+   = (12 + s)\,\mathrm{e}^{-0{,}6s} , \]
+puisque $0{,}6 \times \dfrac{5}{3} = 1$ et $0{,}6 \times \dfrac{205}{9} = \dfrac{41}{3}$.
+
+La fonction intégrée est continue, donc intégrable sur le segment. Le théorème fondamental
+de l'analyse donne alors
+\[ \int_0^t (12 + x)\,\mathrm{e}^{-0{,}6x}\,\mathrm{d}x = F(t) - F(0)
+   = \mathrm{e}^{-0{,}6t}\left(-\frac{5}{3}t - \frac{205}{9}\right) + \frac{205}{9} , \]
+car $F(0) = -\dfrac{205}{9} + \dfrac{205}{9} = 0$.
+
+Le sujet demandait une intégration par parties ; ce qui est vérifié ici est son résultat.
+La limite de cette expression en $+\infty$ vaut $\dfrac{205}{9} \approx 22{,}8$ : c'est la
+longueur minimale de la zone de freinage.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Bac2025MetropoleJour2.lean\#L310}{Bac2025MetropoleJour2.lean\#L310}
+
+\section{Brevet2025Metropole}
+
+\noindent
+Brevet des collèges \textemdash{} série générale, Métropole\textendash{}Antilles\textendash{}Guyane, 26 juin 2025.
+
+Chaque question du sujet qui porte une proposition mathématique devient un théorème
+Lean, dont la réponse est rédigée ci-dessous en français. Celles qui n'en portent pas \textemdash{} reconnaître une transformation sur une
+figure, compléter un programme Scratch, écrire une formule de tableur \textemdash{} n'ont pas
+d'énoncé, et l'index du dossier dit lesquelles et pourquoi.
+
+Les énoncés sont ceux du sujet, pas leur généralisation. Quand la configuration
+géométrique est donnée par une figure, ce qu'elle établit \textemdash{} l'angle droit, les
+alignements \textemdash{} devient une hypothèse : la figure n'est pas formalisée, l'arithmétique
+qui en découle l'est.
+
+\subsection{Exercice 1 \textemdash{} deux urnes}
+
+\begin{definition}
+L'urne \texttt{A} contient les boules \texttt{7, 10, 12, 15, 24, 30}.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L22}{Brevet2025Metropole.lean\#L22}
+
+\begin{definition}
+L'urne \texttt{B} contient les boules \texttt{2, 5, 6, 8, 17, 18, 21, 22, 25}.
+\end{definition}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L25}{Brevet2025Metropole.lean\#L25}
+
+\begin{reponse}
+Question 1 : quatre des six boules de l'urne \texttt{A} portent un nombre pair, donc
+la probabilité d'en tirer une vaut \texttt{2/3}.
+
+Les boules étant indiscernables au toucher, la probabilité est le quotient du
+nombre de cas favorables par le nombre de cas possibles : c'est l'équiprobabilité,
+et c'est la seule hypothèse de tout l'exercice.
+\end{reponse}
+\begin{proof}
+On parcourt les six boules de l'urne $A$ et l'on retient celles dont le reste dans la
+division par $2$ est nul : $10$, $12$, $24$ et $30$. Il y en a quatre.
+
+Les boules étant indiscernables au toucher, chacune a la même chance d'être tirée, et la
+probabilité cherchée est le quotient du nombre de cas favorables par le nombre de cas
+possibles :
+\[ \frac{4}{6} = \frac{2 \times 2}{2 \times 3} = \frac{2}{3} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L33}{Brevet2025Metropole.lean\#L33}
+
+\begin{reponse}
+Question 2 : trois des neuf boules de l'urne \texttt{B} portent un nombre premier \textemdash{}
+\texttt{2}, \texttt{5} et \texttt{17} \textemdash{}, donc la probabilité vaut \texttt{1/3}.
+
+Les six autres sont composées : \texttt{6}, \texttt{8}, \texttt{18} et \texttt{22} sont pairs et plus grands que
+\texttt{2}, \texttt{21 = 3 \(\times\) 7}, et \texttt{25 = 5\(^{2}\)}.
+\end{reponse}
+\begin{proof}
+Trois boules de $B$ portent un nombre premier. En effet $2$, $5$ et $17$ n'ont pas d'autre
+diviseur que $1$ et eux-mêmes.
+
+Les six autres ne sont pas premières : $6$, $8$, $18$ et $22$ sont pairs et plus grands que
+$2$, donc divisibles par $2$ ; puis $21 = 3 \times 7$ et $25 = 5 \times 5$.
+
+Il y a donc trois cas favorables sur neuf, et
+\[ \frac{3}{9} = \frac{3 \times 1}{3 \times 3} = \frac{1}{3} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L42}{Brevet2025Metropole.lean\#L42}
+
+\begin{reponse}
+Question 3 : l'urne \texttt{A} contient trois multiples de \texttt{6} \textemdash{} \texttt{12}, \texttt{24}, \texttt{30} \textemdash{} et
+l'urne \texttt{B} deux seulement \textemdash{} \texttt{6} et \texttt{18}. C'est donc \texttt{A}.
+
+La question porte sur un effectif, non sur une probabilité : c'est \texttt{A} qui en contient
+le plus, alors que la proportion y est aussi la plus grande, \texttt{1/2} contre \texttt{2/9}.
+\end{reponse}
+\begin{proof}
+On teste chaque boule : un nombre est multiple de $6$ quand le reste de sa division par $6$
+est nul. Dans $A$, ce sont $12$, $24$ et $30$ \textemdash{} trois boules. Dans $B$, ce sont
+$6$ et $18$ \textemdash{} deux boules.
+
+C'est donc l'urne $A$ qui en contient le plus.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L55}{Brevet2025Metropole.lean\#L55}
+
+\begin{reponse}
+Question 4 : la probabilité d'obtenir un nombre supérieur ou égal à \texttt{20} est
+\texttt{1/3} dans les deux urnes \textemdash{} \texttt{2} boules sur \texttt{6} d'un côté, \texttt{3} sur \texttt{9} de l'autre.
+
+Les deux fractions ne sont pas les mêmes, mais elles ont la même valeur : c'est ce
+que la question demande de démontrer, et rien n'oblige les urnes à avoir le même
+nombre de boules pour cela.
+\end{reponse}
+\begin{proof}
+Dans $A$, deux boules portent un nombre supérieur ou égal à $20$ : $24$ et $30$. Dans $B$,
+il y en a trois : $21$, $22$ et $25$.
+
+Les deux probabilités sont $\dfrac{2}{6}$ et $\dfrac{3}{9}$ : elles ne s'écrivent pas de la
+même façon, mais les produits en croix sont égaux,
+\[ 2 \times 9 = 18 = 6 \times 3 , \]
+donc les deux fractions ont la même valeur, $\dfrac{1}{3}$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L66}{Brevet2025Metropole.lean\#L66}
+
+\begin{reponse}
+Question 5 : en ajoutant une boule \texttt{50} dans chaque urne, l'égalité est rompue \textemdash{}
+\texttt{3/7} d'un côté, \texttt{4/10} de l'autre, et \texttt{3/7 > 2/5}.
+
+Ajouter un même cas favorable à deux urnes de tailles différentes ne conserve pas
+l'égalité des proportions : c'est l'urne la plus petite qui en profite le plus.
+\end{reponse}
+\begin{proof}
+La boule $50$ est supérieure à $20$ : elle ajoute un cas favorable et un cas possible à
+chaque urne. On compte alors trois boules favorables sur sept dans $A$, et quatre sur dix
+dans $B$.
+
+Les produits en croix ne sont plus égaux,
+\[ 3 \times 10 = 30 \ne 28 = 7 \times 4 , \]
+donc $\dfrac{3}{7} \ne \dfrac{4}{10}$ : l'égalité de la question précédente est détruite.
+Elle l'est en faveur de la plus petite urne, puisque $\dfrac{3}{7} > \dfrac{4}{10}$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L76}{Brevet2025Metropole.lean\#L76}
+
+\subsection{Exercice 2 \textemdash{} l'aquathlon}
+
+\begin{reponse}
+Partie A, question 1 : \texttt{AD = AE − DE = 250 − 50 = 200 m}.
+
+Les points \texttt{A}, \texttt{D}, \texttt{E} sont alignés dans cet ordre : la longueur cherchée est une
+différence, ce que la figure donne et que l'énoncé écrit ne dit pas autrement.
+\end{reponse}
+\begin{proof}
+En remplaçant $AE$ par $250$ et $DE$ par $50$ :
+\[ AE - DE = 250 - 50 = 200 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L87}{Brevet2025Metropole.lean\#L87}
+
+\begin{reponse}
+Partie A, question 2 : \texttt{CD = 520 m}.
+
+Le triangle \texttt{ADC} est rectangle en \texttt{A}, donc \texttt{CD\(^{2}\) = AC\(^{2}\) + AD\(^{2}\) = 480\(^{2}\) + 200\(^{2}\)}, soit
+\texttt{270 400}, dont la racine est \texttt{520}. Une longueur est positive : c'est ce qui rend la
+solution unique.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Brevet2025Metropole/ex2_cd}
+\caption{Le triangle \(ADC\), rectangle en \(A\) : l'hypoténuse \(CD\) se calcule par le théorème de Pythagore.}
+\end{figure}
+\begin{proof}
+Avec $AC = 480$ et $AD = 200$, l'hypothèse devient
+\[ CD^2 = 480^2 + 200^2 = 230\,400 + 40\,000 = 270\,400 = 520^2 . \]
+Donc $CD^2 - 520^2 = 0$, c'est-à-dire
+\[ (CD - 520)(CD + 520) = 0 . \]
+Un produit est nul quand l'un de ses facteurs l'est. Comme $CD \ge 0$, le second facteur
+vaut au moins $520$, donc il n'est pas nul : c'est le premier qui l'est, et $CD = 520$.
+
+C'est l'hypothèse de positivité qui rend la solution unique \textemdash{} $-520$ vérifie
+aussi l'équation du carré, mais n'est pas une longueur.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L95}{Brevet2025Metropole.lean\#L95}
+
+\begin{reponse}
+Partie A, question 3a : les droites \texttt{(CD)} et \texttt{(BE)} sont parallèles.
+
+Les rapports \texttt{AD/AE} et \texttt{AC/AB} valent tous deux \texttt{0,8} \textemdash{} avec \texttt{AB = AC + CB = 600} \textemdash{}
+et les points sont alignés dans le même ordre : la réciproque du théorème de Thalès
+conclut. Ce qui se vérifie ici est l'égalité des rapports ; la réciproque elle-même
+est un énoncé du chapitre \og{} Géométrie plane \fg{}, et la configuration reste dans la
+figure.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Brevet2025Metropole/ex2_paralleles}
+\caption{La configuration de Thalès du parcours : les rapports \(AD/AE\) et \(AC/AB\) valent tous deux \(0{,}8\).}
+\end{figure}
+\begin{proof}
+Le côté $AB$ vaut $AC + CB = 480 + 120 = 600$. Les deux rapports à comparer sont
+$\dfrac{AD}{AE} = \dfrac{200}{250}$ et $\dfrac{AC}{AB} = \dfrac{480}{600}$, et les produits
+en croix sont égaux :
+\[ 200 \times 600 = 120\,000 = 250 \times 480 . \]
+Les deux rapports valent donc tous deux $0{,}8$.
+
+Les points étant alignés dans le même ordre sur les deux demi-droites, la réciproque du
+théorème de Thalès permet de conclure au parallélisme de $(CD)$ et $(BE)$. Cette
+réciproque est un énoncé du chapitre \og{} Géométrie plane \fg{} ; ce qui est vérifié ici
+est l'égalité des rapports, qui en est l'hypothèse.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L107}{Brevet2025Metropole.lean\#L107}
+
+\begin{reponse}
+Partie B, question 4 : le temps médian des neuf nageurs est \texttt{6 min}, soit
+\texttt{360 s} \textemdash{} quatre élèves font mieux, quatre font moins bien.
+
+Les temps sont convertis en secondes, seule façon de les comparer sans ambiguïté :
+\texttt{5 min 49 s} et \texttt{5 min 50 s} ne se distinguent pas sur les minutes.
+\end{reponse}
+\begin{proof}
+Les neuf temps, convertis en secondes, sont
+\[ 330 ;\ 345 ;\ 349 ;\ 350 ;\ 360 ;\ 371 ;\ 372 ;\ 380 ;\ 400 . \]
+On compte ceux qui sont strictement inférieurs à $360$ : $330$, $345$, $349$ et $350$,
+soit quatre. Puis ceux qui lui sont strictement supérieurs : $371$, $372$, $380$ et $400$,
+soit quatre encore.
+
+L'effectif est impair et se partage en quatre valeurs plus petites, quatre valeurs plus
+grandes, et une valeur au milieu : $360$ secondes, c'est-à-dire $6$ minutes, est bien la
+médiane.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L114}{Brevet2025Metropole.lean\#L114}
+
+\begin{reponse}
+Partie B, question 5 : le poisson rouge nage plus vite que le meilleur élève.
+
+Le plus rapide couvre \texttt{200 m} en \texttt{5 min 30 s}, soit \texttt{330 s} : sa vitesse vaut
+\texttt{200/330 \(\approx\) 0,61 m/s}, quand \texttt{5 km/h} font \texttt{5 000/3 600 \(\approx\) 1,39 m/s}. Comparer deux
+vitesses demande d'abord de les exprimer dans la même unité, et c'est là toute la
+question.
+\end{reponse}
+\begin{proof}
+Le meilleur nageur parcourt $200$ mètres en $5$ minutes $30$ secondes, c'est-à-dire
+$330$ secondes : sa vitesse est $\dfrac{200}{330}$ mètre par seconde. Le poisson nage à
+$5$ kilomètres par heure, soit $\dfrac{5\,000}{3\,600}$ mètre par seconde.
+
+Les deux vitesses sont maintenant dans la même unité, et les produits en croix les
+comparent :
+\[ 200 \times 3\,600 = 720\,000 < 1\,650\,000 = 330 \times 5\,000 , \]
+donc $\dfrac{200}{330} < \dfrac{5\,000}{3\,600}$ : le poisson est le plus rapide.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L127}{Brevet2025Metropole.lean\#L127}
+
+\subsection{Exercice 3 \textemdash{} questionnaire à choix multiples}
+
+\begin{reponse}
+Question 1 : si \texttt{3} melons coûtent \texttt{8,40 €}, \texttt{5} melons coûtent \texttt{14 €}.
+
+Le prix est proportionnel à la quantité : le prix unitaire est \texttt{2,80 €}.
+\end{reponse}
+\begin{proof}
+Le prix d'un melon est $\dfrac{8{,}40}{3} = 2{,}80$ euro, et cinq melons coûtent
+\[ 2{,}80 \times 5 = 14 \text{ euros} . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L134}{Brevet2025Metropole.lean\#L134}
+
+\begin{reponse}
+Question 3 : un article à \texttt{350 €} augmenté de \texttt{20 \%} coûte \texttt{420 €}.
+
+Augmenter de \texttt{20 \%} est multiplier par \texttt{1,2}, non ajouter \texttt{20}.
+\end{reponse}
+\begin{proof}
+Augmenter de $20\,\%$, c'est multiplier par $1 + \dfrac{20}{100} = 1{,}2$ :
+\[ 350 \times 1{,}2 = 420 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L139}{Brevet2025Metropole.lean\#L139}
+
+\begin{reponse}
+Question 4 : l'aire du triangle \texttt{ABC} de côtés \texttt{6}, \texttt{4,5} et \texttt{7,5} vaut
+\texttt{13,5 cm\(^{2}\)}.
+
+Le triangle est rectangle en \texttt{B} par la réciproque de Pythagore \textemdash{}
+\texttt{6\(^{2}\) + 4,5\(^{2}\) = 56,25 = 7,5\(^{2}\)} \textemdash{}, et son aire est le demi-produit des côtés de l'angle
+droit. La réponse \texttt{27} est celle qu'on obtient en oubliant le demi ; la réponse
+\texttt{18} celle qu'on obtient en prenant l'hypoténuse pour un côté de l'angle droit.
+\end{reponse}
+\begin{proof}
+D'une part
+\[ 6^2 + 4{,}5^2 = 36 + 20{,}25 = 56{,}25 = 7{,}5^2 , \]
+donc, par la réciproque du théorème de Pythagore, le triangle est rectangle et son
+hypoténuse est le côté de longueur $7{,}5$ \textemdash{} l'angle droit est en $B$.
+
+D'autre part l'aire d'un triangle rectangle est le demi-produit des côtés de l'angle
+droit :
+\[ \frac{6 \times 4{,}5}{2} = \frac{27}{2} = 13{,}5 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L148}{Brevet2025Metropole.lean\#L148}
+
+\begin{reponse}
+Question 5 : la forme développée et réduite de \texttt{(2x + 3)(x − 4)} est
+\texttt{2x\(^{2}\) − 5x − 12}, pour toute valeur de \texttt{x}.
+
+C'est une identité, non une équation : elle vaut pour tout \texttt{x}, et c'est ce que
+\og{} développer \fg{} signifie.
+\end{reponse}
+\begin{proof}
+On développe, en multipliant chaque terme de la première parenthèse par chaque terme de la
+seconde :
+\[ (2x + 3)(x - 4) = 2x^2 - 8x + 3x - 12 = 2x^2 - 5x - 12 . \]
+Le calcul ne suppose rien sur $x$ : l'égalité vaut pour toute valeur, c'est une identité.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L156}{Brevet2025Metropole.lean\#L156}
+
+\begin{reponse}
+Question 6 : le volume d'une pyramide à base rectangulaire \texttt{7 cm \(\times\) 4 cm} et de
+hauteur \texttt{12 cm} vaut \texttt{112 cm\(^{3}\)}.
+
+Le tiers est ce qui distingue la pyramide du prisme de même base et même hauteur :
+la réponse \texttt{336} est ce prisme.
+\end{reponse}
+\begin{proof}
+Le volume d'une pyramide est le tiers du produit de l'aire de sa base par sa hauteur :
+\[ \frac{7 \times 4 \times 12}{3} = \frac{336}{3} = 112 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L164}{Brevet2025Metropole.lean\#L164}
+
+\subsection{Exercice 4 \textemdash{} programmes de calcul}
+
+\begin{reponse}
+Partie A, question 1 : le programme de Zoé renvoie \texttt{20} quand on part de \texttt{10}.
+\end{reponse}
+\begin{proof}
+On suit les instructions dans l'ordre :
+\[ 2 \times (10 - 4) + 8 = 2 \times 6 + 8 = 12 + 8 = 20 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L169}{Brevet2025Metropole.lean\#L169}
+
+\begin{reponse}
+Partie A, question 2 : il renvoie \texttt{−14} quand on part de \texttt{−7}.
+
+Le signe du produit est celui qu'il faut surveiller : \texttt{−7 − 4 = −11}, et non \texttt{−3}.
+\end{reponse}
+\begin{proof}
+De même, en surveillant le signe :
+\[ 2 \times (-7 - 4) + 8 = 2 \times (-11) + 8 = -22 + 8 = -14 . \]
+La soustraction $-7 - 4$ vaut $-11$, et non $-3$.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L174}{Brevet2025Metropole.lean\#L174}
+
+\begin{reponse}
+Partie A, question 3 : Zoé a raison \textemdash{} son programme renvoie toujours le double
+du nombre choisi.
+
+Deux exemples ne prouvent rien ; le calcul littéral, lui, conclut pour tous les
+nombres à la fois. C'est le passage du numérique au littéral que la question évalue,
+et il est ici l'argument entier.
+\end{reponse}
+\begin{proof}
+On développe et on réduit, en appelant $x$ le nombre choisi :
+\[ 2(x - 4) + 8 = 2x - 8 + 8 = 2x . \]
+Le calcul vaut pour toute valeur de $x$ : c'est ce qui distingue une démonstration de deux
+vérifications sur des exemples.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L182}{Brevet2025Metropole.lean\#L182}
+
+\begin{reponse}
+Partie B, question 4 : le programme de Fred renvoie \texttt{20x + 50}.
+
+Les trois instructions se composent : \texttt{x \(\mapsto\) 4x \(\mapsto\) 4x + 10 \(\mapsto\) 5(4x + 10)}. L'ordre
+compte, et c'est le \texttt{+ 10} avant le \texttt{\(\times\) 5} qui donne le \texttt{+ 50}.
+\end{reponse}
+\begin{proof}
+Les trois instructions se composent : le nombre $x$ devient $4x$, puis $4x + 10$, puis
+\[ (4x + 10) \times 5 = 20x + 50 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L188}{Brevet2025Metropole.lean\#L188}
+
+\begin{reponse}
+Partie B, question 5 : pour obtenir \texttt{75}, il faut choisir \texttt{1,25}.
+
+L'équation \texttt{20x + 50 = 75} a une solution unique, et elle n'est pas entière : le
+programme n'est pas magique, mais il est inversible.
+\end{reponse}
+\begin{proof}
+De $20x + 50 = 75$ on tire $20x = 25$, puis
+\[ x = \frac{25}{20} = 1{,}25 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L194}{Brevet2025Metropole.lean\#L194}
+
+\subsection{Exercice 5 \textemdash{} acheter ou louer}
+
+\begin{reponse}
+Partie A, question 1 : avec l'option Achat, la dépense au bout d'un an vaut
+\texttt{23 300 €} \textemdash{} le prix de la voiture, plus douze mois d'assurance.
+\end{reponse}
+\begin{proof}
+Une année compte douze mois d'assurance, qui s'ajoutent au prix d'achat :
+\[ 22\,400 + 75 \times 12 = 22\,400 + 900 = 23\,300 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L201}{Brevet2025Metropole.lean\#L201}
+
+\begin{reponse}
+Partie A, question 2 : au bout de \texttt{36} mois, l'option Location fait économiser
+\texttt{9 800 €}.
+
+L'écart se creuse d'abord vite \textemdash{} le prix d'achat est payé tout de suite \textemdash{} puis se
+resserre, l'assurance étant six fois moins chère que la location.
+\end{reponse}
+\begin{proof}
+Au bout de $36$ mois, l'option Achat coûte $22\,400 + 75 \times 36 = 25\,100$ euros, et
+l'option Location $425 \times 36 = 15\,300$ euros. L'écart est
+\[ 25\,100 - 15\,300 = 9\,800 . \]
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L208}{Brevet2025Metropole.lean\#L208}
+
+\begin{reponse}
+Partie B, question 5 : l'option Achat devient la plus avantageuse à partir du
+soixante-cinquième mois.
+
+L'inéquation \texttt{22 400 + 75x < 425x} se réduit à \texttt{22 400 < 350x}, c'est-à-dire
+\texttt{x > 64} : les deux dépenses sont égales au bout de \texttt{64} mois, à \texttt{27 200 €}, et
+l'Achat ne devient strictement meilleur qu'ensuite.
+
+Le sujet demande une lecture graphique, et la réponse attendue est \og{} à partir de
+\texttt{64} mois \fg{}. Ce qui est démontré ici est l'inéquation exacte, ce que le graphique ne
+peut que suggérer \textemdash{} la donnée étant algébrique, contrairement aux lectures de courbe
+d'autres sujets.
+\end{reponse}
+
+\begin{figure}[h]
+\centering
+\input{figures/Brevet2025Metropole/ex5_seuil}
+\caption{Les deux dépenses en fonction du nombre de mois : elles s'égalisent à \(64\) mois, et l'Achat devient meilleur ensuite.}
+\end{figure}
+\begin{proof}
+Les deux membres de l'inéquation $22\,400 + 75x < 425x$ se réorganisent en retranchant
+$75x$ :
+\[ 22\,400 < 350x , \]
+puis en divisant par $350$, qui est positif et ne change donc pas le sens :
+\[ \frac{22\,400}{350} = 64 < x . \]
+Chacune de ces deux transformations se défait comme elle s'est faite, ce qui donne les
+deux sens de l'équivalence.
+
+Le seuil $64$ n'est pas atteint mais dépassé : au bout de $64$ mois les deux dépenses sont
+égales, à $27\,200$ euros, et l'Achat ne devient strictement plus avantageux qu'ensuite.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/exams/2025/Brevet2025Metropole.lean\#L221}{Brevet2025Metropole.lean\#L221}
+
+\vfill
+\noindent\rule{0.35\linewidth}{0.4pt}\par
+\noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
+\emph{The Lean~4 Theorem Prover and Programming Language},
+\emph{Automated Deduction — CADE~28}, Springer, 2021, p.~625--635,
+\href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
+
+\end{document}

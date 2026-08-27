@@ -14,7 +14,7 @@ Le document se termine par la citation de Lean recommandée par ses auteurs
 Le code Lean n'est pas recopié dans le document : chaque énoncé renvoie au fichier
 source, sur la branche et aux lignes exactes de sa déclaration.
 
-    python3 tools/generate-tex.py                 # tous les fichiers de courses/
+    python3 tools/generate-tex.py                 # courses/ et exams/
     python3 tools/generate-tex.py chemin/vers/Fichier.lean
 
 Le `.tex` est écrit à côté du `.lean`, et **n'est jamais réécrit s'il existe déjà** :
@@ -50,10 +50,13 @@ MATH = {
 }
 # Rendus en mode mathématique dans le code comme dans la prose.
 MATH.update({"⟨": r"\langle", "⟩": r"\rangle", "▸": r"\triangleright",
-             "≫": r"\gg", "…": r"\dots"})
+             "≫": r"\gg", "…": r"\dots", "≈": r"\approx", "↦": r"\mapsto",
+             "∩": r"\cap", "∪": r"\cup", "∞": r"\infty",
+             "°": r"^\circ"})
 # Typographie française : guillemets et tiret cadratin, écrits en commandes pour
 # rester lisibles quel que soit le moteur TeX.
-TEXTE = {"«": r"\og{}", "»": r"\fg{}", "—": r"\textemdash{}", "–": r"\textendash{}"}
+TEXTE = {"«": r"\og{}", "»": r"\fg{}", "—": r"\textemdash{}", "–": r"\textendash{}",
+         "′": "'", "″": "''"}
 
 SPECIAUX = {"\\": r"\textbackslash{}", "{": r"\{", "}": r"\}", "$": r"\$",
             "&": r"\&", "#": r"\#", "%": r"\%", "_": r"\_", "^": r"\textasciicircum{}",
@@ -95,6 +98,30 @@ def racines(latex):
         sortie.append(r"\(\sqrt{" + contenu(arg) + r"}\)" if arg else vide)
         latex, i = suite, 0
 
+# Indices et exposants Unicode : aucune police du document ne les porte, et un
+# caractère manquant s'imprime en case vide sans que rien ne le signale. On les
+# rend donc en mode mathématique, par groupes — `Vₙ₊₁` doit donner un seul indice
+# `n+1`, non trois indices collés.
+INDICES = {"₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4", "₅": "5", "₆": "6",
+           "₇": "7", "₈": "8", "₉": "9", "ₙ": "n", "ₘ": "m", "ₖ": "k", "ᵢ": "i",
+           "₊": "+", "₋": "-"}
+SCRIPTS = {"⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4", "⁵": "5", "⁶": "6",
+           "⁷": "7", "⁸": "8", "⁹": "9", "ⁿ": "n", "ᵐ": "m", "⁻": "-", "⁺": "+"}
+
+def scripts(latex):
+    r"""Groupe les suites d'indices et d'exposants Unicode en un seul groupe TeX.
+
+    S'applique **après** `racines`, qui a déjà consommé les exposants qu'un
+    radical gouverne : ce qui reste ici est hors radical, et se rend sans risque.
+    """
+    for table, marque in ((INDICES, "_"), (SCRIPTS, "^")):
+        motif = re.compile("[" + "".join(table) + "]+")
+        latex = motif.sub(
+            lambda m: r"\(" + marque + "{" + "".join(table[c] for c in m.group(0)) + r"}\)",
+            latex)
+    # Le macron combinant suit sa lettre : `R̄` se rend par une barre au-dessus.
+    return re.sub("([A-Za-z])̄", r"\\(\\overline{\1}\\)", latex)
+
 def code_latex(texte):
     """Échappe un extrait de code pour l'environnement `alltt`, en rendant les
     symboles mathématiques Unicode par leur commande LaTeX."""
@@ -108,7 +135,7 @@ def code_latex(texte):
             sortie.append(TEXTE[c])
         else:
             sortie.append(c)
-    return racines("".join(sortie))
+    return scripts(racines("".join(sortie)))
 
 def prose_latex(texte):
     """Rend un commentaire français : `code` en machine à écrire, symboles en math.
@@ -132,7 +159,8 @@ def prose_latex(texte):
             sortie.append(m)
     # Le gras est rendu en dernier : appliqué plus tôt, ses accolades seraient
     # échappées avec le reste du texte.
-    return re.sub(r"\*\*([^*]+)\*\*", r"\\textbf{\1}", racines("".join(sortie)))
+    return re.sub(r"\*\*([^*]+)\*\*", r"\\textbf{\1}",
+                  scripts(racines("".join(sortie))))
 
 # --- lien vers la source ----------------------------------------------------
 
@@ -236,7 +264,7 @@ ENTETE = r"""%% Fichier engendré par tools/generate-tex.py à partir de %(sourc
 \theoremstyle{plain}
 \newtheorem{theoreme}{Théorème}
 \newtheorem{lemme}[theoreme]{Lemme}
-
+%(reponse)s
 %% Un exemple ne se démontre pas : on explique ce qu'il montre.
 \newenvironment{explication}{\begin{proof}[Explication]}{\end{proof}}
 
@@ -266,18 +294,37 @@ CITATION = r"""\vfill
 \href{https://doi.org/10.1007/978-3-030-79876-5_37}{doi:10.1007/978-3-030-79876-5\_37}.\par}
 """
 
-def environnement(sorte, nom):
+# Un sujet d'examen ne pose pas de théorèmes : il pose des questions, et ce qui
+# est écrit là en est la réponse. L'environnement n'est donc pas numéroté — la
+# réponse porte déjà le numéro que le sujet donne à sa question — et son corps
+# est droit, non italique : ce n'est pas l'énoncé d'un résultat général.
+REPONSE = r"""
+%% Un sujet pose des questions, non des théorèmes : voir exams/README.md.
+\theoremstyle{definition}
+\newtheorem*{reponse}{Réponse}
+%% Ce qui remplace une démonstration quand il n'y en a pas : la déclaration Lean
+%% porte un `sorry`, et ce qui suit dit pourquoi. Ce n'est pas une preuve.
+\newtheorem*{enonceadmis}{Énoncé admis}
+"""
+
+def environnement(sorte, nom, sujet=False):
     """L'environnement LaTeX qui convient à une déclaration Lean.
 
     Un `example` est anonyme en Lean : il ne sert à rien d'autre qu'à montrer un
     cas — un calcul mené jusqu'au bout, un contre-exemple. Il devient donc un
     « Exemple » et non un « Théorème », ce que le lecteur du livre doit voir
     aussi nettement que le lecteur du fichier Lean.
+
+    Dans un dossier de sujets d'examen, `sujet` est vrai : ce qui répond à une
+    question du sujet est une « Réponse », jamais un théorème. Les définitions,
+    elles, gardent leur nom — la fonction d'un exercice reste une définition.
     """
     if sorte == "example":
         return "exemple"
     if sorte in ("def", "abbrev", "instance", "structure", "inductive"):
         return "definition"
+    if sujet:
+        return "reponse"
     return "lemme" if nom.startswith("lemme") else "theoreme"
 
 def titre_chapitre(dossier):
@@ -302,6 +349,10 @@ def document_du_chapitre(dossier):
         return os.path.join(dossier, presents[0])
     return os.path.join(dossier, camel(titre_chapitre(dossier)) + ".tex")
 
+def est_un_sujet(dossier):
+    """Vrai pour un dossier de `exams/` : ses déclarations répondent à des questions."""
+    return os.path.sep + "exams" + os.path.sep in os.path.abspath(dossier) + os.path.sep
+
 def section_du_fichier(dossier, fichier, racine, base):
     """Les lignes LaTeX d'une section : un fichier Lean, énoncés et renvois."""
     intro, blocs = lire(os.path.join(dossier, fichier))
@@ -309,7 +360,7 @@ def section_du_fichier(dossier, fichier, racine, base):
     out = [r"\section{" + code_latex(os.path.splitext(fichier)[0]) + "}", ""]
     if intro:
         out += [r"\noindent", prose_latex(intro), ""]
-    return out, ecrire_blocs(out, blocs, base, relatif, fichier)
+    return out, ecrire_blocs(out, blocs, base, relatif, fichier, est_un_sujet(dossier))
 
 def convertir(dossier):
     """Un document par chapitre : une section par fichier Lean du dossier.
@@ -345,7 +396,8 @@ def convertir(dossier):
             texte[:coupe] + "\n".join(ajout) + "\n" + texte[coupe:])
         return chemin_tex, total
 
-    out = [ENTETE % {"source": os.path.basename(dossier), "titre": prose_latex(titre)}]
+    out = [ENTETE % {"source": os.path.basename(dossier), "titre": prose_latex(titre),
+                     "reponse": REPONSE if est_un_sujet(dossier) else ""}]
     total = 0
     for fichier in fichiers:
         lignes, n = section_du_fichier(dossier, fichier, racine, base)
@@ -355,7 +407,7 @@ def convertir(dossier):
     open(chemin_tex, "w", encoding="utf-8").write("\n".join(out))
     return chemin_tex, total
 
-def ecrire_blocs(out, blocs, base, relatif, source):
+def ecrire_blocs(out, blocs, base, relatif, source, sujet=False):
     """Ajoute au document les blocs d'un fichier Lean ; renvoie le nombre d'énoncés."""
     total = 0
     for sorte, contenu in blocs:
@@ -365,7 +417,7 @@ def ecrire_blocs(out, blocs, base, relatif, source):
             out += [r"\noindent", prose_latex(contenu), ""]
         else:
             mot, nom, doc, debut, fin = contenu
-            env = environnement(mot, nom)
+            env = environnement(mot, nom, sujet)
             lignes = f"L{debut}"
             # « # » est le caractère de paramètre de TeX : il doit être échappé
             # jusque dans une URL passée à \href.
@@ -446,11 +498,17 @@ def rafraichir_liens(dossier):
     return chemin_tex, modifies
 
 def tous_les_fichiers():
-    """Les dossiers de chapitre contenant au moins un fichier Lean."""
-    racine = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/courses"
-    for dossier, _, fichiers in os.walk(racine):
-        if any(f.endswith(".lean") for f in fichiers):
-            yield dossier
+    """Les dossiers contenant au moins un fichier Lean : chapitres et sujets.
+
+    `exams/` est parcouru comme `courses/` : ses sessions ont elles aussi un
+    document jumeau, et `--liens` doit pouvoir en rafraîchir les renvois quand
+    une preuve décale les lignes du fichier Lean.
+    """
+    depot = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    for base in ("courses", "exams"):
+        for dossier, _, fichiers in os.walk(os.path.join(depot, base)):
+            if any(f.endswith(".lean") for f in fichiers):
+                yield dossier
 
 if __name__ == "__main__":
     if len(sys.argv) > 2:
@@ -468,7 +526,7 @@ if __name__ == "__main__":
         raise SystemExit(0)
     fichiers = [sys.argv[1]] if len(sys.argv) == 2 else list(tous_les_fichiers())
     if not fichiers:
-        print("aucun fichier .lean dans courses/")
+        print("aucun fichier .lean dans courses/ ni exams/")
     for chemin in fichiers:
         tex, n = convertir(chemin)
         if n is None:

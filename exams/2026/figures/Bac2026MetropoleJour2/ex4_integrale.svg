@@ -1,0 +1,33 @@
+<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>La courbe du logo : elle s'annule en 0,5, culmine en 1 et l'aire hachurée sous elle jusqu'à 3,3 vaut environ 3,6</title>
+  <path d="M30,168 H250" />
+  <path d="M42,180 V22" />
+  <path d="M52.3,168.0 V93.9" stroke-width="0.6" />
+  <path d="M62.5,168.0 V59.4" stroke-width="0.6" />
+  <path d="M72.8,168.0 V48.7" stroke-width="0.6" />
+  <path d="M83.1,168.0 V51.4" stroke-width="0.6" />
+  <path d="M93.3,168.0 V61.3" stroke-width="0.6" />
+  <path d="M103.6,168.0 V74.2" stroke-width="0.6" />
+  <path d="M113.9,168.0 V87.8" stroke-width="0.6" />
+  <path d="M124.1,168.0 V100.8" stroke-width="0.6" />
+  <path d="M134.4,168.0 V112.6" stroke-width="0.6" />
+  <path d="M144.7,168.0 V122.9" stroke-width="0.6" />
+  <path d="M154.9,168.0 V131.7" stroke-width="0.6" />
+  <path d="M165.2,168.0 V139.0" stroke-width="0.6" />
+  <path d="M175.5,168.0 V145.0" stroke-width="0.6" />
+  <path d="M185.7,168.0 V149.8" stroke-width="0.6" />
+  <path d="M196.0,168.0 V153.7" stroke-width="0.6" />
+  <path d="M206.3,168.0 V156.9" stroke-width="0.6" />
+  <path d="M216.5,168.0 V159.3" stroke-width="0.6" />
+  <polyline points="42.0,168.0 45.3,138.6 48.6,114.8 51.9,95.7 55.2,80.8 58.5,69.4 61.8,60.9 65.1,55.0 68.4,51.1 71.7,49.0 75.0,48.4 78.3,49.0 81.6,50.5 84.9,52.8 88.2,55.8 91.5,59.2 94.8,63.0 98.1,67.0 101.4,71.3 104.7,75.6 108.0,80.0 111.3,84.4 114.6,88.7 117.9,93.0 121.2,97.2 124.5,101.3 127.8,105.2 131.1,109.0 134.4,112.6 137.7,116.1 141.0,119.4 144.3,122.6 147.6,125.6 150.9,128.4 154.2,131.1 157.5,133.6 160.8,136.0 164.1,138.3 167.4,140.4 170.7,142.3 174.0,144.2 177.3,145.9 180.6,147.5 183.9,149.0 187.2,150.4 190.5,151.7 193.8,153.0 197.1,154.1 200.4,155.2 203.7,156.1 207.0,157.0 210.3,157.9 213.6,158.7 216.9,159.4 220.2,160.1 223.5,160.7 226.8,161.3" stroke-width="1.6" />
+  <path d="M75.0,168.0 V48.4" stroke-dasharray="2 3" />
+  <circle cx="75.0" cy="48.4" r="2.4" fill="currentColor" />
+  <g fill="currentColor" stroke="none" font-size="13">
+    <text x="26" y="186">0,5</text>
+    <text x="71.0" y="186">1</text>
+    <text x="216.8" y="186">3,3</text>
+    <text x="81.0" y="44.4" font-style="italic">e</text>
+    <text x="167.4" y="130.4" font-style="italic">C<tspan font-size="9" dy="3">f</tspan></text>
+    <text x="254" y="184" font-style="italic">x</text>
+  </g>
+</svg>

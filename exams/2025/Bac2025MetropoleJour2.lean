@@ -1,10 +1,11 @@
 /-
 Baccalauréat, épreuve de spécialité — voie générale, Métropole, 18 juin 2025 (jour 2).
 
-Chaque question du sujet qui porte une proposition mathématique devient ici un
-théorème. Celles qui n'en portent pas — représenter un arbre pondéré, lire une durée
-ou une asymptote sur un graphique, justifier une modélisation — n'ont pas d'énoncé, et
-l'index du dossier dit lesquelles et pourquoi.
+Chaque question du sujet qui porte une proposition mathématique devient un théorème
+Lean, dont le document jumeau donne la réponse rédigée en français. Celles qui n'en
+portent pas — représenter un arbre pondéré, lire une durée ou une asymptote sur un
+graphique, justifier une modélisation — n'ont pas d'énoncé, et l'index du dossier dit
+lesquelles et pourquoi.
 
 Les probabilités sont traitées comme le sujet les traite : sur les nombres. La
 géométrie de l'espace, elle, est traitée sur les coordonnées : c'est ce que le repère

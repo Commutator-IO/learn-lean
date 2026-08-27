@@ -1,0 +1,28 @@
+<svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Le domaine compris entre la courbe de f et sa tangente au point B d'abscisse e, de x = 1 à x = e</title>
+  <path d="M42,176 H260" />
+  <path d="M42,218 V22" />
+  <path d="M119.0,195.1 V97.1" stroke-width="0.6" />
+  <path d="M128.0,184.0 V101.3" stroke-width="0.6" />
+  <path d="M137.0,172.9 V104.4" stroke-width="0.6" />
+  <path d="M146.0,161.8 V106.2" stroke-width="0.6" />
+  <path d="M154.9,150.7 V106.7" stroke-width="0.6" />
+  <path d="M163.9,139.6 V106.0" stroke-width="0.6" />
+  <path d="M172.9,128.4 V103.8" stroke-width="0.6" />
+  <path d="M181.9,117.3 V100.2" stroke-width="0.6" />
+  <path d="M190.9,106.2 V95.3" stroke-width="0.6" />
+  <path d="M199.9,95.1 V89.0" stroke-width="0.6" />
+  <path d="M208.9,84.0 V81.3" stroke-width="0.6" />
+  <path d="M217.9,72.9 V72.3" stroke-width="0.6" />
+  <polyline points="110.0,92.0 112.9,93.8 115.8,95.4 118.8,97.0 121.7,98.5 124.6,99.9 127.5,101.1 130.4,102.3 133.4,103.3 136.3,104.2 139.2,105.0 142.1,105.6 145.1,106.1 148.0,106.4 150.9,106.7 153.8,106.8 156.7,106.7 159.7,106.5 162.6,106.2 165.5,105.7 168.4,105.0 171.3,104.3 174.3,103.3 177.2,102.3 180.1,101.1 183.0,99.7 185.9,98.2 188.9,96.6 191.8,94.8 194.7,92.8 197.6,90.7 200.6,88.5 203.5,86.1 206.4,83.6 209.3,80.9 212.2,78.1 215.2,75.1 218.1,72.0 221.0,68.8 223.9,65.4 226.8,61.8" stroke-width="1.6" />
+  <path d="M110.0,206.2 L246.0,38.2" />
+  <circle cx="226.8" cy="61.8" r="2.4" fill="currentColor" />
+  <g fill="currentColor" stroke="none" font-size="13">
+    <text x="210.8" y="55.8" font-style="italic">B</text>
+    <text x="106.0" y="192">1</text>
+    <text x="222.8" y="192" font-style="italic">e</text>
+    <text x="233.0" y="129.8" font-style="italic">C<tspan font-size="9" dy="3">f</tspan></text>
+    <text x="150" y="16">y = 2x − e</text>
+    <text x="264" y="192" font-style="italic">x</text>
+  </g>
+</svg>

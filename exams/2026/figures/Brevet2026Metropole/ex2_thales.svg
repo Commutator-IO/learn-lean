@@ -1,0 +1,22 @@
+<svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Configuration de Thalès : D sur [AB], E sur [AC], et la droite (DE) parallèle à (BC)</title>
+  <polygon points="44,160 204,160 44,40" />
+  <path d="M164,160 L44,70" />
+  <path d="M54,160 v-10 h-10" />
+  <circle cx="44" cy="160" r="2.4" fill="currentColor" />
+  <circle cx="204" cy="160" r="2.4" fill="currentColor" />
+  <circle cx="44" cy="40" r="2.4" fill="currentColor" />
+  <circle cx="164" cy="160" r="2.4" fill="currentColor" />
+  <circle cx="44" cy="70" r="2.4" fill="currentColor" />
+  <g fill="currentColor" stroke="none" font-size="13">
+    <text x="32" y="177" font-style="italic">A</text>
+    <text x="207" y="177" font-style="italic">B</text>
+    <text x="32" y="34" font-style="italic">C</text>
+    <text x="160" y="177" font-style="italic">D</text>
+    <text x="30" y="74" font-style="italic">E</text>
+    <text x="92" y="177">4,8</text>
+    <text x="8" y="115">3,6</text>
+    <text x="104" y="106">6</text>
+    <text x="136" y="84">8</text>
+  </g>
+</svg>

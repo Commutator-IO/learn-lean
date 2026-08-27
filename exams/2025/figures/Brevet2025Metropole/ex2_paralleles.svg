@@ -1,0 +1,21 @@
+<svg viewBox="0 0 350 186" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Configuration de Thalès : A, C, B alignés, A, D, E alignés, et les droites (CD) et (BE) parallèles</title>
+  <path d="M40,130 H328" />
+  <path d="M40,130 V10" />
+  <path d="M270,130 L40,34" />
+  <path d="M328,130 L40,10" />
+  <path d="M50,130 v-10 h-10" />
+  <circle cx="40" cy="130" r="2.4" fill="currentColor" />
+  <circle cx="270" cy="130" r="2.4" fill="currentColor" />
+  <circle cx="328" cy="130" r="2.4" fill="currentColor" />
+  <circle cx="40" cy="34" r="2.4" fill="currentColor" />
+  <circle cx="40" cy="10" r="2.4" fill="currentColor" />
+  <text x="26" y="148" fill="currentColor" stroke="none" font-style="italic">A</text>
+  <text x="266" y="148" fill="currentColor" stroke="none" font-style="italic">C</text>
+  <text x="324" y="148" fill="currentColor" stroke="none" font-style="italic">B</text>
+  <text x="24" y="38" fill="currentColor" stroke="none" font-style="italic">D</text>
+  <text x="24" y="14" fill="currentColor" stroke="none" font-style="italic">E</text>
+  <text x="130" y="163" fill="currentColor" stroke="none" font-size="13">480 m</text>
+  <text x="282" y="178" fill="currentColor" stroke="none" font-size="13">120 m</text>
+  <text x="0" y="90" fill="currentColor" stroke="none" font-size="13">200 m</text>
+</svg>

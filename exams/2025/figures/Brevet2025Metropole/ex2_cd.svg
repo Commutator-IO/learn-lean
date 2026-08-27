@@ -1,0 +1,11 @@
+<svg viewBox="0 0 190 290" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Triangle ADC rectangle en A, de côtés 200 m et 480 m et d'hypoténuse CD de 520 m</title>
+  <polygon points="35,265 125,265 35,49" />
+  <path d="M35,254 h11 v11" />
+  <text x="24" y="281" fill="currentColor" stroke="none" font-style="italic">A</text>
+  <text x="128" y="281" fill="currentColor" stroke="none" font-style="italic">D</text>
+  <text x="24" y="42" fill="currentColor" stroke="none" font-style="italic">C</text>
+  <text x="60" y="283" fill="currentColor" stroke="none" font-size="13">200 m</text>
+  <text x="2" y="160" fill="currentColor" stroke="none" font-size="13">480 m</text>
+  <text x="92" y="150" fill="currentColor" stroke="none" font-size="13">520 m</text>
+</svg>

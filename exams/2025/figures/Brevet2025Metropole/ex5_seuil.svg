@@ -1,0 +1,15 @@
+<svg viewBox="0 0 330 200" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+  <title>Les deux dépenses en fonction du nombre de mois : les droites Achat et Location se croisent au bout de 64 mois</title>
+  <path d="M60,170 H255" marker-end="url(#f)" />
+  <path d="M60,170 V18" />
+  <path d="M60,96 L240,72" />
+  <path d="M60,170 L240,34" stroke-dasharray="6 4" />
+  <path d="M180,170 V79 H60" stroke-dasharray="2 3" />
+  <circle cx="180" cy="79" r="2.6" fill="currentColor" />
+  <text x="174" y="186" fill="currentColor" stroke="none" font-size="13">64</text>
+  <text x="4" y="83" fill="currentColor" stroke="none" font-size="13">27 200</text>
+  <text x="244" y="72" fill="currentColor" stroke="none" font-size="13">Achat</text>
+  <text x="244" y="34" fill="currentColor" stroke="none" font-size="13">Location</text>
+  <text x="228" y="186" fill="currentColor" stroke="none" font-size="13">mois</text>
+  <text x="40" y="16" fill="currentColor" stroke="none" font-size="13">€</text>
+</svg>
