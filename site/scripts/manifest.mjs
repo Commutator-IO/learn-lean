@@ -18,7 +18,7 @@
 
 import { readdir, readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { resolve, join, basename } from 'node:path';
-import { texToHtml } from './latex.mjs';
+import { blocsTex, texToHtml } from './latex.mjs';
 
 const SITE = resolve(import.meta.dirname, '..');
 const DEPOT = resolve(SITE, '..');
@@ -97,38 +97,6 @@ function declarations(source) {
 }
 
 /**
- * Retire les titres de section, accolades comprises.
- *
- * Le titre est enlevé et non rendu : la structure du chapitre vient du fichier
- * Lean, qui la porte déjà. Reste à l'enlever proprement. Une expression
- * régulière s'arrête à la première accolade fermante, or un titre contient
- * volontiers du code — `\subsection{Puissances ; \texttt{aᵐ × aⁿ}}` — dont
- * l'accolade est intérieure : la fin du titre et l'accolade orpheline
- * retombaient alors dans le texte, où elles s'affichaient telles quelles. On
- * compte donc les accolades.
- */
-function sansTitres(tex) {
-  const debut = /\\(?:sub)*section\*?\{/g;
-  let out = '';
-  let i = 0;
-  let m;
-  while ((m = debut.exec(tex)) !== null) {
-    out += tex.slice(i, m.index);
-    let j = m.index + m[0].length;
-    let profondeur = 1;
-    while (j < tex.length && profondeur > 0) {
-      if (tex[j] === '\\') j++;
-      else if (tex[j] === '{') profondeur++;
-      else if (tex[j] === '}') profondeur--;
-      j++;
-    }
-    i = j;
-    debut.lastIndex = j;
-  }
-  return out + tex.slice(i);
-}
-
-/**
  * Les résultats empruntés par une démonstration, avec l'adresse de leur source.
  *
  * Une preuve qui tient en une ligne — `exact Nat.dvd_add hb hc` — ne montre
@@ -156,66 +124,6 @@ function appuisDeLaPreuve(code, index) {
     out.push({ nom: mot, url: source.url, paquet: source.paquet });
   }
   return out;
-}
-
-/**
- * Retire les environnements `figure`, corps et légende compris.
- *
- * Le site n'a pas à les rendre : il insère le SVG lui-même, à partir du champ
- * `figure` de la déclaration. Le `\input{figures/…}` du LaTeX ne désignant
- * qu'un fichier TikZ, le laisser passer affichait la source de la figure au
- * lieu de la figure — ce que le lecteur voyait.
- */
-function sansFigures(tex) {
-  return tex.replace(/\\begin\{figure\}[\s\S]*?\\end\{figure\}/g, '');
-}
-
-/**
- * Découpe un document LaTeX en blocs, un par déclaration.
- *
- * Chaque bloc va de la fin du précédent jusqu'à son `\source`. On y lit
- * l'énoncé (l'environnement `theoreme`, `lemme` ou `definition`) et, s'il y en
- * a une, la démonstration.
- */
-function blocsTex(source) {
-  // Le préambule n'est pas du texte : il décrit la mise en page. On part donc
-  // du corps, et l'on jette les commentaires LaTeX et les commandes de
-  // composition, qui n'ont rien à dire à un lecteur.
-  const corpsDoc = source.slice(source.indexOf('\\begin{document}'));
-  const tex = sansFigures(
-    corpsDoc
-      .split('\n')
-      .filter((l) => !l.trimStart().startsWith('%'))
-      .join('\n')
-      .replace(/\\begin\{document\}|\\maketitle|\\sloppy|\\vfill/g, ''),
-  );
-
-  const blocs = new Map();
-  const re = /\\source\{[^}]*\}\{([^}]*?)\\#L(\d+)\}/g;
-  let debut = 0;
-  let m;
-  while ((m = re.exec(tex)) !== null) {
-    const corps = tex.slice(debut, m.index);
-    debut = re.lastIndex;
-    const fichier = m[1].replace(/\\#.*$/, '');
-    const cle = `${fichier}#${m[2]}`;
-
-    const enonce = /\\begin\{(theoreme|lemme|definition|exemple)\}([\s\S]*?)\\end\{\1\}/.exec(corps);
-    // La démonstration d'un exemple s'appelle une explication : deux
-    // environnements, un seul champ — le libellé se décide à l'affichage.
-    const preuve = /\\begin\{(?:proof|explication)\}([\s\S]*?)\\end\{(?:proof|explication)\}/.exec(corps);
-    // Ce qui précède l'énoncé dans le bloc : les remarques libres du fichier
-    // Lean, qui appartiennent au fil du texte et non à un théorème.
-    const avant = enonce ? corps.slice(0, enonce.index) : corps;
-    const remarque = sansTitres(avant).trim();
-
-    blocs.set(cle, {
-      enonceHtml: enonce ? texToHtml(enonce[2].trim()) : '',
-      preuveHtml: preuve ? texToHtml(preuve[1].trim()) : '',
-      remarqueHtml: remarque ? texToHtml(remarque) : '',
-    });
-  }
-  return blocs;
 }
 
 let _appuis = null;

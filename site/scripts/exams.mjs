@@ -12,6 +12,7 @@
  */
 
 import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { blocsTex } from './latex.mjs';
 import { resolve, join } from 'node:path';
 
 const SITE = resolve(import.meta.dirname, '..');
@@ -143,6 +144,52 @@ function lignesDesTheoremes(source) {
   return out;
 }
 
+/**
+ * Les figures d'une session, rangées par nom de théorème.
+ *
+ * Une figure est un SVG écrit à la main dans `figures/<session>/<théorème>.svg`,
+ * à côté du fichier Lean. Le sous-dossier par session est nécessaire ici, à la
+ * différence des chapitres du cours : trois sujets partagent le même dossier
+ * d'année, et les noms de déclarations s'y répètent — `ex3_affirmation_4`
+ * désigne un énoncé différent dans chaque jour du baccalauréat.
+ *
+ * Le SVG est inséré tel quel dans la page, jamais chargé comme image : c'est
+ * ainsi qu'il suit la couleur du texte, donc le thème.
+ */
+async function figuresDeLaSession(annee, session) {
+  const dossier = join(EXAMS, annee, 'figures', session);
+  let fichiers;
+  try {
+    fichiers = await readdir(dossier);
+  } catch {
+    return new Map();
+  }
+  const out = new Map();
+  for (const f of fichiers.filter((f) => f.endsWith('.svg'))) {
+    out.set(f.replace(/\.svg$/, ''), await readFile(join(dossier, f), 'utf8'));
+  }
+  return out;
+}
+
+/**
+ * Les réponses rédigées d'une année, par déclaration Lean.
+ *
+ * Le document `Sujets<année>Decomposes.tex` porte, pour chaque question
+ * démontrée, la réponse et sa démonstration en français. On les rend ici en
+ * HTML pour que l'onglet des sujets montre autre chose qu'un nom de théorème :
+ * un lecteur qui cherche la réponse à une question la trouve sans ouvrir Lean.
+ *
+ * Les blocs sont repérés par `<fichier>.lean#<ligne>`, la même clé que le
+ * document emploie pour renvoyer au dépôt — c'est elle qui apparie la question
+ * et sa réponse, et elle est rafraîchie par `generate-tex.py --liens` quand une
+ * preuve décale les lignes.
+ */
+async function reponsesDeLAnnee(annee, fichiers) {
+  const tex = fichiers.find((f) => f.endsWith('.tex'));
+  if (!tex) return new Map();
+  return blocsTex(await readFile(join(EXAMS, annee, tex), 'utf8'));
+}
+
 async function annales() {
   const out = [];
   let dossiers = [];
@@ -157,6 +204,7 @@ async function annales() {
 
   for (const annee of dossiers) {
     const fichiers = await readdir(join(EXAMS, annee));
+    const reponses = await reponsesDeLAnnee(annee, fichiers);
     // Un index par session ; `README.md` n'est que le sommaire de l'année.
     for (const index of fichiers.filter((f) => f.endsWith('.md') && f !== 'README.md')) {
       const md = await readFile(join(EXAMS, annee, index), 'utf8');
@@ -166,6 +214,7 @@ async function annales() {
         : {};
 
       // L'en-tête de l'index porte la session et l'adresse du sujet.
+      const figures = await figuresDeLaSession(annee, index.replace(/\.md$/, ''));
       const titre = /^# (.+)$/m.exec(md)?.[1] ?? index;
       const session = /^\*(.+?)\*/m.exec(md)?.[1] ?? titre;
       const sujet = /\[sujet\]\(([^)]+)\)/.exec(md)?.[1] ?? null;
@@ -178,10 +227,26 @@ async function annales() {
           session,
           sujet,
           source: fichiers.includes(lean) ? `exams/${annee}/${lean}` : null,
-        }).map((e) => ({
-          ...e,
-          lignes: e.theoremes.map((n) => lignes[n] ?? null),
-        })),
+        }).map((e) => {
+          // Une question n'a qu'une figure : celle du premier de ses théorèmes
+          // qui en porte une. Deux figures pour une même question diraient
+          // deux fois la même chose.
+          const nom = e.theoremes.find((n) => figures.has(n));
+          // La réponse est celle du premier théorème de la question dont le
+          // document porte un bloc. Une question qui en a plusieurs les voit
+          // traités ensemble dans le document, sous le premier.
+          const bloc = e.theoremes
+            .map((n) => reponses.get(`${lean}#${lignes[n]}`))
+            .find(Boolean);
+          return {
+            ...e,
+            lignes: e.theoremes.map((n) => lignes[n] ?? null),
+            ...(nom ? { figure: figures.get(nom) } : {}),
+            ...(bloc?.enonceHtml ? { reponseHtml: bloc.enonceHtml } : {}),
+            ...(bloc?.preuveHtml ? { preuveHtml: bloc.preuveHtml } : {}),
+            ...(bloc?.admisHtml ? { admisHtml: bloc.admisHtml } : {}),
+          };
+        }),
       );
     }
   }
@@ -208,6 +273,11 @@ async function main() {
       .toLowerCase(),
   }));
   const problemes = new Set(qs.map((q) => `${q.session}|${q.probleme}`)).size;
+  console.log(
+    `réponses rédigées : ${qs.filter((q) => q.reponseHtml).length}` +
+      ` — dont ${qs.filter((q) => q.preuveHtml).length} avec démonstration` +
+      ` · figures : ${qs.filter((q) => q.figure).length}`,
+  );
   console.log(
     `questions : ${qs.length} en ${problemes} problèmes — ` +
       `${qs.filter((q) => q.statut === 'démontré').length} démontrées, ` +

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import type { Question } from "../lib/types.ts";
+import { Figure } from "./Figure.tsx";
 
 /**
  * Parcourir les questions des sujets d'examen.
@@ -37,6 +38,66 @@ const STATUTS: Record<string, { court: string; classe: string; aide: string }> =
       aide: "la question n'est pas une proposition mathématique : lecture graphique, interprétation, configuration",
     },
   };
+
+/**
+ * La réponse rédigée d'une question, dépliable.
+ *
+ * Le document de l'année porte, pour chaque question démontrée, la réponse et sa
+ * démonstration en français. Les afficher toutes d'emblée ferait de la liste un
+ * mur de texte et lui ôterait ce qui la rend utile — on la parcourt pour trouver
+ * une question, non pour lire un corrigé d'un bout à l'autre. Elles se déplient
+ * donc une à une, ou toutes à la fois depuis la barre du haut.
+ *
+ * Le HTML vient du `.tex` du dépôt, rendu à la construction par KaTeX : il n'est
+ * jamais reçu de l'extérieur.
+ */
+function Reponse({ e, ouvertPartout }: { e: Question; ouvertPartout: boolean }) {
+  const [ouvertIci, setOuvertIci] = useState(false);
+  if (!e.reponseHtml) return null;
+  const ouvert = ouvertPartout || ouvertIci;
+  return (
+    <div className="mt-2">
+      <button
+        onClick={() => setOuvertIci(!ouvert)}
+        aria-expanded={ouvert}
+        className="font-sans text-[11px] font-semibold tracking-wide text-brand-700 uppercase hover:text-brand-800"
+      >
+        {ouvert ? "masquer la réponse" : "voir la réponse"}
+      </button>
+      {ouvert && (
+        <div className="mt-2 border-l-2 border-ink-200 pl-3">
+          <div
+            className="prose-cours text-[14.5px] text-ink-800"
+            dangerouslySetInnerHTML={{ __html: e.reponseHtml }}
+          />
+          {e.figure && <Figure svg={e.figure} />}
+          {e.preuveHtml && (
+            <>
+              <div className="mt-3 font-sans text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
+                Démonstration
+              </div>
+              <div
+                className="prose-cours text-[14px] text-ink-700"
+                dangerouslySetInnerHTML={{ __html: e.preuveHtml }}
+              />
+            </>
+          )}
+          {e.admisHtml && (
+            <>
+              <div className="mt-3 font-sans text-[11px] font-semibold tracking-wide text-encours-600 uppercase">
+                Énoncé admis
+              </div>
+              <div
+                className="prose-cours text-[14px] text-ink-700"
+                dangerouslySetInnerHTML={{ __html: e.admisHtml }}
+              />
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 /** Sans accents ni casse : on cherche « mediane » comme « médiane ». */
 function pliage(s: string) {
@@ -115,6 +176,9 @@ const TRIS: Record<string, (a: Question, b: Question) => number> = {
 export function Questions({ questions }: { questions: Question[] }) {
   const [q, setQ] = useState("");
   const [tri, setTri] = useState<keyof typeof TRIS>("ordre du sujet");
+  // Déplie toutes les réponses d'un coup : on lit alors la liste comme un
+  // corrigé, plutôt que de la parcourir.
+  const [reponses, setReponses] = useState(false);
   const [filtres, setFiltres] = useState<Record<string, Set<string>>>({});
 
   const axes = useMemo(
@@ -269,6 +333,15 @@ export function Questions({ questions }: { questions: Question[] }) {
             className="min-w-0 flex-1 rounded-lg border border-ink-200 px-3 py-1.5 text-[13px] text-ink-800 placeholder:text-ink-300 focus:border-brand-300 focus:outline-none"
           />
           <label className="flex shrink-0 items-center gap-1.5 text-[12px] text-ink-500">
+            <input
+              type="checkbox"
+              checked={reponses}
+              onChange={(ev) => setReponses(ev.target.checked)}
+              className="accent-brand-700"
+            />
+            réponses
+          </label>
+          <label className="flex shrink-0 items-center gap-1.5 text-[12px] text-ink-500">
             trier par
             <select
               value={tri}
@@ -375,6 +448,8 @@ export function Questions({ questions }: { questions: Question[] }) {
                             </a>
                           ))}
                         </div>
+
+                        <Reponse e={e} ouvertPartout={reponses} />
                       </li>
                     );
                   })}

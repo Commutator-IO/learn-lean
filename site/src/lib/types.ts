@@ -120,4 +120,12 @@ export type Question = {
   /** La ligne de chaque théorème dans le fichier source, quand on la connaît. */
   lignes: (number | null)[];
   statut: string;
+  /** Le SVG de la figure, quand un des théorèmes de la question en a une. */
+  figure?: string;
+  /** La réponse rédigée en français, tirée du document de l'année. */
+  reponseHtml?: string;
+  /** Sa démonstration, quand elle est démontrée. */
+  preuveHtml?: string;
+  /** Ce qui la remplace quand elle ne l'est pas : pourquoi l'énoncé est admis. */
+  admisHtml?: string;
 };
