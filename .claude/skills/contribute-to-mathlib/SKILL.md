@@ -67,8 +67,8 @@ voit tout de suite que la recherche a été faite.
 - Ne pas répéter un bloc `variable` identique à celui d'une section voisine : étendre ou
   renommer la section (`perpBisector` → `RealInnerProductSpace`), et `open scoped … in`
   devant la déclaration qui en a besoin.
-- Docstring sur chaque déclaration publique ; lignes de **100 caractères** au plus
-  (compter les caractères, pas les octets : `awk length` se trompe sur l'Unicode).
+- Lignes de **100 caractères** au plus (compter les caractères, pas les octets :
+  `awk length` se trompe sur l'Unicode).
 
 ### Le guide de style
 
@@ -82,8 +82,7 @@ avant chaque PR. Ce que le guide demande et que la CI ne vérifie pas toujours :
   `section` ou `namespace` ; suite d'énoncé indentée de 4 espaces, preuve de 2 ; `by` en
   fin de ligne, jamais seul ; espaces autour de `:` et `:=`, placés avant le retour à la
   ligne ; une espace après `←` dans `rw` et `simp` ; un `·` non indenté par sous-but ;
-  **pas de ligne vide à l'intérieur d'une déclaration** (un linter le vérifie), un
-  commentaire à la place.
+  **pas de ligne vide à l'intérieur d'une déclaration** (un linter le vérifie).
 - `fun x ↦ …`, jamais `λ` ni `$` (utiliser `<|`) ; types des arguments toujours écrits.
 - **Hypothèses à gauche des deux-points** plutôt qu'un `∀`/`→` introduit en tête de preuve ;
   ni hypothèse ni conclusion en **conjonction** (deux lemmes plutôt qu'un `∧`) ; une
@@ -101,6 +100,29 @@ avant chaque PR. Ce que le guide demande et que la CI ne vérifie pas toujours :
 - Docstring de module avec titre, résumé, `## Main results` (puces `-` ou `*`, suite
   indentée de 2 espaces), notations, références ; docstring de déclaration sans
   indentation des lignes suivantes.
+
+### Docstrings et commentaires : avec parcimonie
+
+Un relecteur l'a dit sans détour (@vihdzp sur #44756) : une IA commente tout, et sur des
+énoncés courts ces commentaires ne sont que du bruit. La règle de Mathlib
+([documentation](https://leanprover-community.github.io/contribute/doc.html)) :
+
+- **docstring obligatoire** sur chaque **définition** (`def`, `structure`, `class`,
+  `instance` nommée, tactique) et sur chaque **théorème majeur** — celui qu'on cite par son
+  nom dans la littérature : *de Moivre–Laplace*, *Cavalieri*, *suites adjacentes* ;
+- **docstring sur un lemme seulement si l'énoncé est difficile à lire** à partir de sa
+  signature (hypothèses enchevêtrées, objet mal nommé, convention cachée comme une
+  division par zéro) ;
+- **pas de docstring** sur un lemme dont la signature dit tout : `integral_sq_…`,
+  `memLp_two_…`, une série `hasSum_…`, un lemme de cast ou de réécriture. Le nom, choisi
+  selon les conventions de nommage, fait déjà le travail ;
+- **pas de commentaire `--` dans une preuve courte** ; un commentaire seulement pour
+  signaler une astuce non évidente dans une preuve longue ;
+- le docstring de module reste obligatoire et liste les résultats principaux : c'est là,
+  pas sur chaque lemme, que le lecteur trouve la carte du fichier.
+
+Avant d'ouvrir une PR, relire chaque docstring en se demandant : *le relecteur
+apprend-il quelque chose que le nom et la signature ne disaient pas ?* Sinon, le retirer.
 
 ### Preuve
 
