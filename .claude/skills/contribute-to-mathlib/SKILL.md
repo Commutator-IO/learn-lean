@@ -103,26 +103,46 @@ avant chaque PR. Ce que le guide demande et que la CI ne vérifie pas toujours :
 
 ### Docstrings et commentaires : avec parcimonie
 
-Un relecteur l'a dit sans détour (@vihdzp sur #44756) : une IA commente tout, et sur des
-énoncés courts ces commentaires ne sont que du bruit. La règle de Mathlib
-([documentation](https://leanprover-community.github.io/contribute/doc.html)) :
+Leçon de la revue de #44756 ([discussion](https://github.com/leanprover-community/mathlib4/pull/44756#discussion_r4245199412)).
+@vihdzp : une IA commente tout son code, et sur des théorèmes aussi simples les
+commentaires ne sont que du bruit visuel. Puis, en réponse à l'objection « le guide de
+style exige des commentaires »
+([réponse](https://github.com/leanprover-community/mathlib4/pull/44756#discussion_r4246164823)) :
+les **définitions** exigent un docstring, **pas les théorèmes**. Sans règle officielle,
+l'usage des relecteurs réserve le docstring d'un théorème à deux cas :
+
+1. **les théorèmes majeurs**, pour pouvoir citer leur nom dans la littérature
+   (*de Moivre–Laplace*, *Cavalieri*, *suites adjacentes*) ;
+2. **les théorèmes alambiqués**, difficiles à comprendre à partir de la seule signature
+   (hypothèses enchevêtrées, objet mal nommé, convention cachée comme une division par
+   zéro, interprétation géométrique non évidente comme `s.directionᗮ = ℝ ∙ n`).
+
+Le piège à éviter : lire la section
+[« Comments »](https://leanprover-community.github.io/contribute/style.html#comments) du
+guide de style comme une obligation de commenter. Elle dit **quels délimiteurs** employer
+(`/-! -/` pour les en-têtes de section, `/- -/` pour les notes techniques, `--` en ligne,
+`/-- -/` pour les docstrings), pas qu'il faut un docstring partout. La
+[documentation](https://leanprover-community.github.io/contribute/doc.html) exige un
+docstring sur « every definition and major theorem » ; elle l'« encourage » sur un lemme,
+mais la pratique des relecteurs est plus stricte. Ne pas débattre de la règle avec un
+relecteur : appliquer.
+
+En pratique :
 
 - **docstring obligatoire** sur chaque **définition** (`def`, `structure`, `class`,
-  `instance` nommée, tactique) et sur chaque **théorème majeur** — celui qu'on cite par son
-  nom dans la littérature : *de Moivre–Laplace*, *Cavalieri*, *suites adjacentes* ;
-- **docstring sur un lemme seulement si l'énoncé est difficile à lire** à partir de sa
-  signature (hypothèses enchevêtrées, objet mal nommé, convention cachée comme une
-  division par zéro) ;
+  `instance` nommée, tactique) et sur les théorèmes des deux cas ci-dessus ;
 - **pas de docstring** sur un lemme dont la signature dit tout : `integral_sq_…`,
-  `memLp_two_…`, une série `hasSum_…`, un lemme de cast ou de réécriture. Le nom, choisi
-  selon les conventions de nommage, fait déjà le travail ;
-- **pas de commentaire `--` dans une preuve courte** ; un commentaire seulement pour
-  signaler une astuce non évidente dans une preuve longue ;
-- le docstring de module reste obligatoire et liste les résultats principaux : c'est là,
-  pas sur chaque lemme, que le lecteur trouve la carte du fichier.
+  `memLp_two_…`, une série `hasSum_…`, un lemme de cast, de réécriture ou une direction
+  d'une équivalence. Le nom, choisi selon les conventions de nommage, fait le travail ;
+- **pas de commentaire `--` dans une preuve courte** ; un seul, au besoin, pour signaler
+  une astuce non évidente dans une preuve longue (remplacer `f` par une fonction mesurable
+  avec `piecewise`, par exemple) ;
+- le **docstring de module** reste obligatoire et liste les résultats principaux : c'est
+  là, pas sur chaque lemme, que le lecteur trouve la carte du fichier.
 
-Avant d'ouvrir une PR, relire chaque docstring en se demandant : *le relecteur
-apprend-il quelque chose que le nom et la signature ne disaient pas ?* Sinon, le retirer.
+Avant d'ouvrir une PR, relire chaque docstring et chaque commentaire en se demandant :
+*le relecteur apprend-il quelque chose que le nom et la signature ne disaient pas ?*
+Sinon, le retirer.
 
 ### Preuve
 
