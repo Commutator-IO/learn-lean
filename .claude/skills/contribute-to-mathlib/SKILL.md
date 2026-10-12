@@ -70,6 +70,38 @@ voit tout de suite que la recherche a été faite.
 - Docstring sur chaque déclaration publique ; lignes de **100 caractères** au plus
   (compter les caractères, pas les octets : `awk length` se trompe sur l'Unicode).
 
+### Le guide de style
+
+Relire le [guide de style](https://leanprover-community.github.io/contribute/style.html)
+et les [conventions de nommage](https://leanprover-community.github.io/contribute/naming.html)
+avant chaque PR. Ce que le guide demande et que la CI ne vérifie pas toujours :
+
+- **Imports** : `module` seul sur sa ligne après l'en-tête, une ligne vide, les
+  `public import`, une ligne vide, les `import` ; **ordre alphabétique dans chaque bloc**.
+- **Mise en page** : déclarations et commandes collées à gauche, rien n'est indenté sous
+  `section` ou `namespace` ; suite d'énoncé indentée de 4 espaces, preuve de 2 ; `by` en
+  fin de ligne, jamais seul ; espaces autour de `:` et `:=`, placés avant le retour à la
+  ligne ; une espace après `←` dans `rw` et `simp` ; un `·` non indenté par sous-but ;
+  **pas de ligne vide à l'intérieur d'une déclaration** (un linter le vérifie), un
+  commentaire à la place.
+- `fun x ↦ …`, jamais `λ` ni `$` (utiliser `<|`) ; types des arguments toujours écrits.
+- **Hypothèses à gauche des deux-points** plutôt qu'un `∀`/`→` introduit en tête de preuve ;
+  ni hypothèse ni conclusion en **conjonction** (deux lemmes plutôt qu'un `∧`) ; une
+  hypothèse `x ≠ ⊥` plutôt que `⊥ < x`, une conclusion `⊥ < x` plutôt que `x ≠ ⊥`.
+- **Noms de variables** : `m, n, k` entiers naturels, `s, t` ensembles, `x, y` éléments,
+  `h, h₁` hypothèses, `G, R, K, 𝕜, E` pour les structures. Une variable locale d'écart type
+  ne s'appelle donc pas `s`.
+- **`simp` terminal non comprimé** : ne pas remplacer un `simp [lemme clé]` qui clôt le
+  but par la sortie de `simp?`. Si le `simp` simple boucle, réécrire d'abord à la main
+  (`rw [this]`), puis finir par un `simp` court.
+- **Pas de `rfl` ni d'`erw` après `rw`/`simp`** : le guide y voit un manque d'API.
+  Fermer par `ring`, `simp [Set.preimage]`… ou ajouter le lemme qui manque.
+- `@[to_additive]` plutôt que deux énoncés écrits à la main ; renommer une déclaration
+  publique laisse un `@[deprecated (since := "AAAA-MM-JJ")] alias`.
+- Docstring de module avec titre, résumé, `## Main results` (puces `-` ou `*`, suite
+  indentée de 2 espaces), notations, références ; docstring de déclaration sans
+  indentation des lignes suivantes.
+
 ### Preuve
 
 - Les tactiques que la revue préfère : `field` à la place d'une disjonction
