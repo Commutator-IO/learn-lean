@@ -144,11 +144,42 @@ Avant d'ouvrir une PR, relire chaque docstring et chaque commentaire en se deman
 *le relecteur apprend-il quelque chose que le nom et la signature ne disaient pas ?*
 Sinon, le retirer.
 
+### Preuves courtes : pas de détours
+
+Leçon de la revue de #44730 (@themathqueen,
+[discussion](https://github.com/leanprover-community/mathlib4/pull/44730#discussion_r4262103235)).
+Une IA écrit volontiers ses preuves en étapes nommées : un `have h : t = u := by rw […]`,
+puis un `rw [h, …]`. Les relecteurs veulent l'inverse. Sa règle
+([explication](https://github.com/leanprover-community/mathlib4/pull/44730#discussion_r4270906292)) :
+un `have` se justifie quand l'étape est **compliquée** ; quand il est démontré par une
+simple réécriture et ne sert qu'une fois dans le `rw` qui suit, c'est « un détour inutile » :
+la réécriture va **directement dans la chaîne** `rw [...]`, ou dans un `conv`.
+
+Comme pour les docstrings, **ne pas défendre le `have` en citant le guide de style**
+(la section « Structuring definitions and theorems » n'impose rien de tel) : la relectrice
+a maintenu sa demande. Appliquer, sans débat.
+
+Passe de concision avant chaque push (la skill `lean4:golf` aide) :
+
+| Écrit d'abord | À préférer |
+|---|---|
+| `have h : x = y := by rw […]` puis `rw [h, …]` | la réécriture dans la chaîne : `rw [← lemme, …]`, ou `conv_rhs => rw [← lemme]` |
+| `(by exact_mod_cast h)` | `(mod_cast h)` |
+| `show i + N = N + i by lia` pour permuter une somme | `add_comm`, `add_assoc`, `add_rotate`, `add_right_comm` (`lia` reste pour une vraie inégalité) |
+| `simp only [e]` après `set e := … with he_def` | `simp only [he_def]` : l'équation existe déjà |
+| `rcases eq_or_ne n 0 with rfl \| h` puis deux preuves | une seule tactique qui couvre les deux cas (`field`) |
+
+Piège pour les **fichiers de bas niveau** (comme `Mathlib/Data/Nat/Init.lean`) :
+compiler le fichier réel avec ses vrais imports, jamais un essai avec `import Mathlib`.
+Celui-ci masque les tactiques absentes : `conv_lhs` est une tactique de Mathlib, inconnue
+dans `Data/Nat/Init.lean`, où il faut le `conv` du noyau : `conv =>` puis `lhs` puis
+`rw […]` sur trois lignes.
+
 ### Preuve
 
 - Les tactiques que la revue préfère : `field` à la place d'une disjonction
   `rcases eq_or_ne x 0` suivie de `simp` / `field_simp` ; `lia` pour l'arithmétique
-  entière ; `fun_prop` pour la mesurabilité.
+  entière ; `fun_prop` pour la mesurabilité ; `mod_cast h` pour `by exact_mod_cast h`.
 - Pièges rencontrés :
   - dans `theorem Monotone.foo`, un nom nu comme `ge_of_tendsto` se résout en
     `Monotone.ge_of_tendsto` : écrire `_root_.le_of_tendsto` ;
@@ -214,6 +245,12 @@ Ce contrôle local ne voit pas les **renommages et dépréciations** de master
   `gh run view <id> --log-failed`) et corriger la cause réelle. Causes rencontrées :
   nom déprécié sur master, argument inutilisé, import manquant après réduction des
   imports (`Measurable ncard` vient de `MeasureTheory.MeasurableSpace.NCard`).
+- **Réseau** : si SSH vers GitHub expire (`port 22: Operation timed out`), `git fetch` et
+  `git push` échouent. Vérifier la pointe distante par HTTPS :
+  `gh api repos/mycaule/mathlib4/branches/<branche> --jq .commit.sha`, puis pousser sans
+  toucher à la configuration :
+  `git -c credential.helper= -c credential.helper='!gh auth git-credential' push https://github.com/mycaule/mathlib4.git HEAD:<branche>`.
+  Ne pas ajouter `ssh.github.com:443` à `known_hosts` sans l'accord de Michel.
 - **Avant tout commit** sur une branche existante, `git fetch fork <branche>` : Michel peut
   y avoir fusionné master depuis GitHub. Repartir de la pointe du fork
   (`git switch -c <tmp> fork/<branche>`), jamais de sa copie locale. **Jamais de
