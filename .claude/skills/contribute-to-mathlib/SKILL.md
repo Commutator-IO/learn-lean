@@ -195,20 +195,35 @@ dans `Data/Nat/Init.lean`, où il faut le `conv` du noyau : `conv =>` puis `lhs`
 La machine a 8 Go de RAM et peu de disque : **jamais** `lake build` sur Mathlib ni
 `lake exe cache get`. Deux outils suffisent.
 
-- **Un Mathlib déjà compilé** (août 2026) vit dans `~/Commutator/grothendieck-project/lean`.
-  Y compiler un fichier d'essai, un seul processus, sans toucher au projet :
+- **Un Mathlib déjà compilé** vit dans `~/Commutator/grothendieck-project/lean`. Y compiler
+  un fichier d'essai, un seul processus, sans toucher au projet :
 
       cd ~/Commutator/grothendieck-project/lean && lake env lean <scratchpad>/Essai.lean
 
-  Ce Mathlib a du retard sur master. Quand la preuve utilise un lemme apparu depuis, le
-  **simuler** dans le fichier d'essai avec sa signature exacte de master
-  (`theorem … := sorry`) et le dire dans le compte rendu.
+  Ce projet a sa propre chaîne d'outils (pas celle de `learn-lean`, épinglée sur Mathlib
+  `v4.33.0`) : ne jamais y compiler depuis `learn-lean`. Michel le met à jour de temps en
+  temps, donc **vérifier son âge avant de s'y fier** :
+
+      git -C ~/Commutator/grothendieck-project/lean/.lake/packages/mathlib log -1 --format='%h %cd' --date=short
+      cat ~/Commutator/grothendieck-project/lean/lean-toolchain
+      gh api repos/leanprover-community/mathlib4/commits/master --jq .commit.committer.date
+
+  Au 12 oct. 2026 : Mathlib `715a03a9` (12 oct.), Lean `v4.35.0-rc4` ; avant sa mise à jour,
+  il datait du 10 août (Lean `v4.33.0`).
+  - **À quelques jours de master** : les fichiers se compilent tels quels, et les lemmes
+    récents, les renommages et les dépréciations se voient en local.
+  - **En retard** : un lemme apparu depuis manque. Le **simuler** dans le fichier d'essai
+    avec sa signature exacte de master (`theorem … := sorry`) et le dire dans le compte
+    rendu. C'est ainsi qu'une dépréciation (`measurable_pi_lambda` → `Measurable.of_eval`)
+    n'a été vue que par la CI de #44770.
+  - Le premier chargement après une mise à jour est lent (plusieurs minutes : oleans froids
+    sur le disque).
 - **Loogle** pour confirmer que chaque nom utilisé existe encore sur master, avec le
   même module.
 
-Ce contrôle local ne voit pas les **renommages et dépréciations** de master
-(`measurable_pi_lambda` → `Measurable.of_eval`, `Set.mem_setOf_eq` →
-`Set.mem_ofPred_eq`) ni les linters d'environnement : la CI de la PR est le juge final.
+Même à jour, ce contrôle local ne remplace pas la CI : les linters d'environnement
+(`unusedArguments`…) et les changements de master intervenus depuis la dernière mise à jour
+ne se voient qu'à la compilation de la PR, qui reste le juge final.
 
 ## 4. Ouvrir la PR
 
