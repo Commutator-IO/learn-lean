@@ -1,0 +1,69 @@
+name: sbom
+
+# The site's dependency inventory (SBOM), and a weekly re-scan of it. Same design
+# as Commutator-IO/preview (its #14), with one difference: main is deployed to
+# GitHub Pages by site.yml on every push, so main is production. There is no
+# promotion step, hence no second inventory to keep and scan.
+#
+# A scan at build time only knows the advisories published before the build.
+# The ones that concern a live site come out later, so the inventory is kept
+# and checked again against current vulnerability data every Monday.
+#
+# Only site/ is inventoried. The Lean packages (lake-manifest.json) are outside
+# what Syft can catalogue, and the Python tools use the standard library only.
+#
+# The site is served as static files, so most of these packages only run during
+# the build. When a finding cannot be reached in what is served, record it in
+# .github/vex.openvex.json with its justification. Do not hide it with a scan
+# setting: the VEX file keeps the decision, its reason and its date in one place.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - site/package.json
+      - site/package-lock.json
+      - .github/vex.openvex.json
+      - .github/workflows/sbom.yml
+  pull_request:
+    paths:
+      - site/package.json
+      - site/package-lock.json
+      - .github/vex.openvex.json
+      - .github/workflows/sbom.yml
+  schedule:
+    - cron: '23 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Inventory the dependencies (SBOM)
+        uses: anchore/sbom-action@v0
+        with:
+          path: site
+          format: cyclonedx-json
+          output-file: sbom.cdx.json
+          upload-artifact: false
+
+      - name: Keep the SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: sbom.cdx.json
+          retention-days: 90
+
+      - name: Scan against current vulnerability data
+        uses: anchore/scan-action@v7
+        with:
+          sbom: sbom.cdx.json
+          vex: .github/vex.openvex.json
+          severity-cutoff: high
+          fail-build: true
+          output-format: table
