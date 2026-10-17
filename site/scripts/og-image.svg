@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="100%">
+  <!--
+    Source de public/og-image.png, l'image d'aperçu des liens (Open Graph :
+    LinkedIn, messageries). 1200 x 630, le format 1,91:1 que LinkedIn attend.
+
+    Les couleurs et les polices sont celles du site (src/index.css). Le théorème
+    est un vrai énoncé du dépôt : courses/01-college/01-nombres-et-calculs/
+    EntiersDivisibilite.lean, `divise_somme`.
+
+    Pour régénérer le PNG (macOS, sans rien installer) :
+      qlmanage -t -s 1200 -o /tmp site/scripts/og-image.svg
+      cp /tmp/og-image.svg.png site/public/og-image.png
+  -->
+  <rect width="1200" height="630" fill="#f8f8f7"/>
+  <rect x="0" y="0" width="1200" height="10" fill="#2d36a8"/>
+
+  <!-- Marque : la même pastille que favicon.svg -->
+  <rect x="72" y="52" width="48" height="48" rx="9" fill="#2d36a8"/>
+  <text x="96" y="87" font-family="Menlo, monospace" font-size="30" font-weight="700" text-anchor="middle" fill="#ffffff">∀</text>
+  <text x="136" y="87" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#131311">learn-lean</text>
+  <text x="1128" y="87" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="24" text-anchor="end" fill="#6e6d64">lean.commutator.io</text>
+
+  <!-- Titre -->
+  <text font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="60" fill="#131311">
+    <tspan x="72" y="190">Les mathématiques du secondaire</tspan>
+    <tspan x="72" y="262">français, démontrées en Lean</tspan>
+  </text>
+  <text x="72" y="312" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" fill="#55544d">De la sixième à la terminale, chaque théorème du programme, vérifié par la machine.</text>
+
+  <!-- À gauche, la preuve que le compilateur accepte -->
+  <rect x="72" y="352" width="516" height="226" rx="14" fill="#ffffff" stroke="#e2e2de" stroke-width="2"/>
+  <rect x="72" y="352" width="516" height="52" rx="14" fill="#eef2ff"/>
+  <rect x="72" y="380" width="516" height="24" fill="#eef2ff"/>
+  <line x1="72" y1="404" x2="588" y2="404" stroke="#dbe3fe" stroke-width="2"/>
+  <text x="96" y="386" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#2d36a8">Lean 4</text>
+  <text x="564" y="386" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="19" text-anchor="end" fill="#128557">✓ accepté par le compilateur</text>
+  <g font-family="Menlo, monospace" font-size="21" fill="#292824">
+    <text x="96" y="446"><tspan fill="#2d36a8" font-weight="700">theorem</tspan> divise_somme {a b c : ℕ}</text>
+    <text x="147" y="480">(hb : a ∣ b) (hc : a ∣ c) :</text>
+    <text x="147" y="514">a ∣ (b + c) :=</text>
+    <text x="121" y="548">Nat.dvd_add hb hc</text>
+  </g>
+
+  <!-- À droite, celle qu'un élève peut lire -->
+  <rect x="612" y="352" width="516" height="226" rx="14" fill="#ffffff" stroke="#e2e2de" stroke-width="2"/>
+  <rect x="612" y="352" width="516" height="52" rx="14" fill="#f0f0ee"/>
+  <rect x="612" y="380" width="516" height="24" fill="#f0f0ee"/>
+  <line x1="612" y1="404" x2="1128" y2="404" stroke="#e2e2de" stroke-width="2"/>
+  <text x="636" y="386" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#3f3e39">En français</text>
+  <text x="1104" y="386" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="19" text-anchor="end" fill="#6e6d64">Collège, 5ᵉ</text>
+  <g font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="31" fill="#131311">
+    <text x="636" y="472">Si <tspan font-style="italic">a</tspan> divise <tspan font-style="italic">b</tspan> et <tspan font-style="italic">a</tspan> divise <tspan font-style="italic">c</tspan>,</text>
+    <text x="636" y="522">alors <tspan font-style="italic">a</tspan> divise la somme <tspan font-style="italic">b</tspan> + <tspan font-style="italic">c</tspan>.</text>
+  </g>
+</svg>
