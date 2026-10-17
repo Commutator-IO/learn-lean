@@ -12,8 +12,16 @@ name: sbom
 # Only site/ is inventoried. The Lean packages (lake-manifest.json) are outside
 # what Syft can catalogue, and the Python tools use the standard library only.
 #
-# The site is served as static files, so most of these packages only run during
-# the build. When a finding cannot be reached in what is served, record it in
+# Reminder: only production dependencies are inventoried. Syft lists what
+# package.json declares under `dependencies` and leaves out `devDependencies`:
+# today react, react-dom and scheduler, 3 of the 109 packages in the lockfile.
+# The build tools (vite, tailwind, katex...) are not scanned here; `npm audit`
+# covers them. To include them, pass a Syft config that sets
+# `javascript.include-dev-dependencies: true` through the `config` input of
+# sbom-action.
+#
+# The packages that are scanned are the ones shipped in the served bundle, so a
+# finding is normally reachable. When one is not, record it in
 # .github/vex.openvex.json with its justification. Do not hide it with a scan
 # setting: the VEX file keeps the decision, its reason and its date in one place.
 
