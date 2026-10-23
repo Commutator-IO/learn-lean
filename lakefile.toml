@@ -3,7 +3,7 @@
 # conservés.
 
 name = "learn-lean"
-defaultTargets = ["Upstream", "CollegeNombresEtCalculs", "CollegeGeometriePlane", "CollegeTransformationsDuPlan", "CollegeGrandeursEtMesures", "CollegeProportionnaliteEtFonctions", "CollegeStatistiquesEtProbabilites", "CollegeAlgorithmiqueEtProgrammation", "LyceeNombresCalculAlgebrique", "LyceeFonctionsSecondDegre", "LyceeSuites", "LyceeLimitesContinuiteDerivation", "LyceeExponentielleLogarithmeTrigonometrie", "LyceeIntegration", "LyceeNombresComplexes", "LyceeGeometrieVecteursProduitScalaireEspace", "LyceeProbabilitesEtStatistiques", "LyceeArithmetiqueMatricesEtGraphes", "LyceeSpecialiteMathematiquesTerminaleS", "LyceeInformatique", "LyceeInformatiqueNsi", "Annales2025", "Annales2026"]
+defaultTargets = ["Upstream", "CollegeNombresEtCalculs", "CollegeGeometriePlane", "CollegeTransformationsDuPlan", "CollegeGrandeursEtMesures", "CollegeProportionnaliteEtFonctions", "CollegeStatistiquesEtProbabilites", "CollegeAlgorithmiqueEtProgrammation", "LyceeNombresCalculAlgebrique", "LyceeFonctionsSecondDegre", "LyceeSuites", "LyceeLimitesContinuiteDerivation", "LyceeExponentielleLogarithmeTrigonometrie", "LyceeIntegration", "LyceeNombresComplexes", "LyceeGeometrieVecteursProduitScalaireEspace", "LyceeProbabilitesEtStatistiques", "LyceeSpecialiteMathematiquesTerminaleS", "LyceeInformatiqueNsi", "Annales2025", "Annales2026"]
 
 [[require]]
 name = "mathlib"
@@ -96,19 +96,9 @@ srcDir = "courses/02-lycee/09-probabilites-et-statistiques"
 globs = ["ProbabilitesEtStatistiques"]
 
 [[lean_lib]]
-name = "LyceeArithmetiqueMatricesEtGraphes"
-srcDir = "courses/02-lycee/10-arithmetique-matrices-et-graphes"
-globs = []
-
-[[lean_lib]]
 name = "LyceeSpecialiteMathematiquesTerminaleS"
 srcDir = "courses/02-lycee/10-specialite-mathematiques-terminale-s"
 globs = ["Arithmetique", "MatricesEtGraphes"]
-
-[[lean_lib]]
-name = "LyceeInformatique"
-srcDir = "courses/02-lycee/11-informatique"
-globs = []
 
 [[lean_lib]]
 name = "LyceeInformatiqueNsi"
