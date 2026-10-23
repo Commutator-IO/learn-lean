@@ -93,7 +93,7 @@ dans $[0, +\infty]$, d'où la conversion explicite du réel $\int_a^b f$ en un �
 ensemble. Enfin, ce théorème est l'exact renversement du cours : au lycée l'aire définit
 l'intégrale, ici l'intégrale calcule l'aire.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L21}{Integration.lean\#L21}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L22}{Integration.lean\#L22}
 
 \begin{figure}[h]
 \centering
@@ -124,7 +124,7 @@ Le programme admet l'existence de primitives ; ici elle est \emph{construite}, e
 formule qui la donne est celle de l'énoncé suivant du programme. Les deux points ne font
 donc qu'un.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L34}{Integration.lean\#L34}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L35}{Integration.lean\#L35}
 
 \begin{theoreme}
 Deux primitives d'une même fonction diffèrent d'une constante : si $F' = G' = f$ sur
@@ -141,7 +141,7 @@ est constante \textemdash{} conséquence du théorème des accroissements finis,
 dans la bibliothèque \textemdash{} donc sa valeur en $x$ est celle en $0$, ce qui est
 exactement l'égalité annoncée.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L39}{Integration.lean\#L39}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L40}{Integration.lean\#L40}
 
 \subsection{Théorème fondamental de l'analyse}
 
@@ -160,7 +160,7 @@ $F' = f$ sur $\mathbb{R}$ tout entier, et $f$ continue est intégrable sur tout 
 L'énoncé ne suppose pas $a \le b$ : l'intégrale sur l'intervalle orienté change de signe
 avec l'ordre des bornes, exactement comme $F(b) - F(a)$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L55}{Integration.lean\#L55}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L56}{Integration.lean\#L56}
 
 \subsection{Linéarité}
 
@@ -174,7 +174,7 @@ L'intégrale est linéaire parce qu'elle est construite comme une limite de somm
 qu'une somme l'est. L'additivité réclame que $f$ et $g$ soient intégrables sur l'intervalle, ce que leur continuité assure ; l'homogénéité ne demande
 rien, la constante sortant de l'intégrale même lorsque celle-ci n'est pas définie.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L62}{Integration.lean\#L62}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L63}{Integration.lean\#L63}
 
 \subsection{Relation de Chasles}
 
@@ -191,7 +191,7 @@ Aucune condition d'ordre sur $a$, $b$, $c$ : c'est justement l'intérêt de l'in
 orientée, qui rend la relation vraie quelle que soit la position relative des trois
 bornes, y compris lorsque $b$ n'est pas entre $a$ et $c$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L72}{Integration.lean\#L72}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L73}{Integration.lean\#L73}
 
 \subsection{Positivité et croissance}
 
@@ -209,7 +209,7 @@ en appliquant la positivité à $g - f$.
 L'hypothèse $a \le b$ est indispensable dans les deux cas : sur l'intervalle orienté à
 l'envers, l'intégrale d'une fonction positive est négative.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L81}{Integration.lean\#L81}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L82}{Integration.lean\#L82}
 
 \subsection{Inégalité de la moyenne}
 
@@ -236,7 +236,7 @@ Géométriquement : l'aire sous la courbe est comprise entre celles des deux rec
 base $[a\,;b]$ et de hauteurs $m$ et $M$, et la valeur moyenne est la hauteur du rectangle
 de même aire.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L94}{Integration.lean\#L94}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L95}{Integration.lean\#L95}
 
 \subsection{Intégration par parties}
 
@@ -253,7 +253,7 @@ et il ne reste qu'à séparer les deux termes par linéarité. Les hypothèses d
 des dérivées servent à cette séparation, en assurant que chacune des deux intégrales
 existe séparément.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L119}{Integration.lean\#L119}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L120}{Integration.lean\#L120}
 
 \subsection{Aire entre deux courbes}
 
@@ -281,7 +281,7 @@ un appareillage sans commune mesure avec l'approche du programme, qui empile des
 et passe à la limite sans le justifier. L'énoncé correspondant reste marqué
 \og{} en cours \fg{} dans l'index du chapitre.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L131}{Integration.lean\#L131}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L132}{Integration.lean\#L132}
 
 \subsection{Énoncés admis}
 
@@ -294,7 +294,7 @@ fonction continue positive $f$ engendre un solide de volume
 $\pi \int_a^b f(x)^2 \, \mathrm{d}x$.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L155}{Integration.lean\#L155}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L149}{Integration.lean\#L149}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

@@ -5,12 +5,13 @@ espace mesurable, un événement est une partie mesurable, l'espérance est l'in
 `μ[X]` et la variance `Var[X; μ]`.
 Les séries statistiques sont des familles finies `x : Fin n → ℝ`, dont ce fichier pose la
 moyenne, la variance et l'écart-type.
-Trois énoncés du programme ne sont pas traités : le théorème de Moivre–Laplace,
-l'intervalle de fluctuation asymptotique et l'intervalle de confiance. Voir la note en fin
-de fichier.
+Le théorème de Moivre–Laplace s'appuie sur `Upstream.DeMoivreLaplace`. Deux énoncés du
+programme ne sont pas traités : l'intervalle de fluctuation asymptotique et l'intervalle de
+confiance. Voir la note en fin de fichier.
 Énoncés et démonstrations en français : voir ProbabilitesEtStatistiques.tex.
 -/
 import Mathlib
+import Upstream.DeMoivreLaplace
 
 namespace Lycee.Probabilites
 
@@ -253,6 +254,17 @@ theorem loi_normale (m : ℝ) (v : NNReal) :
     (∫ x, x ∂(gaussianReal m v) = m) ∧ Var[id; gaussianReal m v] = v :=
   ⟨integral_id_gaussianReal, variance_id_gaussianReal⟩
 
+/-! ## Théorème de Moivre–Laplace -/
+
+/-- Théorème de Moivre–Laplace : la loi binomiale centrée réduite converge vers la loi
+normale centrée réduite. -/
+theorem moivre_laplace {p : unitInterval} (hp : 0 < (p : ℝ)) (hp1 : (p : ℝ) < 1) (x : ℝ) :
+    Tendsto (fun n : ℕ => ((binomial n p)
+        {k : ℕ | ((k : ℝ) - n * p) / Real.sqrt (n * (p : ℝ) * (1 - p)) ≤ x}).toReal)
+      atTop (nhds (cdf (gaussianReal 0 1) x)) :=
+  tendsto_binomial_real_setOf_le (fun h => hp.ne' (by simp [h]))
+    (fun h => hp1.ne (by simp [h])) x
+
 /-! ## Énoncés admis -/
 
 /-
@@ -261,12 +273,10 @@ que le manque se voie et se compte ; leur démonstration est admise.
 
 Un mot sur chacun. La variance d'une binomiale et l'espérance d'une exponentielle
 sont à portée, mais demandent un calcul de somme et une intégration par parties que ce
-fichier n'a pas menés. Le théorème de Moivre–Laplace est un cas particulier du théorème
-central limite : Mathlib le possède, mais l'écart entre son énoncé et la forme scolaire,
-qui parle d'intervalles et de valeurs numériques, est un travail de traduction à part
-entière. Les intervalles `1σ`, `2σ`, `3σ` réclament un encadrement de la fonction
-d'erreur que Mathlib ne fournit pas à cette précision. L'intervalle de fluctuation et
-l'intervalle de confiance reposent sur Moivre–Laplace, et tombent avec lui.
+fichier n'a pas menés. Les intervalles `1σ`, `2σ`, `3σ` réclament un encadrement de la
+fonction d'erreur que Mathlib ne fournit pas à cette précision. L'intervalle de fluctuation
+et l'intervalle de confiance se déduisent de Moivre–Laplace, démontré plus haut, mais
+demandent en plus de mesurer `[−1,96 ; 1,96]` pour la loi normale.
 
 Les quartiles et l'écart interquartile manquent aussi, mais il leur manque une définition,
 pas une démonstration : rien à admettre tant qu'ils ne sont pas définis.
@@ -280,14 +290,6 @@ theorem variance_binomiale (n : ℕ) (p : unitInterval) :
 /-- Espérance d'une loi exponentielle de paramètre `r` : elle vaut `1/r`. -/
 theorem esperance_exponentielle {r : ℝ} (hr : 0 < r) :
     ∫ t, t ∂(expMeasure r) = 1 / r := by
-  sorry
-
-/-- Théorème de Moivre–Laplace : la loi binomiale centrée réduite converge vers la loi
-normale centrée réduite. -/
-theorem moivre_laplace {p : unitInterval} (hp : 0 < (p : ℝ)) (hp1 : (p : ℝ) < 1) (x : ℝ) :
-    Tendsto (fun n : ℕ => ((binomial n p)
-        {k : ℕ | ((k : ℝ) - n * p) / Real.sqrt (n * (p : ℝ) * (1 - p)) ≤ x}).toReal)
-      atTop (nhds (cdf (gaussianReal 0 1) x)) := by
   sorry
 
 /-- Intervalles `1σ`, `2σ` et `3σ` d'une loi normale : environ 68 %, 95 % et 99,7 %. -/

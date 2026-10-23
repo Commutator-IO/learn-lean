@@ -379,6 +379,32 @@ theorem distance_a_un_plan {E : Type*} [NormedAddCommGroup E] [InnerProductSpace
       abs_of_nonneg (by positivity : (0 : ℝ) ≤ ‖n‖ ^ 2)]
     field_simp
 
+/-- Distance d'un point à un plan : elle se lit sur le vecteur normal. -/
+theorem distance_d_un_point_a_un_plan {E : Type*} [NormedAddCommGroup E]
+    [InnerProductSpace ℝ E] {n : E} (hn : n ≠ 0) (a m : E) :
+    Metric.infDist m {x : E | inner ℝ n (x - a) = (0 : ℝ)} = |inner ℝ n (m - a)| / ‖n‖ := by
+  have hn0 : ‖n‖ ≠ 0 := norm_ne_zero_iff.2 hn
+  have hn2 : inner ℝ n n = ‖n‖ ^ 2 := real_inner_self_eq_norm_sq n
+  set c : ℝ := inner ℝ n (m - a)
+  have hfoot : m - (c / ‖n‖ ^ 2) • n ∈ {x : E | inner ℝ n (x - a) = (0 : ℝ)} := by
+    show inner ℝ n (m - (c / ‖n‖ ^ 2) • n - a) = 0
+    rw [sub_right_comm, inner_sub_right, inner_smul_right, hn2]
+    field_simp
+    ring
+  apply le_antisymm
+  · refine (Metric.infDist_le_dist_of_mem hfoot).trans_eq ?_
+    rw [dist_eq_norm, sub_sub_cancel, norm_smul, Real.norm_eq_abs, abs_div, abs_of_nonneg
+      (sq_nonneg ‖n‖)]
+    field_simp
+  · rw [Metric.le_infDist ⟨_, hfoot⟩]
+    intro x hx
+    have hx' : inner ℝ n (x - a) = (0 : ℝ) := hx
+    have h1 : c = inner ℝ n (m - x) := by
+      simp only [c]
+      rw [← sub_add_sub_cancel m x a, inner_add_right, hx', add_zero]
+    rw [div_le_iff₀ (norm_pos_iff.2 hn), h1, dist_eq_norm]
+    linarith [abs_real_inner_le_norm n (m - x)]
+
 /-! ## Énoncés admis -/
 
 /-
@@ -405,12 +431,6 @@ theorem theoreme_du_toit {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
     (hdroite : Module.finrank ℝ d.direction = 1) (hpar : d.direction = d'.direction)
     (hsecants : ((P ⊓ Q : AffineSubspace ℝ E) : Set E).Nonempty) :
     (P ⊓ Q : AffineSubspace ℝ E).direction = d.direction := by
-  sorry
-
-/-- Distance d'un point à un plan : elle se lit sur le vecteur normal. -/
-theorem distance_d_un_point_a_un_plan {E : Type*} [NormedAddCommGroup E]
-    [InnerProductSpace ℝ E] {n : E} (hn : n ≠ 0) (a m : E) :
-    Metric.infDist m {x : E | inner ℝ n (x - a) = (0 : ℝ)} = |inner ℝ n (m - a)| / ‖n‖ := by
   sorry
 
 end Lycee.Geometrie

@@ -72,19 +72,19 @@ Toutes les définitions du fichier sont posées ici, avant les démonstrations.
 La \emph{moyenne} d'une série de $n$ valeurs est
 \[ \bar x = \frac{1}{n}\sum_{i} x_i . \]
 \end{definition}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L24}{ProbabilitesEtStatistiques.lean\#L24}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L25}{ProbabilitesEtStatistiques.lean\#L25}
 
 \begin{definition}
 La \emph{variance} est la moyenne des carrés des écarts à la moyenne,
 \[ V(x) = \frac{1}{n}\sum_{i} (x_i - \bar x)^{2} . \]
 \end{definition}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L27}{ProbabilitesEtStatistiques.lean\#L27}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L28}{ProbabilitesEtStatistiques.lean\#L28}
 
 \begin{definition}
 L'\emph{écart-type} est la racine carrée de la variance,
 $\sigma(x) = \sqrt{V(x)}$.
 \end{definition}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L31}{ProbabilitesEtStatistiques.lean\#L31}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L32}{ProbabilitesEtStatistiques.lean\#L32}
 
 \begin{definition}
 La \emph{médiane} d'une série ordonnée de taille impaire $2m + 1$ est sa valeur centrale,
@@ -95,7 +95,7 @@ Les \emph{quartiles} et l'\emph{écart interquartile} ne sont pas définis dans 
 ils demandent, comme la médiane, de supposer la série ordonnée, et leur définition scolaire
 varie d'un manuel à l'autre selon la convention d'arrondi des rangs.
 \end{definition}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L34}{ProbabilitesEtStatistiques.lean\#L34}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L35}{ProbabilitesEtStatistiques.lean\#L35}
 
 \subsection{Moyenne, médiane, écart-type}
 
@@ -110,7 +110,7 @@ La médiane est $x_m$ par définition, et $x$ est croissante : de $i \le m$ on t
 $x_i \le x_m$, et de $m \le i$ on tire $x_m \le x_i$. C'est la croissance appliquée deux
 fois, et c'est tout ce que dit la médiane d'une série ordonnée.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L40}{ProbabilitesEtStatistiques.lean\#L40}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L41}{ProbabilitesEtStatistiques.lean\#L41}
 
 \begin{theoreme}
 Linéarité de la moyenne :
@@ -125,7 +125,7 @@ On développe la somme :
 la somme des $n$ constantes $b$ valant $nb$. La division par $n$ réclame $n \ne 0$ : une
 série vide n'a pas de moyenne, et l'hypothèse figure dans l'énoncé.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L46}{ProbabilitesEtStatistiques.lean\#L46}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L47}{ProbabilitesEtStatistiques.lean\#L47}
 
 \begin{theoreme}
 Variance d'une série transformée :
@@ -142,7 +142,7 @@ division par $n$.
 \medskip\noindent
 La translation $b$ a disparu : déplacer toute la série ne change pas sa dispersion.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L54}{ProbabilitesEtStatistiques.lean\#L54}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L55}{ProbabilitesEtStatistiques.lean\#L55}
 
 \begin{theoreme}
 Écart-type d'une série transformée :
@@ -158,7 +158,7 @@ soit positive, ce qu'elle est comme moyenne de carrés.
 C'est la valeur absolue, et non $a$, qui apparaît : une dilatation de rapport $-2$
 disperse autant qu'une dilatation de rapport $2$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L66}{ProbabilitesEtStatistiques.lean\#L66}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L67}{ProbabilitesEtStatistiques.lean\#L67}
 
 \begin{theoreme}
 Formule de König--Huygens :
@@ -175,7 +175,7 @@ puis on somme sur les $n$ indices :
 en remplaçant $\sum_i x_i$ par $n\bar x$. En divisant par $n$ il reste
 $\overline{x^{2}} - \bar x^{2}$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L76}{ProbabilitesEtStatistiques.lean\#L76}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L77}{ProbabilitesEtStatistiques.lean\#L77}
 
 \subsection{Probabilité d'une réunion, d'un complémentaire}
 
@@ -194,7 +194,7 @@ soustraction. Ce n'est pas une coquetterie : les mesures de Mathlib sont à vale
 $[0, +\infty]$, où la soustraction est tronquée. L'égalité additive dit la même chose sans
 faire intervenir cette convention.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L96}{ProbabilitesEtStatistiques.lean\#L96}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L97}{ProbabilitesEtStatistiques.lean\#L97}
 
 \subsection{Espérance et variance d'une variable aléatoire}
 
@@ -217,7 +217,7 @@ première à la variable $aX$, puis la seconde.
 \emph{König--Huygens} est cité à la bibliothèque, sous l'hypothèse que $X$ est de carré
 intégrable \textemdash{} sans quoi $E(X^{2})$ n'existe pas et l'égalité n'a pas de sens.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L108}{ProbabilitesEtStatistiques.lean\#L108}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L109}{ProbabilitesEtStatistiques.lean\#L109}
 
 \begin{theoreme}
 La variance est positive, et l'écart-type $\sigma = \sqrt{V}$ vérifie $\sigma^{2} = V$.
@@ -229,7 +229,7 @@ bibliothèque. Sa racine carrée, élevée au carré, la redonne, précisément 
 positive \textemdash{} la racine carrée de Lean, définie sur tout $\mathbb{R}$, vaut zéro
 sur les négatifs, et l'identité $(\sqrt{v})^{2} = v$ y serait fausse.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L123}{ProbabilitesEtStatistiques.lean\#L123}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L124}{ProbabilitesEtStatistiques.lean\#L124}
 
 \subsection{Loi binomiale}
 
@@ -244,7 +244,7 @@ $p$, indépendamment des autres \textemdash{} c'est-à-dire exactement le schém
 du programme. La formule des coefficients binomiaux en découle par dénombrement des parties
 à $k$ éléments.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L132}{ProbabilitesEtStatistiques.lean\#L132}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L133}{ProbabilitesEtStatistiques.lean\#L133}
 
 \begin{figure}[h]
 \centering
@@ -271,7 +271,7 @@ $(m+1)p$ :
 La somme restante est le développement du binôme de Newton, c'est-à-dire $(p+q)^{m}$. Il
 reste $(m+1)p\,(p+q)^{m}$, ce qui est le membre de droite puisque $(m+1) - 1 = m$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L138}{ProbabilitesEtStatistiques.lean\#L138}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L139}{ProbabilitesEtStatistiques.lean\#L139}
 
 \begin{theoreme}
 Espérance d'une loi binomiale :
@@ -296,7 +296,7 @@ l'identité analogue pour $\sum k(k-1)\binom{n}{k}p^{k}q^{n-k}$, obtenue par le 
 réindexage appliqué deux fois, puis König--Huygens. Mathlib la donne également comme
 \emph{proof wanted}.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L165}{ProbabilitesEtStatistiques.lean\#L165}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L166}{ProbabilitesEtStatistiques.lean\#L166}
 
 \subsection{Probabilités conditionnelles}
 
@@ -311,7 +311,7 @@ $P(A)$. La première égalité est cette définition, écrite avec l'inverse
 de $P(A)$ plutôt qu'une barre de fraction ; la seconde s'en déduit, à ceci près qu'elle
 reste vraie même si $P(A) = 0$, où les deux membres sont nuls.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L185}{ProbabilitesEtStatistiques.lean\#L185}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L186}{ProbabilitesEtStatistiques.lean\#L186}
 
 \begin{theoreme}
 Formule des probabilités totales, sur la partition $\{A, \bar A\}$ :
@@ -328,7 +328,7 @@ dans $A$ et de ce qui n'y est pas.
 C'est le calcul que fait un arbre pondéré : on descend chaque branche en multipliant les
 probabilités rencontrées, puis on additionne les branches qui aboutissent à $B$.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L192}{ProbabilitesEtStatistiques.lean\#L192}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L193}{ProbabilitesEtStatistiques.lean\#L193}
 
 \subsection{Indépendance}
 
@@ -355,7 +355,7 @@ La simplification n'est pas automatique dans $[0, +\infty]$ : $\infty + x = \inf
 entraîne pas $x = y$. C'est pourquoi la démonstration vérifie que $P(A)P(B)$ n'est pas
 infinie.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L206}{ProbabilitesEtStatistiques.lean\#L206}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L207}{ProbabilitesEtStatistiques.lean\#L207}
 
 \subsection{Loi uniforme}
 
@@ -374,7 +374,7 @@ licite puisque $b - a \ne 0$.
 Pour l'espérance, l'intégrale de la fonction identité vaut $\frac{b^{2}-a^{2}}{2}$, d'où
 \[ \frac{b^{2}-a^{2}}{2(b-a)} = \frac{(b-a)(b+a)}{2(b-a)} = \frac{a+b}{2} . \]
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L225}{ProbabilitesEtStatistiques.lean\#L225}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L226}{ProbabilitesEtStatistiques.lean\#L226}
 
 \subsection{Loi exponentielle}
 
@@ -403,7 +403,7 @@ multiplicative.
 sur $[0, +\infty[$, donc impropre, et son calcul demande une intégration par parties sur un
 intervalle non borné que ce fichier n'établit pas.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L240}{ProbabilitesEtStatistiques.lean\#L240}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L241}{ProbabilitesEtStatistiques.lean\#L241}
 
 \begin{figure}[h]
 \centering
@@ -442,7 +442,7 @@ de confiance} $[f \pm 1/\sqrt{n}]$ reposent tous deux sur Moivre--Laplace, et to
 lui. Le programme les admet ; ici ils ne sont pas écrits du tout, ce qui est la seule
 réponse honnête.
 \end{proof}
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L252}{ProbabilitesEtStatistiques.lean\#L252}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L253}{ProbabilitesEtStatistiques.lean\#L253}
 
 \subsection{Énoncés admis}
 
@@ -453,13 +453,13 @@ Ce que le programme demande et que ce document ne démontre pas. Les énoncés s
 La variance d'une loi binomiale de paramètres $n$ et $p$ vaut $np(1 - p)$.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L276}{ProbabilitesEtStatistiques.lean\#L276}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L261}{ProbabilitesEtStatistiques.lean\#L261}
 
 \begin{theoreme}
 L'espérance d'une loi exponentielle de paramètre $r$ vaut $\tfrac1r$.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L281}{ProbabilitesEtStatistiques.lean\#L281}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L286}{ProbabilitesEtStatistiques.lean\#L286}
 
 \begin{theoreme}
 \emph{Théorème de Moivre--Laplace.} Pour une loi binomiale de paramètres $n$ et $p$, la
@@ -468,7 +468,7 @@ probabilité que la variable centrée réduite $\frac{X_n - np}{\sqrt{np(1-p)}}$
 normale centrée réduite.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L287}{ProbabilitesEtStatistiques.lean\#L287}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L291}{ProbabilitesEtStatistiques.lean\#L291}
 
 \begin{theoreme}
 Pour une loi normale d'espérance $\mu$ et d'écart-type $\sigma$, les intervalles
@@ -476,7 +476,7 @@ $[\mu \pm \sigma]$, $[\mu \pm 2\sigma]$ et $[\mu \pm 3\sigma]$ ont pour probabil
 respectives $0{,}68$, $0{,}95$ et $0{,}997$, à $0{,}005$ près.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L294}{ProbabilitesEtStatistiques.lean\#L294}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L296}{ProbabilitesEtStatistiques.lean\#L296}
 
 \begin{theoreme}
 \emph{Intervalle de fluctuation asymptotique au seuil de 95 \%.} La probabilité que la
@@ -484,14 +484,14 @@ fréquence observée tombe dans $\left[p \pm 1{,}96\sqrt{\tfrac{p(1-p)}{n}}\righ
 celle que la loi normale centrée réduite donne à l'intervalle $[-1{,}96\,;\,1{,}96]$.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L303}{ProbabilitesEtStatistiques.lean\#L303}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L305}{ProbabilitesEtStatistiques.lean\#L305}
 
 \begin{theoreme}
 \emph{Intervalle de confiance.} À partir d'un certain rang, la fréquence observée est à
 moins de $\tfrac{1}{\sqrt n}$ de la probabilité cherchée dans au moins $95\,\%$ des cas.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L311}{ProbabilitesEtStatistiques.lean\#L311}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L313}{ProbabilitesEtStatistiques.lean\#L313}
 
 \vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par

@@ -23,5 +23,5 @@ Fichier : `Suites.lean`
 | Toute suite croissante majorée converge (convergence monotone) | TS | `toute_suite_croissante_majoree_converge_convergence_monotone` | ☑ |
 | Une suite croissante non majorée tend vers `+∞` | TS | `une_suite_croissante_non_majoree_tend_vers` | ☑ |
 | Toute suite convergente est bornée | TS | `toute_suite_convergente_est_bornee` | ☑ |
-| Suites adjacentes ; dichotomie | TS | `suites_adjacentes_dichotomie` | ◐ |
+| Suites adjacentes ; dichotomie | TS | `suites_adjacentes_dichotomie` | ☑ |
 | Suites `uₙ₊₁ = f(uₙ)` : si `f` continue et `uₙ → ℓ` alors `f(ℓ) = ℓ` | TS | `suites_si_continue_et_alors` | ☑ |

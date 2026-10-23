@@ -4,10 +4,11 @@ Le programme définit l'intégrale d'une fonction continue positive comme l'aire
 courbe, et admet que cette aire existe. Mathlib définit l'intégrale par la théorie de la
 mesure ; le premier énoncé rétablit le lien en démontrant que la mesure de la partie du
 plan comprise entre l'axe et la courbe vaut l'intégrale.
-Le volume d'un solide de révolution n'est pas traité : voir la note en fin de fichier.
+Le volume d'un solide de révolution s'appuie sur `Upstream.SolidOfRevolution`.
 Énoncés et démonstrations en français : voir Integration.tex.
 -/
 import Mathlib
+import Upstream.SolidOfRevolution
 
 namespace Lycee.Integration
 
@@ -136,26 +137,19 @@ theorem aire_entre_deux_courbes {f g : ℝ → ℝ} {a b : ℝ} (hf : Continuous
     measurableSet_Ioc (fun x _ => hfg x), intervalIntegral.integral_of_le hab]
   simp
 
-/- Le volume d'un solide de révolution n'est pas formalisé ici. L'énoncé du lycée,
-`V = π ∫ₐᵇ f(x)² dx`, demanderait de mesurer dans ℝ³ la partie
-`{(x, y, z) | a ≤ x ≤ b et y² + z² ≤ f(x)²}`, donc le théorème de Fubini et l'aire du
-disque : un appareillage sans commune mesure avec l'approche du programme, qui se contente
-d'empiler des cylindres. -/
+/-! ## Volume d'un solide de révolution -/
 
-/-! ## Énoncés admis -/
-
-/-
-Ce que le programme demande et que ce dépôt ne démontre pas. L'énoncé est écrit, sa
-démonstration est admise.
--/
+/- L'énoncé du lycée, `V = π ∫ₐᵇ f(x)² dx`, mesure dans ℝ³ la partie
+`{(x, y, z) | a ≤ x ≤ b et y² + z² ≤ f(x)²}` : c'est le théorème de Fubini et l'aire du
+disque, démontrés dans `upstream/Upstream/SolidOfRevolution.lean`. -/
 
 /-- Volume d'un solide de révolution : en tournant autour de l'axe des abscisses, la partie
 sous la courbe d'une fonction continue positive engendre un solide de volume
 `π ∫ f²`. -/
 theorem volume_solide_de_revolution {f : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b) (hf : Continuous f)
-    (hpos : ∀ x, 0 ≤ f x) :
+    (_hpos : ∀ x, 0 ≤ f x) :
     volume {p : ℝ × ℝ × ℝ | p.1 ∈ Set.Icc a b ∧ p.2.1 ^ 2 + p.2.2 ^ 2 ≤ f p.1 ^ 2} =
-      ENNReal.ofReal (Real.pi * ∫ x in a..b, f x ^ 2) := by
-  sorry
+      ENNReal.ofReal (Real.pi * ∫ x in a..b, f x ^ 2) :=
+  Upstream.volume_solidOfRevolution_eq hab hf
 
 end Lycee.Integration

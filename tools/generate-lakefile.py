@@ -59,17 +59,32 @@ def annales():
             yield f"Annales{annee}", f"exams/{annee}", modules
 
 
+def upstream():
+    """Les résultats de Mathlib qui manquent à la version épinglée.
+
+    Rétroportés depuis des branches de mathlib4 qui n'ont pas été fusionnées :
+    `upstream/Upstream/<Nom>.lean` est le module `Upstream.<Nom>`. Les chapitres
+    l'importent comme ils importent Mathlib.
+    """
+    dossier = ROOT + "/upstream/Upstream"
+    if not os.path.isdir(dossier):
+        return
+    modules = sorted("Upstream." + f[:-5] for f in os.listdir(dossier) if f.endswith(".lean"))
+    if modules:
+        yield "Upstream", "upstream", modules
+
+
 def requires_existants():
     if not os.path.exists(LAKEFILE):
         return []
     contenu = open(LAKEFILE, encoding="utf-8").read()
     return re.findall(r"^\[\[require\]\].*?(?=^\[\[|\Z)", contenu, re.S | re.M)
 
-libs = list(chapitres()) + list(annales())
+libs = list(upstream()) + list(chapitres()) + list(annales())
 noms = [n for n, _, _ in libs]
 
 out = ["# Fichier généré par tools/generate-lakefile.py — à régénérer après avoir",
-       "# ajouté un fichier .lean dans courses/ ou exams/. Les blocs [[require]] sont",
+       "# ajouté un fichier .lean dans courses/, exams/ ou upstream/. Les blocs [[require]] sont",
        "# conservés.",
        "",
        'name = "learn-lean"',

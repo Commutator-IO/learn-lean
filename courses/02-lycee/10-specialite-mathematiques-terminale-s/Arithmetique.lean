@@ -131,24 +131,40 @@ theorem chiffrement_affine {n : ℕ} [NeZero n] (u : (ZMod n)ˣ) (b : ZMod n) :
   · intro x
     simp [Units.inv_mul_cancel_left]
 
-/- Le chiffrement **RSA** n'est pas formalisé. Sa correction — si `ed ≡ 1` modulo
-`(p−1)(q−1)`, alors `m^{ed} ≡ m` modulo `pq` — se démontre en appliquant le petit théorème
-de Fermat modulo `p` puis modulo `q`, et en recollant par le théorème des restes chinois.
-Chacune de ces trois pièces existe dans Mathlib ; c'est leur assemblage, et la gestion des
-cas où `p` ou `q` divise `m`, qui demandent un travail à part entière. -/
+/-! ## Chiffrement RSA -/
 
-/-! ## Énoncés admis -/
-
-/-
-Ce que le programme demande et que ce dépôt ne démontre pas. L'énoncé est écrit, sa
-démonstration est admise.
--/
+/-- Modulo un nombre premier `p`, `a^{t+1} ≡ a` dès que `p − 1` divise `t`, que `p` divise `a`
+ou non. -/
+theorem puissance_modulo_premier {p : ℕ} (hp : p.Prime) {t : ℕ} (ht : p - 1 ∣ t) (a : ℕ) :
+    a ^ (t + 1) ≡ a [MOD p] := by
+  have := Fact.mk hp
+  rw [← ZMod.natCast_eq_natCast_iff]
+  obtain ⟨c, rfl⟩ := ht
+  push_cast
+  by_cases ha : (a : ZMod p) = 0
+  · rw [ha]; simp
+  · rw [pow_succ, pow_mul, ZMod.pow_card_sub_one_eq_one ha, one_pow, one_mul]
 
 /-- Le chiffrement RSA rend bien le message : si `e d ≡ 1` modulo `(p−1)(q−1)`, alors
 élever à la puissance `e` puis à la puissance `d` ramène au message de départ. -/
 theorem chiffrement_rsa {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) {e d : ℕ}
     (hed : e * d ≡ 1 [MOD (p - 1) * (q - 1)]) (m : ℕ) :
     (m ^ e) ^ d ≡ m [MOD p * q] := by
-  sorry
+  have h1 : 1 < (p - 1) * (q - 1) := by
+    have := hp.two_le
+    have := hq.two_le
+    rcases Nat.lt_or_gt_of_ne hpq with h | h <;> nlinarith [Nat.sub_add_cancel (by omega : 1 ≤ p),
+      Nat.sub_add_cancel (by omega : 1 ≤ q)]
+  have hpos : 1 ≤ e * d := by
+    rcases Nat.eq_zero_or_pos (e * d) with h | h
+    · rw [h] at hed
+      exact absurd (Nat.modEq_zero_iff_dvd.1 hed.symm) (Nat.not_dvd_of_pos_of_lt one_pos h1)
+    · exact h
+  have hdvd : (p - 1) * (q - 1) ∣ e * d - 1 := (Nat.modEq_iff_dvd' hpos).1 hed.symm
+  rw [← pow_mul, ← Nat.sub_add_cancel hpos]
+  exact (Nat.modEq_and_modEq_iff_modEq_mul
+    ((Nat.coprime_primes hp hq).2 hpq)).1
+    ⟨puissance_modulo_premier hp (Dvd.dvd.trans (Dvd.intro _ rfl) hdvd) m,
+     puissance_modulo_premier hq (Dvd.dvd.trans (Dvd.intro_left _ rfl) hdvd) m⟩
 
 end Lycee.Specialite

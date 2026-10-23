@@ -23,4 +23,4 @@ Fichier : `Integration.lean`
 | Positivité et croissance : `f ≥ 0 ⟹ ∫ f ≥ 0` ; `f ≤ g ⟹ ∫ f ≤ ∫ g` | TS | `positivite_et_croissance` | ☑ |
 | Inégalité de la moyenne ; valeur moyenne `(1/(b−a))∫ₐᵇ f` | TS | `inegalite_de_la_moyenne_valeur_moyenne` | ☑ |
 | Intégration par parties | TS | `integration_par_parties` | ☑ |
-| Aire entre deux courbes ; volume d'un solide de révolution (approche) | TS | `aire_entre_deux_courbes_volume_d_un_solide` | ◐ |
+| Aire entre deux courbes ; volume d'un solide de révolution (approche) | TS | `aire_entre_deux_courbes_volume_d_un_solide` | ☑ |

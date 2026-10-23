@@ -13,8 +13,8 @@ ce dépôt cherche à mesurer, autant que les preuves elles-mêmes.
 
 | Fichier | Contenu | Énoncés | Démontrés |
 |---|---|---|---|
-| [college.md](courses/college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 93 | 90 |
-| [lycee.md](courses/lycee.md) | Seconde, première S, terminale S et spécialité | 137 | 123 |
+| [college.md](courses/college.md) | Cycle 3 (6e) et cycle 4 (5e, 4e, 3e) | 93 | 92 |
+| [lycee.md](courses/lycee.md) | Seconde, première S, terminale S et spécialité | 137 | 128 |
 | [lycee.md](courses/lycee.md#11-informatique-nsi) | Spécialité NSI, première et terminale | 42 | 41 |
 
 Les dix-huit chapitres ont leurs fichiers `.lean`, leur transcription française et leur

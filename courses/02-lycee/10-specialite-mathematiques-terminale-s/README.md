@@ -23,7 +23,7 @@ Fichier : `Arithmetique.lean`
 | Infinité des nombres premiers | Spé | `infinite_des_nombres_premiers` | ☑ |
 | Décomposition en facteurs premiers : existence et unicité | Spé | `decomposition_en_facteurs_premiers_existence_et_unicite` | ☑ |
 | Petit théorème de Fermat : `p` premier, `p ∤ a` ⟹ `a^{p−1} ≡ 1 [p]` | Spé | `petit_theoreme_de_fermat_premier` | ☑ |
-| Application au chiffrement (RSA, code affine) | Spé | `application_au_chiffrement_rsa_code_affine` | ◐ |
+| Application au chiffrement (RSA, code affine) | Spé | `application_au_chiffrement_rsa_code_affine` | ☑ |
 
 ## Matrices et graphes
 

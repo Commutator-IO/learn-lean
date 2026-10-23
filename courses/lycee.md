@@ -37,7 +37,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 |---|---|---|---|
 | Inclusions `ℕ ⊂ ℤ ⊂ 𝔻 ⊂ ℚ ⊂ ℝ`, strictes | 2de | | ☑ |
 | `√2` est irrationnel | 2de | | ☑ |
-| Un rationnel a un développement décimal périodique, et réciproquement | 2de | oui | ◐ |
+| Un rationnel a un développement décimal périodique, et réciproquement | 2de | oui | ☑ |
 | Valeur absolue : `\|x − a\| ≤ r ⟺ x ∈ [a − r, a + r]` | 2de | | ☑ |
 | Inégalité triangulaire : `\|x + y\| ≤ \|x\| + \|y\|` | 2de | | ☑ |
 | Identités remarquables `(a ± b)²`, `a² − b²` | 2de | | ☑ |
@@ -85,7 +85,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 | Toute suite croissante majorée converge (convergence monotone) | TS | oui | ☑ |
 | Une suite croissante non majorée tend vers `+∞` | TS | | ☑ |
 | Toute suite convergente est bornée | TS | | ☑ |
-| Suites adjacentes ; dichotomie | TS | | ◐ |
+| Suites adjacentes ; dichotomie | TS | | ☑ |
 | Suites `uₙ₊₁ = f(uₙ)` : si `f` continue et `uₙ → ℓ` alors `f(ℓ) = ℓ` | TS | | ☑ |
 
 ---
@@ -144,7 +144,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 | Positivité et croissance : `f ≥ 0 ⟹ ∫ f ≥ 0` ; `f ≤ g ⟹ ∫ f ≤ ∫ g` | TS | | ☑ |
 | Inégalité de la moyenne ; valeur moyenne `(1/(b−a))∫ₐᵇ f` | TS | | ☑ |
 | Intégration par parties | TS | | ☑ |
-| Aire entre deux courbes ; volume d'un solide de révolution (approche) | TS | oui | ◐ |
+| Aire entre deux courbes ; volume d'un solide de révolution (approche) | TS | oui | ☑ |
 
 ---
 
@@ -207,7 +207,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 | Indépendance de deux événements ; indépendance et événements contraires | TS | | ☑ |
 | Loi uniforme sur `[a,b]` : densité, espérance `(a+b)/2` | TS | | ☑ |
 | Loi exponentielle : densité `λe^{−λt}`, `P(X > t) = e^{−λt}`, absence de mémoire, espérance `1/λ` | TS | | ◐ |
-| Loi normale centrée réduite ; théorème de Moivre–Laplace | TS | oui | ◐ |
+| Loi normale centrée réduite ; théorème de Moivre–Laplace | TS | oui | ☑ |
 | Loi normale `N(μ, σ²)` ; intervalles `1σ`, `2σ`, `3σ` (68 %, 95 %, 99,7 %) | TS | oui | ◐ |
 | Intervalle de fluctuation asymptotique au seuil 95 % : `[p ± 1,96√(p(1−p)/n)]` | TS | | ◐ |
 | Intervalle de confiance `[f ± 1/√n]` ; prise de décision | TS | oui | ◐ |
@@ -230,7 +230,7 @@ Mathlib, ce qui revient à déplacer la question plutôt qu'à la résoudre.
 | Infinité des nombres premiers | Spé | | ☑ |
 | Décomposition en facteurs premiers : existence et unicité | Spé | oui | ☑ |
 | Petit théorème de Fermat : `p` premier, `p ∤ a` ⟹ `a^{p−1} ≡ 1 [p]` | Spé | | ☑ |
-| Application au chiffrement (RSA, code affine) | Spé | | ◐ |
+| Application au chiffrement (RSA, code affine) | Spé | | ☑ |
 
 ### Matrices et graphes
 

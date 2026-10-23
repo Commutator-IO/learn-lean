@@ -6,6 +6,7 @@ les relations entre elles, et leur comportement par agrandissement.
 Énoncés et démonstrations en français : voir GrandeursEtMesures.tex.
 -/
 import Mathlib
+import Upstream.SolidOfRevolution
 
 namespace College.Grandeurs
 
@@ -140,19 +141,19 @@ theorem agrandissement_volume_boule (k r : ℝ) :
   simp only [volumeBoule]
   ring
 
-/-! ## Énoncés admis -/
+/-! ## Aires et volumes, au sens de la mesure -/
 
 /-
 Les formules d'aire et de volume sont posées plus haut, comme au collège. Les démontrer,
 c'est calculer la mesure de Lebesgue d'une partie du plan ou de l'espace : le programme ne
-le demande pas et ce dépôt ne le fait pas. Les énoncés sont écrits ici pour que le manque
-se voie, et leur preuve est admise.
+le demande pas. Le disque et le cône sont mesurés dans `upstream/Upstream/SolidOfRevolution.lean` ;
+l'aire du triangle est écrite, et sa démonstration admise.
 -/
 
 /-- Le disque de rayon `r` a pour aire `π r²`, au sens de la mesure du plan. -/
-theorem aire_disque_est_sa_mesure (r : ℝ) (hr : 0 ≤ r) :
-    volume {p : ℝ × ℝ | p.1 ^ 2 + p.2 ^ 2 ≤ r ^ 2} = ENNReal.ofReal (aireDisque r) := by
-  sorry
+theorem aire_disque_est_sa_mesure (r : ℝ) (_hr : 0 ≤ r) :
+    volume {p : ℝ × ℝ | p.1 ^ 2 + p.2 ^ 2 ≤ r ^ 2} = ENNReal.ofReal (aireDisque r) :=
+  Upstream.volume_disque r
 
 /-- Le triangle rectangle de base `b` et de hauteur `h` a pour aire `b h / 2`. -/
 theorem aire_triangle_est_sa_mesure (b h : ℝ) (hb : 0 < b) (hh : 0 ≤ h) :
@@ -162,10 +163,11 @@ theorem aire_triangle_est_sa_mesure (b h : ℝ) (hb : 0 < b) (hh : 0 ≤ h) :
 
 /-- Le cône de rayon `R` et de hauteur `H` a pour volume le tiers de celui du cylindre de
 mêmes base et hauteur. -/
-theorem volume_cone_est_sa_mesure (R H : ℝ) (hR : 0 < R) (hH : 0 < H) :
+theorem volume_cone_est_sa_mesure (R H : ℝ) (_hR : 0 < R) (hH : 0 < H) :
     volume {p : ℝ × ℝ × ℝ | 0 ≤ p.2.2 ∧ p.2.2 ≤ H ∧
         p.1 ^ 2 + p.2.1 ^ 2 ≤ (R * (1 - p.2.2 / H)) ^ 2} =
       ENNReal.ofReal (volumePyramide (aireDisque R) H) := by
-  sorry
+  rw [Upstream.volume_cone hH]
+  simp only [volumePyramide, aireDisque]
 
 end College.Grandeurs

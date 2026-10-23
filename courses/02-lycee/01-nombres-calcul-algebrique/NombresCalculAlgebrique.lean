@@ -162,18 +162,67 @@ theorem inegalite_de_bernoulli {a : ℝ} (ha : -1 ≤ a) (n : ℕ) : 1 + n * a �
       mul_le_mul_of_nonneg_right hn hpos
     nlinarith [hprod, sq_nonneg a, Nat.cast_nonneg (α := ℝ) n]
 
-/-! ## Énoncés admis -/
+/-! ## Développement décimal d'un rationnel -/
 
-/-
-Ce que le programme demande et que ce dépôt ne démontre pas. L'énoncé est écrit, sa
-démonstration est admise.
--/
+/-- Le reste de `r · 10ⁿ` dans la division par `s` détermine le chiffre suivant. -/
+theorem chiffre_suivant (r s n : ℕ) (hs : 0 < s) :
+    r * 10 ^ (n + 1) / s % 10 = 10 * (r * 10 ^ n % s) / s := by
+  have hx : r * 10 ^ n % s < s := Nat.mod_lt _ hs
+  have hq : r * 10 ^ n = s * (r * 10 ^ n / s) + r * 10 ^ n % s := (Nat.div_add_mod _ _).symm
+  have hlt : 10 * (r * 10 ^ n % s) / s < 10 := by
+    rw [Nat.div_lt_iff_lt_mul hs]; nlinarith
+  have h : r * 10 ^ (n + 1) = 10 * (r * 10 ^ n % s) + s * (10 * (r * 10 ^ n / s)) := by
+    rw [pow_succ]; nlinarith
+  generalize r * 10 ^ n % s = X at *
+  generalize r * 10 ^ n / s = Q at *
+  rw [h, Nat.add_mul_div_left _ _ hs, Nat.add_mul_mod_self_left, Nat.mod_eq_of_lt hlt]
 
-/-- Le développement décimal d'un rationnel est périodique à partir d'un certain rang : le
-chiffre de rang `n` se répète de période `p`. -/
+/-- Dans la division de `r · 10ⁿ` par `s`, les restes se répètent (principe des tiroirs), donc
+les chiffres aussi. -/
+theorem chiffres_periodiques (r s : ℕ) (hs : 0 < s) :
+    ∃ p > 0, ∃ n₀ : ℕ, ∀ n ≥ n₀, r * 10 ^ (n + p) / s % 10 = r * 10 ^ n / s % 10 := by
+  have : NeZero s := ⟨hs.ne'⟩
+  obtain ⟨i, j, hij, h⟩ := Finite.exists_ne_map_eq_of_infinite
+    (fun n : ℕ => (⟨r * 10 ^ n % s, Nat.mod_lt _ hs⟩ : Fin s))
+  have hr : ∀ i j, i ≠ j → r * 10 ^ i % s = r * 10 ^ j % s → ∃ p > 0, ∃ n₀ : ℕ, ∀ n ≥ n₀,
+      r * 10 ^ (n + p) / s % 10 = r * 10 ^ n / s % 10 := by
+    intro i j hij h
+    wlog hlt : i < j generalizing i j
+    · exact this j i hij.symm h.symm (by omega)
+    have hstep : ∀ n, r * 10 ^ (n + 1) % s = 10 * (r * 10 ^ n % s) % s := by
+      intro n
+      rw [show r * 10 ^ (n + 1) = 10 * (r * 10 ^ n) by ring, Nat.mul_mod_mod]
+    have hper : ∀ n ≥ i, r * 10 ^ (n + (j - i)) % s = r * 10 ^ n % s := by
+      intro n hn
+      induction n, hn using Nat.le_induction with
+      | base => rw [show i + (j - i) = j by omega]; exact h.symm
+      | succ n hn ih =>
+        rw [show n + 1 + (j - i) = n + (j - i) + 1 by omega, hstep, ih, ← hstep]
+    refine ⟨j - i, by omega, i + 1, fun n hn => ?_⟩
+    obtain ⟨m, rfl⟩ : ∃ m, n = m + 1 := ⟨n - 1, by omega⟩
+    rw [show m + 1 + (j - i) = m + (j - i) + 1 by omega, chiffre_suivant _ _ _ hs,
+      chiffre_suivant _ _ _ hs, hper m (by omega)]
+  exact hr i j hij (by simpa [Fin.ext_iff] using h)
+
+/-- Le développement décimal d'un rationnel positif est périodique à partir d'un certain rang :
+le chiffre de rang `n` se répète de période `p`. -/
 theorem developpement_decimal_periodique (q : ℚ) (hq : 0 ≤ q) :
     ∃ p > 0, ∃ n₀ : ℕ, ∀ n ≥ n₀,
       ⌊(q : ℝ) * 10 ^ (n + p)⌋ % 10 = ⌊(q : ℝ) * 10 ^ n⌋ % 10 := by
-  sorry
+  have hfl : ∀ n : ℕ, ⌊(q : ℝ) * 10 ^ n⌋ = ((q.num.natAbs * 10 ^ n / q.den : ℕ) : ℤ) := by
+    intro n
+    have hnum : (q.num.natAbs : ℤ) = q.num := Int.natAbs_of_nonneg (Rat.num_nonneg.2 hq)
+    have h1 : ((q : ℝ) * 10 ^ n) = ((q * 10 ^ n : ℚ) : ℝ) := by push_cast; ring
+    rw [h1, Rat.floor_cast]
+    have h2 : q * 10 ^ n = ((q.num * 10 ^ n : ℤ) : ℚ) / (q.den : ℚ) := by
+      conv_lhs => rw [← Rat.num_div_den q]
+      push_cast; ring
+    rw [h2, Rat.floor_intCast_div_natCast]
+    conv_lhs => rw [← hnum]
+    exact_mod_cast rfl
+  obtain ⟨p, hp, n₀, h⟩ := chiffres_periodiques q.num.natAbs q.den q.den_pos
+  refine ⟨p, hp, n₀, fun n hn => ?_⟩
+  rw [hfl, hfl]
+  exact_mod_cast h n hn
 
 end Lycee.Nombres

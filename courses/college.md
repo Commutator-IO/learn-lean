@@ -133,10 +133,10 @@ Niveaux indicatifs : **6e** (cycle 3), **5e**, **4e**, **3e** (cycle 4).
 
 | Énoncé | Niveau | Démontré |
 |---|---|---|
-| Périmètre du cercle `2πr` ; aire du disque `πr²` | 6e | ◐ |
+| Périmètre du cercle `2πr` ; aire du disque `πr²` | 6e | ☑ |
 | Aires : rectangle, triangle (`base × hauteur / 2`), parallélogramme, trapèze | 6e / 5e | ◐ |
 | Deux figures de même aire peuvent avoir des périmètres différents, et réciproquement | 6e | ☑ |
-| Volumes : pavé, prisme, cylindre (`aire de base × hauteur`), pyramide et cône (`× 1/3`), boule (`4/3 πr³`) | 5e → 3e | ◐ |
+| Volumes : pavé, prisme, cylindre (`aire de base × hauteur`), pyramide et cône (`× 1/3`), boule (`4/3 πr³`) | 5e → 3e | ☑ |
 | Agrandissement-réduction de rapport `k` : longueurs `× k`, aires `× k²`, volumes `× k³` | 3e | ☑ |
 
 ---
