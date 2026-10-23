@@ -10,6 +10,23 @@ font de bonnes PR, à condition de les présenter comme Mathlib les attend. Cett
 rassemble ce qu'ont appris les sept PR du 11 octobre 2026 (suivi : issue #7) et leurs
 revues. Les PR, leurs titres, descriptions, commits et réponses sont **en anglais**.
 
+## 0. Ce que Michel fait lui-même
+
+La politique d'IA de Mathlib (leanprover-community.github.io/contribute) interdit les
+commentaires GitHub et Zulip écrits par un modèle, et demande un code que son auteur a
+compris et écrit lui-même. Donc :
+
+- **Ne jamais publier** un commentaire de PR, une réponse de revue, un message Zulip, une
+  commande de `label`, ni résoudre un fil. Rédiger le texte dans la conversation et laisser
+  Michel le poster de sa main.
+- **Ne jamais changer l'état d'une PR** : brouillon → prête à relire est à Michel, une fois la
+  CI verte. Modifier le **titre et la description** quand le code change fait partie de la
+  correction, ainsi que les commits sur la branche de la PR.
+- Le label `LLM-generated` est posé par le bot ou par Michel : c'est attendu.
+- Quand Michel ne veut pas écrire le lemme lui-même, le lieu est **Tau Ceti**, qui accepte le
+  code écrit par un modèle : une feuille de route dans `TauCetiProject/TauCetiRoadmap`
+  (jamais « à remonter à Mathlib » : voir leur README), le code dans Tau Ceti.
+
 ## 1. Vérifier que le manque est réel
 
 Une PR qui double un lemme existant ou une PR ouverte est fermée. Avant d'écrire :
@@ -29,6 +46,12 @@ Une PR qui double un lemme existant ou une PR ouverte est fermée. Avant d'écri
 - **Informatique** (tris, graphes, complexité, terminaison) : le lieu est CSLib
   (`leanprover/cslib`), pas Mathlib. Y regarder aussi, beaucoup y est déjà
   (tri fusion avec `TimeM`, dichotomie, Dijkstra en PR…).
+
+- **Pas une ligne de lemmes existants.** Un lemme qui n'est que deux lemmes de Mathlib
+  composés est refusé : éviter un import n'est pas une raison. Ne garder que ce qu'un
+  utilisateur ne saurait pas écrire en une ligne.
+- **Nos propres PR ouvertes comptent** : un lemme privé dans une PR qu'une autre rend public
+  est un doublon ; empiler les PR et utiliser le lemme public.
 
 Noter dans la PR ce qui existe déjà autour (« Mathlib has X but not Y ») : le relecteur
 voit tout de suite que la recherche a été faite.
@@ -287,3 +310,26 @@ Quand une PR est fusionnée, suivre la liste de l'issue #7 : monter `rev` de Mat
 `lakefile.toml`, remplacer le `sorry` par l'appel au nouveau lemme, sortir l'énoncé de la
 section « Énoncés admis », mettre à jour `college.md` / `lycee.md`, le `.tex` du chapitre
 et `courses/appuis.json` (`python3 tools/liens-mathlib.py`), cocher la case.
+
+## 7. PR fermée sans fusion : rétroporter dans le dépôt
+
+Quand une PR est fermée (politique d'IA, refus de l'approche) et que le dépôt a besoin du
+résultat, on le garde ici, contre la version épinglée de Mathlib :
+
+- un module `upstream/Upstream/<Nom>.lean`, importé par les chapitres comme Mathlib ;
+  `python3 tools/generate-lakefile.py` en fait la bibliothèque `Upstream` ;
+- l'en-tête dit de quelle branche et de quelle PR il vient, quand elle a été fermée, et qu'il
+  est à retirer dès que Mathlib a le résultat ;
+- **seulement ce dont les preuves du dépôt ont besoin**, sous les noms de Mathlib, sans
+  `module` ni `public` ; l'énoncé garde la forme que le dépôt demande (ici dimension 3 pour
+  les solides de révolution) ;
+- les noms qui ont changé entre la version épinglée et master (`measurable_pi_lambda` /
+  `Measurable.of_eval`) se règlent par une forme qui existe dans les deux, ou par
+  `first | … | …` ; la CI, qui compile contre la version épinglée, tranche ;
+- si une preuve élémentaire suffit (Fermat et restes chinois pour RSA, principe des tiroirs
+  pour les décimales), la mettre directement dans le chapitre plutôt que rétroporter un
+  fichier entier ;
+- ensuite : fermer les `sorry`, mettre à jour les statuts (`college.md`, `lycee.md`, index de
+  chapitre et décomptes), rédiger les preuves en français dans le `.tex`, corriger les textes
+  de liaison de `book/textes/`, relancer `python3 tools/generate-tex.py --liens` (qui écrit
+  l'adresse de la branche courante : remettre `blob/main/`).
