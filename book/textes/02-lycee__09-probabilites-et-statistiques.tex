@@ -11,9 +11,11 @@ continues sont introduites par leur densité. Le résultat le plus notable du ch
 l'espérance de la loi binomiale : admise en première, elle est ici démontrée par une identité
 combinatoire — et la bibliothèque ne la contenait pas.
 
-Quatre énoncés ne sont pas traités, et tous pour la même raison de fond. Le théorème de
-Moivre--Laplace est un cas particulier du théorème central limite, dont la forme scolaire —
-qui parle d'intervalles et de valeurs numériques — demande un travail de traduction à part
-entière. Les intervalles $1\sigma$, $2\sigma$, $3\sigma$ réclament un encadrement de la
-fonction d'erreur. Et les intervalles de fluctuation et de confiance reposent sur
-Moivre--Laplace : ils tombent avec lui.
+Le théorème de Moivre--Laplace, cas particulier du théorème central limite, est démontré :
+la loi binomiale est la loi d'une somme de variables de Bernoulli indépendantes, et le
+théorème de Mathlib s'applique. Quatre énoncés restent écrits sans démonstration. Les
+intervalles $1\sigma$, $2\sigma$, $3\sigma$ réclament un encadrement de la fonction
+d'erreur. Les intervalles de fluctuation et de confiance se déduisent de Moivre--Laplace
+mais demandent de mesurer $[-1{,}96\,;\,1{,}96]$ pour la loi normale. Quant à la variance
+de la binomiale et à l'espérance de la loi exponentielle, il y manque un calcul de somme et
+une intégration par parties.

@@ -59,9 +59,9 @@ Les séries statistiques, elles, sont des familles finies $x : \{0, \dots, n-1\}
 \mathbb{R}$, dont ce fichier pose lui-même la moyenne, la variance et l'écart-type.
 
 \medskip\noindent
-\textbf{Cinq énoncés du programme ne sont traités qu'en partie et deux ne le sont pas du
-tout.} Ils sont signalés à leur place, et la note finale récapitule pourquoi : ce sont eux
-qui mesurent la distance entre le programme et ce que Mathlib sait aujourd'hui.
+\textbf{Cinq énoncés du programme sont écrits en Lean sans être démontrés.} Ils sont
+signalés à leur place, et la note finale récapitule pourquoi : ce sont eux qui mesurent la
+distance entre le programme et ce que Mathlib sait aujourd'hui.
 
 \subsection{Définitions : séries statistiques}
 
@@ -430,17 +430,14 @@ demandent un encadrement de la fonction d'erreur, dont Mathlib ne fournit pas le
 estimations à cette précision.
 
 \medskip\noindent
-Le \textbf{théorème de Moivre--Laplace} n'est pas formalisé non plus. Mathlib possède un
-théorème central limite, dont Moivre--Laplace est un cas particulier, mais l'écart entre son
-énoncé \textemdash{} convergence en loi d'une somme de variables indépendantes \textemdash{}
-et la forme scolaire, qui parle d'intervalles et de valeurs numériques, demande un travail
-de traduction à part entière.
+Le \textbf{théorème de Moivre--Laplace} est démontré plus bas, à partir du théorème central
+limite de Mathlib.
 
 \medskip\noindent
 L'\textbf{intervalle de fluctuation asymptotique} au seuil $95\,\%$ et l'\textbf{intervalle
-de confiance} $[f \pm 1/\sqrt{n}]$ reposent tous deux sur Moivre--Laplace, et tombent avec
-lui. Le programme les admet ; ici ils ne sont pas écrits du tout, ce qui est la seule
-réponse honnête.
+de confiance} $[f \pm 1/\sqrt{n}]$ s'en déduisent, mais demandent en plus de mesurer
+l'intervalle $[-1{,}96\,;\,1{,}96]$ pour la loi normale. Le programme les admet ; ici leur
+énoncé est écrit et leur démonstration reste admise.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L253}{ProbabilitesEtStatistiques.lean\#L253}
 
