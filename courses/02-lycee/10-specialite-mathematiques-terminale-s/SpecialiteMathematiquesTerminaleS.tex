@@ -301,28 +301,31 @@ réciproque des deux côtés est bijective.
 \medskip\noindent
 L'hypothèse d'inversibilité est nécessaire : modulo $26$, chiffrer avec $u = 13$ envoie
 toutes les lettres sur deux valeurs seulement, et rien ne se déchiffre.
-
-\medskip\noindent
-\textbf{Ce qui n'est pas démontré.} Le chiffrement \textbf{RSA} n'est pas formalisé. Sa
-correction \textemdash{} si $ed \equiv 1$ modulo $(p-1)(q-1)$, alors $m^{ed} \equiv m$
-modulo $pq$ \textemdash{} s'obtient en appliquant le petit théorème de Fermat modulo $p$
-puis modulo $q$, et en recollant par le théorème des restes chinois. Chacune de ces trois
-pièces existe dans Mathlib ; c'est leur assemblage, et le traitement des cas où $p$ ou $q$
-divise $m$, qui demandent un travail à part entière.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/Arithmetique.lean\#L123}{Arithmetique.lean\#L123}
 
-\subsection{Énoncés admis}
-
-\noindent
-Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
+\subsection{Chiffrement RSA}
 
 \begin{theoreme}
 \emph{Chiffrement RSA.} Si $p$ et $q$ sont deux nombres premiers distincts et si
 $ed \equiv 1 \pmod{(p-1)(q-1)}$, alors élever un message à la puissance $e$ puis à la
 puissance $d$ le ramène à lui-même modulo $pq$.
 \end{theoreme}
-\admis
+\begin{proof}
+\emph{Une puissance modulo un nombre premier.} Soit $\ell$ premier, $a$ entier et $t$ un
+entier multiple de $\ell - 1$, disons $t = (\ell - 1)c$. Alors $a^{t+1} \equiv a \pmod{\ell}$.
+En effet, si $\ell$ divise $a$, les deux membres sont congrus à $0$. Sinon le petit théorème
+de Fermat donne $a^{\ell-1} \equiv 1$, d'où
+$a^{t+1} = \bigl(a^{\ell-1}\bigr)^c a \equiv a \pmod{\ell}$.
+
+\emph{Le cas de RSA.} Les nombres $p$ et $q$ sont distincts, donc $(p-1)(q-1) \ge 2$ ; comme
+$ed \equiv 1$ modulo ce nombre, $ed$ n'est pas nul, et $ed - 1$ est un multiple de
+$(p-1)(q-1)$. Écrivons $m^{ed} = m^{(ed - 1) + 1}$. L'exposant $ed - 1$ est un multiple de
+$p - 1$ et de $q - 1$, donc $m^{ed} \equiv m$ modulo $p$ et modulo $q$. Les nombres premiers
+distincts $p$ et $q$ sont premiers entre eux : une différence $m^{ed} - m$ divisible par $p$
+et par $q$ l'est par $pq$ (théorème des restes chinois). Ainsi $(m^e)^d = m^{ed} \equiv m$
+modulo $pq$, que $p$ ou $q$ divise $m$ ou non.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/10-specialite-mathematiques-terminale-s/Arithmetique.lean\#L149}{Arithmetique.lean\#L149}
 
 \section{MatricesEtGraphes}

@@ -444,6 +444,42 @@ réponse honnête.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L253}{ProbabilitesEtStatistiques.lean\#L253}
 
+\subsection{Théorème de Moivre--Laplace}
+
+\begin{theoreme}
+\emph{Théorème de Moivre--Laplace.} Pour une loi binomiale de paramètres $n$ et $p$, la
+probabilité que la variable centrée réduite $\frac{X_n - np}{\sqrt{np(1-p)}}$ soit inférieure
+à $x$ tend, quand $n$ grandit, vers la valeur en $x$ de la fonction de répartition de la loi
+normale centrée réduite.
+\end{theoreme}
+\begin{proof}
+On suppose $0 < p < 1$ et on note $\tau = \sqrt{p(1-p)}$.
+
+\emph{Une binomiale est une somme de Bernoulli.} La loi binomiale de paramètres $n$ et $p$ est
+la loi de $X_1 + \dots + X_n$, où les $X_i$ sont indépendantes et valent $1$ avec la
+probabilité $p$, $0$ sinon (on les construit sur un produit infini de lois de Bernoulli).
+
+\emph{Variables centrées réduites.} Posons $Z_i = (X_i - p)/\tau$. Elles sont indépendantes,
+de même loi, et
+\[ \mathbb{E}[Z_i] = \frac{p(1-p) + (1-p)(-p)}{\tau} = 0 ,
+   \qquad
+   \mathbb{E}[Z_i^2] = \frac{p(1-p)^2 + (1-p)p^2}{\tau^2} = \frac{p(1-p)}{\tau^2} = 1 . \]
+
+\emph{Théorème central limite.} Il affirme que $\dfrac{1}{\sqrt n}\,(Z_1 + \dots + Z_n)$
+converge en loi vers la loi normale centrée réduite. Or
+\[ \frac{1}{\sqrt n}\sum_{i=1}^n \frac{X_i - p}{\tau} = \frac{X_1 + \dots + X_n - np}{\sqrt{np(1-p)}} , \]
+qui est la variable centrée réduite de l'énoncé. Le théorème central limite est
+un emprunt assumé (sa démonstration passe par les fonctions caractéristiques).
+
+\emph{Des lois aux probabilités.} La convergence en loi entraîne la convergence de
+$\mathbb{P}(Y_n \in E)$ vers $\mathbb{P}(Y \in E)$ dès que la frontière de $E$ est de mesure
+nulle pour la loi limite (théorème du portemanteau, lui aussi emprunté). Pour
+$E = {]-\infty\,;\,x]}$, la frontière est $\{x\}$, de mesure nulle pour une loi à densité.
+La probabilité cherchée tend donc vers $\mathbb{P}(Y \le x)$, valeur en $x$ de la fonction de
+répartition de la loi normale centrée réduite.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L261}{ProbabilitesEtStatistiques.lean\#L261}
+
 \subsection{Énoncés admis}
 
 \noindent
@@ -453,19 +489,10 @@ Ce que le programme demande et que ce document ne démontre pas. Les énoncés s
 La variance d'une loi binomiale de paramètres $n$ et $p$ vaut $np(1 - p)$.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L261}{ProbabilitesEtStatistiques.lean\#L261}
-
-\begin{theoreme}
-L'espérance d'une loi exponentielle de paramètre $r$ vaut $\tfrac1r$.
-\end{theoreme}
-\admis
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L286}{ProbabilitesEtStatistiques.lean\#L286}
 
 \begin{theoreme}
-\emph{Théorème de Moivre--Laplace.} Pour une loi binomiale de paramètres $n$ et $p$, la
-probabilité que la variable centrée réduite $\frac{X_n - np}{\sqrt{np(1-p)}}$ soit inférieure
-à $x$ tend, quand $n$ grandit, vers la valeur en $x$ de la fonction de répartition de la loi
-normale centrée réduite.
+L'espérance d'une loi exponentielle de paramètre $r$ vaut $\tfrac1r$.
 \end{theoreme}
 \admis
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/09-probabilites-et-statistiques/ProbabilitesEtStatistiques.lean\#L291}{ProbabilitesEtStatistiques.lean\#L291}

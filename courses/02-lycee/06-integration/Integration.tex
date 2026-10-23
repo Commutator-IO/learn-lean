@@ -283,17 +283,25 @@ et passe à la limite sans le justifier. L'énoncé correspondant reste marqué
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L132}{Integration.lean\#L132}
 
-\subsection{Énoncés admis}
-
-\noindent
-Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
+\subsection{Volume d'un solide de révolution}
 
 \begin{theoreme}
 En tournant autour de l'axe des abscisses, la partie du plan située sous la courbe d'une
 fonction continue positive $f$ engendre un solide de volume
 $\pi \int_a^b f(x)^2 \, \mathrm{d}x$.
 \end{theoreme}
-\admis
+\begin{proof}
+Le solide est $S = \{(x, y, z) \mid a \le x \le b,\ y^2 + z^2 \le f(x)^2\}$. Par le théorème de
+Fubini, son volume est l'intégrale en $x$ de la mesure de sa tranche
+$\{(y, z) \mid (x, y, z) \in S\}$. Cette tranche est vide si $x \notin [a\,;\,b]$, et c'est
+le disque $y^2 + z^2 \le f(x)^2$ de rayon $|f(x)|$ si $x \in [a\,;\,b]$, d'aire $\pi f(x)^2$.
+Le volume est donc
+\[ \int_{[a\,;\,b]} \pi f(x)^2 \,\mathrm{d}x = \pi \int_a^b f(x)^2 \,\mathrm{d}x , \]
+l'intégrale de la fonction continue positive $\pi f^2$ sur le segment étant son intégrale
+usuelle. L'aire du disque est celle du chapitre \emph{Grandeurs et mesures} ; le théorème de
+Fubini est un emprunt à la théorie de la mesure. La positivité de $f$ n'est pas utilisée :
+le solide ne dépend que de $f^2$.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/06-integration/Integration.lean\#L149}{Integration.lean\#L149}
 
 \vfill

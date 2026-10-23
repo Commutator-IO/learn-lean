@@ -298,34 +298,56 @@ $\tfrac43 \pi (kr)^3 = k^3 \times \tfrac43 \pi r^3$.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L139}{GrandeursEtMesures.lean\#L139}
 
-\subsection{Énoncés admis}
-
-\noindent
-Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
-
+\subsection{Aire du disque et volume du cône}
 \begin{theoreme}
 Le disque de rayon $r$, vu comme la partie du plan $\{(x, y) \mid x^2 + y^2 \le r^2\}$,
 a pour mesure $\pi r^2$.
 \end{theoreme}
-\admis
+\begin{proof}
+Le plan $\mathbb{R} \times \mathbb{R}$, muni de sa mesure de Lebesgue, s'identifie à
+$\mathbb{C}$ par $(x, y) \mapsto x + iy$, et cette identification conserve la mesure.
+Pour $z = x + iy$, la condition $x^2 + y^2 \le r^2$ s'écrit $|z| \le |r|$ : le disque est la
+boule fermée de centre $0$ et de rayon $|r|$. Sa mesure est celle que la bibliothèque donne
+à une boule de $\mathbb{C}$ (\texttt{Complex.volume\_closedBall}), à savoir $\pi \rho^2$ pour
+un rayon $\rho$. Ce calcul est un emprunt assumé : il repose sur la théorie de la mesure
+et le passage en coordonnées polaires, qu'on ne refait pas ici. Avec $\rho = |r|$, la mesure
+est $\pi |r|^2 = \pi r^2$. L'hypothèse $r \ge 0$ n'est pas utilisée.
+\end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L154}{GrandeursEtMesures.lean\#L154}
-
-\begin{theoreme}
-Le triangle rectangle de base $b$ et de hauteur $h$, vu comme la partie du plan située
-sous la droite qui joint $(0, h)$ à $(b, 0)$, a pour mesure $\tfrac{bh}{2}$.
-\end{theoreme}
-\admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L159}{GrandeursEtMesures.lean\#L159}
 
 \begin{theoreme}
 Le cône de rayon $R$ et de hauteur $H$, vu comme la partie de l'espace dont les sections
 horizontales sont des disques de rayon décroissant, a pour mesure le tiers de celle du
 cylindre de mêmes base et hauteur.
 \end{theoreme}
+\begin{proof}
+Le cône est le solide de révolution de la fonction $f(x) = R\,(1 - x/H)$ sur $[0\,;\,H]$, dont
+l'axe est la dernière coordonnée ; on le ramène à l'axe des abscisses par la permutation
+$(x, y, z) \mapsto (z, x, y)$ des coordonnées, qui conserve la mesure. La méthode des disques
+(théorème du chapitre \emph{Intégration}) donne
+\[ \pi \int_0^H R^2 \Bigl(1 - \frac{x}{H}\Bigr)^2 \,\mathrm{d}x . \]
+La fonction $x \mapsto -\dfrac{R^2 H}{3}\bigl(1 - \tfrac{x}{H}\bigr)^3$ a pour dérivée
+$R^2\bigl(1 - \tfrac{x}{H}\bigr)^2$, donc l'intégrale vaut
+\[ \Bigl[-\frac{R^2 H}{3}\Bigl(1 - \frac{x}{H}\Bigr)^3\Bigr]_0^H
+   = 0 + \frac{R^2 H}{3} = \frac{R^2 H}{3} . \]
+Le volume est donc $\dfrac{\pi R^2 H}{3} = \dfrac13 \times (\pi R^2) \times H$ : le tiers de
+celui du cylindre de même base et de même hauteur. L'hypothèse $R > 0$ n'est pas utilisée.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L159}{GrandeursEtMesures.lean\#L159}
+
+\vfill
+\subsection{Énoncés admis}
+
+\noindent
+Ce que le programme demande et que ce document ne démontre pas. Les énoncés sont écrits en Lean, pour que le manque se compte ; leur démonstration est admise.
+
+\begin{theoreme}
+Le triangle rectangle de base $b$ et de hauteur $h$, vu comme la partie du plan située
+sous la droite qui joint $(0, h)$ à $(b, 0)$, a pour mesure $\tfrac{bh}{2}$.
+\end{theoreme}
 \admis
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/01-college/04-grandeurs-et-mesures/GrandeursEtMesures.lean\#L166}{GrandeursEtMesures.lean\#L166}
 
-\vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par
 \noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
 \emph{The Lean~4 Theorem Prover and Programming Language},

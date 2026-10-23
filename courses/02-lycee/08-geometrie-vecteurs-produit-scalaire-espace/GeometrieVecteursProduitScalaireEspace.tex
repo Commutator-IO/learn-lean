@@ -595,6 +595,32 @@ de dimensions absent de ce fichier.
 \end{proof}
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L357}{GeometrieVecteursProduitScalaireEspace.lean\#L357}
 
+\subsection{Distance d'un point à un plan}
+
+\begin{theoreme}
+La distance d'un point $m$ au plan passant par $a$ et de vecteur normal $\vec{n}$ vaut
+$\dfrac{|\langle \vec{n}, m - a \rangle|}{\|\vec{n}\|}$.
+\end{theoreme}
+\begin{proof}
+Notons $c = \langle \vec{n}, m - a \rangle$ et $\mathcal{P}$ le plan $\{x \mid \langle \vec{n}, x - a \rangle = 0\}$
+(le vecteur $\vec{n}$ est non nul).
+
+\emph{Le projeté orthogonal.} Posons $h = m - \dfrac{c}{\|\vec{n}\|^2}\,\vec{n}$. Alors
+\[ \langle \vec{n}, h - a \rangle = \langle \vec{n}, m - a \rangle - \frac{c}{\|\vec{n}\|^2}\,\langle \vec{n}, \vec{n} \rangle = c - c = 0 , \]
+donc $h \in \mathcal{P}$, et
+$\mathrm{dist}(m, h) = \dfrac{|c|}{\|\vec{n}\|^2}\,\|\vec{n}\| = \dfrac{|c|}{\|\vec{n}\|}$.
+La distance de $m$ au plan est donc au plus $\dfrac{|c|}{\|\vec{n}\|}$.
+
+\emph{Aucun point du plan n'est plus proche.} Soit $x \in \mathcal{P}$. Comme
+$\langle \vec{n}, x - a \rangle = 0$,
+\[ c = \langle \vec{n}, m - a \rangle = \langle \vec{n}, m - x \rangle + \langle \vec{n}, x - a \rangle = \langle \vec{n}, m - x \rangle , \]
+et l'inégalité de Cauchy--Schwarz donne $|c| \le \|\vec{n}\|\,\|m - x\|$, soit
+$\mathrm{dist}(m, x) \ge \dfrac{|c|}{\|\vec{n}\|}$. La distance de $m$ au plan, borne inférieure
+de ces distances, est donc au moins $\dfrac{|c|}{\|\vec{n}\|}$. Les deux bornes se rejoignent.
+\end{proof}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L383}{GeometrieVecteursProduitScalaireEspace.lean\#L383}
+
+\vfill
 \subsection{Énoncés admis}
 
 \noindent
@@ -605,23 +631,15 @@ Deux plans distincts de l'espace ou bien ne se rencontrent pas, ou bien se coupe
 une droite : leur intersection est vide ou de dimension $1$.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L383}{GeometrieVecteursProduitScalaireEspace.lean\#L383}
+\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L417}{GeometrieVecteursProduitScalaireEspace.lean\#L417}
 
 \begin{theoreme}
 \emph{Théorème du toit.} Si deux plans sécants contiennent chacun l'une de deux droites
 parallèles, leur droite d'intersection est parallèle à ces deux droites.
 \end{theoreme}
 \admis
-\source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L417}{GeometrieVecteursProduitScalaireEspace.lean\#L417}
-
-\begin{theoreme}
-La distance d'un point $m$ au plan passant par $a$ et de vecteur normal $\vec{n}$ vaut
-$\dfrac{|\langle \vec{n}, m - a \rangle|}{\|\vec{n}\|}$.
-\end{theoreme}
-\admis
 \source{https://github.com/Commutator-IO/learn-lean/blob/main/courses/02-lycee/08-geometrie-vecteurs-produit-scalaire-espace/GeometrieVecteursProduitScalaireEspace.lean\#L427}{GeometrieVecteursProduitScalaireEspace.lean\#L427}
 
-\vfill
 \noindent\rule{0.35\linewidth}{0.4pt}\par
 \noindent{\footnotesize Leonardo de Moura et Sebastian Ullrich,
 \emph{The Lean~4 Theorem Prover and Programming Language},
